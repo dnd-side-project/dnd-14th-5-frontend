@@ -1,4 +1,4 @@
-export default {
+const commitlintConfig = {
   extends: ['@commitlint/config-conventional'],
   rules: {
     'scope-empty': [2, 'always'],
@@ -42,3 +42,5 @@ export default {
     },
   ],
 };
+
+export default commitlintConfig;

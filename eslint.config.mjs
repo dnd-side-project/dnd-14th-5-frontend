@@ -3,15 +3,23 @@ import nextVitals from 'eslint-config-next/core-web-vitals';
 import nextTs from 'eslint-config-next/typescript';
 import eslintConfigPrettier from 'eslint-config-prettier/flat';
 import importPlugin from 'eslint-plugin-import';
+import simpleImportSort from 'eslint-plugin-simple-import-sort';
 
 const eslintConfig = defineConfig([
   ...nextVitals,
   ...nextTs,
 
   eslintConfigPrettier,
-  importPlugin.flatConfigs.recommended,
+  {
+    // Reuse import plugin already registered by eslint-config-next to avoid redefinition.
+    languageOptions: importPlugin.flatConfigs.recommended.languageOptions,
+    rules: importPlugin.flatConfigs.recommended.rules,
+  },
 
   {
+    plugins: {
+      'simple-import-sort': simpleImportSort,
+    },
     rules: {
       'no-console': 'warn',
       '@next/next/no-img-element': 'warn',
