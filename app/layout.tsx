@@ -29,7 +29,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="ko">
-      <body className={`${geistSans.variable} ${geistMono.variable}`}>
+      <body
+        className={`mobile-layout ${geistSans.variable} ${geistMono.variable} `}
+      >
         {children}
       </body>
     </html>
