@@ -7,7 +7,7 @@ import Button from '@/components/ui/Button/Button';
 
 const RetrospectivePage = () => {
   return (
-    <div className="flex h-screen flex-col bg-[#292B37] text-white">
+    <div className="flex h-dvh flex-col overflow-hidden bg-[#292B37] text-white">
       <PageHeader
         title="기록하기"
         leftIcon={
@@ -20,7 +20,7 @@ const RetrospectivePage = () => {
         }
       />
 
-      <main className="min-h-0 flex-1 overflow-y-auto scrollbar-transparent-track scrollbar-gutter-stable">
+      <main className="min-h-0 flex-1 overflow-y-auto scrollbar-transparent-track scrollbar-gutter-stable overscroll-contain">
         <div className="mx-auto flex max-w-110 flex-col gap-6 px-7.5 pb-24">
           <section>
             <div className="rounded-2xl  w-full bg-[#555557] p-4">
