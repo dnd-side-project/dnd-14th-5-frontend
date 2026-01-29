@@ -23,12 +23,18 @@ const TextArea = ({
   const [innerValue, setInnerValue] = useState(defaultValue ?? '');
 
   const isControlled = value !== undefined;
-  const displayValue = isControlled ? value : innerValue;
+  const rawValue = isControlled ? value : innerValue;
+  const displayValue =
+    maxLength === undefined ? rawValue : rawValue.slice(0, maxLength);
 
   const handleChange: ComponentPropsWithoutRef<'textarea'>['onChange'] = (
     e,
   ) => {
-    if (!isControlled) setInnerValue(e.currentTarget.value);
+    const nextValue = e.currentTarget.value;
+    if (maxLength !== undefined && nextValue.length > maxLength) {
+      return;
+    }
+    if (!isControlled) setInnerValue(nextValue);
     onChange?.(e);
   };
 
