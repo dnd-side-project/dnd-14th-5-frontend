@@ -4,18 +4,17 @@ import nextTs from 'eslint-config-next/typescript';
 import eslintConfigPrettier from 'eslint-config-prettier/flat';
 import importPlugin from 'eslint-plugin-import';
 import simpleImportSort from 'eslint-plugin-simple-import-sort';
+import { configs } from 'eslint-plugin-storybook';
 
 const eslintConfig = defineConfig([
   ...nextVitals,
   ...nextTs,
-
   eslintConfigPrettier,
   {
     // Reuse import plugin already registered by eslint-config-next to avoid redefinition.
     languageOptions: importPlugin.flatConfigs.recommended.languageOptions,
     rules: importPlugin.flatConfigs.recommended.rules,
   },
-
   {
     plugins: {
       'simple-import-sort': simpleImportSort,
@@ -32,9 +31,7 @@ const eslintConfig = defineConfig([
       'simple-import-sort/imports': 'warn',
       'simple-import-sort/exports': 'warn',
     },
-  },
-
-  // Override default ignores of eslint-config-next.
+  }, // Override default ignores of eslint-config-next.
   globalIgnores([
     // Default ignores of eslint-config-next:
     '.next/**',
@@ -42,6 +39,7 @@ const eslintConfig = defineConfig([
     'build/**',
     'next-env.d.ts',
   ]),
+  ...configs['flat/recommended'],
 ]);
 
 export default eslintConfig;
