@@ -2,6 +2,8 @@
 
 ## Changes :memo:
 
+## Related Issues :link:
+
 ## Screenshot :camera:
 
 ---
