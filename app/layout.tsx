@@ -17,10 +17,12 @@ interface RootLayoutProps {
   children: ReactNode;
 }
 
-export default function RootLayout({ children }: Readonly<RootLayoutProps>) {
+const RootLayout = ({ children }: Readonly<RootLayoutProps>) => {
   return (
     <html lang="ko">
       <body className="max-w-110 mx-auto w-full">{children}</body>
     </html>
   );
-}
+};
+
+export default RootLayout;
