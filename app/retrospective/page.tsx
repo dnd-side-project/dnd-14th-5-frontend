@@ -7,7 +7,7 @@ import Button from '@/components/ui/Button/Button';
 
 const RetrospectivePage = () => {
   return (
-    <div className="min-h-screen bg-[#292B37] text-white">
+    <div className="flex h-screen flex-col bg-[#292B37] text-white">
       <PageHeader
         title="기록하기"
         leftIcon={
@@ -20,8 +20,8 @@ const RetrospectivePage = () => {
         }
       />
 
-      <div className="mx-auto flex min-h-screen max-w-110 flex-col px-7.5 pt-10 pb-24">
-        <main className="flex flex-1 flex-col gap-6">
+      <main className="min-h-0 flex-1 overflow-y-auto scrollbar-transparent-track scrollbar-gutter-stable">
+        <div className="mx-auto flex max-w-110 flex-col gap-6 px-7.5 pb-24">
           <section>
             <div className="rounded-2xl  w-full bg-[#555557] p-4">
               <p className="text-[17px] font-semibold text-white">
@@ -39,8 +39,8 @@ const RetrospectivePage = () => {
             </p>
             <TextArea />
           </section>
-        </main>
-      </div>
+        </div>
+      </main>
 
       <BottomCTA>
         <Button label="기록 완료" />
