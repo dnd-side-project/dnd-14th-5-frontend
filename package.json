@@ -7,7 +7,7 @@
     "build": "next build",
     "test": "echo \"No tests\"",
     "start": "next start",
-    "lint": "eslint . --ext .ts,.tsx",
+    "lint": "eslint . --ext .js,.jsx,.ts,.tsx",
     "typecheck": "tsc --noEmit",
     "prepare": "husky"
   },
