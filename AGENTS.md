@@ -229,3 +229,22 @@
 - 어떤 AI 도구를 사용하든 결과물은 이 문서 규칙을 따라야 합니다.
 - AI가 생성/수정한 코드도 `pnpm lint`, `pnpm typecheck`를 통과해야 합니다.
 - 특정 도메인에 규칙이 있는 경우, 해당 폴더의 `AGENTS.md`를 우선 적용합니다.
+
+---
+
+## 11) Agent Skills 사용 규칙
+
+- 이 레포는 Agent Skills를 사용한다.
+- 코드 생성/수정 시 아래 skill을 참고한다.
+  - `vercel-react-best-practices`
+- Skill 파일 위치:
+  - `.agents/skills/vercel-react-best-practices/`
+  - (Codex/Gemini/GitHub 환경에서는 동일 내용이 각 도구별 skills 디렉토리에 심볼릭 링크로 연결됨)
+- Skill의 권장 사항과 이 문서(AGENTS.md)가 충돌할 경우,
+  **AGENTS.md 규칙을 우선한다.**
+- Skill 기준으로 더 나은 구조나 패턴이 있다고 판단되면,
+  **자동 적용하지 말고 제안 형태로만 설명한다.**
+- 제안에는 반드시
+  - 왜 더 나은지
+  - 지금 구조에서의 장단점
+  을 함께 포함한다.
