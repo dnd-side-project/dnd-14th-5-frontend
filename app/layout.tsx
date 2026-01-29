@@ -3,6 +3,8 @@ import './globals.css';
 import type { Metadata, Viewport } from 'next';
 import { type ReactNode } from 'react';
 
+import QueryProvider from './providers';
+
 export const metadata: Metadata = {
   title: 'TIMO',
   description: '일일 회고 서비스 TIMO',
@@ -20,7 +22,9 @@ interface RootLayoutProps {
 const RootLayout = ({ children }: Readonly<RootLayoutProps>) => {
   return (
     <html lang="ko">
-      <body className="max-w-110 mx-auto w-full">{children}</body>
+      <body className="max-w-110 mx-auto w-full">
+        <QueryProvider>{children}</QueryProvider>
+      </body>
     </html>
   );
 };
