@@ -57,7 +57,7 @@ const TextArea = ({
         value={displayValue}
         onChange={handleChange}
         maxLength={maxLength}
-        placeholder="어떤 일이 있었나요?"
+        placeholder="오늘 기억에 남는 순간과 그때의 감정을 적어보세요."
         {...props}
       />
 
