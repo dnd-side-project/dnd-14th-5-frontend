@@ -43,7 +43,6 @@ const InProgress = () => {
             </>
           )}
 
-          {/* 현재 카드 */}
           <div className="relative z-10">
             <Card
               question="과거를 되돌아보는 것이 즐거움을 주나요?"
