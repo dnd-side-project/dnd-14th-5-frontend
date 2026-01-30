@@ -27,20 +27,18 @@ const RetrospectivePage = () => {
       >
         <div className="mx-auto flex max-w-110 flex-col gap-6 px-7.5 pt-10 pb-24">
           <section>
-            <div className="w-full rounded-[var(--radius-lg)] bg-[var(--color-g-400)] p-4">
-              <p className="text-heading-h4 text-[var(--color-g-0)]">
+            <div className="w-full rounded-lg bg-g-400 p-4">
+              <p className="text-heading-h4 text-g-0">
                 오늘 하루 중 가장 재미있었던 순간은 언제였나요?
               </p>
-              <p className="text-caption-n text-[var(--color-g-30)] opacity-50">
+              <p className="text-caption-n text-g-30 opacity-50">
                 지금 떠오르는 감정이나 생각을 부담없이 작성해보세요!
               </p>
             </div>
           </section>
 
           <section className="flex flex-col gap-3">
-            <p className="px-2 text-heading-h4 text-[var(--color-g-0)]">
-              오늘 나의 생각은?
-            </p>
+            <p className="px-2 text-heading-h4 text-g-0">오늘 나의 생각은?</p>
             <TextArea />
           </section>
         </div>
