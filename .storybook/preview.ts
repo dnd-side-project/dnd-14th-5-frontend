@@ -1,6 +1,21 @@
+import '../src/styles/globals.css';
+
 import type { Preview } from '@storybook/nextjs-vite';
+import type { Decorator } from '@storybook/react';
+import { createElement } from 'react';
+
+const withTheme: Decorator = (Story) =>
+  createElement(
+    'div',
+    {
+      className:
+        'min-h-screen bg-[var(--color-g-700)] text-[var(--color-g-0)] p-6',
+    },
+    createElement(Story),
+  );
 
 const preview: Preview = {
+  decorators: [withTheme],
   parameters: {
     controls: {
       matchers: {
