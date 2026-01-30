@@ -17,13 +17,16 @@ export default meta;
 type Story = StoryObj<typeof meta>;
 
 export const Default: Story = {
-  render: () => (
+  args: {
+    children: (
+      <div className="w-full">
+        <Button label="기록 완료" />
+      </div>
+    ),
+  },
+  render: (args) => (
     <div className="min-h-[360px]">
-      <BottomCTA>
-        <div className="w-full">
-          <Button label="기록 완료" />
-        </div>
-      </BottomCTA>
+      <BottomCTA>{args.children}</BottomCTA>
     </div>
   ),
 };
