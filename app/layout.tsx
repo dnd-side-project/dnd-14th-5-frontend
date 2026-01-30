@@ -7,7 +7,7 @@ import { type ReactNode } from 'react';
 import QueryProvider from './providers';
 
 const notoSansKr = Noto_Sans_KR({
-  weight: ['400', '700'],
+  weight: ['400', '600', '700'],
   subsets: ['latin'],
   display: 'swap',
   variable: '--font-noto-sans-kr',
