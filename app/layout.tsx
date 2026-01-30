@@ -22,7 +22,7 @@ interface RootLayoutProps {
 const RootLayout = ({ children }: Readonly<RootLayoutProps>) => {
   return (
     <html lang="ko">
-      <body className="max-w-110 mx-auto w-full">
+      <body className="max-w-110 mx-auto w-full h-dvh">
         <QueryProvider>{children}</QueryProvider>
       </body>
     </html>
