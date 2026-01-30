@@ -2,6 +2,8 @@
 
 import { type ComponentPropsWithoutRef, useState } from 'react';
 
+import styles from './TextArea.module.css';
+
 type TextAreaProps = Omit<
   ComponentPropsWithoutRef<'textarea'>,
   'value' | 'defaultValue'
@@ -38,7 +40,7 @@ const TextArea = ({
     onChange?.(e);
   };
 
-  const styles = {
+  const classNames = {
     default: {
       wrapper: 'rounded-[24px] border border-white/60 bg-[#2B2F3D]',
       textarea:
@@ -48,9 +50,9 @@ const TextArea = ({
   }[variant];
 
   return (
-    <div className={`${styles.wrapper}`}>
+    <div className={`${classNames.wrapper}`}>
       <textarea
-        className={`${styles.textarea} scrollbar-transparent-track`}
+        className={`${classNames.textarea} ${styles.scrollbarTransparentTrack}`}
         value={displayValue}
         onChange={handleChange}
         maxLength={maxLength}
@@ -58,7 +60,7 @@ const TextArea = ({
         {...props}
       />
 
-      <div className={styles.counter}>
+      <div className={classNames.counter}>
         {displayValue.length}/{maxLength}자
       </div>
     </div>

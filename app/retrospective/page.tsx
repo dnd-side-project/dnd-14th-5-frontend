@@ -5,6 +5,8 @@ import BottomCTA from '@/components/layout/BottomCTA/BottomCTA';
 import PageHeader from '@/components/layout/PageHeader/PageHeader';
 import Button from '@/components/ui/Button/Button';
 
+import styles from './page.module.css';
+
 const RetrospectivePage = () => {
   return (
     <div className="flex h-dvh flex-col overflow-hidden bg-[#292B37] text-white">
@@ -20,7 +22,9 @@ const RetrospectivePage = () => {
         }
       />
 
-      <main className="min-h-0 flex-1 overflow-y-auto scrollbar-transparent-track scrollbar-gutter-stable overscroll-contain">
+      <main
+        className={`min-h-0 flex-1 overflow-y-auto overscroll-contain ${styles.scrollArea}`}
+      >
         <div className="mx-auto flex max-w-110 flex-col gap-6 px-7.5 pb-24">
           <section>
             <div className="rounded-2xl  w-full bg-[#555557] p-4">
