@@ -13,8 +13,8 @@ const Button = ({
 }: ButtonProps) => {
   const variantClassName =
     variant === 'secondary'
-      ? 'border border-[var(--color-primary)] bg-[var(--color-g-700)] text-[var(--color-primary)]'
-      : 'bg-[var(--color-primary)] text-[var(--color-g-900)]';
+      ? 'border border-primary bg-g-700 text-primary'
+      : 'bg-primary text-g-900';
 
   return (
     <button

@@ -25,7 +25,7 @@ export const Default: Story = {
     ),
   },
   render: (args) => (
-    <div className="min-h-[360px]">
+    <div className="min-h-90">
       <BottomCTA>{args.children}</BottomCTA>
     </div>
   ),

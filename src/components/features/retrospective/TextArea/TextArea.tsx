@@ -42,11 +42,10 @@ const TextArea = ({
 
   const classNames = {
     default: {
-      wrapper:
-        'rounded-[var(--radius-lg)] border border-[color:var(--color-g-0)] border-opacity-60 bg-[var(--color-g-700)]',
+      wrapper: 'rounded-lg border border-g-0 border-opacity-60 bg-g-700',
       textarea:
-        'min-h-[360px] w-full resize-none bg-transparent px-5 my-4 text-body-s text-[var(--color-g-0)] placeholder:text-[color:var(--color-g-0)] placeholder:opacity-60 focus:outline-none disabled:opacity-50',
-      counter: 'flex justify-end px-5 pb-4 text-body-s text-[var(--color-g-0)]',
+        'min-h-90 w-full resize-none bg-transparent px-4 mt-4 text-body-s text-g-0 placeholder:text-g-0 placeholder:opacity-60 focus:outline-none disabled:opacity-50',
+      counter: 'flex justify-end px-5 pb-4 text-body-s text-g-0',
     },
   }[variant];
 
