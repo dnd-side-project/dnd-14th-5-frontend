@@ -26,7 +26,7 @@ const PageHeader = ({
         {leftIcon ?? <div className="h-6 w-6 rounded-full" />}
       </button>
 
-      <h1 className="flex-1 text-center text-[20px] font-bold text-white">
+      <h1 className="flex-1 text-center text-heading-h3 text-[var(--color-g-0)]">
         {title}
       </h1>
 

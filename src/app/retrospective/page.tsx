@@ -9,7 +9,7 @@ import styles from './page.module.css';
 
 const RetrospectivePage = () => {
   return (
-    <div className="flex h-dvh flex-col overflow-hidden bg-[#292B37] text-white">
+    <div className="flex h-dvh flex-col overflow-hidden">
       <PageHeader
         title="기록하기"
         leftIcon={
@@ -27,18 +27,18 @@ const RetrospectivePage = () => {
       >
         <div className="mx-auto flex max-w-110 flex-col gap-6 px-7.5 pb-24">
           <section>
-            <div className="rounded-2xl  w-full bg-[#555557] p-4">
-              <p className="text-[17px] font-semibold text-white">
+            <div className="w-full rounded-[var(--radius-lg)] bg-[var(--color-g-400)] p-4">
+              <p className="text-heading-h4 text-[var(--color-g-0)]">
                 오늘 하루 중 가장 재미있었던 순간은 언제였나요?
               </p>
-              <p className="text-[13px] font-normal text-[#ECECEC] opacity-50">
+              <p className="text-caption-n text-[var(--color-g-30)] opacity-50">
                 지금 떠오르는 감정이나 생각을 부담없이 작성해보세요!
               </p>
             </div>
           </section>
 
           <section className="flex flex-col gap-3">
-            <p className="text-[17px] font-bold text-white px-2">
+            <p className="px-2 text-heading-h4 text-[var(--color-g-0)]">
               오늘 나의 생각은?
             </p>
             <TextArea />

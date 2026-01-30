@@ -30,7 +30,9 @@ interface RootLayoutProps {
 const RootLayout = ({ children }: Readonly<RootLayoutProps>) => {
   return (
     <html lang="ko">
-      <body className={notoSansKr.variable}>
+      <body
+        className={`${notoSansKr.variable} bg-[var(--color-g-700)] text-[var(--color-g-0)]`}
+      >
         <main className="max-w-110 mx-auto w-full h-dvh">
           <QueryProvider>{children}</QueryProvider>
         </main>

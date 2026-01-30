@@ -13,15 +13,15 @@ const Button = ({
 }: ButtonProps) => {
   const variantClassName =
     variant === 'secondary'
-      ? 'bg-[#292B37] text-#FFEB98'
-      : 'bg-[#FFEB98] text-black';
+      ? 'bg-[var(--color-g-700)] text-[var(--color-primary)]'
+      : 'bg-[var(--color-primary)] text-[var(--color-g-900)]';
 
   return (
     <button
       type="button"
       onClick={onClick}
       disabled={disabled}
-      className={`h-12 w-full rounded-full text-[16px] font-normal disabled:opacity-50 ${variantClassName}`}
+      className={`h-12 w-full rounded-[var(--radius-lg)] text-button-l disabled:opacity-50 ${variantClassName}`}
     >
       {label}
     </button>
