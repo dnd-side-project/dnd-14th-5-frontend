@@ -38,8 +38,8 @@ const InProgress = () => {
         <div className="relative">
           {currentQuestionIndex < totalQuestions - 2 && (
             <>
-              <div className="bg-g-50 absolute inset-0 -translate-y-15 scale-88 opacity-50 pointer-events-none z-0 rounded-2xl" />
-              <div className="bg-g-50 absolute inset-0 -translate-y-28 scale-78 opacity-30 pointer-events-none z-[-1] rounded-2xl" />
+              <div className="bg-g-60 absolute inset-0 -translate-y-15 scale-88 opacity-50 pointer-events-none z-0 rounded-2xl" />
+              <div className="bg-g-60 absolute inset-0 -translate-y-28 scale-78 opacity-30 pointer-events-none z-[-1] rounded-2xl" />
             </>
           )}
 
@@ -55,14 +55,14 @@ const InProgress = () => {
       {/* TODO: 버튼 컴포넌트로 교체 */}
       <div className="*:w-full flex *:h-14 gap-3 *:rounded-2xl">
         <button
-          className="bg-g-50 text-g-600"
+          className="bg-g-60 text-g-600"
           onClick={handlePrevious}
           disabled={currentQuestionIndex === 0}
         >
           이전
         </button>
         <button
-          className="bg-g-500 text-g-30"
+          className="bg-g-500 text-g-40"
           onClick={handleNext}
           disabled={
             currentQuestionIndex === totalQuestions - 1 ||

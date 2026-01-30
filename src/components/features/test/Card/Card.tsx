@@ -18,7 +18,7 @@ const Card = ({ question, onRatingChange }: CardProps) => {
   };
 
   return (
-    <div className="bg-g-50 rounded-2xl p-6 py-10">
+    <div className="bg-g-60 rounded-2xl p-6 py-10">
       <p className="text-lg font-semibold mb-4 w-45 h-25">{question}</p>
       <ul className="flex flex-col space-y-3 *:bg-white *:p-3 *:rounded-lg">
         {ratingOptions.map((option) => (
