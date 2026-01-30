@@ -1,9 +1,9 @@
 import Image from 'next/image';
 
-import TextArea from '@/components/features/retrospective/TextArea/TextArea';
-import BottomCTA from '@/components/layout/BottomCTA/BottomCTA';
-import PageHeader from '@/components/layout/PageHeader/PageHeader';
-import Button from '@/components/ui/Button/Button';
+import TextArea from '@/src/components/features/retrospective/TextArea/TextArea';
+import BottomCTA from '@/src/components/layout/BottomCTA/BottomCTA';
+import PageHeader from '@/src/components/layout/PageHeader/PageHeader';
+import Button from '@/src/components/ui/Button/Button';
 
 import styles from './page.module.css';
 
