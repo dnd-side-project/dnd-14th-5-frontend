@@ -50,7 +50,7 @@ const TextArea = ({
   }[variant];
 
   return (
-    <div className={`${classNames.wrapper}`}>
+    <div className={classNames.wrapper}>
       <textarea
         className={`${classNames.textarea} ${styles.scrollbarTransparentTrack}`}
         value={displayValue}
