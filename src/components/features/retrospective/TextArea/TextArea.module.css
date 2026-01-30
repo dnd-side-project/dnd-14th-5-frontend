@@ -1,5 +1,5 @@
 .scrollbarTransparentTrack {
-  scrollbar-gutter: stable both-edges;
+  scrollbar-gutter: stable;
   scrollbar-width: thin;
   scrollbar-color:
     color-mix(in srgb, var(--color-g-0) 25%, transparent) transparent;
@@ -14,11 +14,9 @@
 }
 
 .scrollbarTransparentTrack::-webkit-scrollbar-thumb {
-  background-color: color-mix(
-    in srgb,
-    var(--color-g-0) 25%,
-    transparent
-  );
+  background-color: color-mix(in srgb,
+      var(--color-g-0) 25%,
+      transparent);
   border-radius: 999px;
   border: 3px solid transparent;
   background-clip: content-box;
