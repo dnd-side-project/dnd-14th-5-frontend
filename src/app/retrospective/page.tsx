@@ -25,7 +25,7 @@ const RetrospectivePage = () => {
       <main
         className={`min-h-0 flex-1 overflow-y-auto overscroll-contain ${styles.scrollArea}`}
       >
-        <div className="mx-auto flex max-w-110 flex-col gap-6 px-7.5 pt-10 pb-24">
+        <div className="mx-auto flex flex-col gap-6 px-7.5 pt-10 pb-24">
           <section>
             <div className="w-full rounded-lg bg-g-400 p-4">
               <p className="text-heading-h4 text-g-0">
