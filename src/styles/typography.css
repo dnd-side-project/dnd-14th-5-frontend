@@ -1,0 +1,76 @@
+@utility text-heading-h1 {
+  font-size: var(--font-size-28);
+  line-height: var(--line-height-148);
+  font-weight: var(--font-weight-bold);
+  letter-spacing: var(--letter-spacing-tight);
+}
+
+@utility text-heading-h2 {
+  font-size: var(--font-size-24);
+  line-height: var(--line-height-148);
+  font-weight: var(--font-weight-bold);
+  letter-spacing: var(--letter-spacing-tight);
+}
+
+@utility text-heading-h3 {
+  font-size: var(--font-size-20);
+  line-height: var(--line-height-148);
+  font-weight: var(--font-weight-bold);
+  letter-spacing: var(--letter-spacing-tight);
+}
+
+@utility text-heading-h4 {
+  font-size: var(--font-size-17);
+  line-height: var(--line-height-148);
+  font-weight: var(--font-weight-bold);
+  letter-spacing: var(--letter-spacing-tight);
+}
+
+@utility text-body-l {
+  font-size: var(--font-size-20);
+  line-height: var(--line-height-148);
+  font-weight: var(--font-weight-regular);
+  letter-spacing: var(--letter-spacing-tight);
+}
+
+@utility text-body-m {
+  font-size: var(--font-size-17);
+  line-height: var(--line-height-148);
+  font-weight: var(--font-weight-regular);
+  letter-spacing: var(--letter-spacing-tight);
+}
+
+@utility text-body-s {
+  font-size: var(--font-size-14);
+  line-height: var(--line-height-148);
+  font-weight: var(--font-weight-regular);
+  letter-spacing: var(--letter-spacing-tight);
+}
+
+@utility text-button-l {
+  font-size: var(--font-size-16);
+  line-height: var(--line-height-120);
+  font-weight: var(--font-weight-semibold);
+  letter-spacing: var(--letter-spacing-tight);
+}
+
+@utility text-button-s {
+  font-size: var(--font-size-12);
+  line-height: var(--line-height-120);
+  font-weight: var(--font-weight-semibold);
+  letter-spacing: var(--letter-spacing-tight);
+}
+
+@utility text-label-n {
+  font-size: var(--font-size-14);
+  line-height: var(--line-height-130);
+  font-weight: var(--font-weight-semibold);
+  letter-spacing: var(--letter-spacing-tight);
+}
+
+@utility text-caption-n {
+  font-size: var(--font-size-13);
+  line-height: var(--line-height-130);
+  font-weight: var(--font-weight-regular);
+  letter-spacing: var(--letter-spacing-tight);
+}
