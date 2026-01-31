@@ -36,7 +36,7 @@ const Home = () => {
                 건너뛰기
               </button>
               <button
-                className="flex h-12 flex-1 items-center justify-center rounded-full bg-primary text-button-l text-g-900"
+                className="flex h-12 flex-2 items-center justify-center rounded-full bg-primary text-button-l text-g-900"
                 type="button"
               >
                 답변하기
