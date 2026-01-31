@@ -55,6 +55,12 @@
 - 디자인 토큰 정의 위치:
   - CSS 변수: `src/styles/globals.css`의 `@theme` 블록
   - 타이포그래피 유틸: `src/styles/typography.css`
+- 토큰 사용 방식:
+  - `@theme`에 정의된 토큰은 **Tailwind 유틸 클래스로 사용**합니다.
+    - 예: `bg-g-0/80`, `text-g-100`, `max-w-105`
+  - CSS 변수 직접 참조가 필요한 경우에만 대괄호 문법을 사용합니다.
+    - 예: `bg-[var(--color-g-0)]/80`
+  - 잘못된 예시: `bg-(--color-g-0)/80`
 
 ---
 
