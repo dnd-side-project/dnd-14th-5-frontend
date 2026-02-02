@@ -34,6 +34,9 @@ const TextArea = ({
   ) => {
     const nextValue = e.currentTarget.value;
     if (maxLength !== undefined && nextValue.length > maxLength) {
+      if (!isControlled) {
+        setInnerValue(nextValue.slice(0, maxLength));
+      }
       return;
     }
     if (!isControlled) setInnerValue(nextValue);
