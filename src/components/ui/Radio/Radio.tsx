@@ -13,7 +13,7 @@ const Radio = ({ label, value, name, checked, onChange }: RadioProps) => {
     <label className="inline-flex items-center cursor-pointer">
       <input
         type="radio"
-        className="appearance-none h-5 w-5 border border-gray-400 rounded-sm bg-gray-200 checked:bg-gray-600 checked:border-gray-600 shrink-0 cursor-pointer border-none"
+        className="appearance-none h-5 w-5 border border-g-60 rounded-sm bg-g-40 checked:bg-g-400 checked:border-g-400 shrink-0 cursor-pointer border-none"
         name={name}
         value={value}
         checked={checked}
