@@ -11,10 +11,10 @@
   --color-g-60: #d8e1ee;
   --color-g-80: #a8b4c6;
   --color-g-100: #7d889a;
-  --color-g-200: #7d889a;
+  --color-g-200: #667083;
   --color-g-300: #5e646f;
   --color-g-400: #3c424b;
-  --color-g-500: #3c424b;
+  --color-g-500: #313743;
   --color-g-600: #2a2f39;
   --color-g-700: #1f2028;
   --color-g-800: #181920;
@@ -66,7 +66,6 @@
   /* Semantic Colors */
   --color-primary: var(--color-primary-base);
   --color-primary-hover: var(--color-y-100);
-  --color-primary-disabled: var(--color-g-50);
 
   /* ===== Typography ===== */
   --font-family-base: var(--font-noto-sans-kr), -apple-system, sans-serif;
