@@ -21,6 +21,8 @@ const TestFlow = () => {
       return <Completed />;
     case 'result':
       return <Result />;
+    default:
+      return null;
   }
 };
 
