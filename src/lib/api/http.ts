@@ -10,16 +10,27 @@ import {
 
 const ACCESS_TOKEN_COOKIE_NAME = 'accessToken';
 
+export const resolveAccessTokenFromCookieHeader = (
+  cookieHeader?: string | null,
+): string | null => {
+  if (!cookieHeader) {
+    return null;
+  }
+
+  const match = cookieHeader.match(
+    new RegExp(`(?:^|; )${ACCESS_TOKEN_COOKIE_NAME}=([^;]*)`),
+  );
+
+  return match ? decodeURIComponent(match[1]) : null;
+};
+
+// 클라이언트 전용 헬퍼: SSR에서는 accessToken 전달 또는 서버 쿠키 파싱 필요.
 const getAccessTokenFromCookie = (): string | null => {
   if (typeof document === 'undefined') {
     return null;
   }
 
-  const match = document.cookie.match(
-    new RegExp(`(?:^|; )${ACCESS_TOKEN_COOKIE_NAME}=([^;]*)`),
-  );
-
-  return match ? decodeURIComponent(match[1]) : null;
+  return resolveAccessTokenFromCookieHeader(document.cookie);
 };
 
 const applyAccessToken = <TData>(
