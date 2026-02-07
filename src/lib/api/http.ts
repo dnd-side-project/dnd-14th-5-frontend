@@ -41,7 +41,7 @@ const applyAccessToken = <TData>(
   };
 };
 
-export const get = async <TParams, TResponse>(
+export const get = async <TResponse, TParams = never>(
   url: string,
   config?: ApiRequestConfig<never, TParams, TResponse>,
 ): Promise<TResponse> => {
