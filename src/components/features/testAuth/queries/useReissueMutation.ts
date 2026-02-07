@@ -2,9 +2,9 @@ import { useMutation } from '@tanstack/react-query';
 
 import { post } from '@/src/lib/api';
 
+import { testAuthKeys } from '../constants/queryKeys';
+import { TEST_AUTH_ENDPOINTS } from '../constants/url';
 import { ensureDevelopment } from '../util/guards';
-import { TEST_AUTH_ENDPOINTS } from './constants';
-import { testAuthKeys } from './keys';
 
 type Tokens = {
   accessToken: string;
