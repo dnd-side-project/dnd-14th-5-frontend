@@ -1,4 +1,4 @@
-import type { AxiosError, AxiosRequestHeaders } from 'axios';
+import type { AxiosError } from 'axios';
 import axios from 'axios';
 
 export type ApiError = {
@@ -15,12 +15,6 @@ const api = axios.create({
   timeout: 10_000,
 });
 
-let accessToken: string | null = null;
-
-export const setAccessToken = (token: string | null) => {
-  accessToken = token;
-};
-
 const toApiError = (error: AxiosError): ApiError => {
   return {
     status: error.response?.status ?? null,
@@ -31,16 +25,7 @@ const toApiError = (error: AxiosError): ApiError => {
 };
 
 api.interceptors.request.use(
-  (config) => {
-    if (accessToken) {
-      const headers: AxiosRequestHeaders =
-        config.headers ?? ({} as AxiosRequestHeaders);
-      headers.Authorization = `Bearer ${accessToken}`;
-      config.headers = headers;
-    }
-
-    return config;
-  },
+  (config) => config,
   (error: AxiosError) => Promise.reject(toApiError(error)),
 );
 
