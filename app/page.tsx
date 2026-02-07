@@ -11,7 +11,7 @@ const Home = () => {
         <div className="flex flex-1 flex-col">
           <section className="home-title">
             <div className="flex flex-col gap-2">
-              <p className={'text-body-s text-g-100'}>오늘의 회고</p>
+              <p className="text-body-s text-g-100">오늘의 회고</p>
               <div className="flex flex-col gap-1">
                 <h2 className="text-heading-h2">
                   오늘 하루 중 가장 재미있었던 순간은 언제였나요?
