@@ -1,7 +1,7 @@
 import { type ChangeEvent, useState } from 'react';
 
-import { ratingOptions } from '@/lib/constants/ratingOptions';
 import Radio from '@/src/components/ui/Radio/Radio';
+import { ratingOptions } from '@/src/lib/constants/ratingOptions';
 
 interface CardProps {
   question: string;

@@ -1,4 +1,4 @@
-import { calculatePercentage } from '@/lib/helpers/calculateProgress';
+import { calculatePercentage } from '@/src/lib/helpers/calculateProgress';
 
 interface ProgressBarProps {
   current: number;
