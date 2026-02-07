@@ -41,8 +41,13 @@ export const parseParamsConfig = <TParams, TResponse>(
   params: TParams | undefined,
   config?: ApiRequestConfig<never, TParams, TResponse>,
 ) => {
-  const { paramsSchema, responseSchema, accessToken, ...axiosConfig } =
-    config ?? {};
+  const {
+    paramsSchema,
+    responseSchema,
+    accessToken,
+    params: _params,
+    ...axiosConfig
+  } = config ?? {};
   const parsedParams = parseWithSchema(paramsSchema, params);
 
   return { axiosConfig, parsedParams, responseSchema, accessToken };
