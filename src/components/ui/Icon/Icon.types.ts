@@ -6,13 +6,14 @@ type IconNameType = keyof typeof allIcons;
 
 interface IconProps extends Omit<
   ComponentPropsWithoutRef<'img'>,
-  'src' | 'alt' | 'width' | 'height'
+  'src' | 'alt' | 'width' | 'height' | 'onClick'
 > {
   name: IconNameType;
   size?: number;
   height?: number;
   alt?: string;
   decorative?: boolean;
+  onClick?: () => void;
 }
 
 type IconStyleProps = Pick<IconProps, 'size' | 'height'>;
