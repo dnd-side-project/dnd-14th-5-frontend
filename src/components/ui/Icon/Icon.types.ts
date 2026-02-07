@@ -16,6 +16,4 @@ interface IconProps extends Omit<
   onClick?: () => void;
 }
 
-type IconStyleProps = Pick<IconProps, 'size' | 'height'>;
-
-export type { IconNameType, IconProps, IconStyleProps };
+export type { IconNameType, IconProps };
