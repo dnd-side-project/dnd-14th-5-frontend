@@ -1,6 +1,6 @@
 'use client';
 
-import { useTestAuth } from '../../components/features/testAuth/hooks/useTestAuth';
+import { useTestAuth } from '@/src/components/features/testAuth/hooks/useTestAuth';
 
 const TestAuthPage = () => {
   const {
