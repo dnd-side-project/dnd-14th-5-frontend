@@ -70,13 +70,6 @@ export const post = async <TRequest, TResponse>(
   return parseWithSchema(responseSchema, response.data);
 };
 
-/*************  ✨ Windsurf Command ⭐  *************/
-/**
- * Send a PATCH request to the specified URL.
- *
- * @template TRequest, TResponse
-
-/*******  f1acf508-ea2c-47cf-9471-0bc71d4ec840  *******/
 export const patch = async <TRequest, TResponse>(
   url: string,
   data?: TRequest,
