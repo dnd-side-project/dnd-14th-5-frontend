@@ -1,4 +1,4 @@
-import { useMemo, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 
 import { useLoginMutation } from '../queries/useLoginMutation';
 import { useReissueMutation } from '../queries/useReissueMutation';
@@ -11,10 +11,16 @@ import {
 
 export const useTestAuth = () => {
   const [email, setEmail] = useState('');
-  const [refreshToken, setRefreshToken] = useState(getStoredRefreshToken);
+  const [refreshToken, setRefreshToken] = useState('');
+  const [hydrated, setHydrated] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
   const [successMessage, setSuccessMessage] = useState('');
 
+  useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect -- hydration mismatch 방지를 위해 마운트 후 1회만 로컬 스토리지 상태를 반영합니다.
+    setHydrated(true);
+    setRefreshToken(getStoredRefreshToken());
+  }, []);
   const loginMutation = useLoginMutation();
   const reissueMutation = useReissueMutation();
 
@@ -66,6 +72,7 @@ export const useTestAuth = () => {
     email,
     setEmail,
     refreshToken,
+    hydrated,
     loading,
     errorMessage,
     successMessage,

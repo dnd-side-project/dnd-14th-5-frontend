@@ -7,6 +7,7 @@ const TestAuthClient = () => {
     email,
     setEmail,
     refreshToken,
+    hydrated,
     loading,
     errorMessage,
     successMessage,
@@ -44,22 +45,34 @@ const TestAuthClient = () => {
           />
         </div>
         <div className="flex flex-col gap-3">
-          <button
-            type="button"
-            onClick={handleLogin}
-            disabled={loading || email.trim().length === 0}
-            className="rounded-lg bg-g-0 px-4 py-3 text-body-s font-semibold text-g-900 disabled:cursor-not-allowed disabled:opacity-40"
-          >
-            {loading ? '로그인 중...' : '로그인'}
-          </button>
-          <button
-            type="button"
-            onClick={handleReissue}
-            disabled={loading || refreshToken.trim().length === 0}
-            className="rounded-lg border border-g-0/30 px-4 py-3 text-body-s font-semibold text-g-0 disabled:cursor-not-allowed disabled:opacity-40"
-          >
-            {loading ? '재발급 중...' : '토큰 재발급'}
-          </button>
+          {!hydrated ? (
+            <button
+              type="button"
+              disabled
+              className="rounded-lg border border-g-0/30 px-4 py-3 text-body-s font-semibold text-g-0/70"
+            >
+              토큰 상태 확인 중...
+            </button>
+          ) : (
+            <>
+              <button
+                type="button"
+                onClick={handleLogin}
+                disabled={loading || email.trim().length === 0}
+                className="rounded-lg bg-g-0 px-4 py-3 text-body-s font-semibold text-g-900 disabled:cursor-not-allowed disabled:opacity-40"
+              >
+                {loading ? '로그인 중...' : '로그인'}
+              </button>
+              <button
+                type="button"
+                onClick={handleReissue}
+                disabled={loading || refreshToken.trim().length === 0}
+                className="rounded-lg border border-g-0/30 px-4 py-3 text-body-s font-semibold text-g-0 disabled:cursor-not-allowed disabled:opacity-40"
+              >
+                {loading ? '재발급 중...' : '토큰 재발급'}
+              </button>
+            </>
+          )}
         </div>
         <button
           type="button"
