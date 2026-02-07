@@ -1,5 +1,7 @@
-const STORAGE_ACCESS_TOKEN_KEY = 'dev_access_token';
-const STORAGE_REFRESH_TOKEN_KEY = 'dev_refresh_token';
+import {
+  STORAGE_ACCESS_TOKEN_KEY,
+  STORAGE_REFRESH_TOKEN_KEY,
+} from '../constants/storageKeys';
 
 export const getStoredRefreshToken = () =>
   typeof window === 'undefined'
