@@ -28,7 +28,6 @@ const Icon = ({
   const resolvedAlt = decorative ? '' : (alt ?? name);
 
   const resolvedSize = height ?? size;
-  const iconStyle = { width: size, height: resolvedSize };
 
   const handleKeyDown = (event: KeyboardEvent<HTMLImageElement>) => {
     if (event.key === 'Enter' || event.key === ' ') {
@@ -57,7 +56,6 @@ const Icon = ({
         onClick && 'cursor-pointer',
         className,
       )}
-      style={iconStyle}
       unoptimized
       {...rest}
     />
