@@ -28,7 +28,7 @@ const BottomNavBar = () => {
             <BottomNavButton
               key={tabKey}
               tabKey={tabKey}
-              active={activeMenu === tabKey}
+              isActive={activeMenu === tabKey}
               iconClassName={getIconClassName(tabKey)}
               onClick={handleTabClick}
             />
