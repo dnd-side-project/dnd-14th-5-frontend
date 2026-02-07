@@ -19,7 +19,8 @@ const Icon = ({
   const src = allIcons[name];
 
   if (!src) {
-    if (process.env.NODE_ENV !== 'production') {
+    if (process.env.NODE_ENV === 'development') {
+      // eslint-disable-next-line no-console
       console.warn(`등록되지 않은 아이콘: ${name}`);
     }
     return null;
@@ -40,11 +41,13 @@ const Icon = ({
     onClick?.();
   };
 
+  const isAriaHidden = decorative || resolvedAlt.length === 0;
+
   return (
     <Image
       src={src}
       alt={resolvedAlt}
-      aria-hidden={decorative || resolvedAlt.length === 0 ? true : undefined}
+      aria-hidden={isAriaHidden ? true : undefined}
       onClick={onClick ? handleClick : undefined}
       onKeyDown={onClick ? handleKeyDown : undefined}
       role={onClick ? 'button' : undefined}
