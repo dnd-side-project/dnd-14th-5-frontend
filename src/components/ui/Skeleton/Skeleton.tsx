@@ -1,7 +1,7 @@
-type SkeletonProps = {
+interface SkeletonProps {
   className?: string;
   ariaLabel?: string;
-};
+}
 
 const Skeleton = ({ className, ariaLabel }: SkeletonProps) => {
   return (

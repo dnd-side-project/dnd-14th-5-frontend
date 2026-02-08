@@ -1,11 +1,11 @@
 import Card from '@/src/components/ui/Card/Card';
 import Skeleton from '@/src/components/ui/Skeleton/Skeleton';
 
-type QuestionCardProps = {
+interface QuestionCardProps {
   isLoading: boolean;
   isReady: boolean;
   questionContent: string;
-};
+}
 
 const QuestionCard = ({
   isLoading,

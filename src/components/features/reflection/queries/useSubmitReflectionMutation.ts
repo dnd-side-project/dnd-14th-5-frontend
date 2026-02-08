@@ -5,13 +5,13 @@ import { post } from '@/src/lib/api';
 import { reflectionKeys } from '../constants/queryKeys';
 import { REFLECTION_ENDPOINTS } from '../constants/url';
 
-type SubmitReflectionRequestType = {
+interface SubmitReflectionRequestType {
   content: string;
-};
+}
 
-type SubmitReflectionResponseType = {
+interface SubmitReflectionResponseType {
   id: number;
-};
+}
 
 const submitReflection = async (payload: SubmitReflectionRequestType) => {
   return post<SubmitReflectionRequestType, SubmitReflectionResponseType>(

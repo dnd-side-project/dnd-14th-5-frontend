@@ -1,10 +1,10 @@
 import TextArea from '@/src/components/features/reflection/TextArea/TextArea';
 
-type ReflectionInputSectionProps = {
+interface ReflectionInputSectionProps {
   value: string;
   disabled: boolean;
   onChange: (next: string) => void;
-};
+}
 
 const ReflectionInputSection = ({
   value,

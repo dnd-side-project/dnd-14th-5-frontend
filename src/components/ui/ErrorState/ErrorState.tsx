@@ -2,12 +2,12 @@ import Button from '@/src/components/ui/Button/Button';
 
 import BottomCTA from '../../layout/BottomCTA/BottomCTA';
 
-type ErrorStateProps = {
+interface ErrorStateProps {
   title: string;
   description?: string;
   retryLabel?: string;
   onRetry?: () => void;
-};
+}
 
 const ErrorState = ({
   title,

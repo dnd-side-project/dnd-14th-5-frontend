@@ -1,12 +1,12 @@
 import type { AxiosError } from 'axios';
 import axios from 'axios';
 
-export type ApiError = {
+export interface ApiError {
   status: number | null;
   code: string | null;
   message: string;
   detail?: unknown;
-};
+}
 
 const baseURL = process.env.NEXT_PUBLIC_API_BASE_URL;
 

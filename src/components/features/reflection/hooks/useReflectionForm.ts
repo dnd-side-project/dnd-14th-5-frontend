@@ -2,13 +2,13 @@ import { useState } from 'react';
 
 import { useSubmitReflectionMutation } from '../queries/useSubmitReflectionMutation';
 
-type UseReflectionFormResult = {
+interface UseReflectionFormResult {
   content: string;
   isSubmitting: boolean;
   isSubmitDisabled: boolean;
   setContent: (next: string) => void;
   handleSubmit: () => void;
-};
+}
 
 export const useReflectionForm = (
   isQuestionReady: boolean,
