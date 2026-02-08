@@ -2,6 +2,7 @@
 
 import Image from 'next/image';
 
+import { useReflectionForm } from '@/src/components/features/reflection/hooks/useReflectionForm';
 import { useTodayQuestionQuery } from '@/src/components/features/reflection/queries/useTodayQuestionQuery';
 import TextArea from '@/src/components/features/reflection/TextArea/TextArea';
 import BottomCTA from '@/src/components/layout/BottomCTA/BottomCTA';
@@ -14,18 +15,11 @@ import styles from './page.module.css';
 
 const ReflectionPage = () => {
   const { data, isLoading, isError, refetch } = useTodayQuestionQuery();
-  const { mutate: submitReflection, isPending } = useSubmitReflectionMutation();
-  const [content, setContent] = useState('');
 
   const questionContent = data?.content ?? '';
   const isQuestionReady = !isLoading && !isError;
-  const isSubmitDisabled =
-    !isQuestionReady || content.trim().length === 0 || isPending;
-
-  const handleSubmit = () => {
-    if (isSubmitDisabled) return;
-    submitReflection({ content: content.trim() });
-  };
+  const { content, isSubmitDisabled, isSubmitting, setContent, handleSubmit } =
+    useReflectionForm(isQuestionReady);
 
   if (isError) {
     return (
@@ -79,12 +73,12 @@ const ReflectionPage = () => {
               )}
 
               {isQuestionReady && (
-                <>
+                <div className="flex h-full flex-col justify-between">
                   <p className="text-heading-h4 text-g-0">{questionContent}</p>
                   <p className="text-caption-n text-g-30 opacity-50">
                     지금 떠오르는 감정이나 생각을 부담없이 작성해보세요!
                   </p>
-                </>
+                </div>
               )}
             </div>
           </section>
@@ -102,7 +96,7 @@ const ReflectionPage = () => {
 
       <BottomCTA>
         <Button
-          label={isPending ? '기록 중...' : '기록 완료'}
+          label={isSubmitting ? '기록 중...' : '기록 완료'}
           disabled={isSubmitDisabled}
           onClick={handleSubmit}
         />
