@@ -14,9 +14,11 @@ import styles from './page.module.css';
 
 const ReflectionPage = () => {
   const { data, isLoading, isError, refetch } = useTodayQuestionQuery();
+  const [content, setContent] = useState('');
 
   const questionContent = data?.content ?? '';
   const isQuestionReady = !isLoading && !isError;
+  const isSubmitDisabled = !isQuestionReady || content.trim().length === 0;
 
   if (isError) {
     return (
@@ -82,13 +84,17 @@ const ReflectionPage = () => {
 
           <section className="flex flex-col gap-3">
             <p className="px-2 text-heading-h4 text-g-0">오늘 나의 생각은?</p>
-            <TextArea disabled={!isQuestionReady} />
+            <TextArea
+              disabled={!isQuestionReady}
+              value={content}
+              onChange={(e) => setContent(e.currentTarget.value)}
+            />
           </section>
         </div>
       </main>
 
       <BottomCTA>
-        <Button label="기록 완료" disabled={!isQuestionReady} />
+        <Button label="기록 완료" disabled={isSubmitDisabled} />
       </BottomCTA>
     </div>
   );
