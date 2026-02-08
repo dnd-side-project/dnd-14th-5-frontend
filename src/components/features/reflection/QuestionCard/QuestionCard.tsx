@@ -1,3 +1,4 @@
+import Card from '@/src/components/ui/Card/Card';
 import Skeleton from '@/src/components/ui/Skeleton/Skeleton';
 
 type QuestionCardProps = {
@@ -13,7 +14,7 @@ const QuestionCard = ({
 }: QuestionCardProps) => {
   return (
     <section>
-      <div className="w-full rounded-lg bg-g-400 p-4">
+      <Card className="w-full bg-g-400">
         {isLoading && (
           <Skeleton className="h-20 py-2" ariaLabel="오늘의 질문 불러오는 중" />
         )}
@@ -26,7 +27,7 @@ const QuestionCard = ({
             </p>
           </div>
         )}
-      </div>
+      </Card>
     </section>
   );
 };
