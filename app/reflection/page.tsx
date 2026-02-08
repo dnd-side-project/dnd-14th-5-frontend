@@ -1,13 +1,13 @@
 import Image from 'next/image';
 
-import TextArea from '@/src/components/features/retrospective/TextArea/TextArea';
+import TextArea from '@/src/components/features/reflection/TextArea/TextArea';
 import BottomCTA from '@/src/components/layout/BottomCTA/BottomCTA';
 import PageHeader from '@/src/components/layout/PageHeader/PageHeader';
 import Button from '@/src/components/ui/Button/Button';
 
 import styles from './page.module.css';
 
-const RetrospectivePage = () => {
+const ReflectionPage = () => {
   return (
     <div className="flex h-dvh flex-col overflow-hidden">
       <PageHeader
@@ -51,4 +51,4 @@ const RetrospectivePage = () => {
   );
 };
 
-export default RetrospectivePage;
+export default ReflectionPage;
