@@ -14,11 +14,18 @@ import styles from './page.module.css';
 
 const ReflectionPage = () => {
   const { data, isLoading, isError, refetch } = useTodayQuestionQuery();
+  const { mutate: submitReflection, isPending } = useSubmitReflectionMutation();
   const [content, setContent] = useState('');
 
   const questionContent = data?.content ?? '';
   const isQuestionReady = !isLoading && !isError;
-  const isSubmitDisabled = !isQuestionReady || content.trim().length === 0;
+  const isSubmitDisabled =
+    !isQuestionReady || content.trim().length === 0 || isPending;
+
+  const handleSubmit = () => {
+    if (isSubmitDisabled) return;
+    submitReflection({ content: content.trim() });
+  };
 
   if (isError) {
     return (
@@ -94,7 +101,11 @@ const ReflectionPage = () => {
       </main>
 
       <BottomCTA>
-        <Button label="기록 완료" disabled={isSubmitDisabled} />
+        <Button
+          label={isPending ? '기록 중...' : '기록 완료'}
+          disabled={isSubmitDisabled}
+          onClick={handleSubmit}
+        />
       </BottomCTA>
     </div>
   );
