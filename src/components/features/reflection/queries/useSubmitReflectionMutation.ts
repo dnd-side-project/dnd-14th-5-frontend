@@ -21,10 +21,10 @@ type SubmitReflectionResponseType = z.infer<
   typeof submitReflectionResponseSchema
 >;
 
-const submitReflection = async (payload: SubmitReflectionRequestType) => {
+const submitReflection = async ({ content }: SubmitReflectionRequestType) => {
   return post<SubmitReflectionRequestType, SubmitReflectionResponseType>(
     REFLECTION_ENDPOINTS.submitReflection,
-    payload,
+    { content },
     {
       dataSchema: submitReflectionRequestSchema,
       responseSchema: submitReflectionResponseSchema,
