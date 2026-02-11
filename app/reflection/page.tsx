@@ -18,7 +18,8 @@ const ReflectionPage = () => {
 
   const questionContent = data?.content ?? '';
   const isQuestionReady = !isLoading && !isError;
-  const { content, isSubmitting, setContent, submit } = useReflectionForm();
+  const { content, isSubmitting, handleContentChange, submit } =
+    useReflectionForm();
   const isSubmitDisabled =
     !isQuestionReady || content.trim().length === 0 || isSubmitting;
   const handleSubmit = () => {
@@ -61,7 +62,7 @@ const ReflectionPage = () => {
             <ReflectionInputSection
               disabled={!isQuestionReady}
               value={content}
-              onChange={setContent}
+              onChange={handleContentChange}
             />
           </div>
         )}

@@ -5,13 +5,17 @@ import { useSubmitReflectionMutation } from '../queries/useSubmitReflectionMutat
 interface UseReflectionFormResult {
   content: string;
   isSubmitting: boolean;
-  setContent: (next: string) => void;
+  handleContentChange: (next: string) => void;
   submit: () => void;
 }
 
 export const useReflectionForm = (): UseReflectionFormResult => {
   const { mutate: submitReflection, isPending } = useSubmitReflectionMutation();
   const [content, setContent] = useState('');
+
+  const handleContentChange = (next: string) => {
+    setContent(next);
+  };
 
   const submit = () => {
     submitReflection({ content: content.trim() });
@@ -20,7 +24,7 @@ export const useReflectionForm = (): UseReflectionFormResult => {
   return {
     content,
     isSubmitting: isPending,
-    setContent,
+    handleContentChange,
     submit,
   };
 };
