@@ -16,7 +16,7 @@ const PageHeader = ({
   onRightClick,
 }: PageHeaderProps) => {
   return (
-    <div className="flex items-center gap-2 h-14 px-5">
+    <header className="flex items-center gap-2 h-14">
       <button
         type="button"
         onClick={onLeftClick}
@@ -36,7 +36,7 @@ const PageHeader = ({
       >
         {rightIcon ?? <div className="h-6 w-6 rounded-full" />}
       </button>
-    </div>
+    </header>
   );
 };
 
