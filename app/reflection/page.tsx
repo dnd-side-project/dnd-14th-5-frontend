@@ -14,14 +14,14 @@ import ErrorState from '@/src/components/ui/ErrorState/ErrorState';
 import styles from './page.module.css';
 
 const ReflectionPage = () => {
-  const { data, isLoading, isError, refetch } = useTodayQuestionQuery();
+  const { data, isLoading, isError, isSuccess, refetch } =
+    useTodayQuestionQuery();
 
   const questionContent = data?.content ?? '';
-  const isQuestionReady = !isLoading && !isError;
   const { content, isSubmitting, handleContentChange, submit } =
     useReflectionForm();
   const isSubmitDisabled =
-    !isQuestionReady || content.trim().length === 0 || isSubmitting;
+    !isSuccess || content.trim().length === 0 || isSubmitting;
   const handleSubmit = () => {
     if (isSubmitDisabled) return;
     submit();
@@ -55,12 +55,12 @@ const ReflectionPage = () => {
           <div className="mx-auto flex flex-col gap-6 px-7.5 pt-10 pb-24">
             <QuestionCard
               isLoading={isLoading}
-              isReady={isQuestionReady}
+              isReady={isSuccess}
               questionContent={questionContent}
             />
 
             <ReflectionInputSection
-              disabled={!isQuestionReady}
+              disabled={!isSuccess}
               value={content}
               onChange={handleContentChange}
             />
