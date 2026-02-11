@@ -6,16 +6,9 @@ import { testAuthKeys } from '../constants/queryKeys';
 import { TEST_AUTH_ENDPOINTS } from '../constants/url';
 import { ensureDevelopment } from '../util/guards';
 
-type Tokens = {
-  accessToken: string;
-  refreshToken: string;
-};
-
-const reissue = async (refreshToken: string): Promise<Tokens> => {
+const reissue = async (): Promise<void> => {
   ensureDevelopment();
-  return post<{ refreshToken: string }, Tokens>(TEST_AUTH_ENDPOINTS.reissue, {
-    refreshToken,
-  });
+  return post<never, void>(TEST_AUTH_ENDPOINTS.reissue);
 };
 
 export const useReissueMutation = () =>
