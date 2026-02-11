@@ -38,7 +38,7 @@ const ReflectionPage = () => {
         leftIcon={<Icon name="chevronLeft" size={28} alt="back" />}
         onLeftClick={() => goBackOrHome(router)}
       />
-      <main
+      <div
         className={cn(
           'min-h-0 flex-1 overflow-y-auto overscroll-contain',
           styles.scrollArea,
@@ -67,7 +67,7 @@ const ReflectionPage = () => {
             />
           </div>
         )}
-      </main>
+      </div>
 
       {!isError && (
         <BottomCTA>
