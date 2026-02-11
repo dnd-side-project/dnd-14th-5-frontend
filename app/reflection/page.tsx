@@ -18,33 +18,13 @@ const ReflectionPage = () => {
 
   const questionContent = data?.content ?? '';
   const isQuestionReady = !isLoading && !isError;
-  const { content, isSubmitDisabled, isSubmitting, setContent, handleSubmit } =
-    useReflectionForm(isQuestionReady);
-
-  if (isError) {
-    return (
-      <div className="flex h-dvh flex-col overflow-hidden">
-        <PageHeader
-          title="기록하기"
-          leftIcon={
-            <Image
-              src="/icons/chevron-left.svg"
-              alt="back"
-              width={28}
-              height={28}
-            />
-          }
-        />
-        <main className="flex flex-1 items-center justify-center px-7.5">
-          <ErrorState
-            title="오늘의 질문을 불러오지 못했어요."
-            description="잠시 후 다시 시도해주세요."
-            onRetry={() => refetch()}
-          />
-        </main>
-      </div>
-    );
-  }
+  const { content, isSubmitting, setContent, submit } = useReflectionForm();
+  const isSubmitDisabled =
+    !isQuestionReady || content.trim().length === 0 || isSubmitting;
+  const handleSubmit = () => {
+    if (isSubmitDisabled) return;
+    submit();
+  };
 
   return (
     <div className="flex h-dvh flex-col overflow-hidden">
@@ -62,19 +42,29 @@ const ReflectionPage = () => {
       <main
         className={`min-h-0 flex-1 overflow-y-auto overscroll-contain ${styles.scrollArea}`}
       >
-        <div className="mx-auto flex flex-col gap-6 px-7.5 pt-10 pb-24">
-          <QuestionCard
-            isLoading={isLoading}
-            isReady={isQuestionReady}
-            questionContent={questionContent}
-          />
+        {isError ? (
+          <div className="flex h-full items-center justify-center px-7.5">
+            <ErrorState
+              title="오늘의 질문을 불러오지 못했어요."
+              description="잠시 후 다시 시도해주세요."
+              onRetry={() => refetch()}
+            />
+          </div>
+        ) : (
+          <div className="mx-auto flex flex-col gap-6 px-7.5 pt-10 pb-24">
+            <QuestionCard
+              isLoading={isLoading}
+              isReady={isQuestionReady}
+              questionContent={questionContent}
+            />
 
-          <ReflectionInputSection
-            disabled={!isQuestionReady}
-            value={content}
-            onChange={setContent}
-          />
-        </div>
+            <ReflectionInputSection
+              disabled={!isQuestionReady}
+              value={content}
+              onChange={setContent}
+            />
+          </div>
+        )}
       </main>
 
       <BottomCTA>
