@@ -69,13 +69,15 @@ const ReflectionPage = () => {
         )}
       </main>
 
-      <BottomCTA>
-        <Button
-          label={isSubmitting ? '기록 중...' : '기록 완료'}
-          disabled={isSubmitDisabled}
-          onClick={handleSubmit}
-        />
-      </BottomCTA>
+      {!isError && (
+        <BottomCTA>
+          <Button
+            label={isSubmitting ? '기록 중...' : '기록 완료'}
+            disabled={isSubmitDisabled}
+            onClick={handleSubmit}
+          />
+        </BottomCTA>
+      )}
     </div>
   );
 };
