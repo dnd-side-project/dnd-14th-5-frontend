@@ -1,6 +1,6 @@
 'use client';
 
-import Image from 'next/image';
+import { useRouter } from 'next/navigation';
 
 import { useReflectionForm } from '@/src/components/features/reflection/hooks/useReflectionForm';
 import { useTodayQuestionQuery } from '@/src/components/features/reflection/queries/useTodayQuestionQuery';
@@ -10,11 +10,14 @@ import BottomCTA from '@/src/components/layout/BottomCTA/BottomCTA';
 import PageHeader from '@/src/components/layout/PageHeader/PageHeader';
 import Button from '@/src/components/ui/Button/Button';
 import ErrorState from '@/src/components/ui/ErrorState/ErrorState';
+import Icon from '@/src/components/ui/Icon/Icon';
 import { cn } from '@/src/lib/helpers/cn';
+import { goBackOrHome } from '@/src/lib/helpers/navigation';
 
 import styles from './page.module.css';
 
 const ReflectionPage = () => {
+  const router = useRouter();
   const { data, isLoading, isError, isSuccess, refetch } =
     useTodayQuestionQuery();
 
@@ -32,14 +35,8 @@ const ReflectionPage = () => {
     <div className="flex h-dvh flex-col overflow-hidden">
       <PageHeader
         title="기록하기"
-        leftIcon={
-          <Image
-            src="/icons/chevron-left.svg"
-            alt="back"
-            width={28}
-            height={28}
-          />
-        }
+        leftIcon={<Icon name="chevronLeft" size={28} alt="back" />}
+        onLeftClick={() => goBackOrHome(router)}
       />
       <main
         className={cn(
