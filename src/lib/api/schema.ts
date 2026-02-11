@@ -8,7 +8,6 @@ export type ApiRequestConfig<
   TParams = unknown,
   TResponse = unknown,
 > = Omit<AxiosRequestConfig<TData>, 'params'> & {
-  accessToken?: string | null;
   params?: TParams;
   dataSchema?: Schema<TData>;
   paramsSchema?: Schema<TParams>;
@@ -30,25 +29,18 @@ export const parseDataConfig = <TRequest, TResponse>(
   data: TRequest | undefined,
   config?: ApiRequestConfig<TRequest, never, TResponse>,
 ) => {
-  const { dataSchema, responseSchema, accessToken, ...axiosConfig } =
-    config ?? {};
+  const { dataSchema, responseSchema, ...axiosConfig } = config ?? {};
   const parsedData = parseWithSchema(dataSchema, data);
 
-  return { axiosConfig, parsedData, responseSchema, accessToken };
+  return { axiosConfig, parsedData, responseSchema };
 };
 
 export const parseParamsConfig = <TParams, TResponse>(
   params: TParams | undefined,
   config?: ApiRequestConfig<never, TParams, TResponse>,
 ) => {
-  const {
-    paramsSchema,
-    responseSchema,
-    accessToken,
-    params: _params,
-    ...axiosConfig
-  } = config ?? {};
+  const { paramsSchema, responseSchema, ...axiosConfig } = config ?? {};
   const parsedParams = parseWithSchema(paramsSchema, params);
 
-  return { axiosConfig, parsedParams, responseSchema, accessToken };
+  return { axiosConfig, parsedParams, responseSchema };
 };
