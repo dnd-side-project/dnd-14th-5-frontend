@@ -1,22 +1,34 @@
 import { useMutation } from '@tanstack/react-query';
+import { z } from 'zod';
 
 import { post } from '@/src/lib/api';
 
 import { reflectionKeys } from '../constants/queryKeys';
 import { REFLECTION_ENDPOINTS } from '../constants/url';
 
-interface SubmitReflectionRequestType {
-  content: string;
-}
+const submitReflectionRequestSchema = z.object({
+  content: z.string(),
+});
 
-interface SubmitReflectionResponseType {
-  id: number;
-}
+const submitReflectionResponseSchema = z.object({
+  id: z.number(),
+});
+
+type SubmitReflectionRequestType = z.infer<
+  typeof submitReflectionRequestSchema
+>;
+type SubmitReflectionResponseType = z.infer<
+  typeof submitReflectionResponseSchema
+>;
 
 const submitReflection = async (payload: SubmitReflectionRequestType) => {
   return post<SubmitReflectionRequestType, SubmitReflectionResponseType>(
     REFLECTION_ENDPOINTS.submitReflection,
     payload,
+    {
+      dataSchema: submitReflectionRequestSchema,
+      responseSchema: submitReflectionResponseSchema,
+    },
   );
 };
 
