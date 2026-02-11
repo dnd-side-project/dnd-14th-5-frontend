@@ -1,3 +1,5 @@
+import { cn } from '@/src/lib/helpers/cn';
+
 interface SkeletonProps {
   className?: string;
   ariaLabel?: string;
@@ -6,7 +8,7 @@ interface SkeletonProps {
 const Skeleton = ({ className, ariaLabel }: SkeletonProps) => {
   return (
     <div
-      className={`animate-pulse rounded-md bg-g-0/20 ${className ?? ''}`}
+      className={cn('animate-pulse rounded-md bg-g-0/20', className)}
       role="status"
       aria-label={ariaLabel ?? 'loading'}
     />

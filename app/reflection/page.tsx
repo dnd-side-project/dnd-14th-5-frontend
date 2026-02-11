@@ -10,6 +10,7 @@ import BottomCTA from '@/src/components/layout/BottomCTA/BottomCTA';
 import PageHeader from '@/src/components/layout/PageHeader/PageHeader';
 import Button from '@/src/components/ui/Button/Button';
 import ErrorState from '@/src/components/ui/ErrorState/ErrorState';
+import { cn } from '@/src/lib/helpers/cn';
 
 import styles from './page.module.css';
 
@@ -41,7 +42,10 @@ const ReflectionPage = () => {
         }
       />
       <main
-        className={`min-h-0 flex-1 overflow-y-auto overscroll-contain ${styles.scrollArea}`}
+        className={cn(
+          'min-h-0 flex-1 overflow-y-auto overscroll-contain',
+          styles.scrollArea,
+        )}
       >
         {isError ? (
           <div className="flex h-full items-center justify-center px-7.5">
