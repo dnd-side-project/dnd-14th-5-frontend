@@ -1,4 +1,4 @@
-import { calculatePercentage } from '@/src/lib/helpers/calculateProgress';
+import { cn } from '@/src/lib/helpers/cn';
 
 interface ProgressBarProps {
   current: number;
@@ -7,12 +7,21 @@ interface ProgressBarProps {
 
 function ProgressBar({ current, max }: ProgressBarProps) {
   return (
-    <div className="w-full bg-g-40 rounded-full h-3">
-      <div
-        className="bg-g-300 h-3 rounded-full text-xs flex items-center justify-center text-white"
-        style={{ width: `${calculatePercentage({ current, max })}%` }}
-      />
-    </div>
+    <progress
+      value={current}
+      max={max}
+      className={cn(
+        'h-2 w-full rounded-2xl',
+
+        '[&::-webkit-progress-bar]:rounded-2xl',
+        '[&::-webkit-progress-bar]:bg-white/20',
+        '[&::-webkit-progress-value]:rounded-2xl',
+        '[&::-webkit-progress-value]:bg-primary',
+
+        '[&::-moz-progress-bar]:rounded-2xl',
+        '[&::-moz-progress-bar]:bg-primary',
+      )}
+    />
   );
 }
 
