@@ -33,8 +33,8 @@ interface RootLayoutProps {
 const RootLayout = ({ children }: Readonly<RootLayoutProps>) => {
   return (
     <html lang="ko">
-      <body className={cn(notoSansKr.variable, 'bg-g-700 text-g-0')}>
-        <main className="max-w-110 mx-auto w-full h-dvh">
+      <body className={cn('bg-g-700 text-g-0', notoSansKr.variable)}>
+        <main className="max-w-110 mx-auto w-full h-dvh p-10">
           <ToastProvider>
             <QueryProvider>{children}</QueryProvider>
           </ToastProvider>
