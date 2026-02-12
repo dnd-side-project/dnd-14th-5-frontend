@@ -4,6 +4,9 @@ import type { Metadata, Viewport } from 'next';
 import { Noto_Sans_KR } from 'next/font/google';
 import { type ReactNode } from 'react';
 
+import ToastProvider from '@/src/components/ui/Toast/ToastProvider';
+import { cn } from '@/src/lib/helpers/cn';
+
 import QueryProvider from './providers';
 
 const notoSansKr = Noto_Sans_KR({
@@ -30,9 +33,11 @@ interface RootLayoutProps {
 const RootLayout = ({ children }: Readonly<RootLayoutProps>) => {
   return (
     <html lang="ko">
-      <body className={`${notoSansKr.variable} bg-g-700 text-g-0`}>
+      <body className={cn(notoSansKr.variable, 'bg-g-700 text-g-0')}>
         <main className="max-w-110 mx-auto w-full h-dvh">
-          <QueryProvider>{children}</QueryProvider>
+          <ToastProvider>
+            <QueryProvider>{children}</QueryProvider>
+          </ToastProvider>
         </main>
       </body>
     </html>

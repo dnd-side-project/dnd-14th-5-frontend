@@ -4,8 +4,6 @@ import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import { type ReactNode, useState } from 'react';
 
-import ToastProvider from '@/src/components/ui/Toast/ToastProvider';
-
 interface QueryProviderProps {
   children: ReactNode;
 }
@@ -23,12 +21,10 @@ const QueryProvider = ({ children }: QueryProviderProps) => {
   );
 
   return (
-    <ToastProvider>
-      <QueryClientProvider client={queryClient}>
-        {children}
-        <ReactQueryDevtools initialIsOpen={false} />
-      </QueryClientProvider>
-    </ToastProvider>
+    <QueryClientProvider client={queryClient}>
+      {children}
+      <ReactQueryDevtools initialIsOpen={false} />
+    </QueryClientProvider>
   );
 };
 
