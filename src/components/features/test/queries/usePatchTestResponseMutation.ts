@@ -1,4 +1,4 @@
-import { useMutation } from '@tanstack/react-query';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { z } from 'zod';
 
 import { patch } from '@/src/lib/api';
@@ -33,6 +33,8 @@ const patchTestResponse = ({
 export const usePatchTestResponseMutation = ({
   testRecordId,
 }: Omit<PathType, 'responseId'>) => {
+  const queryClient = useQueryClient();
+
   return useMutation({
     mutationKey: TEST_QUERY_KEYS['response'](testRecordId),
     mutationFn: ({
@@ -40,5 +42,10 @@ export const usePatchTestResponseMutation = ({
       responseId,
     }: DataType & Pick<PathType, 'responseId'>) =>
       patchTestResponse({ score, testRecordId, responseId }),
+    onSuccess: () => {
+      queryClient.invalidateQueries({
+        queryKey: TEST_QUERY_KEYS['responses'](testRecordId),
+      });
+    },
   });
 };

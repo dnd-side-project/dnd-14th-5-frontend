@@ -1,4 +1,4 @@
-import { useMutation } from '@tanstack/react-query';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { z } from 'zod';
 
 import { post } from '@/src/lib/api';
@@ -31,9 +31,16 @@ const postQuestionResponse = ({
   );
 
 export const usePostQuestionResponseMutation = ({ testRecordId }: PathType) => {
+  const queryClient = useQueryClient();
+
   return useMutation({
     mutationKey: TEST_QUERY_KEYS['registerQuestionResponse'](testRecordId),
     mutationFn: ({ questionId, score }: DataType) =>
       postQuestionResponse({ questionId, score, testRecordId }),
+    onSuccess: () => {
+      queryClient.invalidateQueries({
+        queryKey: TEST_QUERY_KEYS['responses'](testRecordId),
+      });
+    },
   });
 };

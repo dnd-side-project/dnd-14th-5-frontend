@@ -10,7 +10,7 @@ interface UseTestProgressProps {
 }
 
 export const useTestProgress = ({ testRecordId }: UseTestProgressProps) => {
-  const { data, refetch } = useTestResponsesQuery({ testRecordId });
+  const { data } = useTestResponsesQuery({ testRecordId });
   const { mutate: postQuestionResponse } = usePostQuestionResponseMutation({
     testRecordId,
   });
@@ -71,23 +71,17 @@ export const useTestProgress = ({ testRecordId }: UseTestProgressProps) => {
     }
   };
 
-  const handlePrev = async (questionId: number) => {
+  const handlePrev = (questionId: number) => {
     if (currentQuestionIndex <= 0) return;
-
-    const { data: refetchedData, isSuccess } = await refetch();
 
     setDirection(-1);
 
-    if (isSuccess) {
-      const score = refetchedData?.find(
-        (item) => item.questionId === questionId,
-      )?.score;
+    const score = data?.find((item) => item.questionId === questionId)?.score;
 
-      if (score === undefined) return;
+    if (score === undefined) return;
 
-      setCurrentRating(score);
-      setCurrentQuestionIndex((prev) => prev - 1);
-    }
+    setCurrentRating(score);
+    setCurrentQuestionIndex((prev) => prev - 1);
   };
 
   const isNextButtonDisabled = (totalQuestions: number) =>
