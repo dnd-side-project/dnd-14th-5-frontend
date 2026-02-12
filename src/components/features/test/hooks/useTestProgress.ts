@@ -21,6 +21,7 @@ export const useTestProgress = ({ testRecordId }: UseTestProgressProps) => {
 
   const [currentRating, setCurrentRating] = useState<number | null>(null);
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
+  const [direction, setDirection] = useState(1);
 
   const handleRatingChange = (event: ChangeEvent<HTMLInputElement>) => {
     setCurrentRating(+event.target.value);
@@ -28,6 +29,8 @@ export const useTestProgress = ({ testRecordId }: UseTestProgressProps) => {
 
   const handleNext = (totalQuestions: number, questionId: number) => {
     if (currentRating === null) return;
+
+    setDirection(1);
 
     const isLastQuestion = currentQuestionIndex + 1 === totalQuestions;
 
@@ -73,6 +76,8 @@ export const useTestProgress = ({ testRecordId }: UseTestProgressProps) => {
 
     const { data: refetchedData, isSuccess } = await refetch();
 
+    setDirection(-1);
+
     if (isSuccess) {
       const score = refetchedData?.find(
         (item) => item.questionId === questionId,
@@ -93,6 +98,7 @@ export const useTestProgress = ({ testRecordId }: UseTestProgressProps) => {
   return {
     currentRating,
     currentQuestionIndex,
+    direction,
     handleRatingChange,
     handleNext,
     handlePrev,

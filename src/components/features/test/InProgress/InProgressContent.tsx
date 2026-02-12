@@ -11,6 +11,7 @@ interface InProgressContentProps {
   onRatingChange: (event: ChangeEvent<HTMLInputElement>) => void;
   remainQuestion: number;
   currentRating: number | null;
+  direction: number;
 }
 
 const InProgressContent = ({
@@ -19,28 +20,42 @@ const InProgressContent = ({
   content,
   onRatingChange,
   currentRating,
+  direction,
 }: InProgressContentProps) => {
+  const cardVariants = {
+    initial: (direction: number) => ({
+      y: direction === 1 ? -24 : 0,
+      scale: direction === 1 ? 0.95 : 1,
+      opacity: direction === 1 ? 0.5 : 0,
+      x: direction === 1 ? 0 : '100%',
+    }),
+    animate: {
+      y: 0,
+      scale: 1,
+      opacity: 1,
+      x: 0,
+    },
+    exit: (direction: number) => ({
+      x: direction === 1 ? '100%' : 0,
+      y: direction === 1 ? 0 : -24,
+      scale: direction === 1 ? 1 : 0.95,
+      opacity: direction === 1 ? 0 : 0.5,
+    }),
+  };
+
+  const backgroundCardCount = Math.min(remainQuestion, 2);
+
   return (
     <section className="relative h-full">
-      <AnimatePresence mode="wait">
+      <AnimatePresence mode="wait" custom={direction}>
         <motion.div
           key={step}
           className="relative z-10"
-          initial={{
-            scale: 0.97,
-            y: -12,
-            opacity: 0.6,
-          }}
-          animate={{
-            scale: 1,
-            y: 0,
-            opacity: 1,
-          }}
-          exit={{
-            x: '100%',
-            opacity: 0,
-            transition: { duration: 0.25, ease: 'easeIn' },
-          }}
+          custom={direction}
+          variants={cardVariants}
+          initial="initial"
+          animate="animate"
+          exit="exit"
           transition={{
             type: 'tween',
             duration: 0.35,
@@ -57,31 +72,34 @@ const InProgressContent = ({
         </motion.div>
       </AnimatePresence>
 
-      <div className="absolute inset-0 pointer-events-none">
-        {[...Array(Math.min(remainQuestion, 2))].map((_, index) => {
-          const offset = (index + 1) * 24;
-          const scale = 1 - (index + 1) * 0.05;
-          const opacity = 0.5 - index * 0.2;
+      {backgroundCardCount > 0 && (
+        <div className="absolute inset-0 pointer-events-none">
+          <AnimatePresence initial={false}>
+            {[...Array(backgroundCardCount)].map((_, index) => {
+              const currentOffset = (index + 1) * 24;
+              const currentScale = 1 - (index + 1) * 0.05;
+              const currentOpacity = 0.5 - index * 0.2;
 
-          return (
-            <motion.div
-              key={`bg-${remainQuestion}-${index}`}
-              layout
-              className="absolute inset-0 rounded-2xl bg-g-400"
-              animate={{
-                y: -offset,
-                scale,
-                opacity,
-              }}
-              transition={{
-                type: 'tween',
-                duration: 0.35,
-                ease: 'easeOut',
-              }}
-            />
-          );
-        })}
-      </div>
+              return (
+                <motion.div
+                  key={`bg-${remainQuestion}-${index}`}
+                  className="absolute inset-0 rounded-2xl bg-g-400"
+                  style={{
+                    y: -currentOffset,
+                    scale: currentScale,
+                    opacity: currentOpacity,
+                  }}
+                  transition={{
+                    type: 'tween',
+                    duration: 0.35,
+                    ease: 'easeOut',
+                  }}
+                />
+              );
+            })}
+          </AnimatePresence>
+        </div>
+      )}
     </section>
   );
 };

@@ -1,3 +1,5 @@
+import { useState } from 'react';
+
 import ProgressBar from '@/src/components/ui/ProgressBar/ProgressBar';
 import { formatTwoDigitNumber } from '@/src/lib/helpers/formatTwoDigitNumber';
 
@@ -17,9 +19,11 @@ const InProgress = ({ testId, testRecordId }: InProgressProps) => {
     isError,
     isLoading,
   } = useTestQuestionsQuery({ testId });
+
   const {
     currentRating,
     currentQuestionIndex,
+    direction,
     handleRatingChange,
     handleNext,
     handlePrev,
@@ -61,6 +65,7 @@ const InProgress = ({ testId, testRecordId }: InProgressProps) => {
         content={content}
         currentRating={currentRating}
         onRatingChange={handleRatingChange}
+        direction={direction}
       />
 
       <InProgressNavigation
