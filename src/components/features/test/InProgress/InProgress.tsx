@@ -1,5 +1,3 @@
-import { useState } from 'react';
-
 import ProgressBar from '@/src/components/ui/ProgressBar/ProgressBar';
 import { formatTwoDigitNumber } from '@/src/lib/helpers/formatTwoDigitNumber';
 
