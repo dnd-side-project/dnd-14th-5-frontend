@@ -12,7 +12,11 @@ interface InProgressProps {
 }
 
 const InProgress = ({ testId, testRecordId }: InProgressProps) => {
-  const { data: questions, isError } = useTestQuestionsQuery({ testId });
+  const {
+    data: questions,
+    isError,
+    isLoading,
+  } = useTestQuestionsQuery({ testId });
   const {
     currentRating,
     currentQuestionIndex,
@@ -23,7 +27,17 @@ const InProgress = ({ testId, testRecordId }: InProgressProps) => {
     isPrevButtonDisabled,
   } = useTestProgress({ testRecordId });
 
-  if (!questions || isError) {
+  if (isLoading || questions === undefined) {
+    // TODO: 임시 loader
+    return (
+      <div className="flex items-center justify-center py-20">
+        <div className="animate-spin rounded-full h-8 w-8 border-4 border-dotted mr-3" />
+        <p className="text-g-20">로딩 중...</p>
+      </div>
+    );
+  }
+
+  if (isError) {
     return (
       // TODO: ErrorState 컴포넌트로 수정
       <div className="flex justify-center items-center py-20">

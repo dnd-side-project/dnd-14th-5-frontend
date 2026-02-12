@@ -32,7 +32,12 @@ const ZtpiTest = () => {
     (item) => item.type === TEST_TYPES['ZTPI_15'],
   )?.id;
 
-  const { data: testRecordId, mutate } = useStartTestMutation();
+  const {
+    data: testRecordId,
+    mutate,
+    isError: isFailedStart,
+    isPending,
+  } = useStartTestMutation();
 
   // TODO: 온보딩 페이지에서 테스트로 넘어갈 때 mutate되도록 수정 필요
   useEffect(() => {
@@ -41,7 +46,12 @@ const ZtpiTest = () => {
     }
   }, [ztpiTestId, isSuccess, mutate]);
 
-  if (isLoading) {
+  if (
+    isLoading ||
+    isPending ||
+    ztpiTestId === undefined ||
+    testRecordId === undefined
+  ) {
     // TODO: 임시 loader
     return (
       <div className="flex items-center justify-center py-20">
@@ -51,7 +61,7 @@ const ZtpiTest = () => {
     );
   }
 
-  if (isError || ztpiTestId === undefined) {
+  if (isError || (isSuccess && !data)) {
     return (
       // TODO: ErrorState 컴포넌트로 수정
       <div className="flex justify-center items-center py-20">
@@ -60,7 +70,7 @@ const ZtpiTest = () => {
     );
   }
 
-  if (testRecordId === undefined) {
+  if (isFailedStart || (isSuccess && !testRecordId)) {
     return (
       // TODO: ErrorState 컴포넌트로 수정
       <div className="flex justify-center items-center py-20">
