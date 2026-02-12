@@ -14,7 +14,7 @@ const completeTest = ({ testRecordId }: PathType) =>
 
 export const useCompleteTestMutation = ({ testRecordId }: PathType) => {
   return useMutation({
-    mutationKey: TEST_QUERY_KEYS['response'](testRecordId),
+    mutationKey: TEST_QUERY_KEYS['complete'](testRecordId),
     mutationFn: () => completeTest({ testRecordId }),
   });
 };
