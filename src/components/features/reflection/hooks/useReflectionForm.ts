@@ -1,6 +1,8 @@
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 
+import { useToast } from '@/src/hooks/useToast';
+
 import { useSubmitReflectionMutation } from '../queries/useSubmitReflectionMutation';
 
 interface UseReflectionFormResult {
@@ -12,11 +14,15 @@ interface UseReflectionFormResult {
 
 export const useReflectionForm = (): UseReflectionFormResult => {
   const router = useRouter();
+  const { showToast } = useToast();
   const handleSuccess = () => {
     router.push('/');
   };
   const { mutate: submitReflection, isPending } = useSubmitReflectionMutation({
     onSuccess: handleSuccess,
+    onError: () => {
+      showToast({ message: '기록에 실패했어요. 잠시 후 다시 시도해주세요.' });
+    },
   });
   const [content, setContent] = useState('');
 

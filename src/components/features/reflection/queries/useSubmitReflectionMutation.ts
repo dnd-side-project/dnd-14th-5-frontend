@@ -34,6 +34,7 @@ const submitReflection = async ({ content }: SubmitReflectionRequestType) => {
 
 interface UseSubmitReflectionMutationOptions {
   onSuccess?: () => void;
+  onError?: () => void;
 }
 
 export const useSubmitReflectionMutation = (
@@ -43,4 +44,5 @@ export const useSubmitReflectionMutation = (
     mutationKey: reflectionKeys.submitReflection(),
     mutationFn: submitReflection,
     onSuccess: options?.onSuccess,
+    onError: options?.onError,
   });
