@@ -32,8 +32,15 @@ const submitReflection = async ({ content }: SubmitReflectionRequestType) => {
   );
 };
 
-export const useSubmitReflectionMutation = () =>
+interface UseSubmitReflectionMutationOptions {
+  onSuccess?: () => void;
+}
+
+export const useSubmitReflectionMutation = (
+  options?: UseSubmitReflectionMutationOptions,
+) =>
   useMutation({
     mutationKey: reflectionKeys.submitReflection(),
     mutationFn: submitReflection,
+    onSuccess: options?.onSuccess,
   });

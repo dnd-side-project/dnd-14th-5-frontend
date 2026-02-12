@@ -1,3 +1,4 @@
+import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 
 import { useSubmitReflectionMutation } from '../queries/useSubmitReflectionMutation';
@@ -10,7 +11,13 @@ interface UseReflectionFormResult {
 }
 
 export const useReflectionForm = (): UseReflectionFormResult => {
-  const { mutate: submitReflection, isPending } = useSubmitReflectionMutation();
+  const router = useRouter();
+  const handleSuccess = () => {
+    router.push('/');
+  };
+  const { mutate: submitReflection, isPending } = useSubmitReflectionMutation({
+    onSuccess: handleSuccess,
+  });
   const [content, setContent] = useState('');
 
   const handleContentChange = (next: string) => {
