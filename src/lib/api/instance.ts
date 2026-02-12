@@ -25,6 +25,7 @@ if (!baseURL) {
 const api = axios.create({
   baseURL,
   timeout: 10_000,
+  withCredentials: true,
 });
 
 const toApiError = (error: AxiosError): ApiError => {

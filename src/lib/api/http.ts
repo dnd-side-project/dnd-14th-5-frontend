@@ -1,5 +1,3 @@
-import type { AxiosRequestConfig } from 'axios';
-
 import api from './instance';
 import {
   type ApiRequestConfig,
@@ -8,46 +6,17 @@ import {
   parseWithSchema,
 } from './schema';
 
-const ACCESS_TOKEN_STORAGE_KEY = 'accessToken';
-
-// 클라이언트 전용 헬퍼: SSR에서는 accessToken을 직접 전달해야 함.
-const getAccessTokenFromLocalStorage = (): string | null => {
-  if (typeof window === 'undefined') {
-    return null;
-  }
-
-  return window.localStorage.getItem(ACCESS_TOKEN_STORAGE_KEY);
-};
-
-const applyAccessToken = <TData>(
-  axiosConfig: AxiosRequestConfig<TData>,
-  accessToken?: string | null,
-): AxiosRequestConfig<TData> => {
-  const resolvedToken = accessToken ?? getAccessTokenFromLocalStorage();
-
-  if (!resolvedToken) {
-    return axiosConfig;
-  }
-
-  return {
-    ...axiosConfig,
-    headers: {
-      ...axiosConfig.headers,
-      Authorization: `Bearer ${resolvedToken}`,
-    },
-  };
-};
-
 export const get = async <TResponse, TParams = never>(
   url: string,
   config?: ApiRequestConfig<never, TParams, TResponse>,
 ): Promise<TResponse> => {
   const { params } = config ?? {};
-  const { axiosConfig, parsedParams, responseSchema, accessToken } =
-    parseParamsConfig(params, config);
-  const resolvedConfig = applyAccessToken(axiosConfig, accessToken);
+  const { axiosConfig, parsedParams, responseSchema } = parseParamsConfig(
+    params,
+    config,
+  );
   const response = await api.get<TResponse>(url, {
-    ...resolvedConfig,
+    ...axiosConfig,
     params: parsedParams,
   });
 
@@ -59,10 +28,11 @@ export const post = async <TRequest, TResponse>(
   data?: TRequest,
   config?: ApiRequestConfig<TRequest, never, TResponse>,
 ): Promise<TResponse> => {
-  const { axiosConfig, parsedData, responseSchema, accessToken } =
-    parseDataConfig(data, config);
-  const resolvedConfig = applyAccessToken(axiosConfig, accessToken);
-  const response = await api.post<TResponse>(url, parsedData, resolvedConfig);
+  const { axiosConfig, parsedData, responseSchema } = parseDataConfig(
+    data,
+    config,
+  );
+  const response = await api.post<TResponse>(url, parsedData, axiosConfig);
 
   return parseWithSchema(responseSchema, response.data);
 };
@@ -72,10 +42,11 @@ export const patch = async <TRequest, TResponse>(
   data?: TRequest,
   config?: ApiRequestConfig<TRequest, never, TResponse>,
 ): Promise<TResponse> => {
-  const { axiosConfig, parsedData, responseSchema, accessToken } =
-    parseDataConfig(data, config);
-  const resolvedConfig = applyAccessToken(axiosConfig, accessToken);
-  const response = await api.patch<TResponse>(url, parsedData, resolvedConfig);
+  const { axiosConfig, parsedData, responseSchema } = parseDataConfig(
+    data,
+    config,
+  );
+  const response = await api.patch<TResponse>(url, parsedData, axiosConfig);
 
   return parseWithSchema(responseSchema, response.data);
 };
@@ -85,11 +56,12 @@ export const del = async <TRequest, TResponse>(
   data?: TRequest,
   config?: ApiRequestConfig<TRequest, never, TResponse>,
 ): Promise<TResponse> => {
-  const { axiosConfig, parsedData, responseSchema, accessToken } =
-    parseDataConfig(data, config);
-  const resolvedConfig = applyAccessToken(axiosConfig, accessToken);
+  const { axiosConfig, parsedData, responseSchema } = parseDataConfig(
+    data,
+    config,
+  );
   const response = await api.delete<TResponse>(url, {
-    ...resolvedConfig,
+    ...axiosConfig,
     data: parsedData,
   });
 
