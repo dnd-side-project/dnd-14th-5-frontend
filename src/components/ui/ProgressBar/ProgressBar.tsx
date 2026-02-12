@@ -12,7 +12,7 @@ interface ProgressBarProps {
 
 function ProgressBar({ current, max }: ProgressBarProps) {
   const progressRef = useRef<HTMLProgressElement>(null);
-  const [animatedValue, setAnimatedValue] = useState(current);
+  const [animatedValue, setAnimatedValue] = useState(0);
   const animatedValueRef = useRef(0);
 
   useEffect(() => {
@@ -43,7 +43,6 @@ function ProgressBar({ current, max }: ProgressBarProps) {
         '[&::-webkit-progress-bar]:bg-white/20',
         '[&::-webkit-progress-value]:rounded-2xl',
         '[&::-webkit-progress-value]:bg-primary',
-        '[&::-webkit-progress-value]:transition-all',
 
         '[&::-moz-progress-bar]:rounded-2xl',
         '[&::-moz-progress-bar]:bg-primary',
