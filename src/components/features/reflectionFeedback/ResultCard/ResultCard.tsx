@@ -2,7 +2,13 @@ import Image from 'next/image';
 
 import Icon from '@/src/components/ui/Icon/Icon';
 
-const ResultCard = () => {
+// TODO: 실제 데이터가 어떻게 들어오는지 확인 필요
+interface ResultCardProps {
+  content: string;
+  status: string;
+}
+
+const ResultCard = ({ content, status }: ResultCardProps) => {
   return (
     // TODO: Card 컴포넌트로 대체 필요
     <div className="mt-10 flex h-117.5 flex-col items-center justify-center gap-6 rounded-lg bg-y-50 p-4 px-8 text-g-900">
@@ -19,10 +25,9 @@ const ResultCard = () => {
         <p>첫 회고 달성!</p>
       </div>
 
-      <p className="text-heading-h3">오늘은 과거를 많이 떠올리셨어요</p>
+      <p className="text-heading-h3">오늘은 {status}를 많이 떠올리셨어요</p>
       <p className="wrap-break-word text-justify text-body-m text-g-200">
-        이 기억이 지금의 나에게 어떤 의미를 주고 있는지도 한번 생각해 볼 수
-        있어요. 내일은 순간을 더 즐겨보는 건 어떨까요?
+        {content}
       </p>
     </div>
   );
