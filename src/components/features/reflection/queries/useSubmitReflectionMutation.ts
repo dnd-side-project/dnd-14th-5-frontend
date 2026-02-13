@@ -17,7 +17,7 @@ const submitReflectionResponseSchema = z.object({
 type SubmitReflectionRequestType = z.infer<
   typeof submitReflectionRequestSchema
 >;
-type SubmitReflectionResponseType = z.infer<
+export type SubmitReflectionResponseType = z.infer<
   typeof submitReflectionResponseSchema
 >;
 
@@ -33,7 +33,7 @@ const submitReflection = async ({ content }: SubmitReflectionRequestType) => {
 };
 
 interface UseSubmitReflectionMutationOptions {
-  onSuccess?: () => void;
+  onSuccess?: (data: SubmitReflectionResponseType) => void;
   onError?: () => void;
 }
 
