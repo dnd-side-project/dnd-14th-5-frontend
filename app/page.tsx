@@ -1,11 +1,16 @@
+import PageHeader from '@/src/components/layout/PageHeader/PageHeader';
 import BottomNavBar from '@/src/components/ui/BottomNavBar';
+import Icon from '@/src/components/ui/Icon/Icon';
 
 const Home = () => {
   return (
     <div className="flex min-h-dvh flex-col overflow-hidden">
-      <header className="flex h-14 items-center justify-center shrink-0">
-        헤더 영역(대체 필요)
-      </header>
+      <PageHeader
+        title=""
+        leftIcon={<Icon name="timoTitle" size={72} />}
+        leftSlotVariant="logo"
+        rightIcon={<Icon name="bellInactive" size={28} />}
+      />
 
       <div className="flex flex-1 flex-col px-5 pb-28 pt-8">
         <div className="flex flex-1 flex-col">
