@@ -10,14 +10,14 @@ const ZtpiTestPage = () => {
   const router = useRouter();
 
   return (
-    <main>
+    <div>
       <PageHeader
         title="ZTPI 테스트"
         onLeftClick={() => router.back()}
         leftIcon={<Icon name="chevronLeft" size={25} />}
       />
       <ZtpiTest />
-    </main>
+    </div>
   );
 };
 
