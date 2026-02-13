@@ -1,18 +1,12 @@
 import HomeActionsSection from '@/src/components/features/home/HomeActionsSection/HomeActionsSection';
+import HomeHeader from '@/src/components/features/home/HomeHeader/HomeHeader';
 import HomePromptSection from '@/src/components/features/home/HomePromptSection/HomePromptSection';
-import PageHeader from '@/src/components/layout/PageHeader/PageHeader';
-import BottomNavBar from '@/src/components/ui/BottomNavBar';
-import Icon from '@/src/components/ui/Icon/Icon';
+import BottomNavBar from '@/src/components/layout/BottomNavBar/BottomNavBar';
 
 const Home = () => {
   return (
     <div className="flex min-h-dvh flex-col overflow-hidden">
-      <PageHeader
-        title=""
-        leftIcon={<Icon name="timoTitle" size={72} />}
-        leftSlotVariant="logo"
-        rightIcon={<Icon name="bellInactive" size={28} />}
-      />
+      <HomeHeader />
 
       <div className="flex flex-1 flex-col px-5 pb-28 pt-8">
         <div className="flex flex-1 flex-col">
