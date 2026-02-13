@@ -40,7 +40,7 @@ const createReflectionFeedback = async (
   );
 };
 
-export const useCreateReflectionFeedback = (reflectionId: number) =>
+export const useCreateReflectionFeedbackMutation = (reflectionId: number) =>
   useMutation({
     mutationKey: reflectionFeedbackKeys.create(reflectionId),
     mutationFn: () => createReflectionFeedback({ reflectionId }),
