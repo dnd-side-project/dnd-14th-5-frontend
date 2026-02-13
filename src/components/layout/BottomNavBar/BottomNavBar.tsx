@@ -1,5 +1,6 @@
 'use client';
 
+import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 
 import type { IconNameType } from '@/src/components/ui/Icon/Icon.types';
@@ -10,6 +11,7 @@ interface BottomTabItem {
   key: TabKey;
   activeIconName: IconNameType;
   inactiveIconName: IconNameType;
+  href: string;
 }
 
 const bottomTabs: BottomTabItem[] = [
@@ -17,24 +19,32 @@ const bottomTabs: BottomTabItem[] = [
     key: 'calendar',
     activeIconName: 'calendarActive',
     inactiveIconName: 'calendarInactive',
+    href: '/calendar',
   },
   {
     key: 'home',
     activeIconName: 'homeActive',
     inactiveIconName: 'homeInactive',
+    href: '/',
   },
   {
     key: 'profile',
     activeIconName: 'userActive',
     inactiveIconName: 'userInactive',
+    href: '/profile',
   },
 ];
 
 const BottomNavBar = () => {
+  const router = useRouter();
   const [activeMenu, setActiveMenu] = useState<TabKey>('home');
 
   const handleTabClick = (tabKey: TabKey) => {
+    const selectedTab = bottomTabs.find((tab) => tab.key === tabKey);
+    if (!selectedTab) return;
+
     setActiveMenu(tabKey);
+    router.push(selectedTab.href);
   };
 
   return (
