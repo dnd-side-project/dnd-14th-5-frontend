@@ -1,11 +1,15 @@
 import type { ReactNode } from 'react';
 
+import { cn } from '@/src/lib/helpers/cn';
+
 interface PageHeaderProps {
   title: string;
   leftIcon?: ReactNode;
   rightIcon?: ReactNode;
   onLeftClick?: () => void;
   onRightClick?: () => void;
+  leftSlotVariant?: 'icon' | 'logo';
+  rightSlotVariant?: 'icon' | 'logo';
 }
 
 const PageHeader = ({
@@ -14,13 +18,21 @@ const PageHeader = ({
   rightIcon,
   onLeftClick,
   onRightClick,
+  leftSlotVariant = 'icon',
+  rightSlotVariant = 'icon',
 }: PageHeaderProps) => {
+  const slotBaseClassName = 'h-10 flex items-center justify-center';
+  const slotVariantClassName = {
+    icon: 'w-10',
+    logo: 'w-auto',
+  } as const;
+
   return (
     <div className="flex items-center gap-2 h-14 px-5">
       <button
         type="button"
         onClick={onLeftClick}
-        className="h-10 w-10 flex items-center justify-center"
+        className={cn(slotBaseClassName, slotVariantClassName[leftSlotVariant])}
         aria-label="left action"
       >
         {leftIcon ?? <div className="h-6 w-6 rounded-full" />}
@@ -31,7 +43,10 @@ const PageHeader = ({
       <button
         type="button"
         onClick={onRightClick}
-        className="h-10 w-10 flex items-center justify-center"
+        className={cn(
+          slotBaseClassName,
+          slotVariantClassName[rightSlotVariant],
+        )}
         aria-label="right action"
       >
         {rightIcon ?? <div className="h-6 w-6 rounded-full" />}
