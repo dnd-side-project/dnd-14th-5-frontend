@@ -27,9 +27,7 @@ const Home = () => {
         </div>
       </div>
 
-      <nav className="home-tabbar shrink-0">
-        <BottomNavBar />
-      </nav>
+      <BottomNavBar />
     </div>
   );
 };
