@@ -15,7 +15,7 @@ const InProgress = ({ testId, testRecordId }: InProgressProps) => {
   const {
     data: questions,
     isError,
-    isLoading,
+    isPending,
   } = useTestQuestionsQuery({ testId });
 
   const {
@@ -29,7 +29,7 @@ const InProgress = ({ testId, testRecordId }: InProgressProps) => {
     isPrevButtonDisabled,
   } = useTestProgress({ testRecordId });
 
-  if (isLoading || questions === undefined) {
+  if (isPending) {
     // TODO: 임시 loader
     return (
       <div className="flex items-center justify-center py-20">
