@@ -1,3 +1,4 @@
+import HomePromptSection from '@/src/components/features/home/HomePromptSection/HomePromptSection';
 import PageHeader from '@/src/components/layout/PageHeader/PageHeader';
 import BottomNavBar from '@/src/components/ui/BottomNavBar';
 import Icon from '@/src/components/ui/Icon/Icon';
@@ -14,20 +15,9 @@ const Home = () => {
 
       <div className="flex flex-1 flex-col px-5 pb-28 pt-8">
         <div className="flex flex-1 flex-col">
-          <section className="home-title">
-            <div className="flex flex-col gap-2">
-              <p className="text-body-s text-g-100">오늘의 회고</p>
-              <div className="flex flex-col gap-1">
-                <h2 className="text-heading-h2">
-                  오늘 하루 중 가장 재미있었던 순간은 언제였나요?
-                </h2>
-                <p className="text-body-s text-g-60">
-                  지금 떠오르는 감정이나 생각을 부담없이 작성해보세요!
-                </p>
-              </div>
-            </div>
-          </section>
+          <HomePromptSection />
 
+          {/* TODO: 캐릭터 넣어야 함 */}
           <section className="home-mascot flex flex-1 items-center justify-center pt-15">
             <div className="h-58 w-58 rounded-full bg-p-100" />
           </section>
