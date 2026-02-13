@@ -2,26 +2,27 @@
 
 import { useEffect, useState } from 'react';
 
+const INSTALL_PROMPT_SEEN_KEY = 'installPromptSeen';
+
 export default function InstallPrompt() {
   const [isVisible, setIsVisible] = useState(false);
 
   useEffect(() => {
-    if (typeof window === 'undefined') return;
-
     const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent);
     const isStandalone = window.matchMedia(
       '(display-mode: standalone)',
     ).matches;
-    const hasSeenPrompt = localStorage.getItem('installPromptSeen');
+    const hasSeenPrompt = localStorage.getItem(INSTALL_PROMPT_SEEN_KEY);
 
     if (isIOS && !isStandalone && !hasSeenPrompt) {
-      setTimeout(() => setIsVisible(true), 500);
+      const timer = setTimeout(() => setIsVisible(true), 500);
+      return () => clearTimeout(timer);
     }
   }, []);
 
   const handleClose = () => {
     setIsVisible(false);
-    localStorage.setItem('installPromptSeen', 'true');
+    localStorage.setItem(INSTALL_PROMPT_SEEN_KEY, 'true');
   };
 
   if (!isVisible) return null;
