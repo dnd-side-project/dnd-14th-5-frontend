@@ -1,3 +1,4 @@
+import HomeActionsSection from '@/src/components/features/home/HomeActionsSection/HomeActionsSection';
 import HomePromptSection from '@/src/components/features/home/HomePromptSection/HomePromptSection';
 import PageHeader from '@/src/components/layout/PageHeader/PageHeader';
 import BottomNavBar from '@/src/components/ui/BottomNavBar';
@@ -22,22 +23,7 @@ const Home = () => {
             <div className="h-58 w-58 rounded-full bg-p-100" />
           </section>
 
-          <section className="home-actions">
-            <div className="flex items-center gap-3">
-              <button
-                className="flex h-12 flex-1 items-center justify-center rounded-full border border-primary text-button-l text-primary"
-                type="button"
-              >
-                건너뛰기
-              </button>
-              <button
-                className="flex h-12 flex-2 items-center justify-center rounded-full bg-primary text-button-l text-g-900"
-                type="button"
-              >
-                답변하기
-              </button>
-            </div>
-          </section>
+          <HomeActionsSection />
         </div>
       </div>
 
