@@ -6,7 +6,7 @@ import { useAllTestQuery } from '../queries/useAllTestQuery';
 import { useStartTestMutation } from '../queries/useStartTestMutation';
 
 const ZtpiTest = () => {
-  const { data, isError, isLoading, isSuccess } = useAllTestQuery();
+  const { data, isError, isPending } = useAllTestQuery();
 
   const ztpiTestId = data?.find(
     (item) => item.type === TEST_TYPES['ZTPI_15'],
@@ -16,22 +16,35 @@ const ZtpiTest = () => {
     data: testRecordId,
     mutate,
     isError: isFailedStart,
-    isPending,
+    isPending: isStartPending,
   } = useStartTestMutation();
 
   // TODO: 온보딩 페이지에서 테스트로 넘어갈 때 mutate되도록 수정 필요
   useEffect(() => {
-    if (isSuccess && ztpiTestId !== undefined) {
+    if (data && ztpiTestId !== undefined) {
       mutate({ testId: ztpiTestId });
     }
-  }, [ztpiTestId, isSuccess, mutate]);
+  }, [data, ztpiTestId, mutate]);
 
-  if (
-    isLoading ||
-    isPending ||
-    ztpiTestId === undefined ||
-    testRecordId === undefined
-  ) {
+  if (isError) {
+    // TODO: ErrorState 컴포넌트로 수정
+    return (
+      <div className="flex justify-center items-center py-20">
+        테스트를 불러오지 못했습니다.
+      </div>
+    );
+  }
+
+  if (isFailedStart) {
+    // TODO: ErrorState 컴포넌트로 수정
+    return (
+      <div className="flex justify-center items-center py-20">
+        테스트 시작을 실패했습니다.
+      </div>
+    );
+  }
+
+  if (isPending || isStartPending) {
     // TODO: 임시 loader
     return (
       <div className="flex items-center justify-center py-20">
@@ -41,20 +54,11 @@ const ZtpiTest = () => {
     );
   }
 
-  if (isError || (isSuccess && !data)) {
+  if (ztpiTestId === undefined || testRecordId === undefined) {
+    // TODO: ErrorState 컴포넌트로 수정
     return (
-      // TODO: ErrorState 컴포넌트로 수정
       <div className="flex justify-center items-center py-20">
-        테스트를 불러오지 못했습니다.
-      </div>
-    );
-  }
-
-  if (isFailedStart || (isSuccess && !testRecordId)) {
-    return (
-      // TODO: ErrorState 컴포넌트로 수정
-      <div className="flex justify-center items-center py-20">
-        테스트 시작을 실패했습니다.
+        테스트 정보를 찾을 수 없습니다.
       </div>
     );
   }
