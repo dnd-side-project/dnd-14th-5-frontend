@@ -1,7 +1,7 @@
 'use client';
 
-import Icon from './Icon/Icon';
-import type { IconNameType } from './Icon/Icon.types';
+import Icon from '@/src/components/ui/Icon/Icon';
+import type { IconNameType } from '@/src/components/ui/Icon/Icon.types';
 
 export type TabKey = 'calendar' | 'home' | 'profile';
 

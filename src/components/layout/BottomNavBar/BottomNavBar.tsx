@@ -2,8 +2,9 @@
 
 import { useState } from 'react';
 
+import type { IconNameType } from '@/src/components/ui/Icon/Icon.types';
+
 import BottomNavButton, { type TabKey } from './BottomNavButton';
-import type { IconNameType } from './Icon/Icon.types';
 
 interface BottomTabItem {
   key: TabKey;
