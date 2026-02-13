@@ -27,4 +27,5 @@ export const useAllTestQuery = () =>
   useQuery({
     queryKey: TEST_QUERY_KEYS['tests'],
     queryFn: allTest,
+    staleTime: 60 * 1000 * 5,
   });
