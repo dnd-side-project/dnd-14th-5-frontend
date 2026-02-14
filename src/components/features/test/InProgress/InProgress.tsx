@@ -1,3 +1,4 @@
+import ErrorState from '@/src/components/ui/ErrorState/ErrorState';
 import ProgressBar from '@/src/components/ui/ProgressBar/ProgressBar';
 import { formatTwoDigitNumber } from '@/src/lib/helpers/formatTwoDigitNumber';
 
@@ -16,6 +17,7 @@ const InProgress = ({ testId, testRecordId }: InProgressProps) => {
     data: questions,
     isError,
     isPending,
+    refetch,
   } = useTestQuestionsQuery({ testId });
 
   const {
@@ -41,10 +43,12 @@ const InProgress = ({ testId, testRecordId }: InProgressProps) => {
 
   if (isError) {
     return (
-      // TODO: ErrorState 컴포넌트로 수정
-      <div className="flex justify-center items-center py-20">
-        테스트 문항을 불러오지 못했습니다.
-      </div>
+      <ErrorState
+        title="테스트 문항을 불러오지 못했어요."
+        description="잠시 후 다시 시도해주세요."
+        onRetry={refetch}
+        className="py-15"
+      />
     );
   }
 
