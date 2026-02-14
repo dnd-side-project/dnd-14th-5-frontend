@@ -1,5 +1,5 @@
-import type { AxiosError } from 'axios';
-import axios from 'axios';
+import type { AxiosError, InternalAxiosRequestConfig } from 'axios';
+import axios, { AxiosHeaders } from 'axios';
 
 export interface ApiError {
   status: number | null;
@@ -37,8 +37,36 @@ const toApiError = (error: AxiosError): ApiError => {
   };
 };
 
+const attachServerCookieHeader = async (config: InternalAxiosRequestConfig) => {
+  if (typeof window !== 'undefined') {
+    return config;
+  }
+
+  const headers = AxiosHeaders.from(config.headers);
+  const hasCookieHeader = headers.has('cookie');
+
+  if (hasCookieHeader) {
+    return config;
+  }
+
+  try {
+    const { cookies } = await import('next/headers');
+    const cookieHeader = (await cookies()).toString();
+
+    if (!cookieHeader) {
+      return config;
+    }
+
+    headers.set('cookie', cookieHeader);
+    config.headers = headers;
+    return config;
+  } catch {
+    return config;
+  }
+};
+
 api.interceptors.request.use(
-  (config) => config,
+  async (config) => attachServerCookieHeader(config),
   (error: AxiosError) => Promise.reject(toApiError(error)),
 );
 
