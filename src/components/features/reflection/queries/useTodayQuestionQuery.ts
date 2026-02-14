@@ -2,6 +2,7 @@ import { useQuery } from '@tanstack/react-query';
 import { z } from 'zod';
 
 import { get } from '@/src/lib/api';
+import type { ApiRequestConfig } from '@/src/lib/api/schema';
 
 import { reflectionKeys } from '../constants/queryKeys';
 import { REFLECTION_ENDPOINTS } from '../constants/url';
@@ -17,8 +18,11 @@ const todayQuestionSchema = z.object({
 
 type GetTodayQuestionResponse = z.infer<typeof todayQuestionSchema>;
 
-const getTodayQuestion = async (): Promise<GetTodayQuestionResponse> => {
+export const getTodayQuestion = async (
+  config?: ApiRequestConfig<never, never, GetTodayQuestionResponse>,
+): Promise<GetTodayQuestionResponse> => {
   return get<GetTodayQuestionResponse>(REFLECTION_ENDPOINTS.todayQuestion, {
+    ...config,
     responseSchema: todayQuestionSchema,
   });
 };
@@ -26,5 +30,5 @@ const getTodayQuestion = async (): Promise<GetTodayQuestionResponse> => {
 export const useTodayQuestionQuery = () =>
   useQuery({
     queryKey: reflectionKeys.todayQuestion(),
-    queryFn: getTodayQuestion,
+    queryFn: () => getTodayQuestion(),
   });
