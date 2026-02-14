@@ -2,21 +2,9 @@ import HomeActionsSection from '@/src/components/features/home/HomeActionsSectio
 import HomeCharacterSection from '@/src/components/features/home/HomeCharacterSection/HomeCharacterSection';
 import HomeHeader from '@/src/components/features/home/HomeHeader/HomeHeader';
 import HomePromptSection from '@/src/components/features/home/HomePromptSection/HomePromptSection';
-import { getTodayQuestion } from '@/src/components/features/reflection/queries/useTodayQuestionQuery';
 import BottomNavBar from '@/src/components/layout/BottomNavBar/BottomNavBar';
 
-const getTodayQuestionCategory = async () => {
-  try {
-    const data = await getTodayQuestion();
-    return data.category;
-  } catch {
-    return undefined;
-  }
-};
-
-const Home = async () => {
-  const initialCategory = await getTodayQuestionCategory();
-
+const Home = () => {
   return (
     <div className="flex min-h-dvh flex-col overflow-hidden">
       <HomeHeader />
@@ -25,7 +13,7 @@ const Home = async () => {
         <div className="flex flex-1 flex-col">
           <HomePromptSection />
 
-          <HomeCharacterSection initialCategory={initialCategory} />
+          <HomeCharacterSection />
 
           <HomeActionsSection />
         </div>
