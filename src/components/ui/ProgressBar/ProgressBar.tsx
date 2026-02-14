@@ -1,4 +1,9 @@
-import { calculatePercentage } from '@/src/lib/helpers/calculateProgress';
+'use client';
+
+import { animate } from 'motion';
+import { useEffect, useRef, useState } from 'react';
+
+import { cn } from '@/src/lib/helpers/cn';
 
 interface ProgressBarProps {
   current: number;
@@ -6,13 +11,43 @@ interface ProgressBarProps {
 }
 
 function ProgressBar({ current, max }: ProgressBarProps) {
+  const progressRef = useRef<HTMLProgressElement>(null);
+  const [animatedValue, setAnimatedValue] = useState(0);
+  const animatedValueRef = useRef(0);
+
+  useEffect(() => {
+    const from = animatedValueRef.current;
+    const to = current;
+
+    const controls = animate(from, to, {
+      duration: 0.4,
+      ease: 'easeOut',
+      onUpdate: (latest) => {
+        animatedValueRef.current = latest;
+        setAnimatedValue(latest);
+      },
+    });
+
+    return () => controls.stop();
+  }, [current]);
+
   return (
-    <div className="w-full bg-g-40 rounded-full h-3">
-      <div
-        className="bg-g-300 h-3 rounded-full text-xs flex items-center justify-center text-white"
-        style={{ width: `${calculatePercentage({ current, max })}%` }}
-      />
-    </div>
+    <progress
+      ref={progressRef}
+      value={animatedValue}
+      max={max}
+      className={cn(
+        'h-2 w-full rounded-2xl',
+
+        '[&::-webkit-progress-bar]:rounded-2xl',
+        '[&::-webkit-progress-bar]:bg-white/20',
+        '[&::-webkit-progress-value]:rounded-2xl',
+        '[&::-webkit-progress-value]:bg-primary',
+
+        '[&::-moz-progress-bar]:rounded-2xl',
+        '[&::-moz-progress-bar]:bg-primary',
+      )}
+    />
   );
 }
 
