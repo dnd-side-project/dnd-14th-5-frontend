@@ -85,7 +85,7 @@ const ToastViewport = ({ toast, onDismiss }: ToastViewportProps) => {
   return (
     <div className="pointer-events-none fixed inset-x-0 top-6 z-50 flex justify-center px-4">
       <div className="mx-auto w-full max-w-96">
-        <ToastCard toast={toast} onDismiss={onDismiss} />
+        <ToastCard key={toast.id} toast={toast} onDismiss={onDismiss} />
       </div>
     </div>
   );
