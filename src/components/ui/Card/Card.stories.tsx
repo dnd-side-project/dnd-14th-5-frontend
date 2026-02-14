@@ -7,6 +7,7 @@ const meta = {
   component: Card,
   args: {
     className: 'bg-g-400',
+    children: null,
   },
 } satisfies Meta<typeof Card>;
 

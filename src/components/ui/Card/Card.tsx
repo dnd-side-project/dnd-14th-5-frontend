@@ -1,10 +1,11 @@
-import type { PropsWithChildren } from 'react';
+import type { ReactNode } from 'react';
 
 import { cn } from '@/src/lib/helpers/cn';
 
-type CardProps = PropsWithChildren<{
+interface CardProps {
   className?: string;
-}>;
+  children: ReactNode;
+}
 
 const Card = ({ className, children }: CardProps) => {
   return <div className={cn('rounded-lg p-4', className)}>{children}</div>;
