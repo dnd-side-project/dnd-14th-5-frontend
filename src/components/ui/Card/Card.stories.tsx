@@ -18,8 +18,8 @@ type Story = StoryObj<typeof meta>;
 export const Default: Story = {
   render: (args) => (
     <Card {...args}>
-      <div className="text-heading-h4 text-g-0">카드 제목</div>
-      <div className="text-caption-n text-g-30 opacity-50">
+      <div className="font-heading-h4 text-g-0">카드 제목</div>
+      <div className="font-caption-n text-g-30 opacity-50">
         카드 설명이 들어갑니다.
       </div>
     </Card>

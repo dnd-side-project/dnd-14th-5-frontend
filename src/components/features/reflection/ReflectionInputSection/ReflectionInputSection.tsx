@@ -13,7 +13,7 @@ const ReflectionInputSection = ({
 }: ReflectionInputSectionProps) => {
   return (
     <section className="flex flex-col gap-3">
-      <p className="px-2 text-heading-h4 text-g-0">오늘 나의 생각은?</p>
+      <p className="px-2 font-heading-h4 text-g-0">오늘 나의 생각은?</p>
       <TextArea
         disabled={disabled}
         value={value}

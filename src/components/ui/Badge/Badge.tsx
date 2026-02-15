@@ -6,9 +6,9 @@ import { cn } from '@/src/lib/helpers/cn';
 const badgeVariants = cva('inline-flex items-center rounded-full', {
   variants: {
     variant: {
-      primary: 'bg-primary text-g-900 text-button-s px-4 py-2',
-      secondary: 'bg-g-0 text-black text-caption-n px-7 py-1',
-      neutral: 'bg-g-300 text-g-0 text-button-s px-4 py-2',
+      primary: 'bg-primary text-g-900 font-button-s px-4 py-2',
+      secondary: 'bg-g-0 text-black font-caption-n px-7 py-1',
+      neutral: 'bg-g-300 text-g-0 font-button-s px-4 py-2',
     },
   },
   defaultVariants: {
