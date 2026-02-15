@@ -15,7 +15,7 @@ const TestAuthClient = () => {
   } = useTestAuth();
 
   return (
-    <div className="mx-auto flex w-full max-w-3xl flex-col gap-8 px-6 py-10">
+    <div className="mx-auto flex w-full max-w-3xl flex-col gap-8">
       <header className="flex flex-col gap-2">
         <h1 className="text-2xl font-semibold text-g-0">Test Auth</h1>
         <p className="font-body-s text-g-0/70">
