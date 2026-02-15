@@ -50,7 +50,7 @@ const Detail = ({ reflectionId }: DetailProps) => {
 
       <div className="bg-g-20 rounded-2xl p-4 space-y-3">
         <p className="text-heading-h4 text-g-900">
-          {/* TODO: 피드백 페이지에서 작업해주시면 반영 예정 */}
+          {/* TODO: 홈화면 PR 머지 후 반영 예정 */}
           오늘은 <span className="text-r-300">부정적 과거</span>를 더 많이
           떠올리셨어요!
         </p>
