@@ -8,8 +8,7 @@ const withTheme: Decorator = (Story) =>
   createElement(
     'div',
     {
-      className:
-        'min-h-screen bg-[var(--color-g-700)] text-[var(--color-g-0)] p-6',
+      className: 'min-h-screen bg-g-700 text-g-0 p-6',
     },
     createElement(Story),
   );
