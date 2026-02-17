@@ -1,23 +1,13 @@
-'use client';
-
-import { useRouter } from 'next/navigation';
-
+import ZtpiHeader from '@/src/components/features/test/ZtpiHeader/ZtpiHeader';
 import ZtpiTest from '@/src/components/features/test/ZtpiTest/ZtpiTest';
-import PageHeader from '@/src/components/layout/PageHeader/PageHeader';
-import Icon from '@/src/components/ui/Icon/Icon';
-import { goBackOrHome } from '@/src/lib/helpers/navigation';
 
 const ZtpiTestPage = () => {
-  const router = useRouter();
-
   return (
-    <div>
-      <PageHeader
-        title="ZTPI 테스트"
-        onLeftClick={() => goBackOrHome(router)}
-        leftIcon={<Icon name="chevronLeft" size={25} />}
-      />
-      <ZtpiTest />
+    <div className="flex flex-col h-full">
+      <ZtpiHeader />
+      <div className="flex-1">
+        <ZtpiTest />
+      </div>
     </div>
   );
 };

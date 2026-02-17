@@ -58,17 +58,19 @@ const InProgress = ({ testId, testRecordId }: InProgressProps) => {
   const prevQuestionId = questions[currentQuestionIndex - 1]?.id;
 
   return (
-    <div className="space-y-16 mt-5">
+    <div className="flex flex-col h-full pt-3">
       <ProgressBar current={currentQuestionIndex + 1} max={totalQuestions} />
 
-      <InProgressContent
-        step={formatTwoDigitNumber(sequence)}
-        remainQuestion={remainQuestion}
-        content={content}
-        currentRating={currentRating}
-        onRatingChange={handleRatingChange}
-        direction={direction}
-      />
+      <div className="flex-1 flex items-center justify-center">
+        <InProgressContent
+          step={formatTwoDigitNumber(sequence)}
+          remainQuestion={remainQuestion}
+          content={content}
+          currentRating={currentRating}
+          onRatingChange={handleRatingChange}
+          direction={direction}
+        />
+      </div>
 
       <InProgressNavigation
         onPrev={() => handlePrev(prevQuestionId)}

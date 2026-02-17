@@ -1,3 +1,5 @@
+'use client';
+
 import { useEffect } from 'react';
 
 import ErrorState from '@/src/components/ui/ErrorState/ErrorState';
