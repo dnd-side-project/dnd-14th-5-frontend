@@ -41,7 +41,8 @@ export const useTestProgress = ({ testRecordId }: UseTestProgressProps) => {
     const onMutationSuccess = () => {
       if (isLastQuestion) {
         completeTest(undefined, {
-          onSuccess: () => router.push(`${pathname}/complete`),
+          onSuccess: (data) =>
+            router.push(`${pathname}/complete?resultId=${data.id}`),
         });
       } else {
         setCurrentQuestionIndex((prev) => prev + 1);
