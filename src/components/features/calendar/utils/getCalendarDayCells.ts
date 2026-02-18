@@ -1,13 +1,13 @@
 import { format, isAfter, isSameDay, isSameMonth, startOfDay } from 'date-fns';
 
-import type { CalendarDayBlobType } from '../CalendarDayBlob/CalendarDayBlob';
+import type { CalendarDayCategoryType } from '../CalendarDayBlob/CalendarDayBlob';
 
 interface GetCalendarDayCellsParams {
   days: Date[];
   currentMonth: Date;
   selectedDate: Date | null;
   today: Date;
-  categoryTypeByDate: Map<string, CalendarDayBlobType>;
+  categoryTypeByDate: Map<string, CalendarDayCategoryType>;
 }
 
 interface CalendarDayBlobProps {
@@ -21,7 +21,7 @@ export interface CalendarDayCellType {
   isCurrentMonth: boolean;
   date: Date;
   isFuture: boolean;
-  categoryType: CalendarDayBlobType | undefined;
+  categoryType: CalendarDayCategoryType | undefined;
   blobProps: CalendarDayBlobProps;
 }
 
