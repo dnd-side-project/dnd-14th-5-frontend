@@ -6,11 +6,29 @@ import { get } from '@/src/lib/api';
 import { TEST_QUERY_KEYS } from '../constants/queryKey';
 import { TEST_ENDPOINTS } from '../constants/url';
 
+const ClosestCategorySchema = z.object({
+  name: z.string(),
+  character: z.string(),
+  personality: z.string(),
+  description: z.string(),
+});
+
+const ScoreSchema = z.object({
+  category: z.string(),
+  score: z.number(),
+  idealScore: z.number(),
+});
+
 const ResponseSchema = z.object({
   id: z.number(),
   testId: z.number(),
   status: z.string(),
+  progress: z.number().nullable(),
   createdAt: z.coerce.date(),
+  result: z.object({
+    closestCategory: ClosestCategorySchema,
+    scores: z.array(ScoreSchema),
+  }),
 });
 
 type ResponseType = z.infer<typeof ResponseSchema>;
