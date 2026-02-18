@@ -46,7 +46,7 @@ const getMonthReflection = async (
   );
 };
 
-export const useMonthReflection = ({ month }: GetMonthReflectionRequest) =>
+export const useMonthReflectionQuery = ({ month }: GetMonthReflectionRequest) =>
   useQuery({
     queryKey: reflectionKeys.monthReflection(month),
     queryFn: () => getMonthReflection(month),

@@ -3,7 +3,7 @@
 import { format } from 'date-fns';
 import { useMemo } from 'react';
 
-import { useMonthReflection } from '../../reflection/queries/useMonthReflection';
+import { useMonthReflectionQuery } from '../../reflection/queries/useMonthReflectionQuery';
 import { useCalendarState } from '../hooks/useCalendarState';
 import { getCategoryTypeByDate } from '../utils/getCategoryTypeByDate';
 import { mapReflectionItems } from '../utils/mapReflectionItems';
@@ -23,7 +23,7 @@ const CalendarMonth = () => {
     selectDate,
   } = useCalendarState();
   const formattedMonth = format(currentMonth, 'yyyy-MM');
-  const { data } = useMonthReflection({ month: formattedMonth });
+  const { data } = useMonthReflectionQuery({ month: formattedMonth });
 
   const categoryTypeByDate = useMemo(
     () => getCategoryTypeByDate(mapReflectionItems(data ?? [])),
