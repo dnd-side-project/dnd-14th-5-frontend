@@ -16,7 +16,7 @@ interface CalendarDayBlobProps {
   isOutlined: boolean;
 }
 
-export interface CalendarDayCell {
+export interface CalendarDayCellType {
   key: string;
   isCurrentMonth: boolean;
   date: Date;
@@ -34,7 +34,7 @@ export const getCalendarDayCells = ({
   selectedDate,
   today,
   categoryTypeByDate,
-}: GetCalendarDayCellsParams): CalendarDayCell[] => {
+}: GetCalendarDayCellsParams): CalendarDayCellType[] => {
   const todayStart = startOfDay(today);
 
   return days.map((day) => {
