@@ -2,7 +2,11 @@ import Image from 'next/image';
 
 import ViewResultButton from '@/src/components/features/test/ViewResultButton/ViewResultButton';
 
-const TestCompletePage = () => {
+interface TestCompletePageProps {
+  searchParams: Promise<{ [key: string]: string }>;
+}
+
+const TestCompletePage = ({ searchParams }: TestCompletePageProps) => {
   return (
     <div className="flex flex-col items-center justify-between h-full">
       <div className="flex flex-1 flex-col justify-center items-center space-y-15 mb-50">
@@ -18,7 +22,7 @@ const TestCompletePage = () => {
         />
       </div>
 
-      <ViewResultButton />
+      <ViewResultButton searchParams={searchParams} />
     </div>
   );
 };

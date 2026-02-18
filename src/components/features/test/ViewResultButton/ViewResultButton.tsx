@@ -1,16 +1,19 @@
 'use client';
 
-import { useRouter, useSearchParams } from 'next/navigation';
+import { useRouter } from 'next/navigation';
+import { use } from 'react';
 
 import Button from '@/src/components/ui/Button/Button';
 
-const ViewResultButton = () => {
-  const searchParams = useSearchParams();
+interface ViewResultButtonProps {
+  searchParams: Promise<{ [key: string]: string }>;
+}
+
+const ViewResultButton = ({ searchParams }: ViewResultButtonProps) => {
   const router = useRouter();
+  const resultId = use(searchParams).resultId;
 
   const handleViewResultClick = () => {
-    const resultId = searchParams.get('resultId');
-    if (!resultId) return;
     router.push(`/ztpi/${resultId}`);
   };
 
