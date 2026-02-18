@@ -4,4 +4,5 @@ export const reflectionKeys = {
   submitReflection: () => [...reflectionKeys.all, 'submitReflection'] as const,
   monthReflection: (month: string) =>
     [...reflectionKeys.all, 'monthReflection', month] as const,
+  todayReflection: () => [...reflectionKeys.all, 'todayReflection'] as const,
 };
