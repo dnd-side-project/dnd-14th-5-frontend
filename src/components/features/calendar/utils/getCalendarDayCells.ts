@@ -10,7 +10,7 @@ interface GetCalendarDayCellsParams {
   categoryTypeByDate: Map<string, CalendarDayCategoryType>;
 }
 
-interface CalendarDayBlobProps {
+interface CalendarDayCellProps {
   day: number;
   hasRecord: boolean;
   isOutlined: boolean;
@@ -22,7 +22,7 @@ export interface CalendarDayCellType {
   date: Date;
   isFuture: boolean;
   categoryType: CalendarDayCategoryType | undefined;
-  blobProps: CalendarDayBlobProps;
+  blobProps: CalendarDayCellProps;
 }
 
 /**
