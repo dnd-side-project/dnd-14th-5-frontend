@@ -1,4 +1,4 @@
-import type { CalendarDayCategoryType } from '../CalendarDayBlob/CalendarDayBlob';
+import type { CalendarDayCategoryType } from '../CalendarDayCell/CalendarDayCell';
 import type { ReflectionCategoryItem } from './mapReflectionItems';
 
 const CATEGORY_TO_BLOB_TYPE: Record<string, CalendarDayCategoryType> = {

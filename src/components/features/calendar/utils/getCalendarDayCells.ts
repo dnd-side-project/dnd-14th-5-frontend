@@ -1,6 +1,6 @@
 import { format, isAfter, isSameDay, isSameMonth, startOfDay } from 'date-fns';
 
-import type { CalendarDayCategoryType } from '../CalendarDayBlob/CalendarDayBlob';
+import type { CalendarDayCategoryType } from '../CalendarDayCell/CalendarDayCell';
 
 interface GetCalendarDayCellsParams {
   days: Date[];
