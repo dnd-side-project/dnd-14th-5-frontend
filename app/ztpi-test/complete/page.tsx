@@ -1,6 +1,6 @@
 import Image from 'next/image';
 
-import Button from '@/src/components/ui/Button/Button';
+import ViewResultButton from '@/src/components/features/test/ViewResultButton/ViewResultButton';
 
 const TestCompletePage = () => {
   return (
@@ -18,7 +18,7 @@ const TestCompletePage = () => {
         />
       </div>
 
-      <Button label="결과 확인하기" className="text-g-900 h-10" />
+      <ViewResultButton />
     </div>
   );
 };
