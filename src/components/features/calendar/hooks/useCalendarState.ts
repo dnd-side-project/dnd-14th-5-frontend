@@ -48,10 +48,12 @@ export const useCalendarState = (): UseCalendarStateResult => {
 
   const goPrevMonth = () => {
     setCurrentMonth((month) => startOfMonth(addMonths(month, -1)));
+    setSelectedDate(null);
   };
 
   const goNextMonth = () => {
     setCurrentMonth((month) => startOfMonth(addMonths(month, 1)));
+    setSelectedDate(null);
   };
 
   const selectDate = (date: Date) => {
