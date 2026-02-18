@@ -29,10 +29,10 @@ const ResponseSchema = z.object({
   status: z.string(),
   progress: z.number().nullable(),
   createdAt: z.coerce.date(),
-  result: {
+  result: z.object({
     closestCategory: ClosestCategorySchema,
     scores: z.array(ScoreSchema),
-  },
+  }),
 });
 
 type ResponseType = z.infer<typeof ResponseSchema>;
