@@ -29,7 +29,7 @@ const startTest = ({ testId }: DataType) =>
 
 export const useStartTestMutation = () => {
   return useMutation({
-    mutationKey: TEST_QUERY_KEYS['records'](),
+    mutationKey: TEST_QUERY_KEYS['start'](),
     mutationFn: ({ testId }: DataType) => startTest({ testId }),
   });
 };

@@ -6,5 +6,7 @@ export const TEST_ENDPOINTS = {
     `/test-records/${testRecordId}/responses`,
   response: (testRecordId: number, responseId: number) =>
     `/test-records/${testRecordId}/responses/${responseId}`,
+  record: (testRecordId: number) => `/test-records/${testRecordId}`,
   complete: (testRecordId: number) => `/test-records/${testRecordId}/complete`,
+  myRecords: `/test-records/me`,
 } as const;
