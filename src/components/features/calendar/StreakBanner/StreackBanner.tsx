@@ -1,9 +1,14 @@
+'use client';
+
 import Card from '@/src/components/ui/Card/Card';
 import Icon from '@/src/components/ui/Icon/Icon';
 
+import { useUserDetailQuery } from '../../users/queries/useUserDetailQuery';
+
 const StreakBanner = () => {
-  // TODO: API에서 연속 기록 일수 받아오기
-  const currentStreak = 5;
+  const { data } = useUserDetailQuery();
+  const currentStreak = data?.streakDays ?? 0;
+
   return (
     <Card className="flex items-center justify-start gap-3 bg-linear-to-r from-y-50 to-primary text-g-900 py-2">
       <Icon name="fire" size={28} />
