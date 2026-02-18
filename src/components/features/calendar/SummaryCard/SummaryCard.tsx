@@ -2,8 +2,10 @@
 
 import Card from '@/src/components/ui/Card/Card';
 import Icon from '@/src/components/ui/Icon/Icon';
+import { cn } from '@/src/lib/helpers/cn';
 
 import { useTodayReflectionQuery } from '../../reflection/queries/useTodayReflectionQuery';
+import { CATEGORY_CARD_CLASS_MAP } from '../constants/categoryCardClassMap';
 
 const SummaryCard = () => {
   const { data } = useTodayReflectionQuery();
@@ -18,8 +20,13 @@ const SummaryCard = () => {
   };
 
   return (
-    // TODO: 카드 배경은 감정상태 색상의 50컬러, Stroke는 감정상태 색상의 200컬러: API에서 오늘의 category 받아와야 함.
-    <Card className="rounded-2xl bg-g-500 p-5">
+    // TODO: 디자인 물어보고 카드 스타일 업데이트 필요,
+    <Card
+      className={cn(
+        'rounded-2xl bg-g-500 p-5',
+        todayCategory && CATEGORY_CARD_CLASS_MAP[todayCategory],
+      )}
+    >
       <button
         type="button"
         onClick={handleCardClick}
