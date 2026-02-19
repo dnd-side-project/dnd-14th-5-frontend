@@ -1,16 +1,19 @@
 'use client';
 
 import Card from '@/src/components/ui/Card/Card';
-import ErrorState from '@/src/components/ui/ErrorState/ErrorState';
 import Icon from '@/src/components/ui/Icon/Icon';
 import Skeleton from '@/src/components/ui/Skeleton/Skeleton';
 import { cn } from '@/src/lib/helpers/cn';
 
-import { useTodayReflectionQuery } from '../../reflection/queries/useTodayReflectionQuery';
+import type { GetTodayReflectionResponse } from '../../reflection/queries/useTodayReflectionQuery';
 import { CATEGORY_CARD_CLASS_MAP } from '../constants/categoryCardClassMap';
 
-const SummaryCard = () => {
-  const { data, isPending, isError } = useTodayReflectionQuery();
+interface SummaryCardProps {
+  data?: GetTodayReflectionResponse;
+  isPending: boolean;
+}
+
+const SummaryCard = ({ data, isPending }: SummaryCardProps) => {
   const todayCategory = data?.question.category;
 
   const handleCardClick = () => {
@@ -24,17 +27,6 @@ const SummaryCard = () => {
           <Skeleton className="h-6 w-4/5" ariaLabel="오늘의 질문 로딩 중" />
           <Skeleton className="h-4 w-full" ariaLabel="오늘의 회고 로딩 중" />
         </div>
-      </Card>
-    );
-  }
-
-  if (isError) {
-    return (
-      <Card className="rounded-2xl bg-g-500 p-5">
-        <ErrorState
-          title="오늘 회고를 불러오지 못했어요."
-          className="w-full max-w-none"
-        />
       </Card>
     );
   }

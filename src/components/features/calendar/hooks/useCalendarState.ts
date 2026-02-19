@@ -9,7 +9,7 @@ import {
 } from 'date-fns';
 import { useMemo, useState } from 'react';
 
-interface UseCalendarStateResult {
+export interface UseCalendarStateResult {
   today: Date;
   currentMonth: Date;
   currentMonthLabel: string;

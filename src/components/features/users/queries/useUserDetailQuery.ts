@@ -15,7 +15,7 @@ const userDetailSchema = z.object({
   createdAt: z.string(),
 });
 
-type UserDetailResponse = z.infer<typeof userDetailSchema>;
+export type UserDetailResponse = z.infer<typeof userDetailSchema>;
 
 const getUserDetail = async (): Promise<UserDetailResponse> => {
   return get<UserDetailResponse>(USER_ENDPOINTS.detail, {

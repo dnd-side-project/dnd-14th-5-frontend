@@ -31,7 +31,9 @@ export type GetMonthReflectionRequest = z.infer<
 >;
 type YearMonth = GetMonthReflectionRequest['month'];
 
-type GetMonthReflectionResponse = z.infer<typeof monthReflectionResponseSchema>;
+export type GetMonthReflectionResponse = z.infer<
+  typeof monthReflectionResponseSchema
+>;
 
 const getMonthReflection = async (
   month: YearMonth,

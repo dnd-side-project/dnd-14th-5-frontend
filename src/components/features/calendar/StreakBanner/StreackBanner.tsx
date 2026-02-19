@@ -1,15 +1,17 @@
 'use client';
 
 import Card from '@/src/components/ui/Card/Card';
-import ErrorState from '@/src/components/ui/ErrorState/ErrorState';
 import Icon from '@/src/components/ui/Icon/Icon';
 import Skeleton from '@/src/components/ui/Skeleton/Skeleton';
 
-import { useUserDetailQuery } from '../../users/queries/useUserDetailQuery';
+import type { UserDetailResponse } from '../../users/queries/useUserDetailQuery';
 
-const StreakBanner = () => {
-  const { data, isPending, isError } = useUserDetailQuery();
+interface StreakBannerProps {
+  data?: UserDetailResponse;
+  isPending: boolean;
+}
 
+const StreakBanner = ({ data, isPending }: StreakBannerProps) => {
   if (isPending) {
     return (
       <Card className="bg-linear-to-r from-y-50 to-primary py-2">
@@ -17,14 +19,6 @@ const StreakBanner = () => {
           className="h-8 w-full bg-g-300/30"
           ariaLabel="연속 기록 로딩 중"
         />
-      </Card>
-    );
-  }
-
-  if (isError) {
-    return (
-      <Card className="bg-linear-to-r from-y-50 to-primary py-2">
-        <ErrorState title="기록을 불러오지 못했어요." className="text-g-900" />
       </Card>
     );
   }
