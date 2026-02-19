@@ -23,14 +23,16 @@ const todayReflectionSchema = z.object({
     createdAt: z.string(),
   }),
   content: z.string(),
-  feedback: z.object({
-    id: z.number(),
-    reflectionId: z.number(),
-    score: z.number(),
-    content: z.string().nullable(),
-    status: z.enum(['PENDING', 'PROCESSING', 'COMPLETED', 'FAILED']),
-    createdAt: z.string(),
-  }),
+  feedback: z
+    .object({
+      id: z.number(),
+      reflectionId: z.number(),
+      score: z.number(),
+      content: z.string().nullable(),
+      status: z.enum(['PENDING', 'PROCESSING', 'COMPLETED', 'FAILED']),
+      createdAt: z.string(),
+    })
+    .nullable(),
   reflectedAt: z.string(),
 });
 
