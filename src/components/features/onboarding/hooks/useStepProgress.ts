@@ -1,12 +1,18 @@
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 
-export const useStepProgress = () => {
+interface UseStepProgress {
+  totalSteps: number;
+}
+
+export const useStepProgress = ({ totalSteps }: UseStepProgress) => {
   const router = useRouter();
   const [currentStep, setCurrentStep] = useState(0);
 
   const handleNextStep = () => {
-    setCurrentStep((prev) => prev + 1);
+    if (currentStep < totalSteps - 1) {
+      setCurrentStep((prev) => prev + 1);
+    }
   };
 
   const goLogin = () => {

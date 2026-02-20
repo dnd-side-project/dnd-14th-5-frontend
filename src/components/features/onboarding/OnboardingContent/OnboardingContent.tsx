@@ -14,14 +14,17 @@ const STEPS = [
 ];
 
 const OnboardingContent = () => {
-  const { currentStep, handleNextStep, goLogin } = useStepProgress();
+  const totalSteps = STEPS.length;
+  const { currentStep, handleNextStep, goLogin } = useStepProgress({
+    totalSteps,
+  });
 
   const CurrentStepComponent = STEPS[currentStep]?.component ?? FirstStep;
   const isLastStep = currentStep === STEPS.length - 1;
 
   return (
     <div className="flex flex-col justify-between h-full">
-      <StepProgress currentStep={currentStep} />
+      <StepProgress currentStep={currentStep} totalSteps={totalSteps} />
       <CurrentStepComponent />
       <Button
         label={isLastStep ? '시작하기' : '다음'}

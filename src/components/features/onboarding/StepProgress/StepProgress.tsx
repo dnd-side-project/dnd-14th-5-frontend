@@ -2,14 +2,16 @@ import { cn } from '@/src/lib/helpers/cn';
 
 interface StepProgressProps {
   currentStep: number;
+  totalSteps: number;
 }
 
-const TOTAL_STEPS = 3;
-
-const StepProgress = ({ currentStep }: StepProgressProps) => {
+const StepProgress = ({ currentStep, totalSteps }: StepProgressProps) => {
   return (
-    <div className="grid grid-cols-3 gap-2">
-      {Array.from({ length: TOTAL_STEPS }).map((_, index) => (
+    <div
+      className="grid gap-2"
+      style={{ gridTemplateColumns: `repeat(${totalSteps}, 1fr)` }}
+    >
+      {Array.from({ length: totalSteps }).map((_, index) => (
         <div
           key={index}
           className={cn(
