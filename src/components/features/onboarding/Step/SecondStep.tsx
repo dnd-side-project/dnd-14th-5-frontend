@@ -22,6 +22,7 @@ const SecondStep = () => {
             className="absolute -top-6 left-1/4"
           />
           <div className="flex justify-between w-full">
+            {/* TODO: text 토큰 중복으로 인한 크기 누락 이슈로, 크기를 별도로 지정해둔 상태. 추후 수정 필요 */}
             <SpeechBubble className="text-primary text-[0.8125rem]">
               오늘 하루 중 가장 재미있었던 순간은 언제였나요?
             </SpeechBubble>
@@ -37,6 +38,7 @@ const SecondStep = () => {
         </div>
 
         <div className="relative flex justify-start">
+          {/* TODO: text 토큰 중복으로 인한 크기 누락 이슈로, 크기를 별도로 지정해둔 상태. 추후 수정 필요 */}
           <SpeechBubble className="text-primary text-[0.8125rem]">
             오늘 하루 중 가장 재미있었던 순간은 언제였나요?
           </SpeechBubble>
@@ -60,6 +62,7 @@ const SecondStep = () => {
         </div>
 
         <div className="flex justify-start">
+          {/* TODO: text 토큰 중복으로 인한 크기 누락 이슈로, 크기를 별도로 지정해둔 상태. 추후 수정 필요 */}
           <SpeechBubble className="text-primary text-[0.8125rem]">
             오늘 하루 중 가장 재미있었던 순간은 언제였나요?
           </SpeechBubble>
