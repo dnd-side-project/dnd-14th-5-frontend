@@ -1,17 +1,15 @@
 'use client';
 
 import { useRouter } from 'next/navigation';
-import { use } from 'react';
 
 import Button from '@/src/components/ui/Button/Button';
 
 interface ViewResultButtonProps {
-  searchParams: Promise<{ [key: string]: string }>;
+  resultId: string;
 }
 
-const ViewResultButton = ({ searchParams }: ViewResultButtonProps) => {
+const ViewResultButton = ({ resultId }: ViewResultButtonProps) => {
   const router = useRouter();
-  const resultId = use(searchParams).resultId;
 
   const handleViewResultClick = () => {
     router.push(`/ztpi/${resultId}`);
