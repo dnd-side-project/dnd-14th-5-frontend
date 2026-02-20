@@ -10,9 +10,7 @@ export const useStepProgress = ({ totalSteps }: UseStepProgress) => {
   const [currentStep, setCurrentStep] = useState(0);
 
   const handleNextStep = () => {
-    if (currentStep < totalSteps - 1) {
-      setCurrentStep((prev) => prev + 1);
-    }
+    setCurrentStep((prev) => Math.min(prev + 1, totalSteps - 1));
   };
 
   const goLogin = () => {

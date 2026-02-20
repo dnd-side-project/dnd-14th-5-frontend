@@ -19,7 +19,7 @@ const OnboardingContent = () => {
     totalSteps,
   });
 
-  const CurrentStepComponent = STEPS[currentStep]?.component ?? FirstStep;
+  const CurrentStepComponent = STEPS[currentStep].component;
   const isLastStep = currentStep === STEPS.length - 1;
 
   return (
