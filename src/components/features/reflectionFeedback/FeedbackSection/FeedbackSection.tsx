@@ -59,7 +59,7 @@ const FeedbackSection = ({ reflectionId }: FeedbackSectionProps) => {
 
   return (
     <>
-      <div className="px-7.5">
+      <div className="pt-10">
         <ResultCard content={content} status={status} />
       </div>
       <BottomCTA>
