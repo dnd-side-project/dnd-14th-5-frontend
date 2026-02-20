@@ -10,23 +10,19 @@ interface CreateReflectionFeedbackParams {
   reflectionId: number;
 }
 
-interface CreateReflectionFeedbackResponse {
-  id: number;
-  reflectionId: number;
-  content: string;
-  status: string;
-  score: number;
-  createdAt: string;
-}
-
 const createReflectionFeedbackResponseSchema = z.object({
   id: z.number(),
   reflectionId: z.number(),
-  content: z.string(),
+  content: z.string().nullable(),
   status: z.string(),
   score: z.number(),
-  createdAt: z.iso.datetime(),
+  createdAt: z.string(),
+  failureReason: z.string().optional(),
 });
+
+type CreateReflectionFeedbackResponse = z.infer<
+  typeof createReflectionFeedbackResponseSchema
+>;
 
 const createReflectionFeedback = async (
   params: CreateReflectionFeedbackParams,
