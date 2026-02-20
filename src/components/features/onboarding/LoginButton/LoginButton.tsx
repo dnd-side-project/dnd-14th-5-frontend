@@ -3,6 +3,7 @@
 import { type ComponentProps } from 'react';
 
 import Button from '@/src/components/ui/Button/Button';
+import { API_BASE_URL } from '@/src/lib/config/env';
 import { cn } from '@/src/lib/helpers/cn';
 
 interface LoginButtonProps extends Omit<
@@ -30,13 +31,11 @@ const PROVIDER_CONFIG = {
   },
 } as const;
 
-const baseURL = process.env.NEXT_PUBLIC_API_BASE_URL;
-
-const LoginButton = ({ provider, ...props }: LoginButtonProps) => {
+const LoginButton = ({ provider }: LoginButtonProps) => {
   const config = PROVIDER_CONFIG[provider];
 
   const handleLogin = () => {
-    window.location.href = `${baseURL}auth/login/${provider}`;
+    window.location.href = `${API_BASE_URL ?? ''}auth/login/${provider}`;
   };
 
   return (
@@ -47,7 +46,6 @@ const LoginButton = ({ provider, ...props }: LoginButtonProps) => {
         config.className,
       )}
       onClick={handleLogin}
-      {...props}
     />
   );
 };
