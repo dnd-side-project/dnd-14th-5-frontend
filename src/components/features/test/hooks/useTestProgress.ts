@@ -31,6 +31,13 @@ export const useTestProgress = ({ testRecordId }: UseTestProgressProps) => {
     setCurrentRating(+event.target.value);
   };
 
+  const handleCompleteTest = () => {
+    completeTest(undefined, {
+      onSuccess: (data) =>
+        router.push(`${pathname}/complete?resultId=${data.id}`),
+    });
+  };
+
   const handleNext = (totalQuestions: number, questionId: number) => {
     if (currentRating === null) return;
 
@@ -40,10 +47,7 @@ export const useTestProgress = ({ testRecordId }: UseTestProgressProps) => {
 
     const onMutationSuccess = () => {
       if (isLastQuestion) {
-        completeTest(undefined, {
-          onSuccess: (data) =>
-            router.push(`${pathname}/complete?resultId=${data.id}`),
-        });
+        handleCompleteTest();
       } else {
         setCurrentQuestionIndex((prev) => prev + 1);
         setCurrentRating(null);
@@ -71,7 +75,7 @@ export const useTestProgress = ({ testRecordId }: UseTestProgressProps) => {
         },
       );
     } else if (isLastQuestion) {
-      completeTest();
+      handleCompleteTest();
     } else {
       setCurrentQuestionIndex((prev) => prev + 1);
       setCurrentRating(null);
