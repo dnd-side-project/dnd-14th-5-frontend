@@ -21,6 +21,7 @@ const TestCompletePage = async ({ searchParams }: TestCompletePageProps) => {
           alt="character gif"
           width={200}
           height={200}
+          unoptimized
         />
       </div>
 
