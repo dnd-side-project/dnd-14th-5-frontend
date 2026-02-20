@@ -32,9 +32,8 @@ const FeedbackSection = ({ reflectionId }: FeedbackSectionProps) => {
   if (isPending) {
     return (
       <>
-        <div className="px-7.5">
-          <Skeleton className="h-117.5 w-full" ariaLabel="피드백 생성 중" />
-        </div>
+        <Skeleton className="h-117.5 w-full" ariaLabel="피드백 생성 중" />
+
         <BottomCTA>
           <CompleteButton />
         </BottomCTA>
@@ -44,13 +43,11 @@ const FeedbackSection = ({ reflectionId }: FeedbackSectionProps) => {
 
   if (isError) {
     return (
-      <div className="px-7.5 py-7.5">
-        <ErrorState
-          title="피드백을 불러오지 못했어요"
-          description="잠시 후 다시 시도해 주세요."
-          onRetry={() => mutate()}
-        />
-      </div>
+      <ErrorState
+        title="피드백을 불러오지 못했어요"
+        description="잠시 후 다시 시도해 주세요."
+        onRetry={() => mutate()}
+      />
     );
   }
 
@@ -59,9 +56,8 @@ const FeedbackSection = ({ reflectionId }: FeedbackSectionProps) => {
 
   return (
     <>
-      <div className="pt-10">
-        <ResultCard content={content} status={status} />
-      </div>
+      <ResultCard content={content} status={status} />
+
       <BottomCTA>
         <CompleteButton />
       </BottomCTA>

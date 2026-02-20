@@ -10,11 +10,12 @@ const FeedbackPage = async ({ params }: FeedbackPageProps) => {
   const reflectionId = Number(id);
 
   return (
-    <div className="flex h-dvh flex-col">
+    <>
       <PageHeader title="피드백" />
-
-      <FeedbackSection reflectionId={reflectionId} />
-    </div>
+      <div className="pt-10">
+        <FeedbackSection reflectionId={reflectionId} />
+      </div>
+    </>
   );
 };
 
