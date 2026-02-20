@@ -16,7 +16,7 @@ const StepProgress = ({ currentStep, totalSteps }: StepProgressProps) => {
           key={index}
           className={cn(
             'h-1.5 rounded-2xl w-full',
-            index <= currentStep ? 'bg-primary' : 'bg-white/20',
+            index <= currentStep ? 'bg-primary' : 'bg-g-0/20',
           )}
         />
       ))}
