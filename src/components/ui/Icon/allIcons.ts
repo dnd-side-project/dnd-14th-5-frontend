@@ -18,11 +18,6 @@ const allIcons = {
   calendarDaySlate: '/icons/calendar-day-slate.svg',
   calendarDayOutline: '/icons/calendar-day-outline.svg',
   check: '/icons/check-fill.svg',
-  greenPiece: '/onboarding/green-piece.svg',
-  redPiece: '/onboarding/red-piece.svg',
-  purplePiece: '/onboarding/purple-piece.svg',
-  bluePiece: '/onboarding/blue-piece.svg',
-  pinkPiece: '/onboarding/pink-piece.svg',
 } as const;
 
 export default allIcons;
