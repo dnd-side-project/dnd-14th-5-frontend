@@ -1,4 +1,5 @@
 import Button from '@/src/components/ui/Button/Button';
+import { cn } from '@/src/lib/helpers/cn';
 
 import BottomCTA from '../../layout/BottomCTA/BottomCTA';
 
@@ -7,6 +8,9 @@ interface ErrorStateProps {
   description?: string;
   retryLabel?: string;
   onRetry?: () => void;
+  className?: HTMLDivElement['className'];
+  titleClassName?: HTMLParagraphElement['className'];
+  descriptionClassName?: HTMLParagraphElement['className'];
 }
 
 const ErrorState = ({
@@ -14,12 +18,27 @@ const ErrorState = ({
   description,
   retryLabel = '다시 시도',
   onRetry,
+  className,
+  titleClassName,
+  descriptionClassName,
 }: ErrorStateProps) => {
   return (
-    <div className="flex w-full max-w-96 flex-col items-center gap-4 text-center">
-      <p className="text-heading-h4 text-g-0">{title}</p>
+    <div
+      className={cn(
+        'flex w-full max-w-96 flex-col items-center gap-4 text-center',
+        className,
+      )}
+    >
+      <p className={cn('text-heading-h4', titleClassName)}>{title}</p>
       {description && (
-        <p className="text-caption-n text-g-30 opacity-70">{description}</p>
+        <p
+          className={cn(
+            'text-caption-n text-g-30 opacity-70',
+            descriptionClassName,
+          )}
+        >
+          {description}
+        </p>
       )}
       {onRetry && (
         <BottomCTA>

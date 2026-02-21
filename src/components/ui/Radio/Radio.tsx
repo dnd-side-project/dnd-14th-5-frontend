@@ -1,25 +1,32 @@
 import { type ChangeEvent } from 'react';
 
+import { cn } from '@/src/lib/helpers/cn';
+
 interface RadioProps {
-  label: string;
+  children: string;
   value: string | number;
   name: string;
   checked: boolean;
   onChange: (event: ChangeEvent<HTMLInputElement>) => void;
 }
 
-const Radio = ({ label, value, name, checked, onChange }: RadioProps) => {
+const Radio = ({ children, value, name, checked, onChange }: RadioProps) => {
   return (
-    <label className="inline-flex items-center cursor-pointer">
+    <label
+      className={cn(
+        'inline-flex items-center justify-center cursor-pointer gap-2 p-3 rounded-2xl w-full border-2',
+        checked ? 'bg-g-100 border-g-0' : 'bg-g-300 border-transparent',
+      )}
+    >
       <input
         type="radio"
-        className="appearance-none h-5 w-5 border border-g-60 rounded-sm bg-g-40 checked:bg-g-400 checked:border-g-400 shrink-0 cursor-pointer border-none"
         name={name}
         value={value}
         checked={checked}
         onChange={onChange}
+        className="sr-only"
       />
-      <span className="ml-2 text-gray-700">{label}</span>
+      <span className="text-g-0">{children}</span>
     </label>
   );
 };

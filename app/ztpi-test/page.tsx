@@ -1,11 +1,15 @@
-import TestFlow from './TestFlow';
+import ZtpiHeader from '@/src/components/features/test/ZtpiHeader/ZtpiHeader';
+import ZtpiTest from '@/src/components/features/test/ZtpiTest/ZtpiTest';
 
-const Page = () => {
+const ZtpiTestPage = () => {
   return (
-    <div className="flex justify-center p-10">
-      <TestFlow />
+    <div className="flex flex-col h-full">
+      <ZtpiHeader />
+      <div className="flex-1">
+        <ZtpiTest />
+      </div>
     </div>
   );
 };
 
-export default Page;
+export default ZtpiTestPage;
