@@ -1,14 +1,10 @@
-import { useMutation } from '@tanstack/react-query';
+import { useQuery } from '@tanstack/react-query';
 import { z } from 'zod';
 
-import { patch } from '@/src/lib/api';
+import { get } from '@/src/lib/api';
 
 import { TEST_QUERY_KEYS } from '../constants/queryKey';
 import { TEST_ENDPOINTS } from '../constants/url';
-
-interface PathType {
-  testRecordId: number;
-}
 
 const ClosestCategorySchema = z.object({
   name: z.string(),
@@ -37,18 +33,19 @@ const ResponseSchema = z.object({
 
 type ResponseType = z.infer<typeof ResponseSchema>;
 
-const completeTest = ({ testRecordId }: PathType) =>
-  patch<never, ResponseType>(
-    TEST_ENDPOINTS['complete'](testRecordId),
-    undefined,
-    {
-      responseSchema: ResponseSchema,
-    },
-  );
+interface PathType {
+  testRecordId: number;
+}
 
-export const useCompleteTestMutation = ({ testRecordId }: PathType) => {
-  return useMutation({
-    mutationKey: TEST_QUERY_KEYS['complete'](testRecordId),
-    mutationFn: () => completeTest({ testRecordId }),
+const testRecord = ({ testRecordId }: PathType) =>
+  get<ResponseType>(TEST_ENDPOINTS['record'](testRecordId), {
+    responseSchema: ResponseSchema,
+  });
+
+export const useTestRecordQuery = ({ testRecordId }: PathType) => {
+  return useQuery({
+    queryKey: TEST_QUERY_KEYS['record'](testRecordId),
+    queryFn: () => testRecord({ testRecordId }),
+    staleTime: 60 * 1000 * 5,
   });
 };

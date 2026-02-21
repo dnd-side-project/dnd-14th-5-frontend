@@ -1,3 +1,4 @@
+import { usePathname, useRouter } from 'next/navigation';
 import { type ChangeEvent, useState } from 'react';
 
 import { useCompleteTestMutation } from '../queries/useCompleteTestMutation';
@@ -10,6 +11,9 @@ interface UseTestProgressProps {
 }
 
 export const useTestProgress = ({ testRecordId }: UseTestProgressProps) => {
+  const router = useRouter();
+  const pathname = usePathname();
+
   const { data } = useTestResponsesQuery({ testRecordId });
   const { mutate: postQuestionResponse } = usePostQuestionResponseMutation({
     testRecordId,
@@ -27,6 +31,13 @@ export const useTestProgress = ({ testRecordId }: UseTestProgressProps) => {
     setCurrentRating(+event.target.value);
   };
 
+  const handleCompleteTest = () => {
+    completeTest(undefined, {
+      onSuccess: (data) =>
+        router.push(`${pathname}/complete?resultId=${data.id}`),
+    });
+  };
+
   const handleNext = (totalQuestions: number, questionId: number) => {
     if (currentRating === null) return;
 
@@ -36,7 +47,7 @@ export const useTestProgress = ({ testRecordId }: UseTestProgressProps) => {
 
     const onMutationSuccess = () => {
       if (isLastQuestion) {
-        completeTest();
+        handleCompleteTest();
       } else {
         setCurrentQuestionIndex((prev) => prev + 1);
         setCurrentRating(null);
@@ -64,7 +75,7 @@ export const useTestProgress = ({ testRecordId }: UseTestProgressProps) => {
         },
       );
     } else if (isLastQuestion) {
-      completeTest();
+      handleCompleteTest();
     } else {
       setCurrentQuestionIndex((prev) => prev + 1);
       setCurrentRating(null);

@@ -46,7 +46,7 @@ const InProgressContent = ({
   const backgroundCardCount = Math.min(remainQuestion, 2);
 
   return (
-    <section className="relative h-full">
+    <section className="relative">
       <AnimatePresence mode="wait" custom={direction}>
         <motion.div
           key={step}
