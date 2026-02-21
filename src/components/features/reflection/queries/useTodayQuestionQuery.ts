@@ -20,7 +20,7 @@ type GetTodayQuestionResponse = z.infer<typeof todayQuestionSchema>;
 
 export const getTodayQuestion = async (
   config?: ApiRequestConfig<never, never, GetTodayQuestionResponse>,
-): Promise<GetTodayQuestionResponse> => {
+) => {
   return get<GetTodayQuestionResponse>(REFLECTION_ENDPOINTS.todayQuestion, {
     ...config,
     responseSchema: todayQuestionSchema,
