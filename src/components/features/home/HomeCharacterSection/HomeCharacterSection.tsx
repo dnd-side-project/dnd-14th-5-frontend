@@ -11,7 +11,7 @@ const HomeCharacterSection = () => {
   const characterAsset = getCharacterAsset(data?.category);
 
   return (
-    <div className="home-character flex flex-1 items-center justify-center py-7.5">
+    <div className="flex flex-1 items-center justify-center py-7.5">
       {isPending ? (
         <Skeleton
           className="h-58 w-58 rounded-full"
