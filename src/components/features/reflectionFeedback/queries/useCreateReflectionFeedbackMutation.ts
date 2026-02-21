@@ -6,7 +6,7 @@ import { post } from '@/src/lib/api';
 import { reflectionFeedbackKeys } from '../constants/queryKeys';
 import { REFLECTION_FEEDBACK_ENDPOINTS } from '../constants/url';
 
-interface CreateReflectionFeedbackParams {
+export interface CreateReflectionFeedbackParams {
   reflectionId: number;
 }
 
@@ -17,7 +17,7 @@ const createReflectionFeedbackResponseSchema = z.object({
   status: z.string(),
   score: z.number(),
   createdAt: z.string(),
-  failureReason: z.string().optional(),
+  failureReason: z.string().nullish(),
 });
 
 type CreateReflectionFeedbackResponse = z.infer<
@@ -26,7 +26,7 @@ type CreateReflectionFeedbackResponse = z.infer<
 
 const createReflectionFeedback = async (
   params: CreateReflectionFeedbackParams,
-): Promise<CreateReflectionFeedbackResponse> => {
+) => {
   return post<never, CreateReflectionFeedbackResponse>(
     REFLECTION_FEEDBACK_ENDPOINTS.createFeedback(params.reflectionId),
     undefined,
@@ -36,8 +36,8 @@ const createReflectionFeedback = async (
   );
 };
 
-export const useCreateReflectionFeedbackMutation = (reflectionId: number) =>
+export const useCreateReflectionFeedbackMutation = () =>
   useMutation({
-    mutationKey: reflectionFeedbackKeys.create(reflectionId),
-    mutationFn: () => createReflectionFeedback({ reflectionId }),
+    mutationKey: reflectionFeedbackKeys.create(),
+    mutationFn: createReflectionFeedback,
   });
