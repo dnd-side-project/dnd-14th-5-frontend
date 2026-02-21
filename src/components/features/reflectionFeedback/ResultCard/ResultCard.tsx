@@ -46,7 +46,7 @@ const ResultCard = ({ feedback, category }: ResultCardProps) => {
         </span>
         {categoryMessage.suffix}
       </p>
-      {/* TODO: 바뀐 텍스트 토큰으로 업데이트 필요 */}
+
       <div className="max-h-80 overflow-y-auto pr-2">
         <p className="wrap-break-word text-justify text-body-s text-g-80">
           {feedback}
