@@ -1,19 +1,12 @@
 import FeedbackSection from '@/src/components/features/reflectionFeedback/FeedbackSection/FeedbackSection';
 import PageHeader from '@/src/components/layout/PageHeader/PageHeader';
 
-interface FeedbackPageProps {
-  params: Promise<{ id: string }>;
-}
-
-const FeedbackPage = async ({ params }: FeedbackPageProps) => {
-  const { id } = await params;
-  const reflectionId = Number(id);
-
+const FeedbackPage = () => {
   return (
     <>
       <PageHeader title="피드백" />
       <div className="pt-10">
-        <FeedbackSection reflectionId={reflectionId} />
+        <FeedbackSection />
       </div>
     </>
   );
