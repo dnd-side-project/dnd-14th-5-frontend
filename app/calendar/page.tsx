@@ -10,8 +10,8 @@ import SummaryCard from '@/src/components/features/calendar/SummaryCard/SummaryC
 import { useMonthReflectionQuery } from '@/src/components/features/reflection/queries/useMonthReflectionQuery';
 import { useTodayReflectionQuery } from '@/src/components/features/reflection/queries/useTodayReflectionQuery';
 import { useUserDetailQuery } from '@/src/components/features/users/queries/useUserDetailQuery';
+import BottomNavBar from '@/src/components/layout/BottomNavBar/BottomNavBar';
 import PageHeader from '@/src/components/layout/PageHeader/PageHeader';
-import BottomNavBar from '@/src/components/ui/BottomNavBar';
 import ErrorState from '@/src/components/ui/ErrorState/ErrorState';
 
 const CalendarPage = () => {
