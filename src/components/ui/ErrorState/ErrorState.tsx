@@ -9,6 +9,8 @@ interface ErrorStateProps {
   retryLabel?: string;
   onRetry?: () => void;
   className?: HTMLDivElement['className'];
+  titleClassName?: HTMLParagraphElement['className'];
+  descriptionClassName?: HTMLParagraphElement['className'];
 }
 
 const ErrorState = ({
@@ -17,6 +19,8 @@ const ErrorState = ({
   retryLabel = '다시 시도',
   onRetry,
   className,
+  titleClassName,
+  descriptionClassName,
 }: ErrorStateProps) => {
   return (
     <div
@@ -25,9 +29,16 @@ const ErrorState = ({
         className,
       )}
     >
-      <p className="text-heading-h4 text-g-0">{title}</p>
+      <p className={cn('text-heading-h4', titleClassName)}>{title}</p>
       {description && (
-        <p className="text-caption-n text-g-30 opacity-70">{description}</p>
+        <p
+          className={cn(
+            'text-caption-n text-g-30 opacity-70',
+            descriptionClassName,
+          )}
+        >
+          {description}
+        </p>
       )}
       {onRetry && (
         <BottomCTA>
