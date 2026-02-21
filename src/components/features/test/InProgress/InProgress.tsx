@@ -1,77 +1,83 @@
-import { useState } from 'react';
-
+import ErrorState from '@/src/components/ui/ErrorState/ErrorState';
 import ProgressBar from '@/src/components/ui/ProgressBar/ProgressBar';
+import { formatTwoDigitNumber } from '@/src/lib/helpers/formatTwoDigitNumber';
 
-import Card from '../Card/Card';
+import { useTestProgress } from '../hooks/useTestProgress';
+import { useTestQuestionsQuery } from '../queries/useTestQuestionsQuery';
+import InProgressContent from './InProgressContent';
+import InProgressNavigation from './InProgressNavigation';
 
-const InProgress = () => {
-  const [currentRating, setCurrentRating] = useState<number | null>(null);
-  const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
-  const [totalQuestions, setTotalQuestions] = useState(100); // TODO: API에서 전체 질문 수 받아오기
+interface InProgressProps {
+  testId: number;
+  testRecordId: number;
+}
 
-  const handleRatingChange = (rating: number) => {
-    setCurrentRating(rating);
-  };
+const InProgress = ({ testId, testRecordId }: InProgressProps) => {
+  const {
+    data: questions,
+    isError,
+    isPending,
+    refetch,
+  } = useTestQuestionsQuery({ testId });
 
-  const handleNext = () => {
-    if (currentQuestionIndex < totalQuestions - 1) {
-      setCurrentQuestionIndex((prev) => prev + 1);
-      setCurrentRating(null);
-    }
-  };
+  const {
+    currentRating,
+    currentQuestionIndex,
+    direction,
+    handleRatingChange,
+    handleNext,
+    handlePrev,
+    isNextButtonDisabled,
+    isPrevButtonDisabled,
+  } = useTestProgress({ testRecordId });
 
-  const handlePrevious = () => {
-    if (currentQuestionIndex > 0) {
-      setCurrentQuestionIndex((prev) => prev - 1);
-      setCurrentRating(null); // API: null로 초기화하지 않고 이전에 사용자가 답했던 값을 API vs 상태로
-    }
-  };
+  if (isPending) {
+    // TODO: 임시 loader
+    return (
+      <div className="flex items-center justify-center py-20">
+        <div className="animate-spin rounded-full h-8 w-8 border-4 border-dotted mr-3" />
+        <p className="text-g-20">로딩 중...</p>
+      </div>
+    );
+  }
+
+  if (isError) {
+    return (
+      <ErrorState
+        title="테스트 문항을 불러오지 못했어요."
+        description="잠시 후 다시 시도해주세요."
+        onRetry={refetch}
+        className="py-15"
+      />
+    );
+  }
+
+  const totalQuestions = questions.length;
+  const remainQuestion = totalQuestions - currentQuestionIndex - 1;
+  const { id: questionId, sequence, content } = questions[currentQuestionIndex];
+  const prevQuestionId = questions[currentQuestionIndex - 1]?.id;
 
   return (
-    <div className="w-full space-y-7">
-      {/* TODO: Header 컴포넌트로 교체 */}
-      <h1 className="text-heading-h3 text-center">ZTPI 테스트</h1>
-
+    <div className="flex flex-col h-full pt-3">
       <ProgressBar current={currentQuestionIndex + 1} max={totalQuestions} />
 
-      <section className="pt-17">
-        <div className="relative">
-          {currentQuestionIndex < totalQuestions - 2 && (
-            <>
-              <div className="bg-g-60 absolute inset-0 -translate-y-15 scale-88 opacity-50 pointer-events-none z-0 rounded-2xl" />
-              <div className="bg-g-60 absolute inset-0 -translate-y-28 scale-78 opacity-30 pointer-events-none z-[-1] rounded-2xl" />
-            </>
-          )}
-
-          <div className="relative z-10">
-            <Card
-              question="과거를 되돌아보는 것이 즐거움을 주나요?"
-              onRatingChange={handleRatingChange}
-            />
-          </div>
-        </div>
-      </section>
-
-      {/* TODO: 버튼 컴포넌트로 교체 */}
-      <div className="*:w-full flex *:h-14 gap-3 *:rounded-2xl">
-        <button
-          className="bg-g-60 text-g-600"
-          onClick={handlePrevious}
-          disabled={currentQuestionIndex === 0}
-        >
-          이전
-        </button>
-        <button
-          className="bg-g-500 text-g-40"
-          onClick={handleNext}
-          disabled={
-            currentQuestionIndex === totalQuestions - 1 ||
-            currentRating === null
-          }
-        >
-          다음
-        </button>
+      <div className="flex-1 flex items-center justify-center">
+        <InProgressContent
+          step={formatTwoDigitNumber(sequence)}
+          remainQuestion={remainQuestion}
+          content={content}
+          currentRating={currentRating}
+          onRatingChange={handleRatingChange}
+          direction={direction}
+        />
       </div>
+
+      <InProgressNavigation
+        onPrev={() => handlePrev(prevQuestionId)}
+        onNext={() => handleNext(totalQuestions, questionId)}
+        isNextButtonDisabled={isNextButtonDisabled(totalQuestions)}
+        isPrevButtonDisabled={isPrevButtonDisabled}
+      />
     </div>
   );
 };

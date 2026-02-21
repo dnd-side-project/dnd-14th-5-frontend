@@ -1,8 +1,11 @@
-interface ButtonProps {
+import { type ComponentProps } from 'react';
+
+import { cn } from '@/src/lib/helpers/cn';
+
+interface ButtonProps extends ComponentProps<'button'> {
   label: string;
   variant?: 'primary' | 'secondary';
   disabled?: boolean;
-  onClick?: () => void;
 }
 
 const Button = ({
@@ -10,6 +13,8 @@ const Button = ({
   variant = 'primary',
   disabled,
   onClick,
+  className,
+  ...props
 }: ButtonProps) => {
   const variantClassName =
     variant === 'secondary'
@@ -21,7 +26,12 @@ const Button = ({
       type="button"
       onClick={onClick}
       disabled={disabled}
-      className={`h-12 w-full rounded-4xl text-button-l disabled:opacity-50 ${variantClassName}`}
+      className={cn(
+        'h-12 w-full rounded-4xl text-button-l disabled:opacity-50',
+        variantClassName,
+        className,
+      )}
+      {...props}
     >
       {label}
     </button>

@@ -1,36 +1,34 @@
-import { type ChangeEvent, useState } from 'react';
+import { type ChangeEvent } from 'react';
 
 import Radio from '@/src/components/ui/Radio/Radio';
 
 import { ratingOptions } from '../constants/ratingOptions';
 
 interface CardProps {
-  question: string;
-  onRatingChange: (rating: number) => void;
+  children: string;
+  onChange: (event: ChangeEvent<HTMLInputElement>) => void;
+  step: string;
+  selectedValue: number | null;
 }
 
-const Card = ({ question, onRatingChange }: CardProps) => {
-  const [selectedRating, setSelectedRating] = useState<number | null>(null);
-
-  const handleRatingChange = (event: ChangeEvent<HTMLInputElement>) => {
-    const rating = +event.target.value;
-    setSelectedRating(rating);
-    onRatingChange(rating);
-  };
-
+const Card = ({ children, onChange, step, selectedValue }: CardProps) => {
   return (
-    <div className="bg-g-60 rounded-2xl p-6 py-10">
-      <p className="text-lg font-semibold mb-4 w-45 h-25">{question}</p>
-      <ul className="flex flex-col space-y-3 *:bg-white *:p-3 *:rounded-lg">
+    <div className="bg-g-400 rounded-2xl p-6 py-8 space-y-10">
+      <div className="space-y-3">
+        <p className="text-body-s text-primary">STEP {step}</p>
+        <p className="text-heading-h4 break-keep">{children}</p>
+      </div>
+      <ul className="flex flex-col space-y-4">
         {ratingOptions.map((option) => (
           <li key={option.value}>
             <Radio
               name="rating"
-              label={option.label}
               value={option.value}
-              checked={selectedRating === option.value}
-              onChange={handleRatingChange}
-            />
+              checked={selectedValue === option.value}
+              onChange={onChange}
+            >
+              {option.label}
+            </Radio>
           </li>
         ))}
       </ul>
