@@ -7,6 +7,7 @@ import ErrorState from '@/src/components/ui/ErrorState/ErrorState';
 import Skeleton from '@/src/components/ui/Skeleton/Skeleton';
 import { goToHome } from '@/src/lib/helpers/navigation';
 
+import type { Category } from '../../home/const/character';
 import { useTodayReflectionQuery } from '../../reflection/queries/useTodayReflectionQuery';
 import CompleteButton from '../CompleteButton/CompleteButton';
 import ResultCard from '../ResultCard/ResultCard';
@@ -19,7 +20,7 @@ const FeedbackSection = () => {
   const hasError = isError || !feedback || feedback.status === 'FAILED';
 
   const feedbackContent = feedback?.content ?? '';
-  const category = data?.question.category ?? '';
+  const category = data?.question.category as Category;
 
   if (isPending) {
     return (

@@ -1,5 +1,9 @@
 import Image from 'next/image';
 
+import {
+  type Category,
+  CATEGORY_CHARACTER_MAP,
+} from '@/src/components/features/home/const/character';
 import Badge from '@/src/components/ui/Badge/Badge';
 import Card from '@/src/components/ui/Card/Card';
 import Icon from '@/src/components/ui/Icon/Icon';
@@ -9,7 +13,7 @@ import { getCategoryMessage } from '../utils/getCategoryMessage';
 
 interface ResultCardProps {
   feedback: string;
-  category: string;
+  category: Category;
 }
 
 const ResultCard = ({ feedback, category }: ResultCardProps) => {
@@ -17,6 +21,7 @@ const ResultCard = ({ feedback, category }: ResultCardProps) => {
 
   const streakDays = data?.streakDays ?? 0;
   const categoryMessage = getCategoryMessage(category);
+  const characterAsset = CATEGORY_CHARACTER_MAP[category];
 
   return (
     <Card className="flex max-h-117.5 flex-col items-center justify-center gap-6 py-10 px-8 bg-g-500">
@@ -28,15 +33,21 @@ const ResultCard = ({ feedback, category }: ResultCardProps) => {
       </Badge>
 
       <Image
-        src="/character/past-negative-shadow.svg"
-        alt="여기 각 캐릭터 이름으로 대체"
+        src={characterAsset.src}
+        alt={characterAsset.alt}
         width={150}
         height={150}
       />
 
-      <p className="text-heading-h3 text-g-0">{categoryMessage}</p>
+      <p className="text-heading-h3 text-g-0">
+        {categoryMessage.prefix}
+        <span className={characterAsset.color}>
+          {categoryMessage.highlight}
+        </span>
+        {categoryMessage.suffix}
+      </p>
       {/* TODO: 바뀐 텍스트 토큰으로 업데이트 필요 */}
-      <div className="max-h-65 overflow-y-auto pr-2">
+      <div className="max-h-80 overflow-y-auto pr-2">
         <p className="wrap-break-word text-justify text-body-s text-g-80">
           {feedback}
         </p>
