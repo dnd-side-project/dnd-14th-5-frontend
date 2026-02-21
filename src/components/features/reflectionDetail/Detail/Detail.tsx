@@ -4,14 +4,14 @@ import Badge from '@/src/components/ui/Badge/Badge';
 import ErrorState from '@/src/components/ui/ErrorState/ErrorState';
 import Skeleton from '@/src/components/ui/Skeleton/Skeleton';
 
-import { useRetrospectiveDetail } from '../queries/useRetrospectiveDetail';
+import { useReflectionDetail } from '../queries/useReflectionDetail';
 
 interface DetailProps {
   reflectionId: number;
 }
 
 const Detail = ({ reflectionId }: DetailProps) => {
-  const { data, isPending, isError, refetch } = useRetrospectiveDetail({
+  const { data, isPending, isError, refetch } = useReflectionDetail({
     reflectionId,
   });
 

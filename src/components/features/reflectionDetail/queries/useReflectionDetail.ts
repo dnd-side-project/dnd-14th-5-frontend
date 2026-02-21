@@ -3,8 +3,8 @@ import { z } from 'zod';
 
 import { get } from '@/src/lib/api';
 
-import { RETROSPECTIVE } from '../constants/queryKey';
-import { RETROSPECTIVE_ENDPOINT } from '../constants/url';
+import { REFLECTION } from '../constants/queryKey';
+import { REFLECTION_ENDPOINT } from '../constants/url';
 
 const QuestionSchema = z.object({
   category: z.string(),
@@ -38,14 +38,14 @@ interface PathType {
   reflectionId: number;
 }
 
-const retrospectiveDetail = ({ reflectionId }: PathType) =>
-  get<ResponseType>(RETROSPECTIVE_ENDPOINT['reflection'](reflectionId), {
+const reflectionDetail = ({ reflectionId }: PathType) =>
+  get<ResponseType>(REFLECTION_ENDPOINT.reflection(reflectionId), {
     responseSchema: ResponseSchema,
   });
 
-export const useRetrospectiveDetail = ({ reflectionId }: PathType) =>
+export const useReflectionDetail = ({ reflectionId }: PathType) =>
   useQuery({
-    queryKey: RETROSPECTIVE['reflection'](reflectionId),
-    queryFn: () => retrospectiveDetail({ reflectionId }),
+    queryKey: REFLECTION.reflection(reflectionId),
+    queryFn: () => reflectionDetail({ reflectionId }),
     staleTime: 60 * 1000 * 5,
   });
