@@ -1,4 +1,5 @@
 'use client';
+
 import Skeleton from '@/src/components/ui/Skeleton/Skeleton';
 
 import { useTodayQuestionQuery } from '../../reflection/queries/useTodayQuestionQuery';
