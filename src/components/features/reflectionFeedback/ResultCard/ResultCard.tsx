@@ -4,13 +4,20 @@ import Badge from '@/src/components/ui/Badge/Badge';
 import Card from '@/src/components/ui/Card/Card';
 import Icon from '@/src/components/ui/Icon/Icon';
 
-// TODO: content, category(아직 서버에 추가 x), score, 3개 사용해야 함. 지금은 임시 UI
+import { useUserDetailQuery } from '../../users/queries/useUserDetailQuery';
+import { getCategoryMessage } from '../utils/getCategoryMessage';
+
 interface ResultCardProps {
-  content: string;
-  status: string;
+  feedback: string;
+  category: string;
 }
 
-const ResultCard = ({ content, status }: ResultCardProps) => {
+const ResultCard = ({ feedback, category }: ResultCardProps) => {
+  const { data } = useUserDetailQuery();
+
+  const streakDays = data?.streakDays ?? 0;
+  const categoryMessage = getCategoryMessage(category);
+
   return (
     <Card className="flex h-117.5 flex-col items-center justify-center gap-6 bg-y-50 text-g-900">
       <Image
@@ -23,14 +30,14 @@ const ResultCard = ({ content, status }: ResultCardProps) => {
       <Badge variant="secondary">
         <div className="flex items-center gap-1">
           <Icon name="check" size={16} />
-          {/* TODO: API 받아와서 streak 띄워주기 */}
-          <p>첫 회고 달성!</p>
+          <p>{streakDays}일 연속 회고 중!</p>
         </div>
       </Badge>
 
-      <p className="text-heading-h3">오늘은 {status}를 많이 떠올리셨어요</p>
+      <p className="text-heading-h3">{categoryMessage}</p>
+      {/* TODO: 바뀐 텍스트 토큰으로 업데이트 필요 */}
       <p className="wrap-break-word text-justify text-body-m text-g-200">
-        {content}
+        {feedback}
       </p>
     </Card>
   );
