@@ -47,7 +47,6 @@ export const useReflectionForm = (): UseReflectionFormResult => {
       showToast({
         message: '피드백 생성에 실패했어요. 잠시 후 다시 시도해주세요.',
       });
-      router.push(`/`);
       return false;
     }
   };
