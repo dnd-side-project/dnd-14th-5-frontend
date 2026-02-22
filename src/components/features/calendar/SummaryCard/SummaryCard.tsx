@@ -36,12 +36,7 @@ const SummaryCard = ({ data, isPending }: SummaryCardProps) => {
 
   return (
     // TODO: 디자인 물어보고 카드 스타일 업데이트 필요,
-    <Card
-      className={cn(
-        'rounded-2xl bg-g-500 p-5',
-        todayCategory && CATEGORY_CARD_CLASS_MAP[todayCategory],
-      )}
-    >
+    <Card className="rounded-2xl bg-g-500 p-5">
       <button
         type="button"
         onClick={handleCardClick}
@@ -49,14 +44,7 @@ const SummaryCard = ({ data, isPending }: SummaryCardProps) => {
         className="w-full"
       >
         <div className="flex items-start justify-between gap-4">
-          <p
-            className={cn(
-              'text-left text-body-m',
-              data ? 'text-g-900' : 'text-g-0',
-            )}
-          >
-            {todayQuestion}
-          </p>
+          <p className="text-left text-body-m text-g-0">{todayQuestion}</p>
           <Icon name="chevronLeft" size={24} className="pt-1 rotate-180" />
         </div>
       </button>
