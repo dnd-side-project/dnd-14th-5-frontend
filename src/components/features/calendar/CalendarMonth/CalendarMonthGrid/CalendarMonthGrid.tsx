@@ -50,11 +50,11 @@ const CalendarMonthGrid = ({
           <li key={dayCell.key} className="flex justify-center">
             {dayCell.isCurrentMonth ? (
               <CalendarDayCell
-                day={dayCell.blobProps.day}
+                day={dayCell.cellProps.day}
                 categoryType={dayCell.categoryType}
                 isFuture={dayCell.isFuture}
-                hasRecord={dayCell.blobProps.hasRecord}
-                isOutlined={dayCell.blobProps.isOutlined}
+                hasRecord={dayCell.cellProps.hasRecord}
+                isOutlined={dayCell.cellProps.isOutlined}
                 onClick={() =>
                   handleDateSelect(dayCell.date, dayCell.reflectionId)
                 }

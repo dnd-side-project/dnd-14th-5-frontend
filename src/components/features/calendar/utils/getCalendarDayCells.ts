@@ -24,7 +24,7 @@ export interface CalendarDayCellType {
   isFuture: boolean;
   categoryType: CalendarDayCategoryType | undefined;
   reflectionId: number | undefined;
-  blobProps: CalendarDayCellProps;
+  cellProps: CalendarDayCellProps;
 }
 
 /**
@@ -59,7 +59,7 @@ export const getCalendarDayCells = ({
       isFuture,
       categoryType,
       reflectionId,
-      blobProps: {
+      cellProps: {
         day: day.getDate(),
         hasRecord,
         isOutlined,

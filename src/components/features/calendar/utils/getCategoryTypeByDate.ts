@@ -1,7 +1,7 @@
 import type { CalendarDayCategoryType } from '../CalendarMonth/CalendarDayCell/CalendarDayCell';
 import type { ReflectionCategoryItem } from './mapReflectionItems';
 
-const CATEGORY_TO_BLOB_TYPE: Record<string, CalendarDayCategoryType> = {
+const CATEGORY_TO_CELL_TYPE: Record<string, CalendarDayCategoryType> = {
   PAST_NEGATIVE: 'past-negative',
   PAST_POSITIVE: 'past-positive',
   PRESENT_HEDONISTIC: 'present-hedonistic',
@@ -24,7 +24,7 @@ export const getCategoryTypeByDate = (
   const categoryTypeByDate = new Map<string, CalendarDayRecordByDateItem>();
 
   for (const { id, category, reflectedAt } of data) {
-    const type = CATEGORY_TO_BLOB_TYPE[category];
+    const type = CATEGORY_TO_CELL_TYPE[category];
     if (!type) continue;
 
     const dateKey = reflectedAt.slice(0, 10);
