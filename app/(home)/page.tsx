@@ -1,6 +1,5 @@
-import HomeActionsSection from '@/src/components/features/home/HomeActionsSection/HomeActionsSection';
+import HomeClientSections from '@/src/components/features/home/HomeClientSections/HomeClientSections';
 import HomeHeader from '@/src/components/features/home/HomeHeader/HomeHeader';
-import HomeTodayQuestionSectionBoundary from '@/src/components/features/home/HomeTodayQuestionSectionBoundary/HomeTodayQuestionSectionBoundary';
 import BottomNavBar from '@/src/components/layout/BottomNavBar/BottomNavBar';
 
 const Home = () => {
@@ -9,11 +8,7 @@ const Home = () => {
       <HomeHeader />
 
       <div className="flex flex-1 flex-col pb-32 pt-8">
-        <div className="flex flex-1 flex-col">
-          <HomeTodayQuestionSectionBoundary />
-
-          <HomeActionsSection />
-        </div>
+        <HomeClientSections />
       </div>
 
       <BottomNavBar />
