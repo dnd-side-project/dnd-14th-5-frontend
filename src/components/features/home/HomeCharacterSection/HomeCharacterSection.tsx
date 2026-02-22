@@ -9,6 +9,9 @@ interface HomeCharacterSectionProps {
 }
 
 const HomeCharacterSection = ({ category }: HomeCharacterSectionProps) => {
+  {
+    /* TODO: 홈 화면만의 캐릭터로 바꿔줘야 함 */
+  }
   const characterAsset = getCharacterAsset(category);
 
   return (
