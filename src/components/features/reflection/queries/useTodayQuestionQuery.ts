@@ -7,7 +7,7 @@ import type { ApiRequestConfig } from '@/src/lib/api/schema';
 import { reflectionKeys } from '../constants/queryKeys';
 import { REFLECTION_ENDPOINTS } from '../constants/url';
 
-const todayQuestionSchema = z.object({
+export const todayQuestionSchema = z.object({
   id: z.number(),
   category: z.string(),
   content: z.string(),
@@ -16,12 +16,12 @@ const todayQuestionSchema = z.object({
   createdAt: z.string(),
 });
 
-type GetTodayQuestionResponse = z.infer<typeof todayQuestionSchema>;
+export type TodayQuestionResponse = z.infer<typeof todayQuestionSchema>;
 
 export const getTodayQuestion = async (
-  config?: ApiRequestConfig<never, never, GetTodayQuestionResponse>,
+  config?: ApiRequestConfig<never, never, TodayQuestionResponse>,
 ) => {
-  return get<GetTodayQuestionResponse>(REFLECTION_ENDPOINTS.todayQuestion, {
+  return get<TodayQuestionResponse>(REFLECTION_ENDPOINTS.todayQuestion, {
     ...config,
     responseSchema: todayQuestionSchema,
   });

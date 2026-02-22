@@ -1,14 +1,31 @@
 'use client';
 
+import { useQueryClient } from '@tanstack/react-query';
 import { useRouter } from 'next/navigation';
 
+import { reflectionKeys } from '@/src/components/features/reflection/constants/queryKeys';
+import { useChangeTodayQuestionMutation } from '@/src/components/features/reflection/queries/useChangeTodayQuestionMutation';
 import Button from '@/src/components/ui/Button/Button';
+import { useToast } from '@/src/hooks/useToast';
 
 const HomeActionsSection = () => {
+  const queryClient = useQueryClient();
   const router = useRouter();
+  const { showToast } = useToast();
+  const { mutate: changeTodayQuestion, isPending } =
+    useChangeTodayQuestionMutation({
+      onSuccess: (data) => {
+        queryClient.setQueryData(reflectionKeys.todayQuestion(), data);
+      },
+      onError: () => {
+        showToast({
+          message: '새 질문을 가져오지 못했어요. 잠시 후 다시 시도해주세요.',
+        });
+      },
+    });
 
   const handleSkip = () => {
-    // Todo: 건너뛰기 기능 구현 - 어떻게 할지 논의 필요
+    changeTodayQuestion();
   };
 
   const handleAnswer = () => {
@@ -18,9 +35,14 @@ const HomeActionsSection = () => {
   return (
     <div className="flex items-center gap-3">
       <div className="flex-1">
-        <Button label="건너뛰기" variant="secondary" onClick={handleSkip} />
+        <Button
+          label="다른 질문 받기"
+          variant="secondary"
+          onClick={handleSkip}
+          disabled={isPending}
+        />
       </div>
-      <div className="flex-2">
+      <div className="flex-1">
         <Button label="답변하기" onClick={handleAnswer} />
       </div>
     </div>
