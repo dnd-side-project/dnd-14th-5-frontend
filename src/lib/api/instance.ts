@@ -1,11 +1,17 @@
 import type { AxiosError, InternalAxiosRequestConfig } from 'axios';
-import axios, { AxiosHeaders } from 'axios';
+import axios, { AxiosHeaders, isAxiosError } from 'axios';
+
+import { USER_ENDPOINTS } from '@/src/components/features/users/constants/url';
 
 export interface ApiError {
   status: number | null;
   code: string | null;
   message: string;
   detail?: unknown;
+}
+
+interface RetryableRequestConfig extends InternalAxiosRequestConfig {
+  _retry?: boolean;
 }
 
 const baseURL = process.env.NEXT_PUBLIC_API_BASE_URL;
@@ -27,6 +33,14 @@ const api = axios.create({
   timeout: 10_000,
   withCredentials: true,
 });
+
+const reissueClient = axios.create({
+  baseURL,
+  timeout: 10_000,
+  withCredentials: true,
+});
+
+let reissuePromise: Promise<void> | null = null;
 
 const toApiError = (error: AxiosError): ApiError => {
   return {
@@ -65,14 +79,75 @@ const attachServerCookieHeader = async (config: InternalAxiosRequestConfig) => {
   }
 };
 
+const rejectApiError = (error: AxiosError) => {
+  return Promise.reject(toApiError(error));
+};
+
+const isReissueRequest = (config: RetryableRequestConfig) => {
+  const requestUrl = config.url ?? '';
+  return requestUrl.includes(USER_ENDPOINTS.reissue);
+};
+
+const shouldTryReissue = (
+  status: number | null,
+  config: RetryableRequestConfig,
+) => {
+  return status === 401 && !isReissueRequest(config) && !config._retry;
+};
+
+const runReissueOnce = async () => {
+  if (!reissuePromise) {
+    reissuePromise = reissueClient
+      .post(USER_ENDPOINTS.reissue)
+      .then(() => undefined)
+      .finally(() => {
+        reissuePromise = null;
+      });
+  }
+
+  await reissuePromise;
+};
+
+const retryRequest = (config: RetryableRequestConfig) => {
+  config._retry = true;
+  return api.request(config);
+};
+
 api.interceptors.request.use(
   async (config) => attachServerCookieHeader(config),
-  (error: AxiosError) => Promise.reject(toApiError(error)),
+  (error: AxiosError) => rejectApiError(error),
+);
+
+reissueClient.interceptors.request.use(
+  async (config) => attachServerCookieHeader(config),
+  (error: AxiosError) => rejectApiError(error),
 );
 
 api.interceptors.response.use(
   (response) => response,
-  (error: AxiosError) => Promise.reject(toApiError(error)),
+  async (error: AxiosError) => {
+    const originalConfig = error.config as RetryableRequestConfig | undefined;
+    const status = error.response?.status ?? null;
+
+    if (!originalConfig) {
+      return rejectApiError(error);
+    }
+
+    if (!shouldTryReissue(status, originalConfig)) {
+      return rejectApiError(error);
+    }
+
+    try {
+      await runReissueOnce();
+      return retryRequest(originalConfig);
+    } catch (reissueError) {
+      if (isAxiosError(reissueError)) {
+        return rejectApiError(reissueError);
+      }
+
+      return rejectApiError(error);
+    }
+  },
 );
 
 export default api;
