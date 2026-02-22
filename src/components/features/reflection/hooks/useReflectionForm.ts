@@ -19,13 +19,16 @@ export const useReflectionForm = (): UseReflectionFormResult => {
   const router = useRouter();
   const { showToast } = useToast();
   const handleSuccess = ({ id }: SubmitReflectionResponseType) => {
-    showToast({ message: '기록이 완료되었어요.' });
+    showToast({ message: '기록이 완료되었어요.', variant: 'checkCircle' });
     router.push(`/reflections/${id}/feedback`);
   };
   const { mutate: submitReflection, isPending } = useSubmitReflectionMutation({
     onSuccess: handleSuccess,
     onError: () => {
-      showToast({ message: '기록에 실패했어요. 잠시 후 다시 시도해주세요.' });
+      showToast({
+        message: '기록에 실패했어요. 잠시 후 다시 시도해주세요.',
+        variant: 'alert',
+      });
     },
   });
   const [content, setContent] = useState('');

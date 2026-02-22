@@ -24,6 +24,7 @@ const HomeActionsSection = () => {
       onError: () => {
         showToast({
           message: '새 질문을 가져오지 못했어요. 잠시 후 다시 시도해주세요.',
+          variant: 'alert',
         });
       },
     });
