@@ -56,7 +56,6 @@ const CalendarMonth = ({
           ))}
         </div>
       ) : (
-        // TODO: 아이콘 바뀐걸로 변경해야 함.
         <CalendarMonthGrid
           days={days}
           currentMonth={currentMonth}

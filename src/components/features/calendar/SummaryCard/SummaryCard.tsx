@@ -37,7 +37,6 @@ const SummaryCard = ({ data, isPending }: SummaryCardProps) => {
   const todayReflection = data?.content ?? '오늘의 회고 답변이 없습니다.';
 
   return (
-    // TODO: 디자인 물어보고 카드 스타일 업데이트 필요,
     <Card className="rounded-2xl bg-g-500 p-5">
       <button
         type="button"
