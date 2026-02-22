@@ -10,14 +10,19 @@ import { useSuspenseTodayReflectionQuery } from '../../reflection/queries/useTod
 const SummaryCard = () => {
   const router = useRouter();
   const { data } = useSuspenseTodayReflectionQuery();
+  const hasReflectionContent = data.content !== null;
 
-  // TODO: 오늘의 회고 있으면 해당 페이지로 이동, 없으면 회고 작성하는 페이지로 이동? or 걍 막기?
   const handleCardClick = () => {
+    if (!hasReflectionContent) {
+      router.push('/reflection');
+      return;
+    }
+
     router.push(`/reflection/${data.id}`);
   };
 
   const todayQuestion = data?.question.content ?? '오늘의 질문이 없습니다.';
-  const todayReflection = data?.content ?? '오늘의 회고 답변이 없습니다.';
+  const todayReflection = data?.content ?? '아직 답변하지 않았어요!';
 
   return (
     <Card className="rounded-2xl bg-g-500 p-5">
