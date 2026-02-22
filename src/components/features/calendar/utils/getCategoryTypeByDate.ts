@@ -18,11 +18,11 @@ export const getCategoryTypeByDate = (
 ): Map<string, CalendarDayCategoryType> => {
   const categoryTypeByDate = new Map<string, CalendarDayCategoryType>();
 
-  for (const { category, createdAt } of data) {
+  for (const { category, reflectedAt } of data) {
     const type = CATEGORY_TO_BLOB_TYPE[category];
     if (!type) continue;
 
-    const dateKey = createdAt.slice(0, 10);
+    const dateKey = reflectedAt.slice(0, 10);
     categoryTypeByDate.set(dateKey, type);
   }
 
