@@ -5,7 +5,7 @@ import { useRouter } from 'next/navigation';
 
 import CalendarMonth from '@/src/components/features/calendar/CalendarMonth/CalendarMonth';
 import { useCalendarState } from '@/src/components/features/calendar/hooks/useCalendarState';
-import StreakBanner from '@/src/components/features/calendar/StreakBanner/StreackBanner';
+import StreakBanner from '@/src/components/features/calendar/StreakBanner/StreakBanner';
 import SummaryCard from '@/src/components/features/calendar/SummaryCard/SummaryCard';
 import { useMonthReflectionQuery } from '@/src/components/features/reflection/queries/useMonthReflectionQuery';
 import { useTodayReflectionQuery } from '@/src/components/features/reflection/queries/useTodayReflectionQuery';
