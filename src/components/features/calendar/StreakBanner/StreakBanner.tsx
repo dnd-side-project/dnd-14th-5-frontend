@@ -2,28 +2,12 @@
 
 import Card from '@/src/components/ui/Card/Card';
 import Icon from '@/src/components/ui/Icon/Icon';
-import Skeleton from '@/src/components/ui/Skeleton/Skeleton';
 
-import type { UserDetailResponse } from '../../users/queries/useUserDetailQuery';
+import { useSuspenseUserDetailQuery } from '../../users/queries/useUserDetailQuery';
 
-interface StreakBannerProps {
-  data?: UserDetailResponse;
-  isPending: boolean;
-}
-
-const StreakBanner = ({ data, isPending }: StreakBannerProps) => {
-  if (isPending) {
-    return (
-      <Card className="bg-linear-to-r from-y-50 to-primary py-2">
-        <Skeleton
-          className="h-8 w-full bg-g-300/30"
-          ariaLabel="연속 기록 로딩 중"
-        />
-      </Card>
-    );
-  }
-
-  const currentStreak = data?.streakDays ?? 0;
+const StreakBanner = () => {
+  const { data } = useSuspenseUserDetailQuery();
+  const currentStreak = data.streakDays;
 
   return (
     <Card className="flex items-center justify-start gap-3 bg-linear-to-r from-y-50 to-primary text-g-900 py-2">

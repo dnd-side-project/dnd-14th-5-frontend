@@ -1,4 +1,4 @@
-import { useQuery } from '@tanstack/react-query';
+import { useQuery, useSuspenseQuery } from '@tanstack/react-query';
 import { z } from 'zod';
 
 import { get } from '@/src/lib/api';
@@ -50,6 +50,16 @@ const getMonthReflection = async (
 
 export const useMonthReflectionQuery = ({ month }: GetMonthReflectionRequest) =>
   useQuery({
+    queryKey: reflectionKeys.monthReflection(month),
+    queryFn: () => getMonthReflection(month),
+    staleTime: 60_000,
+    refetchOnWindowFocus: false,
+  });
+
+export const useSuspenseMonthReflectionQuery = ({
+  month,
+}: GetMonthReflectionRequest) =>
+  useSuspenseQuery({
     queryKey: reflectionKeys.monthReflection(month),
     queryFn: () => getMonthReflection(month),
     staleTime: 60_000,

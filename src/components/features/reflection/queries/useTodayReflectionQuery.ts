@@ -1,4 +1,4 @@
-import { useQuery } from '@tanstack/react-query';
+import { useQuery, useSuspenseQuery } from '@tanstack/react-query';
 import { z } from 'zod';
 
 import { get } from '@/src/lib/api';
@@ -46,6 +46,12 @@ const getTodayReflection = async (): Promise<GetTodayReflectionResponse> => {
 
 export const useTodayReflectionQuery = () =>
   useQuery({
+    queryKey: reflectionKeys.todayReflection(),
+    queryFn: getTodayReflection,
+  });
+
+export const useSuspenseTodayReflectionQuery = () =>
+  useSuspenseQuery({
     queryKey: reflectionKeys.todayReflection(),
     queryFn: getTodayReflection,
   });
