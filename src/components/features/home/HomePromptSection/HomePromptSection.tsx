@@ -1,11 +1,8 @@
-'use client';
+interface HomePromptSectionProps {
+  todayQuestion?: string;
+}
 
-import { useTodayQuestionSuspenseQuery } from '../../reflection/queries/useTodayQuestionQuery';
-
-const HomePromptSection = () => {
-  const { data } = useTodayQuestionSuspenseQuery();
-  const todayQuestion = data?.content;
-
+const HomePromptSection = ({ todayQuestion }: HomePromptSectionProps) => {
   return (
     <div className="flex flex-col gap-2">
       <p className="text-body-s text-g-100">오늘의 회고</p>

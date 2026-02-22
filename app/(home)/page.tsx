@@ -1,7 +1,6 @@
 import HomeActionsSection from '@/src/components/features/home/HomeActionsSection/HomeActionsSection';
-import HomeCharacterSection from '@/src/components/features/home/HomeCharacterSection/HomeCharacterSection';
 import HomeHeader from '@/src/components/features/home/HomeHeader/HomeHeader';
-import HomePromptSectionBoundary from '@/src/components/features/home/HomePromptSection/HomePromptSectionBoundary';
+import HomeTodayQuestionSectionBoundary from '@/src/components/features/home/HomeTodayQuestionSectionBoundary/HomeTodayQuestionSectionBoundary';
 import BottomNavBar from '@/src/components/layout/BottomNavBar/BottomNavBar';
 
 const Home = () => {
@@ -11,9 +10,7 @@ const Home = () => {
 
       <div className="flex flex-1 flex-col pb-32 pt-8">
         <div className="flex flex-1 flex-col">
-          <HomePromptSectionBoundary />
-
-          <HomeCharacterSection />
+          <HomeTodayQuestionSectionBoundary />
 
           <HomeActionsSection />
         </div>
