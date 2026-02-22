@@ -1,6 +1,7 @@
 import { format, isAfter, isSameDay, isSameMonth, startOfDay } from 'date-fns';
 
 import type { CalendarDayCategoryType } from '../CalendarMonth/CalendarDayCell/CalendarDayCell';
+import { CALENDAR_DATE_FORMAT } from '../constants/calendar';
 import type { CalendarDayRecordByDateItem } from './getCategoryTypeByDate';
 
 interface GetCalendarDayCellsParams {
@@ -46,7 +47,7 @@ export const getCalendarDayCells = ({
     const isToday = isSameDay(dayStart, todayStart);
     const isOutlined = selectedDate ? isSelected : isToday;
     const isFuture = isAfter(dayStart, todayStart);
-    const dayKey = format(day, 'yyyy-MM-dd');
+    const dayKey = format(day, CALENDAR_DATE_FORMAT.dayKey);
     const dayRecord = categoryTypeByDate.get(dayKey);
     const categoryType = dayRecord?.categoryType;
     const reflectionId = dayRecord?.reflectionId;

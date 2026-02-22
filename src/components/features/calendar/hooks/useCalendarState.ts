@@ -9,6 +9,12 @@ import {
 } from 'date-fns';
 import { useMemo, useState } from 'react';
 
+import {
+  CALENDAR_DATE_FORMAT,
+  CALENDAR_GRID_CELL_COUNT,
+  CALENDAR_WEEK_STARTS_ON,
+} from '../constants/calendar';
+
 export interface UseCalendarStateResult {
   today: Date;
   currentMonth: Date;
@@ -32,7 +38,7 @@ export const useCalendarState = (): UseCalendarStateResult => {
 
   // 헤더에 표시할 월 라벨
   const currentMonthLabel = useMemo(
-    () => format(currentMonth, 'yyyy.MM'),
+    () => format(currentMonth, CALENDAR_DATE_FORMAT.monthLabel),
     [currentMonth],
   );
 
@@ -40,10 +46,12 @@ export const useCalendarState = (): UseCalendarStateResult => {
   const days = useMemo(() => {
     // 현재 월의 시작일이 속한 주의 시작(일요일)을 계산
     const gridStart = startOfWeek(currentMonth, {
-      weekStartsOn: 0,
+      weekStartsOn: CALENDAR_WEEK_STARTS_ON,
     });
 
-    return Array.from({ length: 42 }, (_, index) => addDays(gridStart, index));
+    return Array.from({ length: CALENDAR_GRID_CELL_COUNT }, (_, index) =>
+      addDays(gridStart, index),
+    );
   }, [currentMonth]);
 
   const goPrevMonth = () => {

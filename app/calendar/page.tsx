@@ -4,6 +4,7 @@ import { format } from 'date-fns';
 import { useRouter } from 'next/navigation';
 
 import CalendarMonth from '@/src/components/features/calendar/CalendarMonth/CalendarMonth';
+import { CALENDAR_DATE_FORMAT } from '@/src/components/features/calendar/constants/calendar';
 import { useCalendarState } from '@/src/components/features/calendar/hooks/useCalendarState';
 import StreakBanner from '@/src/components/features/calendar/StreakBanner/StreakBanner';
 import SummaryCard from '@/src/components/features/calendar/SummaryCard/SummaryCard';
@@ -18,7 +19,10 @@ const CalendarPage = () => {
   const router = useRouter();
 
   const calendarState = useCalendarState();
-  const formattedMonth = format(calendarState.currentMonth, 'yyyy-MM');
+  const formattedMonth = format(
+    calendarState.currentMonth,
+    CALENDAR_DATE_FORMAT.monthRequest,
+  );
 
   const monthQuery = useMonthReflectionQuery({ month: formattedMonth });
   const todayQuery = useTodayReflectionQuery();

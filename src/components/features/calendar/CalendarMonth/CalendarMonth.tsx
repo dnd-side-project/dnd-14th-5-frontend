@@ -5,6 +5,7 @@ import { useMemo } from 'react';
 import Skeleton from '@/src/components/ui/Skeleton/Skeleton';
 
 import type { GetMonthReflectionResponse } from '../../reflection/queries/useMonthReflectionQuery';
+import { CALENDAR_GRID_CELL_COUNT } from '../constants/calendar';
 import type { UseCalendarStateResult } from '../hooks/useCalendarState';
 import { getCategoryTypeByDate } from '../utils/getCategoryTypeByDate';
 import { mapReflectionItems } from '../utils/mapReflectionItems';
@@ -46,7 +47,7 @@ const CalendarMonth = ({
 
       {isPending ? (
         <div className="grid grid-cols-7 gap-2">
-          {Array.from({ length: 42 }).map((_, index) => (
+          {Array.from({ length: CALENDAR_GRID_CELL_COUNT }).map((_, index) => (
             <Skeleton
               key={index}
               className="h-10 w-10 rounded-full bg-g-500"
