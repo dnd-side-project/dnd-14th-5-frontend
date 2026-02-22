@@ -39,7 +39,7 @@ const CalendarMonthGrid = ({
   const handleDateSelect = (date: Date, reflectionId?: number) => {
     selectDate(date);
 
-    if (!reflectionId) return;
+    if (reflectionId === undefined) return;
     router.push(`/reflection/${reflectionId}`);
   };
 
