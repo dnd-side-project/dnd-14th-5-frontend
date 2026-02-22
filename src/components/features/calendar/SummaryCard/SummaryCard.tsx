@@ -16,6 +16,7 @@ interface SummaryCardProps {
 const SummaryCard = ({ data, isPending }: SummaryCardProps) => {
   const router = useRouter();
 
+  // TODO: 오늘의 회고 있으면 해당 페이지로 이동, 없으면 회고 작성하는 페이지로 이동? or 걍 막기?
   const handleCardClick = () => {
     if (!data) return;
     router.push(`/reflection/${data.id}`);

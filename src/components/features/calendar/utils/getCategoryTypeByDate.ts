@@ -9,21 +9,29 @@ const CATEGORY_TO_BLOB_TYPE: Record<string, CalendarDayCategoryType> = {
   FUTURE: 'future-oriented',
 };
 
+export interface CalendarDayRecordByDateItem {
+  categoryType: CalendarDayCategoryType;
+  reflectionId: number;
+}
+
 /**
  * 회고 목록을 날짜별 카테고리 타입 맵으로 변환
- * key는 `yyyy-MM-dd` 형식이며, value는 `CalendarDayCategoryType`
+ * key는 `yyyy-MM-dd` 형식이며, value는 카테고리/회고 ID 정보
  */
 export const getCategoryTypeByDate = (
   data: ReflectionCategoryItem[],
-): Map<string, CalendarDayCategoryType> => {
-  const categoryTypeByDate = new Map<string, CalendarDayCategoryType>();
+): Map<string, CalendarDayRecordByDateItem> => {
+  const categoryTypeByDate = new Map<string, CalendarDayRecordByDateItem>();
 
-  for (const { category, reflectedAt } of data) {
+  for (const { id, category, reflectedAt } of data) {
     const type = CATEGORY_TO_BLOB_TYPE[category];
     if (!type) continue;
 
     const dateKey = reflectedAt.slice(0, 10);
-    categoryTypeByDate.set(dateKey, type);
+    categoryTypeByDate.set(dateKey, {
+      categoryType: type,
+      reflectionId: id,
+    });
   }
 
   return categoryTypeByDate;

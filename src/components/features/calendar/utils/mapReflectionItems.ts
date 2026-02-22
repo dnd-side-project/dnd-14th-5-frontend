@@ -1,4 +1,5 @@
 interface MonthReflectionItem {
+  id: number;
   question: {
     category: string;
   };
@@ -6,6 +7,7 @@ interface MonthReflectionItem {
 }
 
 export interface ReflectionCategoryItem {
+  id: number;
   category: string;
   reflectedAt: string;
 }
@@ -16,7 +18,8 @@ export interface ReflectionCategoryItem {
 export const mapReflectionItems = (
   data: MonthReflectionItem[],
 ): ReflectionCategoryItem[] =>
-  data.map(({ question: { category }, reflectedAt }) => ({
+  data.map(({ id, question: { category }, reflectedAt }) => ({
+    id,
     category,
     reflectedAt,
   }));

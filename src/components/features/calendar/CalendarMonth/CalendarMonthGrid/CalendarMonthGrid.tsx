@@ -1,10 +1,12 @@
 'use client';
 
+import { useRouter } from 'next/navigation';
+
 import {
   type CalendarDayCellType,
   getCalendarDayCells,
 } from '../../utils/getCalendarDayCells';
-import type { CalendarDayCategoryType } from '../CalendarDayCell/CalendarDayCell';
+import type { CalendarDayRecordByDateItem } from '../../utils/getCategoryTypeByDate';
 import CalendarDayCell from '../CalendarDayCell/CalendarDayCell';
 
 interface CalendarMonthGridProps {
@@ -12,7 +14,7 @@ interface CalendarMonthGridProps {
   currentMonth: Date;
   selectedDate: Date | null;
   today: Date;
-  categoryTypeByDate: Map<string, CalendarDayCategoryType>;
+  categoryTypeByDate: Map<string, CalendarDayRecordByDateItem>;
   selectDate: (date: Date) => void;
 }
 
@@ -24,6 +26,8 @@ const CalendarMonthGrid = ({
   categoryTypeByDate,
   selectDate,
 }: CalendarMonthGridProps) => {
+  const router = useRouter();
+
   const dayCells: CalendarDayCellType[] = getCalendarDayCells({
     days,
     currentMonth,
@@ -32,8 +36,11 @@ const CalendarMonthGrid = ({
     categoryTypeByDate,
   });
 
-  const handleDateSelect = (date: Date) => {
+  const handleDateSelect = (date: Date, reflectionId?: number) => {
     selectDate(date);
+
+    if (!reflectionId) return;
+    router.push(`/reflection/${reflectionId}`);
   };
 
   return (
@@ -48,7 +55,9 @@ const CalendarMonthGrid = ({
                 isFuture={dayCell.isFuture}
                 hasRecord={dayCell.blobProps.hasRecord}
                 isOutlined={dayCell.blobProps.isOutlined}
-                onClick={() => handleDateSelect(dayCell.date)}
+                onClick={() =>
+                  handleDateSelect(dayCell.date, dayCell.reflectionId)
+                }
               />
             ) : (
               <span aria-hidden className="h-10 w-10" />
