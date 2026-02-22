@@ -1,12 +1,12 @@
 'use client';
 
+import { useRouter } from 'next/navigation';
+
 import Card from '@/src/components/ui/Card/Card';
 import Icon from '@/src/components/ui/Icon/Icon';
 import Skeleton from '@/src/components/ui/Skeleton/Skeleton';
-import { cn } from '@/src/lib/helpers/cn';
 
 import type { GetTodayReflectionResponse } from '../../reflection/queries/useTodayReflectionQuery';
-import { CATEGORY_CARD_CLASS_MAP } from '../constants/categoryCardClassMap';
 
 interface SummaryCardProps {
   data?: GetTodayReflectionResponse;
@@ -14,10 +14,11 @@ interface SummaryCardProps {
 }
 
 const SummaryCard = ({ data, isPending }: SummaryCardProps) => {
-  const todayCategory = data?.question.category;
+  const router = useRouter();
 
   const handleCardClick = () => {
-    // TODO: 카드 클릭 시 오늘의 회고 상세 페이지로 이동하도록 구현 필요
+    if (!data) return;
+    router.push(`/reflection/${data.id}`);
   };
 
   if (isPending) {
@@ -41,6 +42,7 @@ const SummaryCard = ({ data, isPending }: SummaryCardProps) => {
         type="button"
         onClick={handleCardClick}
         aria-label="오늘 질문 상세 보기"
+        disabled={!data}
         className="w-full"
       >
         <div className="flex items-start justify-between gap-4">
