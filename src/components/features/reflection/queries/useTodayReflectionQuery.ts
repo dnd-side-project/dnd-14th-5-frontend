@@ -22,7 +22,7 @@ const todayReflectionSchema = z.object({
     createdBy: z.string(),
     createdAt: z.string(),
   }),
-  content: z.string(),
+  content: z.string().nullable(),
   feedback: z
     .object({
       id: z.number(),
