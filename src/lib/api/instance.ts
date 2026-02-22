@@ -85,7 +85,13 @@ const rejectApiError = (error: AxiosError) => {
 
 const isReissueRequest = (config: RetryableRequestConfig) => {
   const requestUrl = config.url ?? '';
-  return requestUrl.includes(USER_ENDPOINTS.reissue);
+
+  try {
+    const parsedUrl = new URL(requestUrl, baseURL ?? 'http://localhost');
+    return parsedUrl.pathname === USER_ENDPOINTS.reissue;
+  } catch {
+    return requestUrl === USER_ENDPOINTS.reissue;
+  }
 };
 
 const shouldTryReissue = (
@@ -121,6 +127,7 @@ const logServerApiError = (error: AxiosError) => {
   const requestUrl = error.config?.url ?? '(unknown-url)';
   const status = error.response?.status ?? null;
 
+  // eslint-disable-next-line no-console
   console.error('[api][ssr] request failed', {
     url: requestUrl,
     status,
