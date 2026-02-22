@@ -19,7 +19,7 @@ export const useReflectionForm = (): UseReflectionFormResult => {
   const router = useRouter();
   const { showToast } = useToast();
   const handleSuccess = ({ id }: SubmitReflectionResponseType) => {
-    showToast({ message: '기록이 완료되었어요.', variant: 'checkCircle' });
+    showToast({ message: '기록이 완료되었어요.', variant: 'check' });
     router.push(`/reflections/${id}/feedback`);
   };
   const { mutate: submitReflection, isPending } = useSubmitReflectionMutation({

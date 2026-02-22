@@ -10,11 +10,17 @@ import {
 } from 'react';
 
 import Icon from '@/src/components/ui/Icon/Icon';
+import type { IconNameType } from '@/src/components/ui/Icon/Icon.types';
 import { cn } from '@/src/lib/helpers/cn';
 
 import styles from './Toast.module.css';
 
-type ToastVariant = 'alert' | 'checkCircle';
+type ToastVariant = 'alert' | 'check';
+
+const TOAST_VARIANT_ICON_MAP: Record<ToastVariant, IconNameType> = {
+  alert: 'alert',
+  check: 'checkCircle',
+};
 
 interface ToastOptions {
   message: string;
@@ -129,7 +135,7 @@ const ToastCard = ({ toast, onDismiss }: ToastCardProps) => {
         isLeaving ? styles.toastOut : styles.toastIn,
       )}
     >
-      <Icon name={toast.variant} size={24} decorative />
+      <Icon name={TOAST_VARIANT_ICON_MAP[toast.variant]} size={24} decorative />
       <p className="text-body-s truncate">{toast.message}</p>
     </div>
   );
