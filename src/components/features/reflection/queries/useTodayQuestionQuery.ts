@@ -1,4 +1,4 @@
-import { useQuery } from '@tanstack/react-query';
+import { useQuery, useSuspenseQuery } from '@tanstack/react-query';
 import { z } from 'zod';
 
 import { get } from '@/src/lib/api';
@@ -29,6 +29,12 @@ export const getTodayQuestion = async (
 
 export const useTodayQuestionQuery = () =>
   useQuery({
+    queryKey: reflectionKeys.todayQuestion(),
+    queryFn: () => getTodayQuestion(),
+  });
+
+export const useTodayQuestionSuspenseQuery = () =>
+  useSuspenseQuery({
     queryKey: reflectionKeys.todayQuestion(),
     queryFn: () => getTodayQuestion(),
   });
