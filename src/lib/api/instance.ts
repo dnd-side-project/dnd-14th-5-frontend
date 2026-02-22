@@ -113,6 +113,20 @@ const retryRequest = (config: RetryableRequestConfig) => {
   return api.request(config);
 };
 
+const logServerApiError = (error: AxiosError) => {
+  if (typeof window !== 'undefined') {
+    return;
+  }
+
+  const requestUrl = error.config?.url ?? '(unknown-url)';
+  const status = error.response?.status ?? null;
+
+  console.error('[api][ssr] request failed', {
+    url: requestUrl,
+    status,
+  });
+};
+
 api.interceptors.request.use(
   async (config) => attachServerCookieHeader(config),
   (error: AxiosError) => rejectApiError(error),
@@ -126,6 +140,8 @@ reissueClient.interceptors.request.use(
 api.interceptors.response.use(
   (response) => response,
   async (error: AxiosError) => {
+    logServerApiError(error);
+
     const originalConfig = error.config as RetryableRequestConfig | undefined;
     const status = error.response?.status ?? null;
 
