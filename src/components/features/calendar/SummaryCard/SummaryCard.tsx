@@ -21,8 +21,8 @@ const SummaryCard = () => {
     router.push(`/reflection/${data.id}`);
   };
 
-  const todayQuestion = data?.question.content ?? '오늘의 질문이 없습니다.';
-  const todayReflection = data?.content ?? '아직 답변하지 않았어요!';
+  const todayQuestion = data.question.content ?? '오늘의 질문이 없습니다.';
+  const todayReflection = data.content ?? '아직 답변하지 않았어요!';
 
   return (
     <Card className="rounded-2xl bg-g-500 p-5">
