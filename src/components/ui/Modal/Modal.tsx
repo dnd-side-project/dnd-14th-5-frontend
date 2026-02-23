@@ -18,7 +18,7 @@ const Modal = ({
   isOpen,
   onClose,
   children,
-  showCloseButton = true,
+  showCloseButton = false,
   contentClassName,
   overlayClassName,
 }: ModalProps) => {
@@ -70,7 +70,7 @@ const Modal = ({
         role="dialog"
         aria-modal="true"
         className={cn(
-          'relative z-10 w-full rounded-3xl bg-g-600 p-6',
+          'relative z-10 w-full rounded-3xl bg-g-400 p-6',
           contentClassName,
         )}
       >
@@ -79,7 +79,7 @@ const Modal = ({
             type="button"
             aria-label="닫기"
             onClick={onClose}
-            className="absolute left-4 top-4 flex h-8 w-8 items-center justify-center rounded-full text-body-s text-g-0"
+            className="absolute right-4 top-4 flex h-8 w-8 items-center justify-center rounded-full text-body-s text-g-0"
           >
             X
           </button>
