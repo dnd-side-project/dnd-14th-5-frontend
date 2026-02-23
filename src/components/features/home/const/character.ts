@@ -21,15 +21,15 @@ export const CATEGORY = [
 export type Category = (typeof CATEGORY)[number];
 
 export const CATEGORY_CHARACTER_MAP: Record<Category, CharacterAsset> = {
-  PAST_NEGATIVE: {
-    src: '/character/past-negative-shadow.svg',
-    alt: '과거 부정 캐릭터',
-    color: 'text-r-300',
-  },
   PAST_POSITIVE: {
     src: '/character/past-positive-memory.svg',
     alt: '과거 긍정 캐릭터',
     color: 'text-b-300',
+  },
+  PAST_NEGATIVE: {
+    src: '/character/past-negative-shadow.svg',
+    alt: '과거 부정 캐릭터',
+    color: 'text-r-300',
   },
   PRESENT_HEDONISTIC: {
     src: '/character/present-hedonistic-now.svg',
