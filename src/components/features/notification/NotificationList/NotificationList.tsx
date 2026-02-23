@@ -29,7 +29,7 @@ const NotificationList = () => {
   } = useNotificationReadActions();
 
   return (
-    <div className="flex h-full min-h-0 flex-col gap-3">
+    <div className="flex flex-col gap-3 pb-3">
       {!isLoading && hasNotifications && (
         <div className="flex justify-end pb-2">
           <NotificationReadAllButton disabled={isMutating} onClick={readAll} />
@@ -39,7 +39,7 @@ const NotificationList = () => {
       {isLoading && <NotificationListSkeleton />}
 
       {!isLoading && !hasNotifications && (
-        <div className="flex flex-1 flex-col items-center justify-center pb-30">
+        <div className="flex min-h-dvh flex-col items-center justify-center pb-10">
           <NotificationEmptyState />
         </div>
       )}
