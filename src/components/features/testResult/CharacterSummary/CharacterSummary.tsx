@@ -3,15 +3,13 @@ import Image from 'next/image';
 import { CATEGORY_CHARACTER_MAP } from '../../home/const/character';
 import { type ResponseType as TestRecordResponseType } from '../queries/useTestRecordQuery';
 
-type CharacterSummaryProps =
-  TestRecordResponseType['result']['closestCategory'];
+type CharacterSummaryProps = Pick<
+  TestRecordResponseType['result'],
+  'closestCategory'
+>;
 
-const CharacterSummary = ({
-  personality,
-  character,
-  description,
-  name,
-}: CharacterSummaryProps) => {
+const CharacterSummary = ({ closestCategory }: CharacterSummaryProps) => {
+  const { name, description, character, personality } = closestCategory;
   const { color, alt, resultSrc } = CATEGORY_CHARACTER_MAP[name];
 
   return (
