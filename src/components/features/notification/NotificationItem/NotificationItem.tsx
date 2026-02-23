@@ -1,20 +1,39 @@
 import Card from '@/src/components/ui/Card/Card';
 import Icon from '@/src/components/ui/Icon/Icon';
 
-const NotificationItem = () => {
+import { formatKoreanLocaleDateTime } from '../utils/formatKoreanLocaleDateTime';
+
+interface NotificationItemProps {
+  id: number;
+  notifiedAt: Date;
+  title: string;
+  onDelete: (id: number) => void;
+}
+
+const NotificationItem = ({
+  id,
+  notifiedAt,
+  title,
+  onDelete,
+}: NotificationItemProps) => {
+  const notifiedAtText = formatKoreanLocaleDateTime(notifiedAt);
+
   return (
-    // TODO: 실제 값으로 채워 넣어야 함
     <Card className="flex flex-col gap-2 bg-g-400">
       <div className="flex justify-between ">
         <div className="flex items-center gap-2">
           <Icon name="bellInactive" size={22} />
-          <p className="text-caption-n text-g-80">2월 8일 20:00</p>
+          <p className="text-caption-n text-g-80">{notifiedAtText}</p>
         </div>
-        <Icon name="close" size={12} />
+        <button
+          type="button"
+          onClick={() => onDelete(id)}
+          aria-label="알림 읽음 처리"
+        >
+          <Icon name="close" size={12} />
+        </button>
       </div>
-      <p className="text-body-s">
-        하루를 돌아볼 시간이에요. 오늘은 어떤 하루였나요?
-      </p>
+      <p className="text-body-s">{title}</p>
     </Card>
   );
 };
