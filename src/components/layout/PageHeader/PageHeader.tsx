@@ -10,6 +10,7 @@ interface PageHeaderProps {
   onRightClick?: () => void;
   leftSlotVariant?: 'icon' | 'logo';
   rightSlotVariant?: 'icon' | 'logo';
+  className?: string;
 }
 
 const PageHeader = ({
@@ -20,6 +21,7 @@ const PageHeader = ({
   onRightClick,
   leftSlotVariant = 'icon',
   rightSlotVariant = 'icon',
+  className,
 }: PageHeaderProps) => {
   const slotBaseClassName = 'h-10 flex items-center justify-center';
   const slotVariantClassName = {
@@ -28,7 +30,7 @@ const PageHeader = ({
   } as const;
 
   return (
-    <header className="flex items-center gap-2 h-14">
+    <header className={cn('flex items-center gap-2 h-14', className)}>
       <button
         type="button"
         onClick={onLeftClick}
