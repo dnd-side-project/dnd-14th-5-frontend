@@ -19,9 +19,7 @@ const CharacterSummary = ({ closestCategory }: CharacterSummaryProps) => {
         <h2 className="text-heading-h2 text-g-0 pb-3">
           당신의 캐릭터는
           <br />
-          {personality}{' '}
-          {/* TODO: color 상수가 text-로 바뀐 커밋이 반영되면 className으로 변경 예정 */}
-          <span style={{ color: `var(--color-${color})` }}>{character}</span>
+          {personality} <span className={color}>{character}</span>
           에요!
         </h2>
         <p className="text-body-s text-g-60 break-keep">{description}</p>

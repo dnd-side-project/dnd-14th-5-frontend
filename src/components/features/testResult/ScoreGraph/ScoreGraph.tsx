@@ -1,5 +1,7 @@
 import Image from 'next/image';
 
+import { cn } from '@/src/lib/helpers/cn';
+
 import { CATEGORY_CHARACTER_MAP } from '../../home/const/character';
 import { useIdealScoreGraph } from '../hooks/useIdealScoreGraph';
 import { type ResponseType as TestRecordResponseType } from '../queries/useTestRecordQuery';
@@ -79,9 +81,7 @@ const ScoreGraph = ({ scores }: ScoreGraphProps) => {
                   height={40}
                 />
                 <span
-                  className="text-caption-n whitespace-nowrap mt-2"
-                  // TODO: color 상수가 text-로 바뀐 커밋이 반영되면 className으로 변경 예정
-                  style={{ color: `var(--color-${color})` }}
+                  className={cn('text-caption-n whitespace-nowrap mt-2', color)}
                 >
                   {formatCharacterName({ name: alt })}
                 </span>
