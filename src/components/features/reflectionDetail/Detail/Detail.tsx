@@ -68,7 +68,7 @@ const Detail = ({ reflectionId }: DetailProps) => {
           더 많이 떠올리셨어요!
         </p>
 
-        <p className="text-body-s text-g-600">{data.feedback.content}</p>
+        <p className="text-body-s text-g-600">{data.feedback?.content}</p>
       </section>
     </article>
   );
