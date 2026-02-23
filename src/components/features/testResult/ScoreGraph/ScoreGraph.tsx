@@ -72,7 +72,6 @@ const ScoreGraph = ({ scores }: ScoreGraphProps) => {
                 </div>
 
                 <Image
-                  key={item.category}
                   src={src}
                   alt={alt}
                   className="-mt-6 z-1 h-10"
