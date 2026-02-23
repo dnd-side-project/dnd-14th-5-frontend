@@ -1,4 +1,4 @@
-import Result from '@/src/components/features/test/Result/Result';
+import Result from '@/src/components/features/testResult/Result/Result';
 import PageHeader from '@/src/components/layout/PageHeader/PageHeader';
 
 interface ZtpiTestResultPageProps {
