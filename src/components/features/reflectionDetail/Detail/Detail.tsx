@@ -6,7 +6,7 @@ import Badge from '@/src/components/ui/Badge/Badge';
 import ErrorState from '@/src/components/ui/ErrorState/ErrorState';
 import Skeleton from '@/src/components/ui/Skeleton/Skeleton';
 
-import type { Category} from '../../home/const/character';
+import type { Category } from '../../home/const/character';
 import { CATEGORY_CHARACTER_MAP } from '../../home/const/character';
 import { useReflectionDetail } from '../queries/useReflectionDetail';
 
@@ -62,7 +62,8 @@ const Detail = ({ reflectionId }: DetailProps) => {
         </div>
 
         <p className="text-heading-h4 text-g-900">
-          오늘은 {/* TODO: CATEGORY_MESSAGE_MAP 사용 (#50 PR 머지 후) */}
+          오늘은{' '}
+          {/* TODO: CATEGORY_MESSAGE_MAP 사용, color를 className으로 사용 (#50 PR 머지 후) */}
           <span style={{ color: `var(--color-${color})` }}>부정적 과거</span>를
           더 많이 떠올리셨어요!
         </p>
