@@ -14,9 +14,10 @@ import { useReadNotificationHistoryMutation } from '../queries/useReadNotificati
 export const useNotificationReadActions = () => {
   const queryClient = useQueryClient();
   const { showToast } = useToast();
-  const { data } = useNotificationHistoriesQuery();
-  const { mutateAsync: readNotificationHistory } =
+  const { data, isPending } = useNotificationHistoriesQuery();
+  const { mutateAsync: readNotificationHistory, isPending: isMutating } =
     useReadNotificationHistoryMutation();
+  const notifications = data ?? [];
 
   const refetchNotifications = () => {
     queryClient.invalidateQueries({
@@ -53,9 +54,9 @@ export const useNotificationReadActions = () => {
   };
 
   const readAll = async () => {
-    if (!data?.length) return;
+    if (!notifications.length) return;
 
-    const ids = data.map((notification) => notification.id);
+    const ids = notifications.map((notification) => notification.id);
     clearAllFromCache();
 
     try {
@@ -71,8 +72,10 @@ export const useNotificationReadActions = () => {
   };
 
   return {
-    notifications: data ?? [],
-    hasNotifications: Boolean(data?.length),
+    notifications,
+    hasNotifications: notifications.length > 0,
+    isLoading: isPending,
+    isMutating,
     readOne,
     readAll,
   };
