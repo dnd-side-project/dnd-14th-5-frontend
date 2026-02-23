@@ -1,9 +1,13 @@
 'use client';
 
+import Image from 'next/image';
+
 import Badge from '@/src/components/ui/Badge/Badge';
 import ErrorState from '@/src/components/ui/ErrorState/ErrorState';
 import Skeleton from '@/src/components/ui/Skeleton/Skeleton';
 
+import type { Category} from '../../home/const/character';
+import { CATEGORY_CHARACTER_MAP } from '../../home/const/character';
 import { useReflectionDetail } from '../queries/useReflectionDetail';
 
 interface DetailProps {
@@ -37,26 +41,35 @@ const Detail = ({ reflectionId }: DetailProps) => {
     );
   }
 
+  // TODO: 타입 단언 없이 category가 Category 타입으로 추론되도록 변경 예정 (#74 PR 머지 후)
+  const { src, alt, color } =
+    CATEGORY_CHARACTER_MAP[data.question.category as Category];
+
   return (
-    <section className="space-y-10">
-      <div className="space-y-5">
+    <article className="space-y-10">
+      <section className="space-y-5">
         <Badge>나의 기록</Badge>
 
         <h1 className="text-heading-h4 text-primary">
           {data.question.content}
         </h1>
         <p className="text-body-s text-g-60">{data.content}</p>
-      </div>
+      </section>
 
-      <div className="bg-g-20 rounded-2xl p-4 space-y-3">
+      <section className="bg-g-20 rounded-2xl p-4 space-y-3">
+        <div className="flex flex-col items-center">
+          <Image src={src} alt={alt} width={120} height={120} />
+        </div>
+
         <p className="text-heading-h4 text-g-900">
-          {/* TODO: 홈화면 PR 머지 후 반영 예정 */}
-          오늘은 <span className="text-r-300">부정적 과거</span>를 더 많이
-          떠올리셨어요!
+          오늘은 {/* TODO: CATEGORY_MESSAGE_MAP 사용 (#50 PR 머지 후) */}
+          <span style={{ color: `var(--color-${color})` }}>부정적 과거</span>를
+          더 많이 떠올리셨어요!
         </p>
-        <p className="text-body-s text-g-600">{data.feedback?.content}</p>
-      </div>
-    </section>
+
+        <p className="text-body-s text-g-600">{data.feedback.content}</p>
+      </section>
+    </article>
   );
 };
 
