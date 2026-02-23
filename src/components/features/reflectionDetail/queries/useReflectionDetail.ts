@@ -28,7 +28,7 @@ const ResponseSchema = z.object({
   id: z.number(),
   question: QuestionSchema,
   content: z.string(),
-  feedback: FeedbackSchema.nullable(),
+  feedback: FeedbackSchema,
   reflectedAt: z.coerce.date(),
 });
 
