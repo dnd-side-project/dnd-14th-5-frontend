@@ -18,16 +18,14 @@ export const useIdealScoreGraph = ({ scores }: UseIdealScoreGraphProps) => {
       const containerRect = containerRef.current.getBoundingClientRect();
 
       const points = dotsRef.current
-        .filter(Boolean)
+        .filter((dot): dot is HTMLImageElement => dot !== null)
         .map((dot) => {
-          if (!dot) return null;
           const rect = dot.getBoundingClientRect();
           return {
             x: rect.left - containerRect.left + rect.width / 2,
             y: rect.top - containerRect.top + rect.height / 2,
           };
-        })
-        .filter((p): p is { x: number; y: number } => p !== null);
+        });
 
       setLinePoints(points);
     };
