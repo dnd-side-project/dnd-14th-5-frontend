@@ -23,7 +23,7 @@ const NotificationSection = () => {
           />
         }
       />
-      <MenuRow label="알림 시간 변경" rightText="09:00 PM" />
+      <MenuRow label="알림 시간 변경" rightText="09:00 PM" onClick={() => {}} />
     </Card>
   );
 };
