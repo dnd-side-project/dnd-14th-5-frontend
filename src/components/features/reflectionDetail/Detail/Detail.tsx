@@ -8,6 +8,7 @@ import Skeleton from '@/src/components/ui/Skeleton/Skeleton';
 
 import type { Category } from '../../home/const/character';
 import { CATEGORY_CHARACTER_MAP } from '../../home/const/character';
+import { getCategoryMessage } from '../../reflectionFeedback/utils/getCategoryMessage';
 import { useReflectionDetail } from '../queries/useReflectionDetail';
 
 interface DetailProps {
@@ -41,9 +42,10 @@ const Detail = ({ reflectionId }: DetailProps) => {
     );
   }
 
+  const category = data.question.category as Category;
   // TODO: 타입 단언 없이 category가 Category 타입으로 추론되도록 변경 예정 (#74 PR 머지 후)
-  const { src, alt, color } =
-    CATEGORY_CHARACTER_MAP[data.question.category as Category];
+  const { src, alt, color } = CATEGORY_CHARACTER_MAP[category];
+  const categoryMessage = getCategoryMessage(category);
 
   return (
     <article className="space-y-10">
@@ -62,10 +64,9 @@ const Detail = ({ reflectionId }: DetailProps) => {
         </div>
 
         <p className="text-heading-h4 text-g-900">
-          오늘은{' '}
-          {/* TODO: CATEGORY_MESSAGE_MAP 사용, color를 className으로 사용 (#50 PR 머지 후) */}
-          <span style={{ color: `var(--color-${color})` }}>부정적 과거</span>를
-          더 많이 떠올리셨어요!
+          {categoryMessage.prefix}
+          <span className={color}>{categoryMessage.highlight}</span>
+          {categoryMessage.suffix}
         </p>
 
         <p className="text-body-s text-g-600">{data.feedback?.content}</p>
