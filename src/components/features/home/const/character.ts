@@ -10,12 +10,15 @@ export const DEFAULT_CHARACTER: CharacterAsset = {
   color: 'text-p-300',
 };
 
-export type Category =
-  | 'PAST_POSITIVE'
-  | 'PAST_NEGATIVE'
-  | 'PRESENT_HEDONISTIC'
-  | 'PRESENT_FATALISTIC'
-  | 'FUTURE';
+export const CATEGORY = [
+  'PAST_POSITIVE',
+  'PAST_NEGATIVE',
+  'PRESENT_HEDONISTIC',
+  'PRESENT_FATALISTIC',
+  'FUTURE',
+] as const;
+
+export type Category = (typeof CATEGORY)[number];
 
 export const CATEGORY_CHARACTER_MAP: Record<Category, CharacterAsset> = {
   PAST_NEGATIVE: {
