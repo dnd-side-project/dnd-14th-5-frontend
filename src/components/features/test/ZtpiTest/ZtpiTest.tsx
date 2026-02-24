@@ -3,6 +3,7 @@
 import { useEffect } from 'react';
 
 import ErrorState from '@/src/components/ui/ErrorState/ErrorState';
+import { useToast } from '@/src/hooks/useToast';
 import { isApiError } from '@/src/lib/api/error';
 
 import { TEST_TYPES } from '../constants/testTypes';
@@ -11,8 +12,14 @@ import InProgressSkeleton from '../InProgress/InProgressSkeleton';
 import { useAllTestQuery } from '../queries/useAllTestQuery';
 import { useStartTestMutation } from '../queries/useStartTestMutation';
 
+interface ErrorDetailType {
+  message: string;
+  name: string;
+}
+
 const ZtpiTest = () => {
   const { data, isError, isPending, refetch } = useAllTestQuery();
+  const { showToast } = useToast();
 
   const ztpiTestId = data?.find(
     (item) => item.type === TEST_TYPES['ZTPI_15'],
@@ -31,6 +38,14 @@ const ZtpiTest = () => {
       mutate({ testId: ztpiTestId });
     }
   }, [ztpiTestId, mutate]);
+
+  const isExistTestRecord = isApiError(error) && error.status === 409;
+
+  useEffect(() => {
+    if (isFailedStart && isExistTestRecord) {
+      showToast({ message: '임시 저장된 테스트 기록을 불러왔어요.' });
+    }
+  }, [isFailedStart, isExistTestRecord, showToast]);
 
   if (isPending || isStartPending) {
     return <InProgressSkeleton />;
@@ -58,10 +73,23 @@ const ZtpiTest = () => {
     );
   }
 
+  // TODO: 삭제될 함수 (API 응답에서 실제 ID를 필드로 받을 예정)
+  function extractTestRecordId(message: string) {
+    const match = message.match(/testRecordId:\s*(\d+)/);
+    return Number(match?.[1]) ?? 1;
+  }
+
   if (isFailedStart) {
-    if (isApiError(error) && error.status === 409) {
-      // TODO: API 응답에서 실제 ID를 가져오도록 수정 필요
-      return <InProgress testId={ztpiTestId} testRecordId={2} />;
+    if (isExistTestRecord) {
+      return (
+        <InProgress
+          testId={ztpiTestId}
+          // TODO: API 응답에서 실제 ID를 필드로 받을 예정
+          testRecordId={extractTestRecordId(
+            (error.detail as ErrorDetailType).message,
+          )}
+        />
+      );
     }
     return <ErrorState title="테스트 시작을 실패했어요." className="py-15" />;
   }

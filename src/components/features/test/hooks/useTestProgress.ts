@@ -24,8 +24,10 @@ export const useTestProgress = ({ testRecordId }: UseTestProgressProps) => {
   const { mutate: completeTest } = useCompleteTestMutation({ testRecordId });
 
   const [currentRating, setCurrentRating] = useState<number | null>(null);
-  const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
+  const [manualIndex, setManualIndex] = useState<number | null>(null);
   const [direction, setDirection] = useState(1);
+
+  const currentQuestionIndex = manualIndex ?? data?.length ?? 0;
 
   const handleRatingChange = (event: ChangeEvent<HTMLInputElement>) => {
     setCurrentRating(+event.target.value);
@@ -38,18 +40,19 @@ export const useTestProgress = ({ testRecordId }: UseTestProgressProps) => {
     });
   };
 
+  const isLastQuestion = (totalQuestions: number) =>
+    currentQuestionIndex + 1 === totalQuestions;
+
   const handleNext = (totalQuestions: number, questionId: number) => {
     if (currentRating === null) return;
 
     setDirection(1);
 
-    const isLastQuestion = currentQuestionIndex + 1 === totalQuestions;
-
-    const onMutationSuccess = () => {
-      if (isLastQuestion) {
+    const moveToNext = () => {
+      if (isLastQuestion(totalQuestions)) {
         handleCompleteTest();
       } else {
-        setCurrentQuestionIndex((prev) => prev + 1);
+        setManualIndex(currentQuestionIndex + 1);
         setCurrentRating(null);
       }
     };
@@ -64,21 +67,18 @@ export const useTestProgress = ({ testRecordId }: UseTestProgressProps) => {
           score: currentRating,
         },
         {
-          onSuccess: onMutationSuccess,
+          onSuccess: moveToNext,
         },
       );
     } else if (score !== currentRating) {
       patchQuestionResponse(
         { score: currentRating, responseId },
         {
-          onSuccess: onMutationSuccess,
+          onSuccess: moveToNext,
         },
       );
-    } else if (isLastQuestion) {
-      handleCompleteTest();
     } else {
-      setCurrentQuestionIndex((prev) => prev + 1);
-      setCurrentRating(null);
+      moveToNext();
     }
   };
 
@@ -92,7 +92,7 @@ export const useTestProgress = ({ testRecordId }: UseTestProgressProps) => {
     if (score === undefined) return;
 
     setCurrentRating(score);
-    setCurrentQuestionIndex((prev) => prev - 1);
+    setManualIndex(currentQuestionIndex - 1);
   };
 
   const isNextButtonDisabled = (totalQuestions: number) =>
