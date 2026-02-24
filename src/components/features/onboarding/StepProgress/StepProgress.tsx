@@ -7,16 +7,13 @@ interface StepProgressProps {
 
 const StepProgress = ({ currentStep, totalSteps }: StepProgressProps) => {
   return (
-    <div
-      className="grid gap-2"
-      style={{ gridTemplateColumns: `repeat(${totalSteps}, 1fr)` }}
-    >
+    <div className="flex gap-2">
       {Array.from({ length: totalSteps }).map((_, index) => (
         <div
           key={index}
           className={cn(
-            'h-1.5 rounded-2xl w-full',
-            index <= currentStep ? 'bg-primary' : 'bg-g-0/20',
+            'h-1.5 flex-1 rounded-2xl',
+            index + 1 <= currentStep ? 'bg-primary' : 'bg-g-0/20',
           )}
         />
       ))}
