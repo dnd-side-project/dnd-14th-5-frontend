@@ -15,7 +15,7 @@ type NotificationScheduleResponse = z.infer<typeof notificationScheduleSchema>;
 
 const getNotificationSchedule = async () => {
   return get<NotificationScheduleResponse>(
-    PROFILE_ENDPOINTS.notificationSchedule,
+    PROFILE_ENDPOINTS.notificationScheduleMe,
     {
       responseSchema: notificationScheduleSchema,
     },
