@@ -5,9 +5,8 @@ import Image from 'next/image';
 import Badge from '@/src/components/ui/Badge/Badge';
 import ErrorState from '@/src/components/ui/ErrorState/ErrorState';
 import Skeleton from '@/src/components/ui/Skeleton/Skeleton';
+import { CATEGORY_CHARACTER_MAP } from '@/src/lib/constants/character';
 
-import type { Category } from '../../home/const/character';
-import { CATEGORY_CHARACTER_MAP } from '../../home/const/character';
 import { getCategoryMessage } from '../../reflectionFeedback/utils/getCategoryMessage';
 import { useReflectionDetail } from '../queries/useReflectionDetail';
 
@@ -42,8 +41,7 @@ const Detail = ({ reflectionId }: DetailProps) => {
     );
   }
 
-  const category = data.question.category as Category;
-  // TODO: 타입 단언 없이 category가 Category 타입으로 추론되도록 변경 예정 (#74 PR 머지 후)
+  const category = data.question.category;
   const { src, alt, color } = CATEGORY_CHARACTER_MAP[category];
   const categoryMessage = getCategoryMessage(category);
 
