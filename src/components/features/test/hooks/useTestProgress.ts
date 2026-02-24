@@ -8,9 +8,13 @@ import { useTestResponsesQuery } from '../queries/useTestResponseQuery';
 
 interface UseTestProgressProps {
   testRecordId: number;
+  totalQuestions: number;
 }
 
-export const useTestProgress = ({ testRecordId }: UseTestProgressProps) => {
+export const useTestProgress = ({
+  testRecordId,
+  totalQuestions,
+}: UseTestProgressProps) => {
   const router = useRouter();
   const pathname = usePathname();
 
@@ -43,20 +47,15 @@ export const useTestProgress = ({ testRecordId }: UseTestProgressProps) => {
     });
   };
 
-  const isLastQuestion = (totalQuestions: number) =>
-    currentQuestionIndex + 1 === totalQuestions;
+  const isLastQuestion = currentQuestionIndex + 1 === totalQuestions;
 
-  const handleNext = (
-    totalQuestions: number,
-    questionId: number,
-    nextQuestionId?: number,
-  ) => {
+  const handleNext = (questionId: number, nextQuestionId?: number) => {
     if (currentRating === null) return;
 
     setDirection(1);
 
     const moveToNext = () => {
-      if (isLastQuestion(totalQuestions)) {
+      if (isLastQuestion) {
         handleCompleteTest();
       } else {
         setManualIndex(currentQuestionIndex + 1);
@@ -108,7 +107,7 @@ export const useTestProgress = ({ testRecordId }: UseTestProgressProps) => {
     setManualIndex(currentQuestionIndex - 1);
   };
 
-  const isNextButtonDisabled = (totalQuestions: number) =>
+  const isNextButtonDisabled =
     currentQuestionIndex + 1 > totalQuestions || currentRating === null;
 
   const isPrevButtonDisabled = currentQuestionIndex === 0;

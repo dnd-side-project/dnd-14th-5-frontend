@@ -33,7 +33,10 @@ const InProgress = ({ testId, testRecordId }: InProgressProps) => {
     isResponsesPending,
     isCompleting,
     isLastQuestion,
-  } = useTestProgress({ testRecordId });
+  } = useTestProgress({
+    testRecordId,
+    totalQuestions: questions?.length ?? 0,
+  });
 
   if (isPending || isResponsesPending) {
     return <InProgressSkeleton />;
@@ -75,11 +78,11 @@ const InProgress = ({ testId, testRecordId }: InProgressProps) => {
 
       <InProgressNavigation
         onPrev={() => handlePrev(prevQuestionId)}
-        onNext={() => handleNext(totalQuestions, questionId, nextQuestionId)}
-        isNextButtonDisabled={isNextButtonDisabled(totalQuestions)}
+        onNext={() => handleNext(questionId, nextQuestionId)}
+        isNextButtonDisabled={isNextButtonDisabled}
         isPrevButtonDisabled={isPrevButtonDisabled}
         isCompleting={isCompleting}
-        isLastQuestion={isLastQuestion(totalQuestions)}
+        isLastQuestion={isLastQuestion}
       />
     </div>
   );
