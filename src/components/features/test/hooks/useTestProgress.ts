@@ -69,8 +69,11 @@ export const useTestProgress = ({ testRecordId }: UseTestProgressProps) => {
       }
     };
 
-    const responseId = data?.find((item) => item.questionId === questionId)?.id;
-    const score = data?.find((item) => item.questionId === questionId)?.score;
+    const currentResponse = data?.find(
+      (item) => item.questionId === questionId,
+    );
+    const responseId = currentResponse?.id;
+    const score = currentResponse?.score;
 
     if (responseId === undefined) {
       postQuestionResponse(
