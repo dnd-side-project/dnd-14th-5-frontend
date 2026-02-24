@@ -34,7 +34,10 @@ export const useTestProgress = ({
   const [manualIndex, setManualIndex] = useState<number | null>(null);
   const [direction, setDirection] = useState(1);
 
-  const currentQuestionIndex = manualIndex ?? data?.length ?? 0;
+  const currentQuestionIndex = Math.min(
+    manualIndex ?? data?.length ?? 0,
+    Math.max(totalQuestions - 1, 0),
+  );
 
   const handleRatingChange = (event: ChangeEvent<HTMLInputElement>) => {
     setCurrentRating(+event.target.value);
