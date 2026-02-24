@@ -6,4 +6,6 @@ export const profileKeys = {
     [...profileKeys.all, 'notification-schedule'] as const,
   createNotificationSchedule: () =>
     [...profileKeys.all, 'create-notification-schedule'] as const,
+  updateNotificationSchedule: () =>
+    [...profileKeys.all, 'update-notification-schedule'] as const,
 };
