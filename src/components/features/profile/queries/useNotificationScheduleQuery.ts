@@ -11,9 +11,7 @@ const notificationScheduleSchema = z.object({
   notificationTime: z.string(),
 });
 
-export type NotificationScheduleResponse = z.infer<
-  typeof notificationScheduleSchema
->;
+type NotificationScheduleResponse = z.infer<typeof notificationScheduleSchema>;
 
 const getNotificationSchedule = async () => {
   return get<NotificationScheduleResponse>(
