@@ -1,0 +1,13 @@
+.time-wheel-picker {
+  position: relative;
+}
+
+/*
+  react-mobile-picker 가운데 하이라이트 레이어(top:50%, pointer-events:none) 안의
+  1px 라인 2개를 강제로 숨깁니다.
+*/
+.time-wheel-picker
+  :where(div[style*='pointer-events: none'][style*='top: 50%'])
+  > div {
+  display: none !important;
+}
