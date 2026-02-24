@@ -1,8 +1,8 @@
 import Image from 'next/image';
 
+import { CATEGORY_CHARACTER_MAP } from '@/src/lib/constants/character';
 import { cn } from '@/src/lib/helpers/cn';
 
-import { CATEGORY_CHARACTER_MAP } from '../../home/const/character';
 import { useIdealScoreGraph } from '../hooks/useIdealScoreGraph';
 import { type ResponseType as TestRecordResponseType } from '../queries/useTestRecordQuery';
 import { calculateScorePercentage } from '../utils/calculateScorePercentage';

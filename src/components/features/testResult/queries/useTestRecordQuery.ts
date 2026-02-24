@@ -2,8 +2,8 @@ import { useQuery } from '@tanstack/react-query';
 import { z } from 'zod';
 
 import { get } from '@/src/lib/api';
+import { CATEGORY } from '@/src/lib/constants/character';
 
-import { CATEGORY } from '../../home/const/character';
 import { TEST_RESULT_QUERY_KEYS } from '../constants/queryKeys';
 import { TEST_RESULT_ENDPOINTS } from '../constants/url';
 

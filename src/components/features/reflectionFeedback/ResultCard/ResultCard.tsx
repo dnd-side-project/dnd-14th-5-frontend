@@ -1,12 +1,12 @@
 import Image from 'next/image';
 
-import {
-  type Category,
-  CATEGORY_CHARACTER_MAP,
-} from '@/src/components/features/home/const/character';
 import Badge from '@/src/components/ui/Badge/Badge';
 import Card from '@/src/components/ui/Card/Card';
 import Icon from '@/src/components/ui/Icon/Icon';
+import {
+  type Category,
+  CATEGORY_CHARACTER_MAP,
+} from '@/src/lib/constants/character';
 import { cn } from '@/src/lib/helpers/cn';
 
 import { useUserDetailQuery } from '../../users/queries/useUserDetailQuery';

@@ -1,6 +1,7 @@
 import Image from 'next/image';
 
-import { CATEGORY_CHARACTER_MAP } from '../../home/const/character';
+import { CATEGORY_CHARACTER_MAP } from '@/src/lib/constants/character';
+
 import { type ResponseType as TestRecordResponseType } from '../queries/useTestRecordQuery';
 
 type CharacterSummaryProps = Pick<

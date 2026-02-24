@@ -5,9 +5,9 @@ import { useRouter } from 'next/navigation';
 import BottomCTA from '@/src/components/layout/BottomCTA/BottomCTA';
 import ErrorState from '@/src/components/ui/ErrorState/ErrorState';
 import Skeleton from '@/src/components/ui/Skeleton/Skeleton';
+import { type Category } from '@/src/lib/constants/character';
 import { goToHome } from '@/src/lib/helpers/navigation';
 
-import type { Category } from '../../home/const/character';
 import { useTodayReflectionQuery } from '../../reflection/queries/useTodayReflectionQuery';
 import CompleteButton from '../CompleteButton/CompleteButton';
 import ResultCard from '../ResultCard/ResultCard';
