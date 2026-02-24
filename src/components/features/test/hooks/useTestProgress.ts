@@ -43,7 +43,11 @@ export const useTestProgress = ({ testRecordId }: UseTestProgressProps) => {
   const isLastQuestion = (totalQuestions: number) =>
     currentQuestionIndex + 1 === totalQuestions;
 
-  const handleNext = (totalQuestions: number, questionId: number) => {
+  const handleNext = (
+    totalQuestions: number,
+    questionId: number,
+    nextQuestionId?: number,
+  ) => {
     if (currentRating === null) return;
 
     setDirection(1);
@@ -53,7 +57,12 @@ export const useTestProgress = ({ testRecordId }: UseTestProgressProps) => {
         handleCompleteTest();
       } else {
         setManualIndex(currentQuestionIndex + 1);
-        setCurrentRating(null);
+
+        const nextScore =
+          nextQuestionId !== undefined
+            ? data?.find((item) => item.questionId === nextQuestionId)?.score
+            : undefined;
+        setCurrentRating(nextScore ?? null);
       }
     };
 
@@ -89,9 +98,7 @@ export const useTestProgress = ({ testRecordId }: UseTestProgressProps) => {
 
     const score = data?.find((item) => item.questionId === questionId)?.score;
 
-    if (score === undefined) return;
-
-    setCurrentRating(score);
+    setCurrentRating(score ?? null);
     setManualIndex(currentQuestionIndex - 1);
   };
 

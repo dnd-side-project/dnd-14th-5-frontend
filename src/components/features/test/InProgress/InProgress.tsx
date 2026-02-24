@@ -69,7 +69,7 @@ const InProgress = ({ testId, testRecordId }: InProgressProps) => {
 
       <InProgressNavigation
         onPrev={() => handlePrev(prevQuestionId)}
-        onNext={() => handleNext(totalQuestions, questionId)}
+        onNext={() => handleNext(totalQuestions, questionId, nextQuestionId)}
         isNextButtonDisabled={isNextButtonDisabled(totalQuestions)}
         isPrevButtonDisabled={isPrevButtonDisabled}
       />
