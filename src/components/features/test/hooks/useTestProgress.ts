@@ -14,14 +14,17 @@ export const useTestProgress = ({ testRecordId }: UseTestProgressProps) => {
   const router = useRouter();
   const pathname = usePathname();
 
-  const { data } = useTestResponsesQuery({ testRecordId });
+  const { data, isPending } = useTestResponsesQuery({
+    testRecordId,
+  });
   const { mutate: postQuestionResponse } = usePostQuestionResponseMutation({
     testRecordId,
   });
   const { mutate: patchQuestionResponse } = usePatchTestResponseMutation({
     testRecordId,
   });
-  const { mutate: completeTest } = useCompleteTestMutation({ testRecordId });
+  const { mutate: completeTest, isPending: isCompleting } =
+    useCompleteTestMutation({ testRecordId });
 
   const [currentRating, setCurrentRating] = useState<number | null>(null);
   const [manualIndex, setManualIndex] = useState<number | null>(null);
@@ -116,5 +119,8 @@ export const useTestProgress = ({ testRecordId }: UseTestProgressProps) => {
     handlePrev,
     isNextButtonDisabled,
     isPrevButtonDisabled,
+    isResponsesPending: isPending,
+    isCompleting,
+    isLastQuestion,
   };
 };

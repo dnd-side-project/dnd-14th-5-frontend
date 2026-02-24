@@ -30,9 +30,12 @@ const InProgress = ({ testId, testRecordId }: InProgressProps) => {
     handlePrev,
     isNextButtonDisabled,
     isPrevButtonDisabled,
+    isResponsesPending,
+    isCompleting,
+    isLastQuestion,
   } = useTestProgress({ testRecordId });
 
-  if (isPending) {
+  if (isPending || isResponsesPending) {
     return <InProgressSkeleton />;
   }
 
@@ -49,8 +52,11 @@ const InProgress = ({ testId, testRecordId }: InProgressProps) => {
 
   const totalQuestions = questions.length;
   const remainQuestion = totalQuestions - currentQuestionIndex - 1;
+
   const { id: questionId, sequence, content } = questions[currentQuestionIndex];
+
   const prevQuestionId = questions[currentQuestionIndex - 1]?.id;
+  const nextQuestionId = questions[currentQuestionIndex + 1]?.id;
 
   return (
     <div className="flex flex-col h-full pt-3">
@@ -72,6 +78,8 @@ const InProgress = ({ testId, testRecordId }: InProgressProps) => {
         onNext={() => handleNext(totalQuestions, questionId, nextQuestionId)}
         isNextButtonDisabled={isNextButtonDisabled(totalQuestions)}
         isPrevButtonDisabled={isPrevButtonDisabled}
+        isCompleting={isCompleting}
+        isLastQuestion={isLastQuestion(totalQuestions)}
       />
     </div>
   );
