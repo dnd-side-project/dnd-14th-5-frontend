@@ -1,7 +1,7 @@
 import { dehydrate, HydrationBoundary } from '@tanstack/react-query';
 
+import OnboardingContent from '@/src/components/features/onboarding/Introduction/Introduction';
 import { prefetchOnboarding } from '@/src/components/features/onboarding/lib/prefetchOnboarding';
-import OnboardingContent from '@/src/components/features/onboarding/OnboardingContent/OnboardingContent';
 import { getQueryClient } from '@/src/lib/helpers/getQueryClient';
 
 interface OnboardingPageProps {

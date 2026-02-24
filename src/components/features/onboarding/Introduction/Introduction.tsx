@@ -1,13 +1,13 @@
 'use client';
 
-import StepProgress from '@/src/components/features/onboarding/StepProgress/StepProgress';
+import StepProgress from '@/src/components/features/onboarding/Introduction/IntroductionProgress';
 import BottomCTA from '@/src/components/layout/BottomCTA/BottomCTA';
 import ErrorState from '@/src/components/ui/ErrorState/ErrorState';
 import Skeleton from '@/src/components/ui/Skeleton/Skeleton';
 
-import NextStepButton from '../NextStepButton/NextStepButton';
-import OnboardingStep from '../OnboardingStep/OnboardingStep';
 import { useIntroductionsQuery } from '../queries/useIntroductionsQuery';
+import NextStepButton from './IntroductionNavigation';
+import OnboardingStep from './IntroductionStep';
 
 interface OnboardingContentProps {
   currentStep?: number;

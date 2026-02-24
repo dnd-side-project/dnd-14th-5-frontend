@@ -1,6 +1,6 @@
 import Image from 'next/image';
 
-import LoginButton from '@/src/components/features/onboarding/LoginButton/LoginButton';
+import LoginButton from '@/src/components/features/onboarding/Login/LoginButton';
 
 const LoginPage = () => {
   return (
