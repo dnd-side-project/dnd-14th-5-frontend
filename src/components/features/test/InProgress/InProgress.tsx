@@ -6,6 +6,7 @@ import { useTestProgress } from '../hooks/useTestProgress';
 import { useTestQuestionsQuery } from '../queries/useTestQuestionsQuery';
 import InProgressContent from './InProgressContent';
 import InProgressNavigation from './InProgressNavigation';
+import InProgressSkeleton from './InProgressSkeleton';
 
 interface InProgressProps {
   testId: number;
@@ -32,13 +33,7 @@ const InProgress = ({ testId, testRecordId }: InProgressProps) => {
   } = useTestProgress({ testRecordId });
 
   if (isPending) {
-    // TODO: 임시 loader
-    return (
-      <div className="flex items-center justify-center py-20">
-        <div className="animate-spin rounded-full h-8 w-8 border-4 border-dotted mr-3" />
-        <p className="text-g-20">로딩 중...</p>
-      </div>
-    );
+    return <InProgressSkeleton />;
   }
 
   if (isError) {
