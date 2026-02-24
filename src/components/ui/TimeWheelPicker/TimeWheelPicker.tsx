@@ -51,12 +51,12 @@ const TimeWheelPicker = ({
       style={{ height: PICKER_HEIGHT }}
     >
       <div
-        className="pointer-events-none absolute left-1/2 top-1/2 z-0 w-4/5 -translate-x-1/2 -translate-y-1/2 rounded-full bg-g-0/10"
+        className="pointer-events-none absolute left-1/2 top-1/2 z-0 w-4/5 -translate-x-1/2 -translate-y-1/2 rounded-full bg-g-200/50"
         style={{ height: ITEM_HEIGHT }}
       />
 
-      <div className="pointer-events-none absolute inset-x-0 top-0 z-20 h-14 bg-linear-to-b from-g-500 to-transparent" />
-      <div className="pointer-events-none absolute inset-x-0 bottom-0 z-20 h-14 bg-linear-to-t from-g-500 to-transparent" />
+      <div className="pointer-events-none absolute inset-x-0 top-0 z-20 h-14 bg-linear-to-b from-g-400 to-transparent" />
+      <div className="pointer-events-none absolute inset-x-0 bottom-0 z-20 h-14 bg-linear-to-t from-g-400 to-transparent" />
 
       <div className="pointer-events-none absolute left-1/2 top-1/2 z-30 -translate-x-1/2 -translate-y-1/2 text-center text-body-l leading-none text-g-0">
         :
