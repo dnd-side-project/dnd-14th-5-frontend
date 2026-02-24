@@ -1,4 +1,4 @@
-import { useMutation } from '@tanstack/react-query';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { z } from 'zod';
 
 import { post } from '@/src/lib/api';
@@ -27,8 +27,16 @@ const createNotificationSchedule = async (
   );
 };
 
-export const useCreateNotificationScheduleMutation = () =>
-  useMutation({
+export const useCreateNotificationScheduleMutation = () => {
+  const queryClient = useQueryClient();
+
+  return useMutation({
     mutationKey: profileKeys.createNotificationSchedule(),
     mutationFn: createNotificationSchedule,
+    onSuccess: () => {
+      queryClient.invalidateQueries({
+        queryKey: profileKeys.notificationSchedule(),
+      });
+    },
   });
+};
