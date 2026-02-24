@@ -4,12 +4,7 @@ import axios, { AxiosHeaders, isAxiosError } from 'axios';
 import { USER_ENDPOINTS } from '@/src/components/features/users/constants/url';
 import { API_BASE_URL } from '@/src/lib/config/env';
 
-export interface ApiError {
-  status: number | null;
-  code: string | null;
-  message: string;
-  detail?: unknown;
-}
+import type { ApiError } from './error';
 
 interface RetryableRequestConfig extends InternalAxiosRequestConfig {
   _retry?: boolean;

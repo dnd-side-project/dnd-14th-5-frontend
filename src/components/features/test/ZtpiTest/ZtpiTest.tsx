@@ -3,6 +3,7 @@
 import { useEffect } from 'react';
 
 import ErrorState from '@/src/components/ui/ErrorState/ErrorState';
+import { isApiError } from '@/src/lib/api/error';
 
 import { TEST_TYPES } from '../constants/testTypes';
 import InProgress from '../InProgress/InProgress';
@@ -22,6 +23,7 @@ const ZtpiTest = () => {
     mutate,
     isError: isFailedStart,
     isPending: isStartPending,
+    error,
   } = useStartTestMutation();
 
   useEffect(() => {
@@ -57,6 +59,10 @@ const ZtpiTest = () => {
   }
 
   if (isFailedStart) {
+    if (isApiError(error) && error.status === 409) {
+      // TODO: API 응답에서 실제 ID를 가져오도록 수정 필요
+      return <InProgress testId={ztpiTestId} testRecordId={2} />;
+    }
     return <ErrorState title="테스트 시작을 실패했어요." className="py-15" />;
   }
 
