@@ -21,7 +21,6 @@ const HomeCharacterSection = ({ category }: HomeCharacterSectionProps) => {
         alt={characterAsset.alt}
         width={232}
         height={232}
-        className="h-58 w-58"
         priority
       />
     </div>
