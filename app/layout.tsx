@@ -4,7 +4,7 @@ import type { Metadata, Viewport } from 'next';
 import { Noto_Sans_KR } from 'next/font/google';
 import { type ReactNode } from 'react';
 
-import InstallPrompt from '@/src/components/features/pwa/InstallPrompt';
+import InstallPrompt from '@/src/components/features/pwa/InstallPrompt/InstallPrompt';
 import ToastProvider from '@/src/components/ui/Toast/ToastProvider';
 import { cn } from '@/src/lib/helpers/cn';
 
