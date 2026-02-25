@@ -46,6 +46,7 @@ export const useReflectionForm = (): UseReflectionFormResult => {
     } catch {
       showToast({
         message: '피드백 생성에 실패했어요. 잠시 후 다시 시도해주세요.',
+        variant: 'alert'
       });
       return false;
     }
@@ -60,16 +61,16 @@ export const useReflectionForm = (): UseReflectionFormResult => {
         return;
       }
 
-      showToast({ message: '기록이 완료되었어요.' });
+      showToast({ message: '기록이 완료되었어요.', variant: 'check' });
       router.push(`/reflection/${id}/feedback`);
     } catch (error) {
       if (isConflictError(error)) {
-        showToast({ message: '오늘 회고는 이미 작성했어요.' });
+        showToast({ message: '오늘 회고는 이미 작성했어요.', variant: 'alert' });
         router.push('/');
         return;
       }
 
-      showToast({ message: '기록에 실패했어요. 잠시 후 다시 시도해주세요.' });
+      showToast({ message: '기록에 실패했어요. 잠시 후 다시 시도해주세요.', variant: 'alert' });
     }
   };
 

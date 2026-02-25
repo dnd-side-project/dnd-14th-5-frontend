@@ -1,4 +1,4 @@
-import { useQuery } from '@tanstack/react-query';
+import { useQuery, useSuspenseQuery } from '@tanstack/react-query';
 import { z } from 'zod';
 
 import { get } from '@/src/lib/api';
@@ -25,6 +25,12 @@ const getUserDetail = async (): Promise<UserDetailResponse> => {
 
 export const useUserDetailQuery = () =>
   useQuery({
+    queryKey: userKeys.detail(),
+    queryFn: getUserDetail,
+  });
+
+export const useSuspenseUserDetailQuery = () =>
+  useSuspenseQuery({
     queryKey: userKeys.detail(),
     queryFn: getUserDetail,
   });

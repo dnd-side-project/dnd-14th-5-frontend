@@ -17,7 +17,12 @@ const allIcons = {
   calendarDayFuture: '/icons/calendar-day-future.svg',
   calendarDaySlate: '/icons/calendar-day-slate.svg',
   calendarDayOutline: '/icons/calendar-day-outline.svg',
+<<<<<<< feature/notification-page-#65
   close: '/icons/close.svg',
+=======
+  alert: '/icons/alert-fill.svg',
+  checkCircle: '/icons/check-circle-fill.svg',
+>>>>>>> main
   check: '/icons/check-fill.svg',
 } as const;
 
