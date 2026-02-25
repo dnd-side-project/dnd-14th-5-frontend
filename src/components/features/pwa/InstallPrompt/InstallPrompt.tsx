@@ -3,6 +3,7 @@
 import { INSTALL_DESCRIPTION } from '../constants/install';
 import { useInstallPrompt } from '../hooks/useInstallPrompt';
 import Description from './Description';
+import DontShowAgainCheckbox from './DontShowAgainCheckbox';
 
 export default function InstallPrompt() {
   const {
@@ -65,21 +66,10 @@ export default function InstallPrompt() {
             나중에
           </button>
 
-          <div className="flex items-center justify-start gap-2 py-2">
-            <input
-              type="checkbox"
-              id="dontShowAgain"
-              checked={dontShowAgain}
-              onChange={handleDontShowAgain}
-              className="rounded-md border-2 border-g-300cursor-pointer"
-            />
-            <label
-              htmlFor="dontShowAgain"
-              className="text-body-s text-g-80 cursor-pointer select-none"
-            >
-              다시 보지 않기
-            </label>
-          </div>
+          <DontShowAgainCheckbox
+            dontShowAgain={dontShowAgain}
+            handleDontShowAgain={handleDontShowAgain}
+          />
         </div>
       </div>
     </>
