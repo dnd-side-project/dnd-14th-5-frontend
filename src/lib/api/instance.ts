@@ -3,6 +3,8 @@ import axios, { AxiosHeaders, isAxiosError } from 'axios';
 
 import { USER_ENDPOINTS } from '@/src/components/features/users/constants/url';
 
+import { API_BASE_URL } from '@/src/lib/config/env';
+
 export interface ApiError {
   status: number | null;
   code: string | null;
@@ -14,28 +16,14 @@ interface RetryableRequestConfig extends InternalAxiosRequestConfig {
   _retry?: boolean;
 }
 
-const baseURL = process.env.NEXT_PUBLIC_API_BASE_URL;
-
-if (!baseURL) {
-  if (process.env.NODE_ENV === 'production') {
-    throw new Error(
-      'NEXT_PUBLIC_API_BASE_URL is not set in environment variables.',
-    );
-  }
-
-  console.warn(
-    'NEXT_PUBLIC_API_BASE_URL is not set; requests will target the current host.',
-  );
-}
-
 const api = axios.create({
-  baseURL,
+  baseURL: API_BASE_URL,
   timeout: 10_000,
   withCredentials: true,
 });
 
 const reissueClient = axios.create({
-  baseURL,
+  baseURL: API_BASE_URL,
   timeout: 10_000,
   withCredentials: true,
 });
