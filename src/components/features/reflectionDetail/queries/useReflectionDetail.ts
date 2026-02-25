@@ -2,12 +2,13 @@ import { useQuery } from '@tanstack/react-query';
 import { z } from 'zod';
 
 import { get } from '@/src/lib/api';
+import { CATEGORY } from '@/src/lib/constants/character';
 
 import { REFLECTION } from '../constants/queryKey';
 import { REFLECTION_ENDPOINT } from '../constants/url';
 
 const QuestionSchema = z.object({
-  category: z.string(),
+  category: z.enum(CATEGORY),
   content: z.string(),
   createdAt: z.coerce.date(),
   createdBy: z.string(),
