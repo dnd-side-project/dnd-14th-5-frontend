@@ -9,12 +9,22 @@ import {
   useState,
 } from 'react';
 
+import Icon from '@/src/components/ui/Icon/Icon';
+import type { IconNameType } from '@/src/components/ui/Icon/Icon.types';
 import { cn } from '@/src/lib/helpers/cn';
 
 import styles from './Toast.module.css';
 
+type ToastVariant = 'alert' | 'check';
+
+const TOAST_VARIANT_ICON_MAP: Record<ToastVariant, IconNameType> = {
+  alert: 'alert',
+  check: 'checkCircle',
+};
+
 interface ToastOptions {
   message: string;
+  variant?: ToastVariant;
   duration?: number;
 }
 
@@ -30,6 +40,7 @@ interface ToastProviderProps {
 interface ToastItem {
   id: string;
   message: string;
+  variant: ToastVariant;
   duration: number;
 }
 
@@ -47,12 +58,14 @@ const ToastProvider = ({ children }: ToastProviderProps) => {
   const showToast = useCallback((options: ToastOptions) => {
     const id = crypto.randomUUID();
     const duration = options.duration ?? DEFAULT_DURATION;
+    const variant = options.variant ?? 'check';
 
     setToasts((prev) => [
       ...prev,
       {
         id,
         message: options.message,
+        variant,
         duration,
       },
     ]);
@@ -84,7 +97,7 @@ const ToastViewport = ({ toast, onDismiss }: ToastViewportProps) => {
 
   return (
     <div className="pointer-events-none fixed inset-x-0 top-6 z-50 flex justify-center px-4">
-      <div className="mx-auto w-full max-w-96">
+      <div className="mx-auto flex w-full max-w-96 justify-center">
         <ToastCard key={toast.id} toast={toast} onDismiss={onDismiss} />
       </div>
     </div>
@@ -118,10 +131,11 @@ const ToastCard = ({ toast, onDismiss }: ToastCardProps) => {
   return (
     <div
       className={cn(
-        'pointer-events-auto flex items-center justify-between gap-3 rounded-2xl bg-g-600 px-4 py-3 shadow text-g-0',
+        'pointer-events-auto flex min-h-9 w-fit max-w-full items-center gap-1.5 rounded-xl bg-g-0 px-3 text-g-900 shadow',
         isLeaving ? styles.toastOut : styles.toastIn,
       )}
     >
+      <Icon name={TOAST_VARIANT_ICON_MAP[toast.variant]} size={24} decorative />
       <p className="text-body-s">{toast.message}</p>
     </div>
   );

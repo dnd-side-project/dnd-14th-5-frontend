@@ -1,7 +1,6 @@
 'use client';
 
-import { useRouter } from 'next/navigation';
-import { useState } from 'react';
+import { usePathname, useRouter } from 'next/navigation';
 
 import type { IconNameType } from '@/src/components/ui/Icon/Icon.types';
 
@@ -36,14 +35,15 @@ const bottomTabs: BottomTabItem[] = [
 ];
 
 const BottomNavBar = () => {
+  const pathname = usePathname();
   const router = useRouter();
-  const [activeMenu, setActiveMenu] = useState<TabKey>('home');
+  const activeMenu: TabKey =
+    bottomTabs.find((tab) => tab.href === pathname)?.key ?? 'home';
 
   const handleTabClick = (tabKey: TabKey) => {
     const selectedTab = bottomTabs.find((tab) => tab.key === tabKey);
     if (!selectedTab) return;
 
-    setActiveMenu(tabKey);
     router.push(selectedTab.href);
   };
 
