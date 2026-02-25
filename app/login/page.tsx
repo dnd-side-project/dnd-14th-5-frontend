@@ -4,7 +4,7 @@ import LoginButton from '@/src/components/features/onboarding/Login/LoginButton'
 
 const LoginPage = () => {
   return (
-    <div className="flex flex-col justify-between h-full">
+    <div className="flex flex-col justify-between h-full pb-8">
       <section className="flex flex-col items-center justify-center py-55 gap-2">
         <Image
           src="/icons/timo-title.svg"

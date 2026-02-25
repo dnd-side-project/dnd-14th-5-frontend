@@ -47,7 +47,7 @@ const Result = ({ testRecordId }: ResultProps) => {
   }
 
   return (
-    <div className="flex flex-col justify-between gap-15">
+    <div className="flex flex-col justify-between gap-15 pb-8">
       <article>
         <CharacterSummary closestCategory={data.result.closestCategory} />
         <ScoreGraph scores={data.result.scores} />

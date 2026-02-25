@@ -10,7 +10,7 @@ const TestCompletePage = async ({ searchParams }: TestCompletePageProps) => {
   const { resultId } = await searchParams;
 
   return (
-    <div className="flex flex-col items-center justify-between h-full">
+    <div className="flex flex-col items-center justify-between h-full pb-8">
       <div className="flex flex-1 flex-col justify-center items-center space-y-15 mb-50">
         <div className="text-center space-y-2">
           <h2 className="font-heading-h2 text-g-0">테스트 완료!</h2>
