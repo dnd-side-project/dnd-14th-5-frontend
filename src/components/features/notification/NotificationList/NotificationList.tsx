@@ -28,33 +28,39 @@ const NotificationList = () => {
     readOne,
   } = useNotificationReadActions();
 
-  return (
-    <div className="flex flex-col gap-3 pb-3">
-      {!isLoading && hasNotifications && (
-        <div className="flex justify-end pb-2">
-          <NotificationReadAllButton disabled={isMutating} onClick={readAll} />
-        </div>
-      )}
+  if (isLoading) {
+    return (
+      <div className="flex flex-col gap-3 pb-3">
+        <NotificationListSkeleton />
+      </div>
+    );
+  }
 
-      {isLoading && <NotificationListSkeleton />}
-
-      {!isLoading && !hasNotifications && (
+  if (!hasNotifications) {
+    return (
+      <div className="flex flex-col gap-3 pb-3">
         <div className="flex min-h-dvh flex-col items-center justify-center pb-10">
           <NotificationEmptyState />
         </div>
-      )}
+      </div>
+    );
+  }
 
-      {!isLoading &&
-        hasNotifications &&
-        notifications.map((notification) => (
-          <NotificationItem
-            key={notification.id}
-            id={notification.id}
-            notifiedAt={notification.notifiedAt}
-            title={notification.title}
-            onDelete={readOne}
-          />
-        ))}
+  return (
+    <div className="flex flex-col gap-3 pb-3">
+      <div className="flex justify-end pb-2">
+        <NotificationReadAllButton disabled={isMutating} onClick={readAll} />
+      </div>
+
+      {notifications.map((notification) => (
+        <NotificationItem
+          key={notification.id}
+          id={notification.id}
+          notifiedAt={notification.notifiedAt}
+          title={notification.title}
+          onDelete={readOne}
+        />
+      ))}
     </div>
   );
 };
