@@ -8,7 +8,7 @@ export default function InstallPrompt() {
   const {
     isVisible,
     dontShowAgain,
-    handleDontShowAgiain,
+    handleDontShowAgain,
     isInAppBrowser,
     handleClose,
   } = useInstallPrompt();
@@ -70,7 +70,7 @@ export default function InstallPrompt() {
               type="checkbox"
               id="dontShowAgain"
               checked={dontShowAgain}
-              onChange={handleDontShowAgiain}
+              onChange={handleDontShowAgain}
               className="rounded-md border-2 border-g-300cursor-pointer"
             />
             <label

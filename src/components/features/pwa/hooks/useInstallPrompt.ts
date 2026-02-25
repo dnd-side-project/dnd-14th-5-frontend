@@ -9,7 +9,7 @@ export const useInstallPrompt = () => {
   const [isVisible, setIsVisible] = useState(false);
   const [dontShowAgain, setDontShowAgain] = useState(false);
 
-  const handleDontShowAgiain = (event: ChangeEvent<HTMLInputElement>) => {
+  const handleDontShowAgain = (event: ChangeEvent<HTMLInputElement>) => {
     setDontShowAgain(event.target.checked);
   };
 
@@ -20,10 +20,15 @@ export const useInstallPrompt = () => {
     ).matches;
     const hasSeenPrompt = localStorage.getItem(INSTALL_PROMPT_SEEN_KEY);
 
+    let timer: ReturnType<typeof setTimeout>;
+
     if (isIOS && !isStandalone && !hasSeenPrompt) {
-      const timer = setTimeout(() => setIsVisible(true), 500);
-      return () => clearTimeout(timer);
+      timer = setTimeout(() => setIsVisible(true), 500);
     }
+
+    return () => {
+      if (timer) clearTimeout(timer);
+    };
   }, []);
 
   const isInAppBrowser =
@@ -41,7 +46,7 @@ export const useInstallPrompt = () => {
   return {
     isVisible,
     dontShowAgain,
-    handleDontShowAgiain,
+    handleDontShowAgain,
     isInAppBrowser,
     handleClose,
   };
