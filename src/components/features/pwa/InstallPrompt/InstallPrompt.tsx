@@ -29,16 +29,16 @@ export default function InstallPrompt() {
             📱
           </div>
 
-          <h3 className="text-heading-h3 font-bold text-g-0 mb-2">
+          <h3 className="font-heading-h3 font-bold text-g-0 mb-2">
             앱 설치하기
           </h3>
-          <p className="text-body-s text-g-80 mb-8">
+          <p className="font-body-s text-g-80 mb-8">
             홈 화면에 추가하면 앱처럼 빠르게 사용할 수 있어요.
           </p>
 
           <div className="bg-g-300/80 rounded-xl p-5 mb-6 text-left">
             {isInAppBrowser ? (
-              <div className="text-body-s text-g-40 text-center space-y-5">
+              <div className="font-body-s text-g-40 text-center space-y-5">
                 <p>
                   현재 브라우저에서는
                   <br /> 앱 설치가 지원되지 않아요. 😢
@@ -49,7 +49,7 @@ export default function InstallPrompt() {
                 </p>
               </div>
             ) : (
-              <ol className="text-body-s text-g-40 space-y-4">
+              <ol className="font-body-s text-g-40 space-y-4">
                 {INSTALL_DESCRIPTION.map((item) => (
                   <Description key={item.id} id={item.id}>
                     {item.content}

@@ -12,7 +12,7 @@ const LoginPage = () => {
           width={150}
           height={150}
         />
-        <p className="text-body-m text-g-0">시간 성향에 맞춘 나만의 회고</p>
+        <p className="font-body-m text-g-0">시간 성향에 맞춘 나만의 회고</p>
       </section>
 
       <section className="space-y-4">

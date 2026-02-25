@@ -16,14 +16,14 @@ const CharacterSummary = ({ closestCategory }: CharacterSummaryProps) => {
   return (
     <>
       <section className="space-y-1 mt-10">
-        <div className="text-label-n text-primary">나의 시간관</div>
-        <h2 className="text-heading-h2 text-g-0 pb-3">
+        <div className="font-label-n text-primary">나의 시간관</div>
+        <h2 className="font-heading-h2 text-g-0 pb-3">
           당신의 캐릭터는
           <br />
           {personality} <span className={color}>{character}</span>
           에요!
         </h2>
-        <p className="text-body-s text-g-60 break-keep">{description}</p>
+        <p className="font-body-s text-g-60 break-keep">{description}</p>
       </section>
 
       <Image

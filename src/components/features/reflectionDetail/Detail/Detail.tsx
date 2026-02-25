@@ -50,10 +50,10 @@ const Detail = ({ reflectionId }: DetailProps) => {
       <section className="space-y-5">
         <Badge>나의 기록</Badge>
 
-        <h1 className="text-heading-h4 text-primary">
+        <h1 className="font-heading-h4 text-primary">
           {data.question.content}
         </h1>
-        <p className="text-body-s text-g-60">{data.content}</p>
+        <p className="font-body-s text-g-60">{data.content}</p>
       </section>
 
       <section className="bg-g-20 rounded-2xl p-4 space-y-3">
@@ -61,13 +61,13 @@ const Detail = ({ reflectionId }: DetailProps) => {
           <Image src={src} alt={alt} width={120} height={120} />
         </div>
 
-        <p className="text-heading-h4 text-g-900">
+        <p className="font-heading-h4 text-g-900">
           {categoryMessage.prefix}
           <span className={color}>{categoryMessage.highlight}</span>
           {categoryMessage.suffix}
         </p>
 
-        <p className="text-body-s text-g-600">{data.feedback?.content}</p>
+        <p className="font-body-s text-g-600">{data.feedback?.content}</p>
       </section>
     </article>
   );
