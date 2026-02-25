@@ -16,7 +16,7 @@ const DontShowAgainCheckbox = ({
         id="dontShowAgain"
         checked={dontShowAgain}
         onChange={handleDontShowAgain}
-        className="rounded-md border-2 border-g-300 checked:bg-b-300 checked:border-b-300 cursor-pointer"
+        className="rounded-md border-2 cursor-pointer"
       />
       <label
         htmlFor="dontShowAgain"
