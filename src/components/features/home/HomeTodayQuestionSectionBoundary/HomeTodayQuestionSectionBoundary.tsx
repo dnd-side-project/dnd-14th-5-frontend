@@ -24,7 +24,7 @@ const HomeTodayQuestionSectionFallback = () => {
   return (
     <>
       <div className="flex flex-col gap-2">
-        <p className="text-body-s text-g-100">오늘의 회고</p>
+        <p className="font-body-s text-g-100">오늘의 회고</p>
         <div className="flex flex-col gap-1">
           <Skeleton className="h-16 w-full rounded-lg" />
         </div>

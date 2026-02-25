@@ -27,7 +27,7 @@ const Button = ({
       onClick={onClick}
       disabled={disabled}
       className={cn(
-        'h-12 w-full rounded-4xl text-button-l disabled:opacity-50',
+        'h-12 w-full rounded-4xl font-button-l disabled:opacity-50',
         variantClassName,
         className,
       )}

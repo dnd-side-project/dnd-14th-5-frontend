@@ -10,7 +10,7 @@ const NotificationReadAllButton = ({
   return (
     <button
       type="button"
-      className="text-caption-n text-g-100 disabled:cursor-not-allowed disabled:text-g-300"
+      className="font-caption-n text-g-100 disabled:cursor-not-allowed disabled:text-g-300"
       disabled={disabled}
       onClick={onClick}
     >

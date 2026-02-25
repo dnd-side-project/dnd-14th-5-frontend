@@ -58,7 +58,7 @@ const CalendarDayCell = ({
       />
       <span
         className={cn(
-          'absolute inset-0 flex items-center justify-center text-body-s',
+          'absolute inset-0 flex items-center justify-center font-body-s',
           hasRecord ? 'text-g-900' : 'text-g-200',
         )}
       >

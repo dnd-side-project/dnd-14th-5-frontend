@@ -23,7 +23,7 @@ const NotificationItem = ({
       <div className="flex justify-between ">
         <div className="flex items-center gap-2">
           <Icon name="bellInactive" size={22} />
-          <p className="text-caption-n text-g-80">{notifiedAtText}</p>
+          <p className="font-caption-n text-g-80">{notifiedAtText}</p>
         </div>
         <button
           type="button"
@@ -33,7 +33,7 @@ const NotificationItem = ({
           <Icon name="close" size={12} />
         </button>
       </div>
-      <p className="text-body-s">{title}</p>
+      <p className="font-body-s">{title}</p>
     </Card>
   );
 };

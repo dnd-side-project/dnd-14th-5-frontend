@@ -23,7 +23,7 @@ const ScoreGraph = ({ scores }: ScoreGraphProps) => {
           width={20}
           height={20}
         />
-        <span className="text-caption-n text-g-80">이상적 수치표</span>
+        <span className="font-caption-n text-g-80">이상적 수치표</span>
       </div>
 
       <section className="space-y-5">
@@ -81,7 +81,7 @@ const ScoreGraph = ({ scores }: ScoreGraphProps) => {
                   height={40}
                 />
                 <span
-                  className={cn('text-caption-n whitespace-nowrap mt-2', color)}
+                  className={cn('font-caption-n whitespace-nowrap mt-2', color)}
                 >
                   {formatCharacterName({ name: alt })}
                 </span>
@@ -90,7 +90,7 @@ const ScoreGraph = ({ scores }: ScoreGraphProps) => {
           })}
         </div>
 
-        <p className="text-g-60 text-body-s break-keep">
+        <p className="text-g-60 font-body-s break-keep">
           지금 나는 어떤 시간에 가장 머물러 있을까요? 그래프를 통해 나의 시간
           사용 습관을 확인해보세요! 작은 인식이 더 좋은 균형으로 이어질 수
           있어요.

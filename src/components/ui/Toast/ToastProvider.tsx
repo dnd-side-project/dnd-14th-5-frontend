@@ -136,7 +136,7 @@ const ToastCard = ({ toast, onDismiss }: ToastCardProps) => {
       )}
     >
       <Icon name={TOAST_VARIANT_ICON_MAP[toast.variant]} size={24} decorative />
-      <p className="text-body-s">{toast.message}</p>
+      <p className="font-body-s">{toast.message}</p>
     </div>
   );
 };

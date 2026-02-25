@@ -20,7 +20,7 @@ const DontShowAgainCheckbox = ({
       />
       <label
         htmlFor="dontShowAgain"
-        className="text-body-s text-g-80 cursor-pointer select-none"
+        className="font-body-s text-g-80 cursor-pointer select-none"
       >
         다시 보지 않기
       </label>
