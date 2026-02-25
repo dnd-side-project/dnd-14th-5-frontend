@@ -1,5 +1,5 @@
 import { useQuery } from '@tanstack/react-query';
-import { number, z } from 'zod';
+import { z } from 'zod';
 
 import { get } from '@/src/lib/api';
 
@@ -8,7 +8,7 @@ import { NOTIFICATION_ENDPOINTS } from '../constants/url';
 
 const notificationsHistorySchema = z.array(
   z.object({
-    id: number(),
+    id: z.number(),
     notifiedAt: z.coerce.date(),
     title: z.string(),
   }),
