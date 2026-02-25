@@ -5,8 +5,13 @@ import { useInstallPrompt } from '../hooks/useInstallPrompt';
 import Description from './Description';
 
 export default function InstallPrompt() {
-  const { isVisible, dontShowAgain, handleDontShowAgiain, handleClose } =
-    useInstallPrompt();
+  const {
+    isVisible,
+    dontShowAgain,
+    handleDontShowAgiain,
+    isInAppBrowser,
+    handleClose,
+  } = useInstallPrompt();
 
   if (!isVisible) return null;
 
@@ -31,13 +36,26 @@ export default function InstallPrompt() {
           </p>
 
           <div className="bg-g-300/80 rounded-xl p-5 mb-6 text-left">
-            <ol className="text-body-s text-g-40 space-y-4">
-              {INSTALL_DESCRIPTION.map((item) => (
-                <Description key={item.id} id={item.id}>
-                  {item.content}
-                </Description>
-              ))}
-            </ol>
+            {isInAppBrowser ? (
+              <div className="text-body-s text-g-40 text-center space-y-5">
+                <p>
+                  현재 브라우저에서는
+                  <br /> 앱 설치가 지원되지 않아요. 😢
+                </p>
+                <p>
+                  크롬 혹은 사파리로 열고 <br />
+                  <strong>홈 화면에 추가</strong>를 선택해주세요!
+                </p>
+              </div>
+            ) : (
+              <ol className="text-body-s text-g-40 space-y-4">
+                {INSTALL_DESCRIPTION.map((item) => (
+                  <Description key={item.id} id={item.id}>
+                    {item.content}
+                  </Description>
+                ))}
+              </ol>
+            )}
           </div>
 
           <button

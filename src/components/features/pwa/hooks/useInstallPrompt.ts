@@ -1,6 +1,9 @@
 import { type ChangeEvent, useEffect, useState } from 'react';
 
-import { INSTALL_PROMPT_SEEN_KEY } from '../constants/install';
+import {
+  IN_APP_BROWSER_REGEX,
+  INSTALL_PROMPT_SEEN_KEY,
+} from '../constants/install';
 
 export const useInstallPrompt = () => {
   const [isVisible, setIsVisible] = useState(false);
@@ -23,6 +26,10 @@ export const useInstallPrompt = () => {
     }
   }, []);
 
+  const isInAppBrowser =
+    typeof navigator !== 'undefined' &&
+    IN_APP_BROWSER_REGEX.test(navigator.userAgent);
+
   const handleClose = () => {
     setIsVisible(false);
 
@@ -35,6 +42,7 @@ export const useInstallPrompt = () => {
     isVisible,
     dontShowAgain,
     handleDontShowAgiain,
+    isInAppBrowser,
     handleClose,
   };
 };

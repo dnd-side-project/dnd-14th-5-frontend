@@ -10,3 +10,6 @@ export const INSTALL_DESCRIPTION = [
     content: '\"홈 화면에 추가\" 선택',
   },
 ] as const;
+
+export const IN_APP_BROWSER_REGEX =
+  /KAKAOTALK|Instagram|FBAN|FBAV|FB_IAB|Line|NAVER|TikTok|Snapchat|Pinterest|YouTube/i;
