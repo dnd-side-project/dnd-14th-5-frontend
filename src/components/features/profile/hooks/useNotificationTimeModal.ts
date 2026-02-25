@@ -14,7 +14,7 @@ interface NotificationSchedule {
 interface UseNotificationTimeModalResult {
   isTimeModalOpen: boolean;
   selectedTime: TimeValue;
-  isUpdateSchedulePending: boolean;
+  isSubmitPending: boolean;
   setSelectedTime: (next: TimeValue) => void;
   handleOpenTimeModal: () => void;
   handleCloseTimeModal: () => void;
@@ -22,7 +22,7 @@ interface UseNotificationTimeModalResult {
 }
 
 export const useNotificationTimeModal = (
-  notificationSchedule: NotificationSchedule | undefined,
+  notificationSchedule: NotificationSchedule | null | undefined,
 ): UseNotificationTimeModalResult => {
   const [isTimeModalOpen, setIsTimeModalOpen] = useState(false);
   const [selectedTime, setSelectedTime] = useState<TimeValue>({
@@ -32,12 +32,12 @@ export const useNotificationTimeModal = (
   const { showToast } = useToast();
   const {
     mutateAsync: updateNotificationSchedule,
-    isPending: isUpdateSchedulePending,
+    isPending: isSubmitPending,
   } = useUpdateNotificationScheduleMutation();
 
   const handleOpenTimeModal = () => {
     if (!notificationSchedule?.id) {
-      showToast({ message: '먼저 알림 설정을 완료해주세요.' });
+      showToast({ message: '먼저 알림을 켜주세요.' });
       return;
     }
 
@@ -46,7 +46,7 @@ export const useNotificationTimeModal = (
   };
 
   const handleCloseTimeModal = () => {
-    if (isUpdateSchedulePending) {
+    if (isSubmitPending) {
       return;
     }
 
@@ -54,8 +54,10 @@ export const useNotificationTimeModal = (
   };
 
   const handleUpdateNotificationTime = async () => {
-    if (!notificationSchedule?.id || isUpdateSchedulePending) {
-      showToast({ message: '먼저 알림 설정을 완료해주세요.' });
+    if (isSubmitPending || !notificationSchedule?.id) {
+      if (!notificationSchedule?.id) {
+        showToast({ message: '먼저 알림을 켜주세요.' });
+      }
       return;
     }
 
@@ -67,14 +69,14 @@ export const useNotificationTimeModal = (
       setIsTimeModalOpen(false);
       showToast({ message: '알림 시간이 변경되었어요.' });
     } catch {
-      showToast({ message: '알림 시간 변경에 실패했어요.' });
+      showToast({ message: '알림 시간 저장에 실패했어요.' });
     }
   };
 
   return {
     isTimeModalOpen,
     selectedTime,
-    isUpdateSchedulePending,
+    isSubmitPending,
     setSelectedTime,
     handleOpenTimeModal,
     handleCloseTimeModal,
