@@ -46,11 +46,11 @@ const InProgressContent = ({
   const backgroundCardCount = Math.min(remainQuestion, 2);
 
   return (
-    <section className="relative">
+    <section className="relative w-full">
       <AnimatePresence mode="wait" custom={direction}>
         <motion.div
           key={step}
-          className="relative z-10"
+          className="relative z-10 w-full"
           custom={direction}
           variants={cardVariants}
           initial="initial"

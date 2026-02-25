@@ -3,7 +3,7 @@ import { useState } from 'react';
 
 import { useCreateReflectionFeedbackMutation } from '@/src/components/features/reflectionFeedback/queries/useCreateReflectionFeedbackMutation';
 import { useToast } from '@/src/hooks/useToast';
-import type { ApiError } from '@/src/lib/api/instance';
+import { isApiError } from '@/src/lib/api/error';
 
 import { useSubmitReflectionMutation } from '../queries/useSubmitReflectionMutation';
 
@@ -30,15 +30,6 @@ export const useReflectionForm = (): UseReflectionFormResult => {
     setContent(next);
   };
 
-  const isConflictError = (error: unknown): error is ApiError => {
-    return (
-      typeof error === 'object' &&
-      error !== null &&
-      'status' in error &&
-      (error as ApiError).status === 409
-    );
-  };
-
   const createFeedback = async (reflectionId: number): Promise<boolean> => {
     try {
       await requestCreateFeedback({ reflectionId });
@@ -46,7 +37,7 @@ export const useReflectionForm = (): UseReflectionFormResult => {
     } catch {
       showToast({
         message: '피드백 생성에 실패했어요. 잠시 후 다시 시도해주세요.',
-        variant: 'alert'
+        variant: 'alert',
       });
       return false;
     }
@@ -64,13 +55,19 @@ export const useReflectionForm = (): UseReflectionFormResult => {
       showToast({ message: '기록이 완료되었어요.', variant: 'check' });
       router.push(`/reflection/${id}/feedback`);
     } catch (error) {
-      if (isConflictError(error)) {
-        showToast({ message: '오늘 회고는 이미 작성했어요.', variant: 'alert' });
+      if (isApiError(error) && error.status === 409) {
+        showToast({
+          message: '오늘 회고는 이미 작성했어요.',
+          variant: 'alert',
+        });
         router.push('/');
         return;
       }
 
-      showToast({ message: '기록에 실패했어요. 잠시 후 다시 시도해주세요.', variant: 'alert' });
+      showToast({
+        message: '기록에 실패했어요. 잠시 후 다시 시도해주세요.',
+        variant: 'alert',
+      });
     }
   };
 

@@ -38,7 +38,7 @@ const RootLayout = ({ children }: Readonly<RootLayoutProps>) => {
   return (
     <html lang="ko">
       <body className={cn('bg-g-700 text-g-0', notoSansKr.variable)}>
-        <main className="max-w-110 mx-auto w-full min-h-dvh px-7.5">
+        <main className="max-w-110 mx-auto w-full h-dvh px-7.5 overflow-y-auto">
           <ToastProvider>
             <InstallPrompt />
             <QueryProvider>{children}</QueryProvider>

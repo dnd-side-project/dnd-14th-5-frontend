@@ -16,7 +16,7 @@ const Card = ({ children, onChange, step, selectedValue }: CardProps) => {
     <div className="bg-g-400 rounded-2xl p-6 py-8 space-y-10">
       <div className="space-y-3">
         <p className="text-body-s text-primary">STEP {step}</p>
-        <p className="text-heading-h4 break-keep">{children}</p>
+        <p className="text-heading-h4 break-keep min-h-13">{children}</p>
       </div>
       <ul className="flex flex-col space-y-4">
         {ratingOptions.map((option) => (
