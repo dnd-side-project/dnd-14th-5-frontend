@@ -1,13 +1,15 @@
 import { format, isAfter, isSameDay, isSameMonth, startOfDay } from 'date-fns';
 
 import type { CalendarDayCategoryType } from '../CalendarMonth/CalendarDayCell/CalendarDayCell';
+import { CALENDAR_DATE_FORMAT } from '../constants/calendar';
+import type { CalendarDayRecordByDateItem } from './getCategoryTypeByDate';
 
 interface GetCalendarDayCellsParams {
   days: Date[];
   currentMonth: Date;
   selectedDate: Date | null;
   today: Date;
-  categoryTypeByDate: Map<string, CalendarDayCategoryType>;
+  categoryTypeByDate: Map<string, CalendarDayRecordByDateItem>;
 }
 
 interface CalendarDayCellProps {
@@ -22,7 +24,8 @@ export interface CalendarDayCellType {
   date: Date;
   isFuture: boolean;
   categoryType: CalendarDayCategoryType | undefined;
-  blobProps: CalendarDayCellProps;
+  reflectionId: number | undefined;
+  cellProps: CalendarDayCellProps;
 }
 
 /**
@@ -44,8 +47,10 @@ export const getCalendarDayCells = ({
     const isToday = isSameDay(dayStart, todayStart);
     const isOutlined = selectedDate ? isSelected : isToday;
     const isFuture = isAfter(dayStart, todayStart);
-    const dayKey = format(day, 'yyyy-MM-dd');
-    const categoryType = categoryTypeByDate.get(dayKey);
+    const dayKey = format(day, CALENDAR_DATE_FORMAT.dayKey);
+    const dayRecord = categoryTypeByDate.get(dayKey);
+    const categoryType = dayRecord?.categoryType;
+    const reflectionId = dayRecord?.reflectionId;
     const hasRecord = Boolean(categoryType);
 
     return {
@@ -54,7 +59,8 @@ export const getCalendarDayCells = ({
       date: day,
       isFuture,
       categoryType,
-      blobProps: {
+      reflectionId,
+      cellProps: {
         day: day.getDate(),
         hasRecord,
         isOutlined,

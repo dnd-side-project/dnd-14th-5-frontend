@@ -1,4 +1,4 @@
-import { useQuery } from '@tanstack/react-query';
+import { useQuery, useSuspenseQuery } from '@tanstack/react-query';
 import { z } from 'zod';
 
 import { get } from '@/src/lib/api';
@@ -22,7 +22,7 @@ const todayReflectionSchema = z.object({
     createdBy: z.string(),
     createdAt: z.string(),
   }),
-  content: z.string(),
+  content: z.string().nullable(),
   feedback: z
     .object({
       id: z.number(),
@@ -46,6 +46,12 @@ const getTodayReflection = async () => {
 
 export const useTodayReflectionQuery = () =>
   useQuery({
+    queryKey: reflectionKeys.todayReflection(),
+    queryFn: getTodayReflection,
+  });
+
+export const useSuspenseTodayReflectionQuery = () =>
+  useSuspenseQuery({
     queryKey: reflectionKeys.todayReflection(),
     queryFn: getTodayReflection,
   });
