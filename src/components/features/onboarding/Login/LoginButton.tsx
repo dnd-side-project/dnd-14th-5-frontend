@@ -35,7 +35,7 @@ const LoginButton = ({ provider }: LoginButtonProps) => {
   const config = PROVIDER_CONFIG[provider];
 
   const handleLogin = () => {
-    window.location.href = `${API_BASE_URL ?? ''}auth/login/${provider}`;
+    window.location.href = `${API_BASE_URL ?? ''}/auth/login/${provider}`;
   };
 
   return (
