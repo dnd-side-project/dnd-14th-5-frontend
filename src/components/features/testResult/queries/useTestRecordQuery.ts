@@ -2,19 +2,20 @@ import { useQuery } from '@tanstack/react-query';
 import { z } from 'zod';
 
 import { get } from '@/src/lib/api';
+import { CATEGORY } from '@/src/lib/constants/character';
 
-import { TEST_QUERY_KEYS } from '../constants/queryKey';
-import { TEST_ENDPOINTS } from '../constants/url';
+import { TEST_RESULT_QUERY_KEYS } from '../constants/queryKeys';
+import { TEST_RESULT_ENDPOINTS } from '../constants/url';
 
 const ClosestCategorySchema = z.object({
-  name: z.string(),
+  name: z.enum(CATEGORY),
   character: z.string(),
   personality: z.string(),
   description: z.string(),
 });
 
 const ScoreSchema = z.object({
-  category: z.string(),
+  category: z.enum(CATEGORY),
   score: z.number(),
   idealScore: z.number(),
 });
@@ -31,20 +32,20 @@ const ResponseSchema = z.object({
   }),
 });
 
-type ResponseType = z.infer<typeof ResponseSchema>;
+export type ResponseType = z.infer<typeof ResponseSchema>;
 
 interface PathType {
   testRecordId: number;
 }
 
 const testRecord = ({ testRecordId }: PathType) =>
-  get<ResponseType>(TEST_ENDPOINTS['record'](testRecordId), {
+  get<ResponseType>(TEST_RESULT_ENDPOINTS['record'](testRecordId), {
     responseSchema: ResponseSchema,
   });
 
 export const useTestRecordQuery = ({ testRecordId }: PathType) => {
   return useQuery({
-    queryKey: TEST_QUERY_KEYS['record'](testRecordId),
+    queryKey: TEST_RESULT_QUERY_KEYS['record'](testRecordId),
     queryFn: () => testRecord({ testRecordId }),
     staleTime: 60 * 1000 * 5,
   });

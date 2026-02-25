@@ -19,6 +19,7 @@ const allIcons = {
   calendarDayOutline: '/icons/calendar-day-outline.svg',
   alert: '/icons/alert-fill.svg',
   checkCircle: '/icons/check-circle-fill.svg',
+  check: '/icons/check-fill.svg',
 } as const;
 
 export default allIcons;

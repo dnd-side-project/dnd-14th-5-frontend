@@ -38,7 +38,7 @@ const todayReflectionSchema = z.object({
 
 export type GetTodayReflectionResponse = z.infer<typeof todayReflectionSchema>;
 
-const getTodayReflection = async (): Promise<GetTodayReflectionResponse> => {
+const getTodayReflection = async () => {
   return get<GetTodayReflectionResponse>(REFLECTION_ENDPOINTS.todayReflection, {
     responseSchema: todayReflectionSchema,
   });

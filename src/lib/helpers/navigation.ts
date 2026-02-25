@@ -7,3 +7,7 @@ export const goBackOrHome = (router: AppRouterInstance) => {
   }
   router.push('/');
 };
+
+export const goToHome = (router: AppRouterInstance) => {
+  router.push('/');
+};
