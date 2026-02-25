@@ -2,7 +2,6 @@ import type { AxiosError, InternalAxiosRequestConfig } from 'axios';
 import axios, { AxiosHeaders, isAxiosError } from 'axios';
 
 import { USER_ENDPOINTS } from '@/src/components/features/users/constants/url';
-
 import { API_BASE_URL } from '@/src/lib/config/env';
 
 export interface ApiError {
@@ -75,7 +74,7 @@ const isReissueRequest = (config: RetryableRequestConfig) => {
   const requestUrl = config.url ?? '';
 
   try {
-    const parsedUrl = new URL(requestUrl, baseURL ?? 'http://localhost');
+    const parsedUrl = new URL(requestUrl, API_BASE_URL ?? 'http://localhost');
     return parsedUrl.pathname === USER_ENDPOINTS.reissue;
   } catch {
     return requestUrl === USER_ENDPOINTS.reissue;
