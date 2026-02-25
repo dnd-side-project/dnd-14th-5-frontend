@@ -12,6 +12,7 @@ const DataSchema = z.object({
 
 const ResponseSchema = z.object({
   id: z.number(),
+  isExisting: z.boolean(),
 });
 
 type DataType = z.infer<typeof DataSchema>;
