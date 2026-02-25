@@ -29,10 +29,6 @@ const HomeActionsSection = () => {
       },
     });
 
-  const handleSkip = () => {
-    changeTodayQuestion();
-  };
-
   const handleAnswer = () => {
     router.push('/reflection');
   };
@@ -51,7 +47,7 @@ const HomeActionsSection = () => {
         <Button
           label="다른 질문 받기"
           variant="secondary"
-          onClick={handleSkip}
+          onClick={() => changeTodayQuestion()}
           disabled={isPending}
         />
       </div>
