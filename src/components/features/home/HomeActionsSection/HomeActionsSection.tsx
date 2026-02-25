@@ -15,6 +15,8 @@ const HomeActionsSection = () => {
   const { showToast } = useToast();
 
   const { data: todayReflection } = useTodayReflectionQuery();
+  const todayReflectionId = todayReflection?.id;
+  const hasTodayReflection = (todayReflectionId ?? 0) > 0;
 
   const { mutate: changeTodayQuestion, isPending } =
     useChangeTodayQuestionMutation({
@@ -32,12 +34,13 @@ const HomeActionsSection = () => {
   const handleAnswer = () => {
     router.push('/reflection');
   };
+
   const handleViewMyAnswer = () => {
-    if (!todayReflection?.id) return;
-    router.push(`/reflection/${todayReflection.id}`);
+    if (!hasTodayReflection) return;
+    router.push(`/reflection/${todayReflectionId}`);
   };
 
-  if (todayReflection?.id) {
+  if (hasTodayReflection) {
     return <Button label="나의 답변 보기" onClick={handleViewMyAnswer} />;
   }
 
