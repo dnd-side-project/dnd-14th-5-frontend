@@ -2,7 +2,7 @@ import Image from 'next/image';
 
 import type { IntroductionType } from '../queries/useIntroductionsQuery';
 
-type OnboardingStepProps = Pick<
+type IntroductionStepProps = Pick<
   IntroductionType,
   'title' | 'description' | 'imageUrl'
 >;
@@ -11,7 +11,7 @@ const IntroductionStep = ({
   title,
   description,
   imageUrl,
-}: OnboardingStepProps) => {
+}: IntroductionStepProps) => {
   return (
     <article>
       <section className="space-y-2 py-25">

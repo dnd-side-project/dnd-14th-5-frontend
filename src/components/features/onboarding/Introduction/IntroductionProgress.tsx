@@ -1,6 +1,6 @@
 import { cn } from '@/src/lib/helpers/cn';
 
-interface StepProgressProps {
+interface IntroductionProgressProps {
   currentStep: number;
   totalSteps: number;
 }
@@ -8,7 +8,7 @@ interface StepProgressProps {
 const IntroductionProgress = ({
   currentStep,
   totalSteps,
-}: StepProgressProps) => {
+}: IntroductionProgressProps) => {
   return (
     <div className="flex gap-2">
       {Array.from({ length: totalSteps }).map((_, index) => (

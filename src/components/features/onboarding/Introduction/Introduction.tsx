@@ -9,12 +9,12 @@ import { useIntroductionsQuery } from '../queries/useIntroductionsQuery';
 import IntroductionNavigation from './IntroductionNavigation';
 import IntroductionStep from './IntroductionStep';
 
-interface OnboardingContentProps {
+interface IntroductionProps {
   currentStep?: number;
   version: number;
 }
 
-const Introduction = ({ currentStep = 1, version }: OnboardingContentProps) => {
+const Introduction = ({ currentStep = 1, version }: IntroductionProps) => {
   const { data, isPending, isError, refetch } = useIntroductionsQuery({
     version,
   });

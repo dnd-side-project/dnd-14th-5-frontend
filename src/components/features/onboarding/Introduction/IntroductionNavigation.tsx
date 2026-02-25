@@ -4,7 +4,7 @@ import { useRouter } from 'next/navigation';
 
 import Button from '@/src/components/ui/Button/Button';
 
-interface NextStepButtonProps {
+interface IntroductionNavigationProps {
   currentStep: number;
   totalSteps: number;
 }
@@ -12,7 +12,7 @@ interface NextStepButtonProps {
 const IntroductionNavigation = ({
   currentStep,
   totalSteps,
-}: NextStepButtonProps) => {
+}: IntroductionNavigationProps) => {
   const router = useRouter();
   const isLastStep = currentStep === totalSteps;
 
