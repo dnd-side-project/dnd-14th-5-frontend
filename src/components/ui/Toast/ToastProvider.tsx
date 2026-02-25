@@ -131,12 +131,12 @@ const ToastCard = ({ toast, onDismiss }: ToastCardProps) => {
   return (
     <div
       className={cn(
-        'pointer-events-auto flex h-9 w-fit max-w-full items-center gap-1.5 rounded-xl bg-g-0 px-3 text-g-900 shadow',
+        'pointer-events-auto flex min-h-9 w-fit max-w-full items-center gap-1.5 rounded-xl bg-g-0 px-3 text-g-900 shadow',
         isLeaving ? styles.toastOut : styles.toastIn,
       )}
     >
       <Icon name={TOAST_VARIANT_ICON_MAP[toast.variant]} size={24} decorative />
-      <p className="text-body-s truncate">{toast.message}</p>
+      <p className="text-body-s">{toast.message}</p>
     </div>
   );
 };
