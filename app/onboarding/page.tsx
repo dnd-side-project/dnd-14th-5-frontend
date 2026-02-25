@@ -1,6 +1,6 @@
 import { dehydrate, HydrationBoundary } from '@tanstack/react-query';
 
-import OnboardingContent from '@/src/components/features/onboarding/Introduction/Introduction';
+import Introduction from '@/src/components/features/onboarding/Introduction/Introduction';
 import { prefetchOnboarding } from '@/src/components/features/onboarding/lib/prefetchOnboarding';
 import { getQueryClient } from '@/src/lib/helpers/getQueryClient';
 
@@ -21,7 +21,7 @@ const OnboardingPage = async ({ searchParams }: OnboardingPageProps) => {
 
   return (
     <HydrationBoundary state={dehydrate(queryClient)}>
-      <OnboardingContent currentStep={currentStep} version={VERSION} />
+      <Introduction currentStep={currentStep} version={VERSION} />
     </HydrationBoundary>
   );
 };

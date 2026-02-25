@@ -5,7 +5,10 @@ interface StepProgressProps {
   totalSteps: number;
 }
 
-const StepProgress = ({ currentStep, totalSteps }: StepProgressProps) => {
+const IntroductionProgress = ({
+  currentStep,
+  totalSteps,
+}: StepProgressProps) => {
   return (
     <div className="flex gap-2">
       {Array.from({ length: totalSteps }).map((_, index) => (
@@ -21,4 +24,4 @@ const StepProgress = ({ currentStep, totalSteps }: StepProgressProps) => {
   );
 };
 
-export default StepProgress;
+export default IntroductionProgress;

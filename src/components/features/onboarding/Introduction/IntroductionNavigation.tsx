@@ -9,7 +9,10 @@ interface NextStepButtonProps {
   totalSteps: number;
 }
 
-const NextStepButton = ({ currentStep, totalSteps }: NextStepButtonProps) => {
+const IntroductionNavigation = ({
+  currentStep,
+  totalSteps,
+}: NextStepButtonProps) => {
   const router = useRouter();
   const isLastStep = currentStep === totalSteps;
 
@@ -30,4 +33,4 @@ const NextStepButton = ({ currentStep, totalSteps }: NextStepButtonProps) => {
   );
 };
 
-export default NextStepButton;
+export default IntroductionNavigation;

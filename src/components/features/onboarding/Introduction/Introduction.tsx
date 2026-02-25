@@ -1,23 +1,20 @@
 'use client';
 
-import StepProgress from '@/src/components/features/onboarding/Introduction/IntroductionProgress';
+import IntroductionProgress from '@/src/components/features/onboarding/Introduction/IntroductionProgress';
 import BottomCTA from '@/src/components/layout/BottomCTA/BottomCTA';
 import ErrorState from '@/src/components/ui/ErrorState/ErrorState';
 import Skeleton from '@/src/components/ui/Skeleton/Skeleton';
 
 import { useIntroductionsQuery } from '../queries/useIntroductionsQuery';
-import NextStepButton from './IntroductionNavigation';
-import OnboardingStep from './IntroductionStep';
+import IntroductionNavigation from './IntroductionNavigation';
+import IntroductionStep from './IntroductionStep';
 
 interface OnboardingContentProps {
   currentStep?: number;
   version: number;
 }
 
-const OnboardingContent = ({
-  currentStep = 1,
-  version,
-}: OnboardingContentProps) => {
+const Introduction = ({ currentStep = 1, version }: OnboardingContentProps) => {
   const { data, isPending, isError, refetch } = useIntroductionsQuery({
     version,
   });
@@ -51,19 +48,19 @@ const OnboardingContent = ({
 
   return (
     <div>
-      <StepProgress currentStep={step} totalSteps={totalSteps} />
+      <IntroductionProgress currentStep={step} totalSteps={totalSteps} />
 
-      <OnboardingStep
+      <IntroductionStep
         title={title}
         description={description}
         imageUrl={imageUrl}
       />
 
       <BottomCTA>
-        <NextStepButton currentStep={step} totalSteps={totalSteps} />
+        <IntroductionNavigation currentStep={step} totalSteps={totalSteps} />
       </BottomCTA>
     </div>
   );
 };
 
-export default OnboardingContent;
+export default Introduction;

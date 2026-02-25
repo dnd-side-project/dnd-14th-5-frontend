@@ -7,7 +7,7 @@ type OnboardingStepProps = Pick<
   'title' | 'description' | 'imageUrl'
 >;
 
-const OnboardingStep = ({
+const IntroductionStep = ({
   title,
   description,
   imageUrl,
@@ -25,4 +25,4 @@ const OnboardingStep = ({
   );
 };
 
-export default OnboardingStep;
+export default IntroductionStep;
