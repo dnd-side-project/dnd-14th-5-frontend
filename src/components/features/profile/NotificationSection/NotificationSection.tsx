@@ -1,23 +1,24 @@
 'use client';
 
-import { useState } from 'react';
-
 import Card from '@/src/components/ui/Card/Card';
 import ToggleSwitch from '@/src/components/ui/ToggleSwitch/ToggleSwitch';
 
 import { useNotificationTimeModal } from '../hooks/useNotificationTimeModal';
+import { useNotificationToggle } from '../hooks/useNotificationToggle';
 import { MenuRow } from '../MenuRow/MenuRow';
 import NotificationTimeModal from '../NotificationTimeModal/NotificationTimeModal';
 import { useNotificationScheduleQuery } from '../queries/useNotificationScheduleQuery';
 import { formatScheduleTime } from '../utils/notificationTime';
 
+// TODO: 실제 그 시간에 알림이 잘 오는지 추가 수정 해야 함
 const NotificationSection = () => {
-  const [isOn, setIsOn] = useState(false);
   const { data: notificationSchedule } = useNotificationScheduleQuery();
+  const { isOn, isTogglePending, handleNotificationToggle } =
+    useNotificationToggle(notificationSchedule);
   const {
     isTimeModalOpen,
     selectedTime,
-    isUpdateSchedulePending,
+    isSubmitPending,
     setSelectedTime,
     handleOpenTimeModal,
     handleCloseTimeModal,
@@ -33,8 +34,9 @@ const NotificationSection = () => {
           rightElement={
             <ToggleSwitch
               checked={isOn}
-              onCheckedChange={setIsOn}
+              onCheckedChange={handleNotificationToggle}
               ariaLabel="알림 수신 토글"
+              disabled={isTogglePending}
             />
           }
         />
@@ -42,7 +44,7 @@ const NotificationSection = () => {
           label="알림 시간 변경"
           rightText={formatScheduleTime(notificationSchedule?.notificationTime)}
           onClick={handleOpenTimeModal}
-          disabled={isUpdateSchedulePending}
+          disabled={!isOn || isSubmitPending || isTogglePending}
         />
       </Card>
 
@@ -52,7 +54,7 @@ const NotificationSection = () => {
         onChange={setSelectedTime}
         onClose={handleCloseTimeModal}
         onSubmit={handleUpdateNotificationTime}
-        isPending={isUpdateSchedulePending}
+        isPending={isSubmitPending}
       />
     </>
   );
