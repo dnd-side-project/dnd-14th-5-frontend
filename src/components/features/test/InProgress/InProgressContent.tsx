@@ -46,7 +46,7 @@ const InProgressContent = ({
   const backgroundCardCount = Math.min(remainQuestion, 2);
 
   return (
-    <section className="relative w-full">
+    <section className="relative w-full overflow-hidden">
       <AnimatePresence mode="wait" custom={direction}>
         <motion.div
           key={step}
