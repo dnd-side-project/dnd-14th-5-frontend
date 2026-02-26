@@ -23,7 +23,7 @@ const CalendarMonthHeader = ({
       >
         <Icon name="chevronLeft" decorative size={24} />
       </button>
-      <p className="text-center text-heading-h3">{currentMonthLabel}</p>
+      <p className="text-center font-heading-h3">{currentMonthLabel}</p>
       <button
         type="button"
         onClick={goNextMonth}

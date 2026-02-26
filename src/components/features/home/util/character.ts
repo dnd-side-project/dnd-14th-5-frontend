@@ -3,7 +3,7 @@ import {
   CATEGORY_CHARACTER_MAP,
   type CharacterAsset,
   DEFAULT_CHARACTER,
-} from '@/src/components/features/home/const/character';
+} from '@/src/lib/constants/character';
 
 export const getCharacterAsset = (category?: string): CharacterAsset => {
   if (!category || !(category in CATEGORY_CHARACTER_MAP)) {

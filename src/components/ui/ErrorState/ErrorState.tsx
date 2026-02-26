@@ -29,11 +29,11 @@ const ErrorState = ({
         className,
       )}
     >
-      <p className={cn('text-heading-h4', titleClassName)}>{title}</p>
+      <p className={cn('font-heading-h4', titleClassName)}>{title}</p>
       {description && (
         <p
           className={cn(
-            'text-caption-n text-g-30 opacity-70',
+            'font-caption-n text-g-30 opacity-70',
             descriptionClassName,
           )}
         >

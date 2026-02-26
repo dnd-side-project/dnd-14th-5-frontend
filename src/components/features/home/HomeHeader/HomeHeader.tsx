@@ -8,8 +8,8 @@ import Icon from '@/src/components/ui/Icon/Icon';
 const HomeHeader = () => {
   const router = useRouter();
 
-  const handleNotificationsClick = () => {
-    router.push('/notifications');
+  const handleNotificationClick = () => {
+    router.push('/notification');
   };
 
   return (
@@ -19,7 +19,7 @@ const HomeHeader = () => {
       leftIcon={<Icon name="timoTitle" size={72} />}
       leftSlotVariant="logo"
       rightIcon={<Icon name="bellInactive" size={28} />}
-      onRightClick={handleNotificationsClick}
+      onRightClick={handleNotificationClick}
     />
   );
 };

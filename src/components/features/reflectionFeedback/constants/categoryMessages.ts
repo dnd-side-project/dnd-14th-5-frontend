@@ -1,4 +1,4 @@
-import type { Category } from '@/src/components/features/home/const/character';
+import type { Category } from '@/src/lib/constants/character';
 
 export interface CategoryMessageParts {
   prefix: string;

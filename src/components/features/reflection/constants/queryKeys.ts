@@ -5,4 +5,6 @@ export const reflectionKeys = {
   monthReflection: (month: string) =>
     [...reflectionKeys.all, 'monthReflection', month] as const,
   todayReflection: () => [...reflectionKeys.all, 'todayReflection'] as const,
+  changeTodayQuestion: () =>
+    [...reflectionKeys.all, 'changeTodayQuestion'] as const,
 };

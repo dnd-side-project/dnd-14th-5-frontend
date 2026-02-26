@@ -1,10 +1,10 @@
 'use client';
 
+import { format } from 'date-fns';
 import { useMemo } from 'react';
 
-import Skeleton from '@/src/components/ui/Skeleton/Skeleton';
-
-import type { GetMonthReflectionResponse } from '../../reflection/queries/useMonthReflectionQuery';
+import { useSuspenseMonthReflectionQuery } from '../../reflection/queries/useMonthReflectionQuery';
+import { CALENDAR_DATE_FORMAT } from '../constants/calendar';
 import type { UseCalendarStateResult } from '../hooks/useCalendarState';
 import { getCategoryTypeByDate } from '../utils/getCategoryTypeByDate';
 import { mapReflectionItems } from '../utils/mapReflectionItems';
@@ -12,10 +12,7 @@ import CalendarMonthGrid from './CalendarMonthGrid/CalendarMonthGrid';
 import CalendarMonthHeader from './CalendarMonthHeader/CalendarMonthHeader';
 import CalendarMonthWeekdays from './CalendarMonthWeekdays/CalendarMonthWeekdays';
 
-interface CalendarMonthProps extends UseCalendarStateResult {
-  data?: GetMonthReflectionResponse;
-  isPending: boolean;
-}
+type CalendarMonthProps = UseCalendarStateResult;
 
 const CalendarMonth = ({
   today,
@@ -26,9 +23,15 @@ const CalendarMonth = ({
   goPrevMonth,
   goNextMonth,
   selectDate,
-  data,
-  isPending,
 }: CalendarMonthProps) => {
+  const formattedMonth = format(
+    currentMonth,
+    CALENDAR_DATE_FORMAT.monthRequest,
+  );
+  const { data } = useSuspenseMonthReflectionQuery({
+    month: formattedMonth,
+  });
+
   const categoryTypeByDate = useMemo(
     () => getCategoryTypeByDate(mapReflectionItems(data ?? [])),
     [data],
@@ -43,28 +46,14 @@ const CalendarMonth = ({
       />
 
       <CalendarMonthWeekdays />
-
-      {isPending ? (
-        <div className="grid grid-cols-7 gap-2">
-          {Array.from({ length: 42 }).map((_, index) => (
-            <Skeleton
-              key={index}
-              className="h-10 w-10 rounded-full bg-g-500"
-              ariaLabel="캘린더 로딩 중"
-            />
-          ))}
-        </div>
-      ) : (
-        // TODO: 아이콘 바뀐걸로 변경해야 함.
-        <CalendarMonthGrid
-          days={days}
-          currentMonth={currentMonth}
-          selectedDate={selectedDate}
-          today={today}
-          categoryTypeByDate={categoryTypeByDate}
-          selectDate={selectDate}
-        />
-      )}
+      <CalendarMonthGrid
+        days={days}
+        currentMonth={currentMonth}
+        selectedDate={selectedDate}
+        today={today}
+        categoryTypeByDate={categoryTypeByDate}
+        selectDate={selectDate}
+      />
     </div>
   );
 };
