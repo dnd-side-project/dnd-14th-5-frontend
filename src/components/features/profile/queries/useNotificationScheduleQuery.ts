@@ -2,7 +2,7 @@ import { useQuery } from '@tanstack/react-query';
 import { z } from 'zod';
 
 import { get } from '@/src/lib/api';
-import type { ApiError } from '@/src/lib/api/instance';
+import type { ApiError } from '@/src/lib/api/error';
 
 import { profileKeys } from '../constants/queryKeys';
 import { PROFILE_ENDPOINTS } from '../constants/url';
