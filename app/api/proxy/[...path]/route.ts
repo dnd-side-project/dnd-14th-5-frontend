@@ -6,6 +6,10 @@ async function handler(
   req: NextRequest,
   { params }: { params: Promise<{ path: string[] }> },
 ) {
+  if (process.env.NODE_ENV !== 'development') {
+    return NextResponse.json({ error: 'Not available' }, { status: 404 });
+  }
+
   const { path: pathSegments } = await params;
   const path = pathSegments?.join('/') || '';
 
@@ -27,18 +31,22 @@ async function handler(
 
     const responseHeaders = new Headers(apiResponse.headers);
 
+    responseHeaders.delete('Set-Cookie');
+
     const setCookieHeaders = apiResponse.headers.getSetCookie();
     if (setCookieHeaders.length > 0) {
       setCookieHeaders.forEach((cookie) => {
         const modifiedCookie = cookie
           .split(';')
-          .filter((part) => !part.trim().toLowerCase().startsWith('domain='))
+          .filter((part) => {
+            const trimmed = part.trim().toLowerCase();
+            return !trimmed.startsWith('domain=');
+          })
           .join('; ');
 
         responseHeaders.append('Set-Cookie', modifiedCookie);
       });
     }
-
     return new NextResponse(apiResponse.body, {
       status: apiResponse.status,
       statusText: apiResponse.statusText,

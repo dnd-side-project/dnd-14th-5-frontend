@@ -3,7 +3,7 @@
 import { type ComponentProps } from 'react';
 
 import Button from '@/src/components/ui/Button/Button';
-import { API_BASE_URL, DIRECT_API_BASE_URL } from '@/src/lib/config/env';
+import { DIRECT_API_BASE_URL } from '@/src/lib/config/env';
 import { cn } from '@/src/lib/helpers/cn';
 
 interface LoginButtonProps extends Omit<
