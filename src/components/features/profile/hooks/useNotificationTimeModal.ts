@@ -4,7 +4,11 @@ import type { TimeValue } from '@/src/components/ui/TimeWheelPicker/TimeWheelPic
 import { useToast } from '@/src/hooks/useToast';
 
 import { useUpdateNotificationScheduleMutation } from '../queries/useUpdateNotificationScheduleMutation';
-import { toScheduleTime, toTimeValue } from '../utils/notificationTime';
+import {
+  setStoredNotificationTime,
+  toScheduleTime,
+  toTimeValue,
+} from '../utils/notificationTime';
 
 interface NotificationSchedule {
   id: number;
@@ -21,8 +25,13 @@ interface UseNotificationTimeModalResult {
   handleUpdateNotificationTime: () => Promise<void>;
 }
 
+interface UseNotificationTimeModalOptions {
+  onNotificationTimeSaved?: (notificationTime: string) => void;
+}
+
 export const useNotificationTimeModal = (
   notificationSchedule: NotificationSchedule | null | undefined,
+  options?: UseNotificationTimeModalOptions,
 ): UseNotificationTimeModalResult => {
   const [isTimeModalOpen, setIsTimeModalOpen] = useState(false);
   const [selectedTime, setSelectedTime] = useState<TimeValue>({
@@ -61,11 +70,15 @@ export const useNotificationTimeModal = (
       return;
     }
 
+    const nextNotificationTime = toScheduleTime(selectedTime);
+
     try {
       await updateNotificationSchedule({
         scheduleId: notificationSchedule.id,
-        notificationTime: toScheduleTime(selectedTime),
+        notificationTime: nextNotificationTime,
       });
+      setStoredNotificationTime(nextNotificationTime);
+      options?.onNotificationTimeSaved?.(nextNotificationTime);
       setIsTimeModalOpen(false);
       showToast({ message: '알림 시간이 변경되었어요.' });
     } catch {

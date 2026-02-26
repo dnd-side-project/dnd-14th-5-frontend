@@ -4,6 +4,10 @@ import { getFcmToken } from '@/src/lib/firebase/messaging';
 import { useCreateNotificationScheduleMutation } from '../queries/useCreateNotificationScheduleMutation';
 import { useDeleteNotificationScheduleMutation } from '../queries/useDeleteNotificationScheduleMutation';
 import type { NotificationScheduleResponse } from '../queries/useNotificationScheduleQuery';
+import {
+  getDefaultNotificationScheduleTime,
+  getStoredNotificationTime,
+} from '../utils/notificationTime';
 
 interface UseNotificationToggleResult {
   isOn: boolean;
@@ -34,6 +38,8 @@ export const useNotificationToggle = (
 
     try {
       const token = await getFcmToken();
+      const notificationTime =
+        getStoredNotificationTime() ?? getDefaultNotificationScheduleTime();
 
       if (!token) {
         showToast({
@@ -43,7 +49,7 @@ export const useNotificationToggle = (
       }
 
       await createNotificationSchedule({
-        notificationTime: '21:00:00',
+        notificationTime,
         token,
       });
       showToast({ message: '알림이 설정되었어요.' });

@@ -1,5 +1,7 @@
 'use client';
 
+import { useState } from 'react';
+
 import Card from '@/src/components/ui/Card/Card';
 import ToggleSwitch from '@/src/components/ui/ToggleSwitch/ToggleSwitch';
 
@@ -8,11 +10,17 @@ import { useNotificationToggle } from '../hooks/useNotificationToggle';
 import { MenuRow } from '../MenuRow/MenuRow';
 import NotificationTimeModal from '../NotificationTimeModal/NotificationTimeModal';
 import { useNotificationScheduleQuery } from '../queries/useNotificationScheduleQuery';
-import { formatScheduleTime } from '../utils/notificationTime';
+import {
+  formatScheduleTime,
+  getStoredNotificationTime,
+} from '../utils/notificationTime';
 
 // TODO: 실제 그 시간에 알림이 잘 오는지 추가 수정 해야 함
 const NotificationSection = () => {
   const { data: notificationSchedule } = useNotificationScheduleQuery();
+  const [storedNotificationTime, setStoredNotificationTime] = useState<
+    string | null
+  >(getStoredNotificationTime);
   const { isOn, isTogglePending, handleNotificationToggle } =
     useNotificationToggle(notificationSchedule);
   const {
@@ -23,7 +31,13 @@ const NotificationSection = () => {
     handleOpenTimeModal,
     handleCloseTimeModal,
     handleUpdateNotificationTime,
-  } = useNotificationTimeModal(notificationSchedule);
+  } = useNotificationTimeModal(notificationSchedule, {
+    onNotificationTimeSaved: setStoredNotificationTime,
+  });
+  const displayNotificationTime =
+    notificationSchedule?.notificationTime ??
+    storedNotificationTime ??
+    undefined;
 
   return (
     <>
@@ -42,7 +56,7 @@ const NotificationSection = () => {
         />
         <MenuRow
           label="알림 시간 변경"
-          rightText={formatScheduleTime(notificationSchedule?.notificationTime)}
+          rightText={formatScheduleTime(displayNotificationTime)}
           onClick={handleOpenTimeModal}
           disabled={!isOn || isSubmitPending || isTogglePending}
         />

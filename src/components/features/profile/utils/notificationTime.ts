@@ -4,6 +4,8 @@ const DEFAULT_TIME: TimeValue = {
   hour: '09',
   minute: '00',
 };
+const DEFAULT_NOTIFICATION_SCHEDULE_TIME = '09:00:00';
+const NOTIFICATION_LAST_TIME_KEY = 'notification:lastTime';
 
 export const formatScheduleTime = (value: string | undefined) => {
   if (!value) {
@@ -45,4 +47,24 @@ export const toTimeValue = (value: string | undefined): TimeValue => {
 
 export const toScheduleTime = (timeValue: TimeValue) => {
   return `${timeValue.hour}:${timeValue.minute}:00`;
+};
+
+export const getDefaultNotificationScheduleTime = () => {
+  return DEFAULT_NOTIFICATION_SCHEDULE_TIME;
+};
+
+export const getStoredNotificationTime = () => {
+  if (typeof window === 'undefined') {
+    return null;
+  }
+
+  return window.localStorage.getItem(NOTIFICATION_LAST_TIME_KEY);
+};
+
+export const setStoredNotificationTime = (value: string) => {
+  if (typeof window === 'undefined') {
+    return;
+  }
+
+  window.localStorage.setItem(NOTIFICATION_LAST_TIME_KEY, value);
 };
