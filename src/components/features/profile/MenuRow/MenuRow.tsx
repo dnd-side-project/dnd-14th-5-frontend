@@ -1,10 +1,10 @@
 import Icon from '@/src/components/ui/Icon/Icon';
 
 interface MenuRowProps {
-  label: string; // 왼쪽 텍스트 (필수)
-  onClick?: () => void; // row 클릭
-  rightText?: string; // 우측 텍스트
-  rightElement?: React.ReactNode; // 우측 완전 커스텀
+  label: string;
+  onClick?: () => void;
+  rightText?: string;
+  rightElement?: React.ReactNode;
   disabled?: boolean;
 }
 
