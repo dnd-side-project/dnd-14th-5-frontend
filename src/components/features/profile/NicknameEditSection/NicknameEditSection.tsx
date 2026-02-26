@@ -25,6 +25,7 @@ const NicknameEditSection = () => {
             닉네임
           </label>
           <input
+            id="nickname"
             value={nickname}
             onChange={(event) => handleNicknameChange(event.target.value)}
             placeholder="닉네임"
