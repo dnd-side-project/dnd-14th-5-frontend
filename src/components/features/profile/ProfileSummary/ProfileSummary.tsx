@@ -2,7 +2,6 @@
 
 import Image from 'next/image';
 
-import { CATEGORY_CHARACTER_MAP } from '../../home/const/character';
 import { useUserDetailQuery } from '../../users/queries/useUserDetailQuery';
 
 // TODO: category 서버에서 보내주면 반영 해야 함
