@@ -38,6 +38,10 @@ export const requestNotificationPermission = async () => {
     return 'default' as NotificationPermission;
   }
 
+  if (typeof Notification === 'undefined') {
+    return 'default' as NotificationPermission;
+  }
+
   return Notification.requestPermission();
 };
 

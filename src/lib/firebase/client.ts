@@ -10,14 +10,6 @@ const firebaseConfig = {
   appId: process.env.NEXT_PUBLIC_FIREBASE_APP_ID,
 };
 
-const missing = Object.entries(firebaseConfig)
-  .filter(([, value]) => !value)
-  .map(([key]) => key);
-
-if (missing.length > 0) {
-  throw new Error(`Missing Firebase env vars: ${missing.join(', ')}`);
-}
-
 // Next.js 개발 모드(HMR)에서 initializeApp이 여러 번 호출되는 것을 방지합니다.
 export const firebaseApp =
   getApps().length > 0 ? getApps()[0] : initializeApp(firebaseConfig);
