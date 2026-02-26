@@ -8,24 +8,36 @@ import { useTestResponsesQuery } from '../queries/useTestResponseQuery';
 
 interface UseTestProgressProps {
   testRecordId: number;
+  totalQuestions: number;
 }
 
-export const useTestProgress = ({ testRecordId }: UseTestProgressProps) => {
+export const useTestProgress = ({
+  testRecordId,
+  totalQuestions,
+}: UseTestProgressProps) => {
   const router = useRouter();
   const pathname = usePathname();
 
-  const { data } = useTestResponsesQuery({ testRecordId });
+  const { data, isPending } = useTestResponsesQuery({
+    testRecordId,
+  });
   const { mutate: postQuestionResponse } = usePostQuestionResponseMutation({
     testRecordId,
   });
   const { mutate: patchQuestionResponse } = usePatchTestResponseMutation({
     testRecordId,
   });
-  const { mutate: completeTest } = useCompleteTestMutation({ testRecordId });
+  const { mutate: completeTest, isPending: isCompleting } =
+    useCompleteTestMutation({ testRecordId });
 
   const [currentRating, setCurrentRating] = useState<number | null>(null);
-  const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
+  const [manualIndex, setManualIndex] = useState<number | null>(null);
   const [direction, setDirection] = useState(1);
+
+  const currentQuestionIndex = Math.min(
+    manualIndex ?? data?.length ?? 0,
+    Math.max(totalQuestions - 1, 0),
+  );
 
   const handleRatingChange = (event: ChangeEvent<HTMLInputElement>) => {
     setCurrentRating(+event.target.value);
@@ -38,24 +50,32 @@ export const useTestProgress = ({ testRecordId }: UseTestProgressProps) => {
     });
   };
 
-  const handleNext = (totalQuestions: number, questionId: number) => {
+  const isLastQuestion = currentQuestionIndex + 1 === totalQuestions;
+
+  const handleNext = (questionId: number, nextQuestionId?: number) => {
     if (currentRating === null) return;
 
     setDirection(1);
 
-    const isLastQuestion = currentQuestionIndex + 1 === totalQuestions;
-
-    const onMutationSuccess = () => {
+    const moveToNext = () => {
       if (isLastQuestion) {
         handleCompleteTest();
       } else {
-        setCurrentQuestionIndex((prev) => prev + 1);
-        setCurrentRating(null);
+        setManualIndex(currentQuestionIndex + 1);
+
+        const nextScore =
+          nextQuestionId !== undefined
+            ? data?.find((item) => item.questionId === nextQuestionId)?.score
+            : undefined;
+        setCurrentRating(nextScore ?? null);
       }
     };
 
-    const responseId = data?.find((item) => item.questionId === questionId)?.id;
-    const score = data?.find((item) => item.questionId === questionId)?.score;
+    const currentResponse = data?.find(
+      (item) => item.questionId === questionId,
+    );
+    const responseId = currentResponse?.id;
+    const score = currentResponse?.score;
 
     if (responseId === undefined) {
       postQuestionResponse(
@@ -64,21 +84,18 @@ export const useTestProgress = ({ testRecordId }: UseTestProgressProps) => {
           score: currentRating,
         },
         {
-          onSuccess: onMutationSuccess,
+          onSuccess: moveToNext,
         },
       );
     } else if (score !== currentRating) {
       patchQuestionResponse(
         { score: currentRating, responseId },
         {
-          onSuccess: onMutationSuccess,
+          onSuccess: moveToNext,
         },
       );
-    } else if (isLastQuestion) {
-      handleCompleteTest();
     } else {
-      setCurrentQuestionIndex((prev) => prev + 1);
-      setCurrentRating(null);
+      moveToNext();
     }
   };
 
@@ -89,13 +106,11 @@ export const useTestProgress = ({ testRecordId }: UseTestProgressProps) => {
 
     const score = data?.find((item) => item.questionId === questionId)?.score;
 
-    if (score === undefined) return;
-
-    setCurrentRating(score);
-    setCurrentQuestionIndex((prev) => prev - 1);
+    setCurrentRating(score ?? null);
+    setManualIndex(currentQuestionIndex - 1);
   };
 
-  const isNextButtonDisabled = (totalQuestions: number) =>
+  const isNextButtonDisabled =
     currentQuestionIndex + 1 > totalQuestions || currentRating === null;
 
   const isPrevButtonDisabled = currentQuestionIndex === 0;
@@ -109,5 +124,8 @@ export const useTestProgress = ({ testRecordId }: UseTestProgressProps) => {
     handlePrev,
     isNextButtonDisabled,
     isPrevButtonDisabled,
+    isResponsesPending: isPending,
+    isCompleting,
+    isLastQuestion,
   };
 };

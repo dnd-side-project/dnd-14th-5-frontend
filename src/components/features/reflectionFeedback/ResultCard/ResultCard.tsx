@@ -1,12 +1,12 @@
 import Image from 'next/image';
 
-import {
-  type Category,
-  CATEGORY_CHARACTER_MAP,
-} from '@/src/components/features/home/const/character';
 import Badge from '@/src/components/ui/Badge/Badge';
 import Card from '@/src/components/ui/Card/Card';
 import Icon from '@/src/components/ui/Icon/Icon';
+import {
+  type Category,
+  CATEGORY_CHARACTER_MAP,
+} from '@/src/lib/constants/character';
 import { cn } from '@/src/lib/helpers/cn';
 
 import { useUserDetailQuery } from '../../users/queries/useUserDetailQuery';
@@ -40,7 +40,7 @@ const ResultCard = ({ feedback, category }: ResultCardProps) => {
         height={150}
       />
 
-      <p className="text-heading-h3 text-g-0">
+      <p className="font-heading-h3 text-g-0">
         {categoryMessage.prefix}
         <span className={characterAsset.color}>
           {categoryMessage.highlight}
@@ -62,7 +62,7 @@ const ResultCard = ({ feedback, category }: ResultCardProps) => {
           '[&::-webkit-scrollbar-thumb]:bg-[color-mix(in_srgb,var(--color-g-0)_25%,transparent)]',
         )}
       >
-        <p className="wrap-break-word text-justify text-body-s text-g-80">
+        <p className="wrap-break-word text-justify font-body-s text-g-80">
           {feedback}
         </p>
       </div>

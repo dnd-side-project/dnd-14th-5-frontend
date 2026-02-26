@@ -5,6 +5,8 @@ interface InProgressNavigation {
   onNext: () => void;
   isNextButtonDisabled: boolean;
   isPrevButtonDisabled: boolean;
+  isCompleting: boolean;
+  isLastQuestion: boolean;
 }
 
 const InProgressNavigation = ({
@@ -12,6 +14,8 @@ const InProgressNavigation = ({
   onNext,
   isNextButtonDisabled,
   isPrevButtonDisabled,
+  isCompleting,
+  isLastQuestion,
 }: InProgressNavigation) => {
   return (
     <div className="gap-3 grid grid-cols-3">
@@ -22,9 +26,9 @@ const InProgressNavigation = ({
         disabled={isPrevButtonDisabled}
       />
       <Button
-        label="다음"
+        label={isLastQuestion ? '완료' : '다음'}
         onClick={onNext}
-        disabled={isNextButtonDisabled}
+        disabled={isCompleting || isNextButtonDisabled}
         className="col-span-2"
       />
     </div>

@@ -41,24 +41,24 @@ const CalendarDayCell = ({
   const resolvedType = isFuture ? 'slate' : (categoryType ?? 'slate');
 
   return (
-    <button type="button" onClick={onClick} className="relative h-10 w-10">
+    <button type="button" onClick={onClick} className="relative h-8 w-8">
       {isOutlined ? (
         <Icon
           name="calendarDayOutline"
           decorative
-          size={40}
+          size={32}
           className="absolute inset-0 scale-110"
         />
       ) : null}
       <Icon
         name={iconNameMap[resolvedType]}
         decorative
-        size={40}
+        size={32}
         className="absolute inset-0"
       />
       <span
         className={cn(
-          'absolute inset-0 flex items-center justify-center text-body-s',
+          'absolute inset-0 flex items-center justify-center font-body-s',
           hasRecord ? 'text-g-900' : 'text-g-200',
         )}
       >

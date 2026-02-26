@@ -4,7 +4,7 @@ const WEEKDAY_LABELS = ['일', '월', '화', '수', '목', '금', '토'] as cons
 
 const CalendarMonthWeekdays = () => {
   return (
-    <ul className="grid grid-cols-7 text-center text-body-s text-g-20">
+    <ul className="grid grid-cols-7 text-center font-body-s text-g-20">
       {WEEKDAY_LABELS.map((label) => (
         <li key={label} className="py-1">
           {label}

@@ -1,0 +1,76 @@
+'use client';
+
+import Image from 'next/image';
+
+import Badge from '@/src/components/ui/Badge/Badge';
+import ErrorState from '@/src/components/ui/ErrorState/ErrorState';
+import Skeleton from '@/src/components/ui/Skeleton/Skeleton';
+import { CATEGORY_CHARACTER_MAP } from '@/src/lib/constants/character';
+
+import { getCategoryMessage } from '../../reflectionFeedback/utils/getCategoryMessage';
+import { useReflectionDetail } from '../queries/useReflectionDetail';
+
+interface DetailProps {
+  reflectionId: number;
+}
+
+const Detail = ({ reflectionId }: DetailProps) => {
+  const { data, isPending, isError, refetch } = useReflectionDetail({
+    reflectionId,
+  });
+
+  if (isPending) {
+    return (
+      <div className="space-y-3">
+        <Skeleton className="h-8 w-20" />
+        <Skeleton className="h-10" />
+        <Skeleton className="h-40" />
+        <Skeleton className="h-30" />
+      </div>
+    );
+  }
+
+  if (isError) {
+    return (
+      <ErrorState
+        title="회고를 불러오는 데 실패했어요."
+        description="잠시 후 다시 시도해주세요."
+        onRetry={refetch}
+        className="py-15"
+      />
+    );
+  }
+
+  const category = data.question.category;
+  const { src, alt, color } = CATEGORY_CHARACTER_MAP[category];
+  const categoryMessage = getCategoryMessage(category);
+
+  return (
+    <article className="space-y-10">
+      <section className="space-y-5">
+        <Badge>나의 기록</Badge>
+
+        <h1 className="font-heading-h4 text-primary">
+          {data.question.content}
+        </h1>
+        <p className="font-body-s text-g-60">{data.content}</p>
+      </section>
+
+      <section className="bg-g-20 rounded-2xl p-4 space-y-3">
+        <div className="flex flex-col items-center">
+          <Image src={src} alt={alt} width={120} height={120} />
+        </div>
+
+        <p className="font-heading-h4 text-g-900">
+          {categoryMessage.prefix}
+          <span className={color}>{categoryMessage.highlight}</span>
+          {categoryMessage.suffix}
+        </p>
+
+        <p className="font-body-s text-g-600">{data.feedback?.content}</p>
+      </section>
+    </article>
+  );
+};
+
+export default Detail;

@@ -6,7 +6,6 @@ import TestSection from '@/src/components/features/profile/TestSection/TestSecti
 import BottomNavBar from '@/src/components/layout/BottomNavBar/BottomNavBar';
 import PageHeader from '@/src/components/layout/PageHeader/PageHeader';
 
-// TODO: 폰트들 토큰 반영해야 함
 const ProfilePage = () => {
   return (
     <>
@@ -25,7 +24,7 @@ const ProfilePage = () => {
           <AccountSection />
         </div>
       </div>
-
+      
       <BottomNavBar />
     </>
   );

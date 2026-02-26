@@ -40,7 +40,7 @@ const PageHeader = ({
         {leftIcon ?? <div className="h-6 w-6 rounded-full" />}
       </button>
 
-      <h1 className="flex-1 text-center text-heading-h3 text-g-0">{title}</h1>
+      <h1 className="flex-1 text-center font-heading-h3 text-g-0">{title}</h1>
 
       <button
         type="button"

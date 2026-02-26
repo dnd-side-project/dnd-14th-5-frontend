@@ -6,6 +6,7 @@ import { useTestProgress } from '../hooks/useTestProgress';
 import { useTestQuestionsQuery } from '../queries/useTestQuestionsQuery';
 import InProgressContent from './InProgressContent';
 import InProgressNavigation from './InProgressNavigation';
+import InProgressSkeleton from './InProgressSkeleton';
 
 interface InProgressProps {
   testId: number;
@@ -29,16 +30,16 @@ const InProgress = ({ testId, testRecordId }: InProgressProps) => {
     handlePrev,
     isNextButtonDisabled,
     isPrevButtonDisabled,
-  } = useTestProgress({ testRecordId });
+    isResponsesPending,
+    isCompleting,
+    isLastQuestion,
+  } = useTestProgress({
+    testRecordId,
+    totalQuestions: questions?.length ?? 0,
+  });
 
-  if (isPending) {
-    // TODO: 임시 loader
-    return (
-      <div className="flex items-center justify-center py-20">
-        <div className="animate-spin rounded-full h-8 w-8 border-4 border-dotted mr-3" />
-        <p className="text-g-20">로딩 중...</p>
-      </div>
-    );
+  if (isPending || isResponsesPending) {
+    return <InProgressSkeleton />;
   }
 
   if (isError) {
@@ -54,8 +55,11 @@ const InProgress = ({ testId, testRecordId }: InProgressProps) => {
 
   const totalQuestions = questions.length;
   const remainQuestion = totalQuestions - currentQuestionIndex - 1;
+
   const { id: questionId, sequence, content } = questions[currentQuestionIndex];
+
   const prevQuestionId = questions[currentQuestionIndex - 1]?.id;
+  const nextQuestionId = questions[currentQuestionIndex + 1]?.id;
 
   return (
     <div className="flex flex-col h-full pt-3">
@@ -74,9 +78,11 @@ const InProgress = ({ testId, testRecordId }: InProgressProps) => {
 
       <InProgressNavigation
         onPrev={() => handlePrev(prevQuestionId)}
-        onNext={() => handleNext(totalQuestions, questionId)}
-        isNextButtonDisabled={isNextButtonDisabled(totalQuestions)}
+        onNext={() => handleNext(questionId, nextQuestionId)}
+        isNextButtonDisabled={isNextButtonDisabled}
         isPrevButtonDisabled={isPrevButtonDisabled}
+        isCompleting={isCompleting}
+        isLastQuestion={isLastQuestion}
       />
     </div>
   );

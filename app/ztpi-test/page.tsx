@@ -5,7 +5,7 @@ const ZtpiTestPage = () => {
   return (
     <div className="flex flex-col h-full">
       <ZtpiHeader />
-      <div className="flex-1">
+      <div className="flex-1 pb-8">
         <ZtpiTest />
       </div>
     </div>

@@ -13,8 +13,6 @@ export const TEST_QUERY_KEYS = {
       testRecordId,
     ] as const,
   records: () => [...TEST_QUERY_KEYS.tests, 'records'] as const,
-  record: (testRecordId: number) =>
-    [...TEST_QUERY_KEYS.tests, 'record', testRecordId] as const,
   start: () => [...TEST_QUERY_KEYS.tests, 'start'] as const,
   complete: (testRecordId: number) =>
     [...TEST_QUERY_KEYS.tests, 'complete', testRecordId] as const,
