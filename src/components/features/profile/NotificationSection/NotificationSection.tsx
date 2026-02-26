@@ -15,7 +15,7 @@ import {
   getStoredNotificationTime,
 } from '../utils/notificationTime';
 
-// TODO: 실제 그 시간에 알림이 잘 오는지 추가 수정 해야 함
+// TODO: 실제 그 시간에 알림이 잘 오는지 보고 추가 수정 해야 함
 const NotificationSection = () => {
   const storedNotificationTime = useSyncExternalStore(
     () => () => undefined,

@@ -7,7 +7,7 @@ import { cn } from '@/src/lib/helpers/cn';
 import { useNicknameEdit } from '../hooks/useNicknameEdit';
 
 const NicknameEditSection = () => {
-  // TODO: `border-r-300` 토큰 유틸이 의도대로 색상 유틸로 동작하도록 설정 점검 필요
+  // TODO: `border-r-300` 토큰 유틸이 의도대로 색상 유틸로 동작하도록 토큰 정의 바꾸면 좋을 것 같음
   const {
     nickname,
     errorMessage,
