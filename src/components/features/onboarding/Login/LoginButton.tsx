@@ -3,7 +3,7 @@
 import { type ComponentProps } from 'react';
 
 import Button from '@/src/components/ui/Button/Button';
-import { API_BASE_URL } from '@/src/lib/config/env';
+import { API_BASE_URL, DIRECT_API_BASE_URL } from '@/src/lib/config/env';
 import { cn } from '@/src/lib/helpers/cn';
 
 interface LoginButtonProps extends Omit<
@@ -35,7 +35,7 @@ const LoginButton = ({ provider }: LoginButtonProps) => {
   const config = PROVIDER_CONFIG[provider];
 
   const handleLogin = () => {
-    window.location.href = `${API_BASE_URL ?? ''}/auth/login/${provider}`;
+    window.location.href = `${DIRECT_API_BASE_URL}/auth/login/${provider}`;
   };
 
   return (
