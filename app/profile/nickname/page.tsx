@@ -2,8 +2,10 @@
 
 import { useRouter } from 'next/navigation';
 
+import NicknameEditSection from '@/src/components/features/profile/NicknameEditSection/NicknameEditSection';
 import PageHeader from '@/src/components/layout/PageHeader/PageHeader';
 import Icon from '@/src/components/ui/Icon/Icon';
+import { goBackOrHome } from '@/src/lib/helpers/navigation';
 
 const ProfileNicknamePage = () => {
   const router = useRouter();
@@ -11,14 +13,12 @@ const ProfileNicknamePage = () => {
   return (
     <>
       <PageHeader
-        title="닉네임 변경"
+        title=""
         leftIcon={<Icon name="chevronLeft" size={28} alt="back" />}
-        onLeftClick={() => router.back()}
+        onLeftClick={() => goBackOrHome(router)}
         className="fixed top-0 left-1/2 z-50 w-full max-w-110 -translate-x-1/2 bg-g-700 px-7.5"
       />
-      <div className="pt-14 px-7.5">
-        <p className="text-body-s text-g-20">닉네임 수정 화면 준비 중</p>
-      </div>
+      <NicknameEditSection />
     </>
   );
 };
