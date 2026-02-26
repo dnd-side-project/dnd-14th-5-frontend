@@ -24,8 +24,8 @@ const ProfileSummary = () => {
           </span>
         </p>
         <p>
-          <span className="text-pink-300">{'지금이'}</span>와 함께 시간을
-          기록하고 있어요!
+          <span className="text-pink-300 font-bold">{'지금이'}</span>와 함께
+          시간을 기록하고 있어요!
         </p>
       </div>
     </div>
