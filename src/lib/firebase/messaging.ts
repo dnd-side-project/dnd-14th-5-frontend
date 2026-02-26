@@ -54,7 +54,8 @@ export const getFcmToken = async (): Promise<string | null> => {
   }
 
   if (!vapidPublicKey) {
-    throw new Error('NEXT_PUBLIC_WEB_PUSH_VAPID_PUBLIC_KEY is not set.');
+    console.error('NEXT_PUBLIC_WEB_PUSH_VAPID_PUBLIC_KEY is not set.');
+    return null;
   }
 
   const permission = await requestNotificationPermission();
