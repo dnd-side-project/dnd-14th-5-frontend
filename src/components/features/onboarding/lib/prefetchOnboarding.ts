@@ -1,7 +1,9 @@
 import type { QueryClient } from '@tanstack/react-query';
 
+import { DIRECT_API_BASE_URL } from '@/src/lib/config/env';
+
 import { ONBOARDING_QUERY_KEYS } from '../constants/queryKeys';
-import { introductions } from '../queries/useIntroductionsQuery';
+import { ONBOARDING_ENDPOINTS } from '../constants/url';
 
 interface PrefetchingOnboardingProps {
   queryClient: QueryClient;
@@ -14,6 +16,16 @@ export const prefetchOnboarding = async ({
 }: PrefetchingOnboardingProps) => {
   await queryClient.prefetchQuery({
     queryKey: ONBOARDING_QUERY_KEYS.introductions(version),
-    queryFn: () => introductions({ version }),
+    queryFn: async () => {
+      const response = await fetch(
+        `${DIRECT_API_BASE_URL}${ONBOARDING_ENDPOINTS.introductions}?version=${version}`,
+      );
+
+      if (!response.ok) {
+        throw new Error('Failed to fetch introductions');
+      }
+
+      return response.json();
+    },
   });
 };
