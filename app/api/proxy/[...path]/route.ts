@@ -27,14 +27,16 @@ async function handler(
 
     const responseHeaders = new Headers(apiResponse.headers);
 
-    const setCookieHeader = apiResponse.headers.get('Set-Cookie');
-    if (setCookieHeader) {
-      const modifiedCookie = setCookieHeader
-        .split(';')
-        .filter((part) => !part.trim().toLowerCase().startsWith('domain='))
-        .join('; ');
+    const setCookieHeaders = apiResponse.headers.getSetCookie();
+    if (setCookieHeaders.length > 0) {
+      setCookieHeaders.forEach((cookie) => {
+        const modifiedCookie = cookie
+          .split(';')
+          .filter((part) => !part.trim().toLowerCase().startsWith('domain='))
+          .join('; ');
 
-      responseHeaders.set('Set-Cookie', modifiedCookie);
+        responseHeaders.append('Set-Cookie', modifiedCookie);
+      });
     }
 
     return new NextResponse(apiResponse.body, {
