@@ -67,6 +67,7 @@ const TimeWheelPicker = ({
         onChange={(next) => onChange(next as TimeValue)}
         height={PICKER_HEIGHT}
         itemHeight={ITEM_HEIGHT}
+        wheelMode="natural"
         className="relative z-10 mx-auto flex w-full max-w-70 items-center justify-center"
       >
         <Picker.Column
