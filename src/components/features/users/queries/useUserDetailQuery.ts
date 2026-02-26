@@ -10,6 +10,7 @@ const userDetailSchema = z.object({
   id: z.number(),
   email: z.email(),
   name: z.string(),
+  provider: z.string(),
   streakDays: z.number(),
   isOnboarded: z.boolean(),
   createdAt: z.string(),
