@@ -25,13 +25,8 @@ interface UseNotificationTimeModalResult {
   handleUpdateNotificationTime: () => Promise<void>;
 }
 
-interface UseNotificationTimeModalOptions {
-  onNotificationTimeSaved?: (notificationTime: string) => void;
-}
-
 export const useNotificationTimeModal = (
   notificationSchedule: NotificationSchedule | null | undefined,
-  options?: UseNotificationTimeModalOptions,
 ): UseNotificationTimeModalResult => {
   const [isTimeModalOpen, setIsTimeModalOpen] = useState(false);
   const [selectedTime, setSelectedTime] = useState<TimeValue>({
@@ -78,7 +73,6 @@ export const useNotificationTimeModal = (
         notificationTime: nextNotificationTime,
       });
       setStoredNotificationTime(nextNotificationTime);
-      options?.onNotificationTimeSaved?.(nextNotificationTime);
       setIsTimeModalOpen(false);
       showToast({ message: '알림 시간이 변경되었어요.' });
     } catch {

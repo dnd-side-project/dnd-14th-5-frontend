@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useSyncExternalStore } from 'react';
 
 import Card from '@/src/components/ui/Card/Card';
 import ToggleSwitch from '@/src/components/ui/ToggleSwitch/ToggleSwitch';
@@ -17,10 +17,14 @@ import {
 
 // TODO: 실제 그 시간에 알림이 잘 오는지 추가 수정 해야 함
 const NotificationSection = () => {
+  const storedNotificationTime = useSyncExternalStore(
+    () => () => undefined,
+    getStoredNotificationTime,
+    () => null,
+  );
+
   const { data: notificationSchedule } = useNotificationScheduleQuery();
-  const [storedNotificationTime, setStoredNotificationTime] = useState<
-    string | null
-  >(getStoredNotificationTime);
+
   const { isOn, isTogglePending, handleNotificationToggle } =
     useNotificationToggle(notificationSchedule);
   const {
@@ -31,9 +35,8 @@ const NotificationSection = () => {
     handleOpenTimeModal,
     handleCloseTimeModal,
     handleUpdateNotificationTime,
-  } = useNotificationTimeModal(notificationSchedule, {
-    onNotificationTimeSaved: setStoredNotificationTime,
-  });
+  } = useNotificationTimeModal(notificationSchedule);
+
   const displayNotificationTime =
     notificationSchedule?.notificationTime ??
     storedNotificationTime ??
