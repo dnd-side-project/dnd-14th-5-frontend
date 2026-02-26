@@ -16,6 +16,15 @@ export type NotificationScheduleResponse = z.infer<
   typeof notificationScheduleSchema
 >;
 
+const isApiErrorWithStatus = (error: unknown): error is ApiError => {
+  return (
+    typeof error === 'object' &&
+    error !== null &&
+    'status' in error &&
+    typeof error.status === 'number'
+  );
+};
+
 const getNotificationSchedule = async () => {
   try {
     return await get<NotificationScheduleResponse>(
@@ -26,7 +35,7 @@ const getNotificationSchedule = async () => {
     );
   } catch (error) {
     // 404는 예외가 아니라 "등록된 알림 스케줄 없음" 상태로 처리
-    if ((error as ApiError).status === 404) {
+    if (isApiErrorWithStatus(error) && error.status === 404) {
       return null;
     }
 
