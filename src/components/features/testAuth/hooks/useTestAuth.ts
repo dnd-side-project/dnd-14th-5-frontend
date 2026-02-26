@@ -1,3 +1,4 @@
+import { useRouter } from 'next/navigation';
 import { useMemo, useState } from 'react';
 
 import { useReissueMutation } from '@/src/components/features/users/queries/useReissueMutation';
@@ -6,6 +7,7 @@ import { useLoginMutation } from '../queries/useLoginMutation';
 import { getErrorMessage } from '../util/error';
 
 export const useTestAuth = () => {
+  const router = useRouter();
   const [email, setEmail] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
   const [successMessage, setSuccessMessage] = useState('');
@@ -30,6 +32,7 @@ export const useTestAuth = () => {
     try {
       await loginMutation.mutateAsync(email);
       setSuccessMessage('로그인 성공: 토큰이 쿠키에 저장되었습니다.');
+      router.push('/');
     } catch (error) {
       setErrorMessage(getErrorMessage(error));
     }
