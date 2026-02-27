@@ -27,7 +27,6 @@ const Accordion = ({ items }: AccordionProps) => {
         <AccordionItem
           key={item.id}
           englishName={item.englishName}
-          id={item.id}
           title={item.characterName}
           isOpen={openIds.includes(item.id)}
           onToggle={() => handleToggle(item.id)}
