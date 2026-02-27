@@ -1,16 +1,14 @@
 import { AnimatePresence, motion } from 'motion/react';
 import Image from 'next/image';
 
+import Icon from '@/src/components/ui/Icon/Icon';
 import {
   type Category,
   CATEGORY_CHARACTER_MAP,
 } from '@/src/lib/constants/character';
 import { cn } from '@/src/lib/helpers/cn';
 
-import Icon from '../../../ui/Icon/Icon';
-
 interface AccordionItemProps {
-  id: number;
   title: string;
   children: string;
   isOpen: boolean;
