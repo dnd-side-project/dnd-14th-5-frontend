@@ -17,7 +17,8 @@ const HomeActionsSection = () => {
   const { data: todayReflection, isPending: isTodayReflectionPending } =
     useTodayReflectionQuery();
   const todayReflectionId = todayReflection?.id;
-  const hasTodayReflection = (todayReflectionId ?? 0) > 0;
+  const hasTodayReflection =
+    todayReflection !== null && todayReflection?.content !== null;
 
   const {
     mutate: changeTodayQuestion,

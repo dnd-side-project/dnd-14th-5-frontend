@@ -23,7 +23,7 @@ const SummaryCard = ({ selectedSummary }: SummaryCardProps) => {
   const hasSelectedDate = selectedSummary !== null;
   const selectedReflectionId = selectedSummary?.reflectionId ?? null;
   const hasSelectedReflection = selectedReflectionId !== null;
-  const hasTodayReflectionContent = data.content !== null;
+  const hasTodayReflectionContent = data?.content !== null && data !== null;
 
   const handleCardClick = () => {
     if (hasSelectedDate) {
@@ -37,16 +37,21 @@ const SummaryCard = ({ selectedSummary }: SummaryCardProps) => {
       return;
     }
 
+    if (!data) {
+      router.push('/reflection');
+      return;
+    }
+
     router.push(`/reflection/${data.id}`);
   };
 
   const questionText = hasSelectedDate
     ? (selectedSummary?.questionText ?? '회고를 기록하지 않았어요')
-    : (data.question.content ?? '오늘의 질문이 없습니다.');
+    : (data?.question.content ?? '오늘의 질문이 없습니다.');
   const reflectionText = hasSelectedDate
     ? (selectedSummary?.reflectionText ??
       '다른 날짜를 선택해 회고를 확인해 보세요.')
-    : (data.content ?? '아직 답변하지 않았어요!');
+    : (data?.content ?? '아직 답변하지 않았어요!');
   const isCardClickable = hasSelectedDate ? hasSelectedReflection : true;
   const ariaLabel = '오늘 질문 상세 보기';
 

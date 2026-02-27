@@ -2,6 +2,7 @@ import { useQuery, useSuspenseQuery } from '@tanstack/react-query';
 import { z } from 'zod';
 
 import { get } from '@/src/lib/api';
+import { isApiError } from '@/src/lib/api/error';
 
 import { reflectionKeys } from '../constants/queryKeys';
 import { REFLECTION_ENDPOINTS } from '../constants/url';
@@ -39,9 +40,20 @@ const todayReflectionSchema = z.object({
 export type GetTodayReflectionResponse = z.infer<typeof todayReflectionSchema>;
 
 const getTodayReflection = async () => {
-  return get<GetTodayReflectionResponse>(REFLECTION_ENDPOINTS.todayReflection, {
-    responseSchema: todayReflectionSchema,
-  });
+  try {
+    return await get<GetTodayReflectionResponse>(
+      REFLECTION_ENDPOINTS.todayReflection,
+      {
+        responseSchema: todayReflectionSchema,
+      },
+    );
+  } catch (error) {
+    if (isApiError(error) && error.status === 404) {
+      return null;
+    }
+
+    throw error;
+  }
 };
 
 export const useTodayReflectionQuery = () =>
