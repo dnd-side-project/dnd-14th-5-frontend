@@ -6,12 +6,7 @@ import Card from '@/src/components/ui/Card/Card';
 import Icon from '@/src/components/ui/Icon/Icon';
 
 import { useSuspenseTodayReflectionQuery } from '../../reflection/queries/useTodayReflectionQuery';
-
-interface SelectedSummaryCardData {
-  questionText: string;
-  reflectionText: string;
-  reflectionId: number | null;
-}
+import type { SelectedSummaryCardData } from '../CalendarPageClient/CalendarPageClient';
 
 interface SummaryCardProps {
   selectedSummary: SelectedSummaryCardData | null;

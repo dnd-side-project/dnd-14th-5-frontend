@@ -10,7 +10,7 @@ import SummaryCard from '@/src/components/features/calendar/SummaryCard/SummaryC
 import BottomNavBar from '@/src/components/layout/BottomNavBar/BottomNavBar';
 import PageHeader from '@/src/components/layout/PageHeader/PageHeader';
 
-interface SelectedSummaryCardData {
+export interface SelectedSummaryCardData {
   questionText: string;
   reflectionText: string;
   reflectionId: number | null;

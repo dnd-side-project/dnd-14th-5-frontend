@@ -4,6 +4,7 @@ import { format } from 'date-fns';
 import { useMemo } from 'react';
 
 import { useSuspenseMonthReflectionQuery } from '../../reflection/queries/useMonthReflectionQuery';
+import type { SelectedSummaryCardData } from '../CalendarPageClient/CalendarPageClient';
 import { CALENDAR_DATE_FORMAT } from '../constants/calendar';
 import type { UseCalendarStateResult } from '../hooks/useCalendarState';
 import { getCategoryTypeByDate } from '../utils/getCategoryTypeByDate';
@@ -11,12 +12,6 @@ import { mapReflectionItems } from '../utils/mapReflectionItems';
 import CalendarMonthGrid from './CalendarMonthGrid/CalendarMonthGrid';
 import CalendarMonthHeader from './CalendarMonthHeader/CalendarMonthHeader';
 import CalendarMonthWeekdays from './CalendarMonthWeekdays/CalendarMonthWeekdays';
-
-interface SelectedSummaryCardData {
-  questionText: string;
-  reflectionText: string;
-  reflectionId: number | null;
-}
 
 interface CalendarMonthPropsWithSummary extends UseCalendarStateResult {
   onSelectSummary: (summary: SelectedSummaryCardData) => void;
