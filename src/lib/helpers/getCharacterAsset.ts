@@ -5,10 +5,14 @@ import {
   DEFAULT_CHARACTER,
 } from '@/src/lib/constants/character';
 
+export const isCharacterCategory = (value?: string): value is Category => {
+  return value !== undefined && value in CATEGORY_CHARACTER_MAP;
+};
+
 export const getCharacterAsset = (category?: string): CharacterAsset => {
-  if (!category || !(category in CATEGORY_CHARACTER_MAP)) {
+  if (!isCharacterCategory(category)) {
     return DEFAULT_CHARACTER;
   }
 
-  return CATEGORY_CHARACTER_MAP[category as Category];
+  return CATEGORY_CHARACTER_MAP[category];
 };
