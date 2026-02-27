@@ -19,9 +19,31 @@ const notoSansKr = Noto_Sans_KR({
 
 export const metadata: Metadata = {
   title: 'TIMO',
-  description: '일일 회고 서비스 TIMO',
+  description: '맞춤 질문으로 만드는 회고 습관',
   appleWebApp: {
     title: 'TIMO',
+  },
+  openGraph: {
+    type: 'website',
+    url: 'https://timo.io.kr',
+    title: 'TIMO',
+    description: '맞춤 질문으로 만드는 회고 습관',
+    siteName: 'TIMO',
+    locale: 'ko_KR',
+    images: [
+      {
+        url: '/open-graph.png',
+        width: 1200,
+        height: 630,
+        alt: 'TIMO - 맞춤 질문으로 만드는 회고 습관',
+      },
+    ],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'TIMO',
+    description: '맞춤 질문으로 만드는 회고 습관',
+    images: ['/open-graph.png'],
   },
 };
 
