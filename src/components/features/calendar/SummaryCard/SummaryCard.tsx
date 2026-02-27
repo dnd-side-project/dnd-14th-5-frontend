@@ -43,14 +43,13 @@ const SummaryCard = ({ selectedSummary }: SummaryCardProps) => {
       '다른 날짜를 선택해 회고를 확인해 보세요.')
     : (data?.content ?? '아직 답변하지 않았어요!');
   const isCardClickable = hasSelectedDate ? hasSelectedReflection : true;
-  const ariaLabel = '오늘 질문 상세 보기';
 
   return (
     <Card className="rounded-2xl bg-g-500 p-5">
       <button
         type="button"
         onClick={handleCardClick}
-        aria-label={ariaLabel}
+        aria-label="회고 상세로 이동"
         className="w-full"
         disabled={!isCardClickable}
       >
