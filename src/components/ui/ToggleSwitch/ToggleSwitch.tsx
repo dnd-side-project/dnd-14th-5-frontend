@@ -25,6 +25,7 @@ const ToggleSwitch = ({
   checkedThumbClassName = 'bg-g-500',
   uncheckedThumbClassName = 'bg-g-0',
 }: ToggleSwitchProps) => {
+  // TODO: ToggleSwitch가 UI 역할만 담당하도록 토글 상태 계산/처리를 상위에서 넘기기
   const handleToggle = (event: MouseEvent<HTMLButtonElement>) => {
     event.stopPropagation();
 
