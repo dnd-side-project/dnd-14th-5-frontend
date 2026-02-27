@@ -4,6 +4,8 @@ import CharactersContent from '@/src/components/features/characters/CharactersCo
 import CharactersFallback from '@/src/components/features/characters/CharactersFallback/CharactersFallback';
 import CharactersHeader from '@/src/components/features/characters/CharactersHeader/CharactersHeader';
 
+export const dynamic = 'force-dynamic';
+
 const CharacterPage = () => {
   return (
     <Suspense fallback={<CharactersFallback />}>
