@@ -2,16 +2,52 @@
 
 import Image from 'next/image';
 
+import Skeleton from '@/src/components/ui/Skeleton/Skeleton';
+import type { Category } from '@/src/lib/constants/character';
+import {
+  getCharacterAsset,
+  isCharacterCategory,
+} from '@/src/lib/helpers/getCharacterAsset';
+
 import { useUserDetailQuery } from '../../users/queries/useUserDetailQuery';
 
-// TODO: category 서버에서 보내주면 반영 해야 함
+const CATEGORY_LABEL_MAP: Record<Category, string> = {
+  PAST_NEGATIVE: '과거부정형',
+  PAST_POSITIVE: '과거긍정형',
+  PRESENT_HEDONISTIC: '현재쾌락형',
+  PRESENT_FATALISTIC: '현재운명형',
+  FUTURE: '미래지향형',
+};
+
 const ProfileSummary = () => {
-  const { data } = useUserDetailQuery();
+  const { data, isPending } = useUserDetailQuery();
+
+  if (isPending) {
+    return (
+      <div className="flex items-center h-20 gap-4">
+        <Skeleton
+          className="h-18 w-18 rounded-full"
+          ariaLabel="프로필 캐릭터 로딩 중"
+        />
+        <div className="flex flex-1 flex-col gap-2">
+          <Skeleton className="h-5 w-44" ariaLabel="프로필 문구 로딩 중" />
+          <Skeleton className="h-5 w-52" ariaLabel="프로필 문구 로딩 중" />
+        </div>
+      </div>
+    );
+  }
+
+  const category = data?.category;
+  const characterAsset = getCharacterAsset(category);
+  const categoryLabel = isCharacterCategory(category)
+    ? CATEGORY_LABEL_MAP[category]
+    : '현재쾌락형';
+
   return (
-    <div className="flex items-center gap-4">
+    <div className="flex items-center h-20 gap-4">
       <Image
-        src="/character/future-oriented-tomorrow.svg"
-        alt="character"
+        src={characterAsset.src}
+        alt={characterAsset.alt}
         width={80}
         height={80}
       />
@@ -19,12 +55,14 @@ const ProfileSummary = () => {
         <p>
           {data?.name ?? '사용자'}님은{' '}
           <span className="font-bold">
-            <span className="text-pink-300">{'현재쾌락형'}</span>이에요.
+            <span className={characterAsset.color}>{categoryLabel}</span>이에요.
           </span>
         </p>
         <p>
-          <span className="text-pink-300 font-bold">{'지금이'}</span>와 함께
-          시간을 기록하고 있어요!
+          <span className={`${characterAsset.color} font-bold`}>
+            {characterAsset.name}
+          </span>
+          와 함께 시간을 기록하고 있어요!
         </p>
       </div>
     </div>

@@ -2,6 +2,7 @@ import { useQuery, useSuspenseQuery } from '@tanstack/react-query';
 import { z } from 'zod';
 
 import { get } from '@/src/lib/api';
+import { CATEGORY } from '@/src/lib/constants/character';
 
 import { userKeys } from '../constants/queryKeys';
 import { USER_ENDPOINTS } from '../constants/url';
@@ -11,6 +12,7 @@ const userDetailSchema = z.object({
   email: z.email(),
   name: z.string(),
   provider: z.string(),
+  category: z.enum(CATEGORY),
   streakDays: z.number(),
   isOnboarded: z.boolean(),
   createdAt: z.string(),
