@@ -1,6 +1,5 @@
 import { AnimatePresence, motion } from 'motion/react';
 import Image from 'next/image';
-import { type ReactNode } from 'react';
 
 import {
   type Category,
@@ -8,7 +7,7 @@ import {
 } from '@/src/lib/constants/character';
 import { cn } from '@/src/lib/helpers/cn';
 
-import Icon from '../Icon/Icon';
+import Icon from '../../../ui/Icon/Icon';
 
 interface AccordionItemProps {
   id: number;

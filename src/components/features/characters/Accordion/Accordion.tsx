@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 
-import type { CharacterType } from '../../features/characters/queries/useTimePerspectiveCategoriesQuery';
+import type { CharacterType } from '../queries/useTimePerspectiveCategoriesQuery';
 import AccordionItem from './AccordionItem';
 
 interface AccordionProps {

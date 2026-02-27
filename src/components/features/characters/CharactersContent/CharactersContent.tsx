@@ -1,6 +1,6 @@
 'use client';
 
-import Accordion from '@/src/components/ui/Accordion/Accordion';
+import Accordion from '@/src/components/features/characters/Accordion/Accordion';
 
 import { useTimePerspectiveCategories } from '../queries/useTimePerspectiveCategoriesQuery';
 
