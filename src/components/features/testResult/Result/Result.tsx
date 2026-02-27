@@ -1,5 +1,6 @@
 'use client';
 
+import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 
 import Button from '@/src/components/ui/Button/Button';
@@ -53,7 +54,15 @@ const Result = ({ testRecordId }: ResultProps) => {
         <ScoreGraph scores={data.result.scores} />
       </article>
 
-      <Button label="완료" onClick={goHome} className="h-10 text-g-900" />
+      <section className="flex flex-col items-center gap-3">
+        <Button label="완료" onClick={goHome} className="h-10 text-g-900" />
+        <Link
+          className="text-primary font-caption-n underline underline-offset-4"
+          href="/characters"
+        >
+          다른 캐릭터 알아보기
+        </Link>
+      </section>
     </div>
   );
 };
