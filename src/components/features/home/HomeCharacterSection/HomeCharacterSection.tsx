@@ -9,18 +9,17 @@ interface HomeCharacterSectionProps {
 }
 
 const HomeCharacterSection = ({ category }: HomeCharacterSectionProps) => {
-  {
-    /* TODO: 홈 화면만의 캐릭터로 바꿔줘야 함 */
-  }
   const characterAsset = getCharacterAsset(category);
 
   return (
     <div className="flex flex-1 items-center justify-center py-7.5">
       <Image
-        src={characterAsset.src}
+        src={characterAsset.homeSrc}
         alt={characterAsset.alt}
         width={232}
         height={232}
+        sizes="232px"
+        className="h-58 w-58 object-contain"
         priority
       />
     </div>
