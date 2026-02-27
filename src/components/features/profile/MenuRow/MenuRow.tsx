@@ -24,7 +24,7 @@ export const MenuRow = ({
     if (rightElement) return rightElement;
 
     if (rightText) {
-      return <span className="text-body-s text-g-60">{rightText}</span>;
+      return <span className="font-body-s text-g-60">{rightText}</span>;
     }
 
     return <Icon size={18} name="chevronLeft" className="rotate-180" />;
@@ -54,7 +54,7 @@ export const MenuRow = ({
         isClickable ? 'cursor-pointer' : 'cursor-default',
       )}
     >
-      <p className="text-body-s text-g-60">{label}</p>
+      <p className="font-body-s text-g-60">{label}</p>
       <div>{renderRight()}</div>
     </div>
   );

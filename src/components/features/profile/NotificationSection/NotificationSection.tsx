@@ -45,7 +45,7 @@ const NotificationSection = () => {
   return (
     <>
       <Card className="flex flex-col gap-4 bg-g-400 ">
-        <p className="text-body-s font-bold">알림</p>
+        <p className="font-body-s font-bold">알림</p>
         <MenuRow
           label="알림 수신"
           rightElement={

@@ -20,8 +20,8 @@ const WithdrawModal = ({
     <Modal isOpen={isOpen} onClose={onClose}>
       <div className="flex flex-col gap-8">
         <div className="flex flex-col gap-3 text-center">
-          <h3 className="text-heading-h3 text-g-0">정말 떠나시나요?</h3>
-          <div className="text-body-s text-g-80">
+          <h3 className="font-heading-h3 text-g-0">정말 떠나시나요?</h3>
+          <div className="font-body-s text-g-80">
             <p>지금까지 남긴 회고와 기록이 모두 삭제돼요.</p>
             <p>삭제된 기록은 다시 복구할 수 없어요.</p>
             <p>그래도 탈퇴하시겠어요?</p>

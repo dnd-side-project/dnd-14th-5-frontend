@@ -58,7 +58,7 @@ const TimeWheelPicker = ({
       <div className="pointer-events-none absolute inset-x-0 top-0 z-20 h-14 bg-linear-to-b from-g-400 to-transparent" />
       <div className="pointer-events-none absolute inset-x-0 bottom-0 z-20 h-14 bg-linear-to-t from-g-400 to-transparent" />
 
-      <div className="pointer-events-none absolute left-1/2 top-1/2 z-30 -translate-x-1/2 -translate-y-1/2 text-center text-body-l leading-none text-g-0">
+      <div className="pointer-events-none absolute left-1/2 top-1/2 z-30 -translate-x-1/2 -translate-y-1/2 text-center font-body-l leading-none text-g-0">
         :
       </div>
 
@@ -80,7 +80,7 @@ const TimeWheelPicker = ({
               {({ selected }) => (
                 <div
                   className={cn(
-                    'flex items-center justify-center text-body-l leading-none',
+                    'flex items-center justify-center font-body-l leading-none',
                     selected ? 'text-g-0' : 'text-g-0/25',
                   )}
                   style={{ height: ITEM_HEIGHT }}
@@ -102,7 +102,7 @@ const TimeWheelPicker = ({
               {({ selected }) => (
                 <div
                   className={cn(
-                    'flex items-center justify-center text-body-l leading-none',
+                    'flex items-center justify-center font-body-l leading-none',
                     selected ? 'text-g-0' : 'text-g-0/25',
                   )}
                   style={{ height: ITEM_HEIGHT }}

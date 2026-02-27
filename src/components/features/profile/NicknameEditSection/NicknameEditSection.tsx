@@ -19,9 +19,9 @@ const NicknameEditSection = () => {
   return (
     <>
       <section className="pt-21 px-4">
-        <h2 className="text-heading-h2">닉네임을 입력해주세요.</h2>
+        <h2 className="font-heading-h2">닉네임을 입력해주세요.</h2>
         <div className="mt-5">
-          <label htmlFor="nickname" className="text-caption-n">
+          <label htmlFor="nickname" className="font-caption-n">
             닉네임
           </label>
           <input
@@ -31,12 +31,12 @@ const NicknameEditSection = () => {
             placeholder="닉네임"
             aria-label="닉네임"
             className={cn(
-              'mt-2 h-12 w-full rounded-xl border bg-g-700 px-4 text-body-l text-g-0 placeholder:text-g-400 focus:outline-none',
+              'mt-2 h-12 w-full rounded-xl border bg-g-700 px-4 font-body-l text-g-0 placeholder:text-g-400 focus:outline-none',
               errorMessage ? 'border-[var(--color-r-300)]' : 'border-g-400',
             )}
           />
           {errorMessage ? (
-            <p className="mt-2 pl-1 text-caption-n text-r-300">
+            <p className="mt-2 pl-1 font-caption-n text-r-300">
               {errorMessage}
             </p>
           ) : null}

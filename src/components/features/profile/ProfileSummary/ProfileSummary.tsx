@@ -15,7 +15,7 @@ const ProfileSummary = () => {
         width={80}
         height={80}
       />
-      <div className="flex flex-col text-body-s">
+      <div className="flex flex-col font-body-s">
         <p>
           {data?.name ?? '사용자'}님은{' '}
           <span className="font-bold">

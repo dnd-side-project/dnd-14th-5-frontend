@@ -80,7 +80,7 @@ const Modal = ({
               type="button"
               aria-label="닫기"
               onClick={onClose}
-              className="absolute right-4 top-4 flex h-8 w-8 items-center justify-center rounded-full text-body-s text-g-0"
+              className="absolute right-4 top-4 flex h-8 w-8 items-center justify-center rounded-full font-body-s text-g-0"
             >
               X
             </button>

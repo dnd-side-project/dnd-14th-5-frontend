@@ -24,7 +24,7 @@ const NotificationTimeModal = ({
   return (
     <Modal isOpen={isOpen} onClose={onClose}>
       <div className="flex flex-col gap-5">
-        <h4 className="text-center text-heading-h4 text-g-0">알림 시간 변경</h4>
+        <h4 className="text-center font-heading-h4 text-g-0">알림 시간 변경</h4>
 
         <TimeWheelPicker value={value} onChange={onChange} minuteStep={10} />
 
