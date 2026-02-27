@@ -69,14 +69,18 @@ export const getFcmToken = async (): Promise<string | null> => {
   }
 
   // 루트 스코프 서비스워커 등록 후 해당 registration을 사용해 토큰을 발급합니다.
-  const serviceWorkerRegistration = await navigator.serviceWorker.register(
-    getFirebaseMessagingServiceWorkerUrl(),
-  );
-  // Firebase 앱 인스턴스로 웹 메시징 객체를 생성합니다.
-  const messaging = getMessaging(firebaseApp);
+  try {
+    const serviceWorkerRegistration = await navigator.serviceWorker.register(
+      getFirebaseMessagingServiceWorkerUrl(),
+    );
+    // Firebase 앱 인스턴스로 웹 메시징 객체를 생성합니다.
+    const messaging = getMessaging(firebaseApp);
 
-  return getToken(messaging, {
-    vapidKey: vapidPublicKey,
-    serviceWorkerRegistration,
-  });
+    return getToken(messaging, {
+      vapidKey: vapidPublicKey,
+      serviceWorkerRegistration,
+    });
+  } catch {
+    return null;
+  }
 };
