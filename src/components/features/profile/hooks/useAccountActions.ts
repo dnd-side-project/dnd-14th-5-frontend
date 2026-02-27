@@ -34,10 +34,8 @@ export const useAccountActions = (): UseAccountActionsResult => {
 
     try {
       await logout();
-      // TODO: 나중에 type 추가해줘야 함
       showToast({ message: '로그아웃 되었어요.' });
-      // TODO: 로그인 페이지로 이동하게 변경해야 함
-      router.push('/');
+      router.push('/login');
       router.refresh();
     } catch {
       showToast({
@@ -63,10 +61,8 @@ export const useAccountActions = (): UseAccountActionsResult => {
     try {
       await withdraw();
       setIsWithdrawModalOpen(false);
-      // TODO: 나중에 type 추가해줘야 함
       showToast({ message: '탈퇴가 완료되었어요.' });
-      // TODO: 로그인 페이지로 이동하게 변경해야 함
-      router.push('/');
+      router.push('/login');
       router.refresh();
     } catch {
       showToast({ message: '탈퇴에 실패했어요. 잠시 후 다시 시도해주세요.' });
