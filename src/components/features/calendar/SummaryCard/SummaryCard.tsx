@@ -5,6 +5,7 @@ import { useRouter } from 'next/navigation';
 import Card from '@/src/components/ui/Card/Card';
 import Icon from '@/src/components/ui/Icon/Icon';
 
+import { useTodayQuestionSuspenseQuery } from '../../reflection/queries/useTodayQuestionQuery';
 import { useSuspenseTodayReflectionQuery } from '../../reflection/queries/useTodayReflectionQuery';
 import type { SelectedSummaryCardData } from '../CalendarPageClient/CalendarPageClient';
 
@@ -14,11 +15,12 @@ interface SummaryCardProps {
 
 const SummaryCard = ({ selectedSummary }: SummaryCardProps) => {
   const router = useRouter();
-  const { data } = useSuspenseTodayReflectionQuery();
+  const { data: todayReflection } = useSuspenseTodayReflectionQuery();
+  const { data: todayQuestion } = useTodayQuestionSuspenseQuery();
   const hasSelectedDate = selectedSummary !== null;
   const selectedReflectionId = selectedSummary?.reflectionId ?? null;
   const hasSelectedReflection = selectedReflectionId !== null;
-  const hasTodayReflectionContent = data?.content != null;
+  const hasTodayReflectionContent = todayReflection?.content != null;
 
   const handleCardClick = () => {
     if (hasSelectedDate) {
@@ -32,16 +34,16 @@ const SummaryCard = ({ selectedSummary }: SummaryCardProps) => {
       return;
     }
 
-    router.push(`/reflection/${data.id}`);
+    router.push(`/reflection/${todayReflection.id}`);
   };
 
   const questionText = hasSelectedDate
     ? (selectedSummary?.questionText ?? '회고를 기록하지 않았어요')
-    : (data?.question.content ?? '오늘의 질문이 없습니다.');
+    : (todayQuestion.content ?? '오늘의 질문이 없습니다.');
   const reflectionText = hasSelectedDate
     ? (selectedSummary?.reflectionText ??
       '다른 날짜를 선택해 회고를 확인해 보세요.')
-    : (data?.content ?? '아직 답변하지 않았어요!');
+    : (todayReflection?.content ?? '아직 답변하지 않았어요!');
   const isCardClickable = hasSelectedDate ? hasSelectedReflection : true;
 
   return (
