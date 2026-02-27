@@ -6,15 +6,16 @@ import { get } from '@/src/lib/api';
 import { TEST_QUERY_KEYS } from '../constants/queryKey';
 import { TEST_ENDPOINTS } from '../constants/url';
 
-const ResponseSchema = z.array(
-  z.object({
-    id: z.number(),
-    testId: z.number(),
-    status: z.string(),
-    createdAt: z.coerce.date(),
-  }),
-);
+const testRecordSchema = z.object({
+  id: z.number(),
+  testId: z.number(),
+  status: z.string(),
+  createdAt: z.coerce.date(),
+});
 
+const ResponseSchema = z.array(testRecordSchema);
+
+export type TestRecord = z.infer<typeof testRecordSchema>;
 type ResponseType = z.infer<typeof ResponseSchema>;
 
 const testRecords = () =>

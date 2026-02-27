@@ -2,7 +2,7 @@
 
 import Image from 'next/image';
 
-import { getCharacterAsset } from '@/src/components/features/home/util/character';
+import { getCharacterAsset } from '@/src/lib/helpers/getCharacterAsset';
 
 interface HomeCharacterSectionProps {
   category?: string;

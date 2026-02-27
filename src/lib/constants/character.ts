@@ -3,6 +3,7 @@ export interface CharacterAsset {
   alt: string;
   color: string;
   resultSrc: string;
+  name: string;
 }
 
 export const DEFAULT_CHARACTER: CharacterAsset = {
@@ -10,6 +11,7 @@ export const DEFAULT_CHARACTER: CharacterAsset = {
   alt: '현재 쾌락 캐릭터',
   color: 'text-p-300',
   resultSrc: '/character/result-present-hedonistic.png',
+  name: '지금이',
 };
 
 export const CATEGORY = [
@@ -28,29 +30,34 @@ export const CATEGORY_CHARACTER_MAP: Record<Category, CharacterAsset> = {
     alt: '과거 긍정 캐릭터',
     color: 'text-b-300',
     resultSrc: '/character/result-past-positive.png',
+    name: '추억이',
   },
   PAST_NEGATIVE: {
     src: '/character/past-negative-shadow.svg',
     alt: '과거 부정 캐릭터',
     color: 'text-r-300',
     resultSrc: '/character/result-past-negative.png',
+    name: '그늘이',
   },
   PRESENT_HEDONISTIC: {
     src: '/character/present-hedonistic-now.svg',
     alt: '현재 쾌락 캐릭터',
     color: 'text-p-300',
     resultSrc: '/character/result-present-hedonistic.png',
+    name: '지금이',
   },
   PRESENT_FATALISTIC: {
     src: '/character/present-fatalistic-calm.svg',
     alt: '현재 운명 캐릭터',
     color: 'text-gr-300',
     resultSrc: '/character/result-present-fatalistic.png',
+    name: '담담이',
   },
   FUTURE: {
     src: '/character/future-oriented-tomorrow.svg',
     alt: '미래 지향 캐릭터',
     color: 'text-v-300',
     resultSrc: '/character/result-future-oriented.png',
+    name: '내일이',
   },
 };
