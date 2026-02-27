@@ -1,6 +1,6 @@
 'use client';
 
-import { format } from 'date-fns';
+import { format, isSameDay } from 'date-fns';
 import { useMemo } from 'react';
 
 import { useSuspenseMonthReflectionQuery } from '../../reflection/queries/useMonthReflectionQuery';
@@ -14,7 +14,7 @@ import CalendarMonthHeader from './CalendarMonthHeader/CalendarMonthHeader';
 import CalendarMonthWeekdays from './CalendarMonthWeekdays/CalendarMonthWeekdays';
 
 interface CalendarMonthPropsWithSummary extends UseCalendarStateResult {
-  onSelectSummary: (summary: SelectedSummaryCardData) => void;
+  onSelectSummary: (summary: SelectedSummaryCardData | null) => void;
 }
 
 const CalendarMonth = ({
@@ -55,6 +55,11 @@ const CalendarMonth = ({
     const reflection = reflectionByDate.get(dateKey);
 
     if (!reflection) {
+      if (isSameDay(date, today)) {
+        onSelectSummary(null);
+        return;
+      }
+
       onSelectSummary({
         questionText: '회고를 기록하지 않았어요',
         reflectionText: '다른 날짜를 선택해 회고를 확인해 보세요.',
