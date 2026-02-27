@@ -18,5 +18,6 @@
   "theme_color": "#1F2028",
   "background_color": "#1F2028",
   "display": "standalone",
+  "start_url": "/",
   "description": "하루 5분, 회고를 습관으로 만드는 개인화 일일 회고 서비스"
 }

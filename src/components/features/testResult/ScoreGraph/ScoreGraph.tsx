@@ -1,6 +1,10 @@
 import Image from 'next/image';
+import { useMemo } from 'react';
 
-import { CATEGORY_CHARACTER_MAP } from '@/src/lib/constants/character';
+import {
+  CATEGORY,
+  CATEGORY_CHARACTER_MAP,
+} from '@/src/lib/constants/character';
 import { cn } from '@/src/lib/helpers/cn';
 
 import { useIdealScoreGraph } from '../hooks/useIdealScoreGraph';
@@ -12,7 +16,17 @@ import { formatPolylinePoints } from '../utils/formatPolylinePoints';
 type ScoreGraphProps = Pick<TestRecordResponseType['result'], 'scores'>;
 
 const ScoreGraph = ({ scores }: ScoreGraphProps) => {
-  const { containerRef, dotsRef, linePoints } = useIdealScoreGraph({ scores });
+  const sortedScores = useMemo(
+    () =>
+      [...scores].sort(
+        (a, b) => CATEGORY.indexOf(a.category) - CATEGORY.indexOf(b.category),
+      ),
+    [scores],
+  );
+
+  const { containerRef, dotsRef, linePoints } = useIdealScoreGraph({
+    scores: sortedScores,
+  });
 
   return (
     <>
@@ -42,7 +56,7 @@ const ScoreGraph = ({ scores }: ScoreGraphProps) => {
             </svg>
           )}
 
-          {scores.map((item, index) => {
+          {sortedScores.map((item, index) => {
             const userPercent = calculateScorePercentage({
               score: item.score,
             });
