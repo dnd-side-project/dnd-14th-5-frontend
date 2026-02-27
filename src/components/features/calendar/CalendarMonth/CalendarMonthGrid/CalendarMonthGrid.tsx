@@ -1,7 +1,5 @@
 'use client';
 
-import { useRouter } from 'next/navigation';
-
 import {
   type CalendarDayCellType,
   getCalendarDayCells,
@@ -16,6 +14,7 @@ interface CalendarMonthGridProps {
   today: Date;
   categoryTypeByDate: Map<string, CalendarDayRecordByDateItem>;
   selectDate: (date: Date) => void;
+  onSelectSummary: (date: Date) => void;
 }
 
 const CalendarMonthGrid = ({
@@ -25,9 +24,8 @@ const CalendarMonthGrid = ({
   today,
   categoryTypeByDate,
   selectDate,
+  onSelectSummary,
 }: CalendarMonthGridProps) => {
-  const router = useRouter();
-
   const dayCells: CalendarDayCellType[] = getCalendarDayCells({
     days,
     currentMonth,
@@ -36,11 +34,9 @@ const CalendarMonthGrid = ({
     categoryTypeByDate,
   });
 
-  const handleDateSelect = (date: Date, reflectionId?: number) => {
+  const handleDateSelect = (date: Date) => {
     selectDate(date);
-
-    if (reflectionId === undefined) return;
-    router.push(`/reflection/${reflectionId}`);
+    onSelectSummary(date);
   };
 
   return (
@@ -55,9 +51,7 @@ const CalendarMonthGrid = ({
                 isFuture={dayCell.isFuture}
                 hasRecord={dayCell.cellProps.hasRecord}
                 isOutlined={dayCell.cellProps.isOutlined}
-                onClick={() =>
-                  handleDateSelect(dayCell.date, dayCell.reflectionId)
-                }
+                onClick={() => handleDateSelect(dayCell.date)}
               />
             ) : (
               <span aria-hidden className="h-10 w-10" />

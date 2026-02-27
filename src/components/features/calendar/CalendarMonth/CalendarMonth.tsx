@@ -12,7 +12,15 @@ import CalendarMonthGrid from './CalendarMonthGrid/CalendarMonthGrid';
 import CalendarMonthHeader from './CalendarMonthHeader/CalendarMonthHeader';
 import CalendarMonthWeekdays from './CalendarMonthWeekdays/CalendarMonthWeekdays';
 
-type CalendarMonthProps = UseCalendarStateResult;
+interface SelectedSummaryCardData {
+  questionText: string;
+  reflectionText: string;
+  reflectionId: number | null;
+}
+
+interface CalendarMonthPropsWithSummary extends UseCalendarStateResult {
+  onSelectSummary: (summary: SelectedSummaryCardData) => void;
+}
 
 const CalendarMonth = ({
   today,
@@ -23,7 +31,8 @@ const CalendarMonth = ({
   goPrevMonth,
   goNextMonth,
   selectDate,
-}: CalendarMonthProps) => {
+  onSelectSummary,
+}: CalendarMonthPropsWithSummary) => {
   const formattedMonth = format(
     currentMonth,
     CALENDAR_DATE_FORMAT.monthRequest,
@@ -36,6 +45,35 @@ const CalendarMonth = ({
     () => getCategoryTypeByDate(mapReflectionItems(data ?? [])),
     [data],
   );
+  const reflectionByDate = useMemo(() => {
+    const mapped = new Map<string, (typeof data)[number]>();
+
+    for (const reflection of data ?? []) {
+      mapped.set(reflection.reflectedAt.slice(0, 10), reflection);
+    }
+
+    return mapped;
+  }, [data]);
+
+  const handleSelectSummary = (date: Date) => {
+    const dateKey = format(date, CALENDAR_DATE_FORMAT.dayKey);
+    const reflection = reflectionByDate.get(dateKey);
+
+    if (!reflection) {
+      onSelectSummary({
+        questionText: '회고를 기록하지 않았어요',
+        reflectionText: '다른 날짜를 선택해 회고를 확인해 보세요.',
+        reflectionId: null,
+      });
+      return;
+    }
+
+    onSelectSummary({
+      questionText: reflection.question.content,
+      reflectionText: reflection.content,
+      reflectionId: reflection.id,
+    });
+  };
 
   return (
     <div className="space-y-3">
@@ -53,6 +91,7 @@ const CalendarMonth = ({
         today={today}
         categoryTypeByDate={categoryTypeByDate}
         selectDate={selectDate}
+        onSelectSummary={handleSelectSummary}
       />
     </div>
   );
