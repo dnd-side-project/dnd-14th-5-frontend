@@ -14,7 +14,6 @@ const HomeTodayQuestionSection = () => {
   return (
     <>
       <HomePromptSection todayQuestion={data.content} />
-      {/* TODO: 홈 화면만의 캐릭터로 바꿔줘야 함 */}
       <HomeCharacterSection category={data.category} />
     </>
   );
