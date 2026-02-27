@@ -18,7 +18,7 @@ const SummaryCard = ({ selectedSummary }: SummaryCardProps) => {
   const hasSelectedDate = selectedSummary !== null;
   const selectedReflectionId = selectedSummary?.reflectionId ?? null;
   const hasSelectedReflection = selectedReflectionId !== null;
-  const hasTodayReflectionContent = data?.content !== null && data !== null;
+  const hasTodayReflectionContent = data?.content != null;
 
   const handleCardClick = () => {
     if (hasSelectedDate) {
@@ -28,11 +28,6 @@ const SummaryCard = ({ selectedSummary }: SummaryCardProps) => {
     }
 
     if (!hasTodayReflectionContent) {
-      router.push('/reflection');
-      return;
-    }
-
-    if (!data) {
       router.push('/reflection');
       return;
     }
