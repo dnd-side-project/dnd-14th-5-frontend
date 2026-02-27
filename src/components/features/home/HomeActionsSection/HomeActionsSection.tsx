@@ -18,7 +18,7 @@ const HomeActionsSection = () => {
     useTodayReflectionQuery();
   const todayReflectionId = todayReflection?.id;
   const hasTodayReflection =
-    todayReflection !== null && todayReflection?.content !== null;
+    todayReflection != null && todayReflection.content != null;
 
   const {
     mutate: changeTodayQuestion,
