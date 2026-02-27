@@ -1,24 +1,15 @@
 export const DIRECT_API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL;
 
 const getApiBaseUrl = () => {
-  if (process.env.NODE_ENV === 'development') {
-    if (typeof window === 'undefined') {
-      return 'http://localhost:3000/api/proxy';
+  if (typeof window === 'undefined') {
+    if (!DIRECT_API_BASE_URL) {
+      throw new Error('API base URL not set');
     }
-
-    return '/api/proxy';
+    return DIRECT_API_BASE_URL;
   }
 
-  if (!DIRECT_API_BASE_URL) {
-    if (process.env.NODE_ENV === 'production') {
-      throw new Error(
-        'NEXT_PUBLIC_API_BASE_URL is not set in environment variables.',
-      );
-    }
-
-    console.warn(
-      'NEXT_PUBLIC_API_BASE_URL is not set; requests will target the current host.',
-    );
+  if (process.env.NODE_ENV === 'development') {
+    return '/api/proxy';
   }
 
   return DIRECT_API_BASE_URL;
