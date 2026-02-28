@@ -45,27 +45,40 @@ export const requestNotificationPermission = async () => {
   return Notification.requestPermission();
 };
 
-// FCM 토큰을 발급합니다. 권한 거부/미지원 환경이면 null을 반환합니다.
-export const getFcmToken = async (): Promise<string | null> => {
+export type FcmTokenFailureReason =
+  | 'SSR'
+  | 'UNSUPPORTED'
+  | 'MISSING_VAPID_KEY'
+  | 'PERMISSION_DENIED'
+  | 'TOKEN_UNAVAILABLE'
+  | 'SW_OR_TOKEN_ERROR';
+
+interface FcmTokenResult {
+  token: string | null;
+  reason: FcmTokenFailureReason | null;
+}
+
+// FCM 토큰을 발급합니다. 실패 시 원인 코드를 함께 반환합니다.
+export const getFcmToken = async (): Promise<FcmTokenResult> => {
   if (typeof window === 'undefined') {
-    return null;
+    return { token: null, reason: 'SSR' };
   }
 
   const supported = await isSupported();
 
   if (!supported) {
-    return null;
+    return { token: null, reason: 'UNSUPPORTED' };
   }
 
   if (!vapidPublicKey) {
     console.error('NEXT_PUBLIC_WEB_PUSH_VAPID_PUBLIC_KEY is not set.');
-    return null;
+    return { token: null, reason: 'MISSING_VAPID_KEY' };
   }
 
   const permission = await requestNotificationPermission();
 
   if (permission !== 'granted') {
-    return null;
+    return { token: null, reason: 'PERMISSION_DENIED' };
   }
 
   // 루트 스코프 서비스워커 등록 후 해당 registration을 사용해 토큰을 발급합니다.
@@ -76,11 +89,16 @@ export const getFcmToken = async (): Promise<string | null> => {
     // Firebase 앱 인스턴스로 웹 메시징 객체를 생성합니다.
     const messaging = getMessaging(firebaseApp);
 
-    return getToken(messaging, {
+    const token = await getToken(messaging, {
       vapidKey: vapidPublicKey,
       serviceWorkerRegistration,
     });
+    if (!token) {
+      return { token: null, reason: 'TOKEN_UNAVAILABLE' };
+    }
+
+    return { token, reason: null };
   } catch {
-    return null;
+    return { token: null, reason: 'SW_OR_TOKEN_ERROR' };
   }
 };

@@ -45,7 +45,7 @@ const ReflectionPage = () => {
         )}
       >
         {isError ? (
-          <div className="flex h-full items-center justify-center px-7.5">
+          <div className="flex h-full items-center justify-center px-4">
             <ErrorState
               title="오늘의 질문을 불러오지 못했어요."
               description="잠시 후 다시 시도해주세요."
@@ -53,7 +53,7 @@ const ReflectionPage = () => {
             />
           </div>
         ) : (
-          <div className="mx-auto flex flex-col gap-6 px-7.5 pt-10 pb-24">
+          <div className="mx-auto flex flex-col gap-6 px-4 pt-10 pb-24">
             <QuestionCard
               isLoading={isLoading}
               isReady={isSuccess}

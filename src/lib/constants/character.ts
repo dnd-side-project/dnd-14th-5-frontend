@@ -1,5 +1,6 @@
 export interface CharacterAsset {
   src: string;
+  homeSrc: string;
   alt: string;
   color: string;
   resultSrc: string;
@@ -12,6 +13,7 @@ export const DEFAULT_CHARACTER: CharacterAsset = {
   color: 'text-p-300',
   resultSrc: '/character/result-present-hedonistic.png',
   name: '지금이',
+  homeSrc: '/character/home-present-hedonistic.png',
 };
 
 export const CATEGORY = [
@@ -31,6 +33,7 @@ export const CATEGORY_CHARACTER_MAP: Record<Category, CharacterAsset> = {
     color: 'text-b-300',
     resultSrc: '/character/result-past-positive.png',
     name: '추억이',
+    homeSrc: '/character/home-past-positive.png',
   },
   PAST_NEGATIVE: {
     src: '/character/past-negative-shadow.svg',
@@ -38,6 +41,7 @@ export const CATEGORY_CHARACTER_MAP: Record<Category, CharacterAsset> = {
     color: 'text-r-300',
     resultSrc: '/character/result-past-negative.png',
     name: '그늘이',
+    homeSrc: '/character/home-past-negative.png',
   },
   PRESENT_HEDONISTIC: {
     src: '/character/present-hedonistic-now.svg',
@@ -45,6 +49,7 @@ export const CATEGORY_CHARACTER_MAP: Record<Category, CharacterAsset> = {
     color: 'text-p-300',
     resultSrc: '/character/result-present-hedonistic.png',
     name: '지금이',
+    homeSrc: '/character/home-present-hedonistic.png',
   },
   PRESENT_FATALISTIC: {
     src: '/character/present-fatalistic-calm.svg',
@@ -52,6 +57,7 @@ export const CATEGORY_CHARACTER_MAP: Record<Category, CharacterAsset> = {
     color: 'text-gr-300',
     resultSrc: '/character/result-present-fatalistic.png',
     name: '담담이',
+    homeSrc: '/character/home-present-fatalistic.png',
   },
   FUTURE: {
     src: '/character/future-oriented-tomorrow.svg',
@@ -59,5 +65,6 @@ export const CATEGORY_CHARACTER_MAP: Record<Category, CharacterAsset> = {
     color: 'text-v-300',
     resultSrc: '/character/result-future-oriented.png',
     name: '내일이',
+    homeSrc: '/character/home-future-oriented.png',
   },
 };
