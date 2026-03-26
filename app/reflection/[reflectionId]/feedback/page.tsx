@@ -5,7 +5,7 @@ const FeedbackPage = () => {
   return (
     <>
       <PageHeader title="피드백" />
-      <div className="pt-10">
+      <div className="pt-10 pb-24">
         <FeedbackSection />
       </div>
     </>
