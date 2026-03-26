@@ -42,7 +42,7 @@ const LoginButton = ({ provider }: LoginButtonProps) => {
     <Button
       label={config.label}
       className={cn(
-        'flex items-center justify-center gap-2 before:content-[""] before:block before:w-4 before:h-4 before:bg-contain before:bg-no-repeat h-10',
+        'flex items-center justify-center gap-2 before:content-[""] before:block before:w-4 before:h-4 before:bg-contain before:bg-no-repeat',
         config.className,
       )}
       onClick={handleLogin}
