@@ -18,6 +18,8 @@ async function handler(
   const headers = new Headers(req.headers);
   headers.set('host', new URL(targetUrl).host);
   headers.delete('x-middleware-invoke');
+  headers.delete('origin');
+  headers.delete('referer');
 
   try {
     const apiResponse = await fetch(targetUrl, {
@@ -28,7 +30,6 @@ async function handler(
       duplex: 'half',
       cache: 'no-store',
     });
-
     const responseHeaders = new Headers(apiResponse.headers);
 
     responseHeaders.delete('Set-Cookie');
