@@ -27,7 +27,8 @@ const commitlintConfig = {
 
           const lines = body
             .split('\n')
-            .filter((line) => line.trim().length > 0);
+            .filter((line) => line.trim().length > 0)
+            .filter((line) => !line.trim().match(/^[\w-]+: .+/));
           const allStartWithDash = lines.every((line) =>
             line.trim().startsWith('-'),
           );
