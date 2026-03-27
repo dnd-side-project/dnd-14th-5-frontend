@@ -74,3 +74,10 @@
   font-weight: var(--font-weight-regular);
   letter-spacing: var(--letter-spacing-tight);
 }
+
+@utility font-body-base {
+  font-size: var(--font-size-16);
+  line-height: var(--line-height-148);
+  font-weight: var(--font-weight-regular);
+  letter-spacing: var(--letter-spacing-tight);
+}

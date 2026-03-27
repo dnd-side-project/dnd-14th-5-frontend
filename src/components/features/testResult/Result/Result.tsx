@@ -55,7 +55,7 @@ const Result = ({ testRecordId }: ResultProps) => {
       </article>
 
       <section className="flex flex-col items-center gap-3">
-        <Button label="완료" onClick={goHome} className="h-10 text-g-900" />
+        <Button label="완료" onClick={goHome} className="text-g-900" />
         <Link
           className="text-primary font-caption-n underline underline-offset-4"
           href="/characters"

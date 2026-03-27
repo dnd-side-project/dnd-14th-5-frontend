@@ -14,6 +14,7 @@ const Header = () => {
       title="나의 기록"
       leftIcon={<Icon name="chevronLeft" size={25} />}
       onLeftClick={() => goBackOrHome(router)}
+      className="-mx-7.5 px-5"
     />
   );
 };

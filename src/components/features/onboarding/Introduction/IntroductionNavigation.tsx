@@ -25,11 +25,7 @@ const IntroductionNavigation = ({
   };
 
   return (
-    <Button
-      label={isLastStep ? '시작하기' : '다음'}
-      onClick={handleClick}
-      className="h-10"
-    />
+    <Button label={isLastStep ? '시작하기' : '다음'} onClick={handleClick} />
   );
 };
 
