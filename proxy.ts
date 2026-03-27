@@ -26,17 +26,21 @@ export async function proxy(request: NextRequest) {
       signal: AbortSignal.timeout(3000),
     }).catch(() => null);
 
-    if (reissueRes?.ok) {
-      const redirectResponse = NextResponse.redirect(request.url);
-      reissueRes.headers.getSetCookie().forEach((cookie) => {
-        const stripped = cookie
-          .split(';')
-          .filter((part) => !part.trim().toLowerCase().startsWith('domain='))
-          .join('; ');
-        redirectResponse.headers.append('Set-Cookie', stripped);
-      });
-      return redirectResponse;
+    const setCookies = reissueRes?.ok ? reissueRes.headers.getSetCookie() : [];
+
+    if (setCookies.length === 0) {
+      return NextResponse.redirect(new URL('/onboarding', request.url));
     }
+
+    const redirectResponse = NextResponse.redirect(request.url);
+    setCookies.forEach((cookie) => {
+      const stripped = cookie
+        .split(';')
+        .filter((part) => !part.trim().toLowerCase().startsWith('domain='))
+        .join('; ');
+      redirectResponse.headers.append('Set-Cookie', stripped);
+    });
+    return redirectResponse;
   }
 
   return NextResponse.next();
