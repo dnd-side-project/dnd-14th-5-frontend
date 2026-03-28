@@ -8,9 +8,9 @@ import { API_BASE_URL } from '@/src/lib/config/env';
 
 const Home = async () => {
   const cookieStore = await cookies();
-  const token = cookieStore.get('access_token');
+  const accessToken = cookieStore.get('access_token');
 
-  if (!token) {
+  if (!accessToken) {
     redirect('/onboarding');
   }
 
