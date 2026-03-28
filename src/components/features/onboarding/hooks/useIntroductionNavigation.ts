@@ -1,27 +1,28 @@
 import { useRouter } from 'next/navigation';
-import { type TouchEvent, useRef } from 'react';
+import { type TouchEvent, useRef, useState } from 'react';
 
 const SWIPE_THRESHOLD = 50;
 
 interface UseIntroductionNavigationProps {
-  step: number;
+  initialStep: number;
   totalSteps: number;
 }
 
 const useIntroductionNavigation = ({
-  step,
+  initialStep,
   totalSteps,
 }: UseIntroductionNavigationProps) => {
   const router = useRouter();
+  const [step, setStep] = useState(initialStep);
   const touchStartX = useRef(0);
 
   const handlePrev = () => {
-    if (step > 1) router.push(`/onboarding?step=${step - 1}`);
+    if (step > 1) setStep(step - 1);
   };
 
   const handleNext = () => {
     if (step === totalSteps) router.push('/login');
-    else router.push(`/onboarding?step=${step + 1}`);
+    else setStep(step + 1);
   };
 
   const handleTouchStart = (event: TouchEvent) => {
@@ -35,7 +36,7 @@ const useIntroductionNavigation = ({
     else handlePrev();
   };
 
-  return { handlePrev, handleNext, handleTouchStart, handleTouchEnd };
+  return { step, handlePrev, handleNext, handleTouchStart, handleTouchEnd };
 };
 
 export default useIntroductionNavigation;

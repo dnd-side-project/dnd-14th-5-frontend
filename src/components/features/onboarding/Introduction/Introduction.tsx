@@ -21,10 +21,10 @@ const Introduction = ({ currentStep = 1, version }: IntroductionProps) => {
   });
 
   const totalSteps = data?.length ?? 0;
-  const step = Math.min(Math.max(currentStep, 1), totalSteps || 1);
+  const initialStep = Math.min(Math.max(currentStep, 1), totalSteps || 1);
 
-  const { handlePrev, handleNext, handleTouchStart, handleTouchEnd } =
-    useIntroductionNavigation({ step, totalSteps });
+  const { step, handlePrev, handleNext, handleTouchStart, handleTouchEnd } =
+    useIntroductionNavigation({ initialStep, totalSteps });
 
   if (isPending) {
     return (
