@@ -1,5 +1,7 @@
 import { type NextRequest, NextResponse } from 'next/server';
 
+import { USER_ENDPOINTS } from './src/components/features/users/constants/url';
+
 const API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL;
 
 export async function proxy(request: NextRequest) {
@@ -12,7 +14,7 @@ export async function proxy(request: NextRequest) {
   const accessToken = request.cookies.get('access_token');
 
   if (!accessToken) {
-    const reissueUrl = `${API_BASE_URL}/auth/reissue`;
+    const reissueUrl = `${API_BASE_URL}${USER_ENDPOINTS.reissue}`;
     const headers = new Headers(request.headers);
     headers.set('host', new URL(reissueUrl).host);
     headers.delete('origin');
