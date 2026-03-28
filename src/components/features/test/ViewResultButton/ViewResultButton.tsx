@@ -12,7 +12,7 @@ const ViewResultButton = ({ resultId }: ViewResultButtonProps) => {
   const router = useRouter();
 
   const handleViewResultClick = () => {
-    router.push(`/ztpi/${resultId}`);
+    router.push(`/ztpi/${resultId}?from=test`);
   };
 
   return (
