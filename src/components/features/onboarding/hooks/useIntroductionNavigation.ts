@@ -1,5 +1,5 @@
 import { useRouter } from 'next/navigation';
-import { useRef } from 'react';
+import { type TouchEvent, useRef } from 'react';
 
 const SWIPE_THRESHOLD = 50;
 
@@ -24,12 +24,12 @@ const useIntroductionNavigation = ({
     else router.push(`/onboarding?step=${step + 1}`);
   };
 
-  const handleTouchStart = (e: React.TouchEvent) => {
-    touchStartX.current = e.touches[0].clientX;
+  const handleTouchStart = (event: TouchEvent) => {
+    touchStartX.current = event.touches[0].clientX;
   };
 
-  const handleTouchEnd = (e: React.TouchEvent) => {
-    const diff = touchStartX.current - e.changedTouches[0].clientX;
+  const handleTouchEnd = (event: TouchEvent) => {
+    const diff = touchStartX.current - event.changedTouches[0].clientX;
     if (Math.abs(diff) < SWIPE_THRESHOLD) return;
     if (diff > 0) handleNext();
     else handlePrev();
