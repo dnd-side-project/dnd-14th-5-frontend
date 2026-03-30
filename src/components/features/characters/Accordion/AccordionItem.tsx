@@ -1,4 +1,3 @@
-import { AnimatePresence, motion } from 'motion/react';
 import Image from 'next/image';
 
 import Icon from '@/src/components/ui/Icon/Icon';
@@ -37,13 +36,12 @@ const AccordionItem = ({
   const bgColorClass = BG_COLOR_MAP[color] || 'bg-g-0';
 
   return (
-    <div className="border-b border-g-600 last:border-none rounded-2xl">
+    <div className="border-b border-g-600 last:border-none rounded-2xl overflow-hidden">
       <button
         type="button"
         className={cn(
           'flex w-full items-center justify-between text-left focus:outline-none px-4 py-2',
           bgColorClass,
-          isOpen ? 'rounded-t-2xl' : 'rounded-2xl',
         )}
         onClick={onToggle}
         aria-expanded={isOpen}
@@ -69,15 +67,14 @@ const AccordionItem = ({
           )}
         />
       </button>
-      <AnimatePresence initial={false}>
-        {isOpen && (
-          <motion.div
-            initial={{ opacity: 0, clipPath: 'inset(0 0 100% 0)' }}
-            animate={{ opacity: 1, clipPath: 'inset(0 0 0% 0)' }}
-            exit={{ opacity: 0, clipPath: 'inset(0 0 100% 0)' }}
-            transition={{ duration: 0.25, ease: 'easeInOut' }}
-            className="overflow-hidden space-y-3 bg-g-600 p-4 rounded-b-2xl"
-          >
+      <div
+        className={cn(
+          'grid transition-[grid-template-rows] duration-250 ease-in-out',
+          isOpen ? 'grid-rows-[1fr]' : 'grid-rows-[0fr]',
+        )}
+      >
+        <div className="overflow-hidden">
+          <div className="space-y-3 bg-g-600 p-4 rounded-b-2xl">
             <div className="space-y-1">
               <p className="font-heading-h4 text-g-0">성향</p>
               <p className="text-g-40 font-body-s">{personality}</p>
@@ -90,9 +87,9 @@ const AccordionItem = ({
                 ))}
               </ul>
             </div>
-          </motion.div>
-        )}
-      </AnimatePresence>
+          </div>
+        </div>
+      </div>
     </div>
   );
 };
