@@ -5,6 +5,7 @@ import BottomCTA from '@/src/components/layout/BottomCTA/BottomCTA';
 import ErrorState from '@/src/components/ui/ErrorState/ErrorState';
 import Skeleton from '@/src/components/ui/Skeleton/Skeleton';
 
+import useIntroductionNavigation from '../hooks/useIntroductionNavigation';
 import { useIntroductionsQuery } from '../queries/useIntroductionsQuery';
 import IntroductionNavigation from './IntroductionNavigation';
 import IntroductionStep from './IntroductionStep';
@@ -18,6 +19,12 @@ const Introduction = ({ currentStep = 1, version }: IntroductionProps) => {
   const { data, isPending, isError, refetch } = useIntroductionsQuery({
     version,
   });
+
+  const totalSteps = data?.length ?? 0;
+  const initialStep = Math.min(Math.max(currentStep, 1), totalSteps || 1);
+
+  const { step, handlePrev, handleNext, handleTouchStart, handleTouchEnd } =
+    useIntroductionNavigation({ initialStep, totalSteps });
 
   if (isPending) {
     return (
@@ -41,13 +48,10 @@ const Introduction = ({ currentStep = 1, version }: IntroductionProps) => {
     );
   }
 
-  const totalSteps = data.length;
-  const step = Math.min(Math.max(currentStep, 1), totalSteps);
-
   const { title, description, imageUrl } = data[step - 1];
 
   return (
-    <div>
+    <div onTouchStart={handleTouchStart} onTouchEnd={handleTouchEnd}>
       <IntroductionProgress currentStep={step} totalSteps={totalSteps} />
 
       <IntroductionStep
@@ -57,7 +61,11 @@ const Introduction = ({ currentStep = 1, version }: IntroductionProps) => {
       />
 
       <BottomCTA>
-        <IntroductionNavigation currentStep={step} totalSteps={totalSteps} />
+        <IntroductionNavigation
+          isFirstStep={step === 1}
+          onPrev={handlePrev}
+          onNext={handleNext}
+        />
       </BottomCTA>
     </div>
   );

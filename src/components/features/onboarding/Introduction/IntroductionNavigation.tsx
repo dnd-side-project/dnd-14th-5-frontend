@@ -1,31 +1,25 @@
 'use client';
 
-import { useRouter } from 'next/navigation';
-
 import Button from '@/src/components/ui/Button/Button';
 
 interface IntroductionNavigationProps {
-  currentStep: number;
-  totalSteps: number;
+  isFirstStep: boolean;
+  onPrev: () => void;
+  onNext: () => void;
 }
 
 const IntroductionNavigation = ({
-  currentStep,
-  totalSteps,
+  isFirstStep,
+  onPrev,
+  onNext,
 }: IntroductionNavigationProps) => {
-  const router = useRouter();
-  const isLastStep = currentStep === totalSteps;
-
-  const handleClick = () => {
-    if (isLastStep) {
-      router.push('/login');
-    } else {
-      router.push(`/onboarding?step=${currentStep + 1}`);
-    }
-  };
-
   return (
-    <Button label={isLastStep ? '시작하기' : '다음'} onClick={handleClick} />
+    <section className="gap-4 flex w-full">
+      {!isFirstStep && (
+        <Button label="이전" onClick={onPrev} variant="secondary" />
+      )}
+      <Button label="다음" onClick={onNext} />
+    </section>
   );
 };
 
