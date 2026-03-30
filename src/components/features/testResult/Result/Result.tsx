@@ -13,16 +13,21 @@ import ScoreGraph from '../ScoreGraph/ScoreGraph';
 
 interface ResultProps {
   testRecordId: number;
+  from?: string;
 }
 
-const Result = ({ testRecordId }: ResultProps) => {
+const Result = ({ testRecordId, from }: ResultProps) => {
   const router = useRouter();
   const { data, isPending, isError, refetch } = useTestRecordQuery({
     testRecordId,
   });
 
-  const goHome = () => {
-    router.push('/');
+  const handleComplete = () => {
+    if (from === 'profile') {
+      router.push('/profile');
+    } else {
+      router.push('/');
+    }
   };
 
   if (isPending) {
@@ -55,7 +60,7 @@ const Result = ({ testRecordId }: ResultProps) => {
       </article>
 
       <section className="flex flex-col items-center gap-3">
-        <Button label="완료" onClick={goHome} className="text-g-900" />
+        <Button label="완료" onClick={handleComplete} className="text-g-900" />
         <Link
           className="text-primary font-caption-n underline underline-offset-4"
           href="/characters"

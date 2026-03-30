@@ -45,7 +45,7 @@ export const useTestSectionActions = () => {
       return;
     }
 
-    router.push(`/ztpi/${latestRecord.id}`);
+    router.push(`/ztpi/${latestRecord.id}?from=profile`);
   };
 
   return {
