@@ -8,11 +8,6 @@ import { API_BASE_URL } from '@/src/lib/config/env';
 
 const Home = async () => {
   const cookieStore = await cookies();
-  const accessToken = cookieStore.get('access_token');
-
-  if (!accessToken) {
-    redirect('/onboarding');
-  }
 
   const res = await fetch(`${API_BASE_URL}/users/me`, {
     headers: {
@@ -22,7 +17,7 @@ const Home = async () => {
   });
 
   if (!res.ok) {
-    redirect('/onboarding');
+    redirect('/login');
   }
 
   const user = await res.json();
