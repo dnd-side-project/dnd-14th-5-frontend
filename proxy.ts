@@ -57,11 +57,7 @@ export async function proxy(request: NextRequest) {
 
     const redirectResponse = NextResponse.redirect(request.url);
     setCookies.forEach((cookie) => {
-      const stripped = cookie
-        .split(';')
-        .filter((part) => !part.trim().toLowerCase().startsWith('domain='))
-        .join('; ');
-      redirectResponse.headers.append('Set-Cookie', stripped);
+      redirectResponse.headers.append('Set-Cookie', cookie);
     });
     return redirectResponse;
   }
