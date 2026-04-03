@@ -6,8 +6,19 @@ const API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL;
 
 const isTokenExpired = (token: string) => {
   try {
-    const payload = JSON.parse(atob(token.split('.')[1]));
-    return payload.exp * 1000 < Date.now();
+    const parts = token.split('.');
+    if (parts.length !== 3) return true;
+    const base64 = parts[1].replace(/-/g, '+').replace(/_/g, '/');
+    const padded = base64.padEnd(
+      base64.length + ((4 - (base64.length % 4)) % 4),
+      '=',
+    );
+    const payload = JSON.parse(
+      new TextDecoder().decode(
+        Uint8Array.from(atob(padded), (c) => c.charCodeAt(0)),
+      ),
+    );
+    return payload.exp * 1000 < Date.now() + 5000;
   } catch {
     return true;
   }
