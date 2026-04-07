@@ -62,10 +62,10 @@ const InProgress = ({ testId, testRecordId }: InProgressProps) => {
   const nextQuestionId = questions[currentQuestionIndex + 1]?.id;
 
   return (
-    <div className="flex flex-col h-full pt-3">
+    <div className="flex flex-col min-h-full pt-3">
       <ProgressBar current={currentQuestionIndex + 1} max={totalQuestions} />
 
-      <div className="flex-1 flex items-center justify-center">
+      <div className="flex-1 flex items-center justify-center py-6">
         <InProgressContent
           step={formatTwoDigitNumber(sequence)}
           remainQuestion={remainQuestion}
