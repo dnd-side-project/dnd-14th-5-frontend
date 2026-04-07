@@ -1,6 +1,4 @@
-import Badge from '@/src/components/ui/Badge/Badge';
 import Card from '@/src/components/ui/Card/Card';
-import Icon from '@/src/components/ui/Icon/Icon';
 import Skeleton from '@/src/components/ui/Skeleton/Skeleton';
 
 const GeneratingFeedbackCard = () => {
