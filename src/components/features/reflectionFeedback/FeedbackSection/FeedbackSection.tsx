@@ -39,9 +39,10 @@ const FeedbackSection = () => {
   const feedbackContent = feedback?.content;
   const isGenerating =
     isPending ||
-    !feedback ||
-    feedback.status === 'PENDING' ||
-    feedback.status === 'PROCESSING';
+    (data !== null &&
+      (!feedback ||
+        feedback.status === 'PENDING' ||
+        feedback.status === 'PROCESSING'));
   const hasCompletedFeedback =
     feedback?.status === 'COMPLETED' && Boolean(feedbackContent);
   const hasError =
