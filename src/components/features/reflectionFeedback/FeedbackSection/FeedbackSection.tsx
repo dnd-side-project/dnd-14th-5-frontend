@@ -5,12 +5,12 @@ import { useRouter } from 'next/navigation';
 import BottomCTA from '@/src/components/layout/BottomCTA/BottomCTA';
 import Button from '@/src/components/ui/Button/Button';
 import ErrorState from '@/src/components/ui/ErrorState/ErrorState';
-import Skeleton from '@/src/components/ui/Skeleton/Skeleton';
 import { type Category } from '@/src/lib/constants/character';
 import { goToHome } from '@/src/lib/helpers/navigation';
 
 import { useTodayReflectionQuery } from '../../reflection/queries/useTodayReflectionQuery';
 import CompleteButton from '../CompleteButton/CompleteButton';
+import GeneratingFeedbackCard from '../GeneratingFeedbackCard/GeneratingFeedbackCard';
 import ResultCard from '../ResultCard/ResultCard';
 
 const FeedbackSection = () => {
@@ -45,7 +45,7 @@ const FeedbackSection = () => {
   if (isPending || isGenerating) {
     return (
       <>
-        <Skeleton className="h-117.5 w-full" ariaLabel="피드백 생성 중" />
+        <GeneratingFeedbackCard />
         <BottomCTA>
           <Button label="피드백 생성 중..." disabled />
         </BottomCTA>
