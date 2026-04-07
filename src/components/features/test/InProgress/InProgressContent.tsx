@@ -46,7 +46,7 @@ const InProgressContent = ({
   const backgroundCardCount = Math.min(remainQuestion, 2);
 
   return (
-    <section className="relative w-full overflow-x-clip">
+    <section className="relative w-full overflow-x-clip pt-8">
       <AnimatePresence mode="wait" custom={direction}>
         <motion.div
           key={step}
@@ -73,7 +73,7 @@ const InProgressContent = ({
       </AnimatePresence>
 
       {backgroundCardCount > 0 && (
-        <div className="absolute inset-0 pointer-events-none">
+        <div className="absolute inset-0 pointer-events-none top-8">
           <AnimatePresence initial={false}>
             {[...Array(backgroundCardCount)].map((_, index) => {
               const currentOffset = (index + 1) * 24;

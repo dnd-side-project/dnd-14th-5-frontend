@@ -51,14 +51,20 @@ const Introduction = ({ currentStep = 1, version }: IntroductionProps) => {
   const { title, description, imageUrl } = data[step - 1];
 
   return (
-    <div onTouchStart={handleTouchStart} onTouchEnd={handleTouchEnd}>
+    <div
+      onTouchStart={handleTouchStart}
+      onTouchEnd={handleTouchEnd}
+      className="flex flex-col h-dvh pb-18"
+    >
       <IntroductionProgress currentStep={step} totalSteps={totalSteps} />
 
-      <IntroductionStep
-        title={title}
-        description={description}
-        imageUrl={imageUrl}
-      />
+      <div className="flex flex-1 items-center">
+        <IntroductionStep
+          title={title}
+          description={description}
+          imageUrl={imageUrl}
+        />
+      </div>
 
       <BottomCTA>
         <IntroductionNavigation
