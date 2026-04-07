@@ -41,7 +41,7 @@ async function handler(
           .split(';')
           .filter((part) => {
             const trimmed = part.trim().toLowerCase();
-            return !trimmed.startsWith('domain=');
+            return !trimmed.startsWith('domain=') && trimmed !== 'secure';
           })
           .join('; ');
 
