@@ -1,6 +1,7 @@
 'use client';
 
 import { useRouter } from 'next/navigation';
+import { useEffect, useState } from 'react';
 
 import BottomCTA from '@/src/components/layout/BottomCTA/BottomCTA';
 import Button from '@/src/components/ui/Button/Button';
@@ -12,8 +13,11 @@ import CompleteButton from '../CompleteButton/CompleteButton';
 import GeneratingFeedbackCard from '../GeneratingFeedbackCard/GeneratingFeedbackCard';
 import ResultCard from '../ResultCard/ResultCard';
 
+const FEEDBACK_TIMEOUT_MS = 10000;
+
 const FeedbackSection = () => {
   const router = useRouter();
+  const [isTimedOut, setIsTimedOut] = useState(false);
   const { data, isPending, isError } = useTodayReflectionQuery({
     staleTime: 0,
     refetchOnMount: 'always',
@@ -42,9 +46,24 @@ const FeedbackSection = () => {
     feedback?.status === 'COMPLETED' && Boolean(feedbackContent);
   const hasError =
     isError ||
+    isTimedOut ||
     feedback?.status === 'FAILED' ||
     !hasCompletedFeedback ||
     !category;
+
+  useEffect(() => {
+    if (!isGenerating || isTimedOut) {
+      return;
+    }
+
+    const timeoutId = window.setTimeout(() => {
+      setIsTimedOut(true);
+    }, FEEDBACK_TIMEOUT_MS);
+
+    return () => {
+      window.clearTimeout(timeoutId);
+    };
+  }, [isGenerating, isTimedOut]);
 
   if (isGenerating) {
     return (
