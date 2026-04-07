@@ -5,7 +5,6 @@ import { useRouter } from 'next/navigation';
 import BottomCTA from '@/src/components/layout/BottomCTA/BottomCTA';
 import Button from '@/src/components/ui/Button/Button';
 import ErrorState from '@/src/components/ui/ErrorState/ErrorState';
-import { type Category } from '@/src/lib/constants/character';
 import { goToHome } from '@/src/lib/helpers/navigation';
 
 import { useTodayReflectionQuery } from '../../reflection/queries/useTodayReflectionQuery';
@@ -32,17 +31,22 @@ const FeedbackSection = () => {
   });
 
   const feedback = data?.feedback;
+  const category = data?.question?.category;
+  const feedbackContent = feedback?.content;
   const isGenerating =
-    data !== null &&
-    (!feedback ||
-      feedback.status === 'PENDING' ||
-      feedback.status === 'PROCESSING');
-  const hasError = isError || !feedback || feedback.status === 'FAILED';
+    isPending ||
+    !feedback ||
+    feedback.status === 'PENDING' ||
+    feedback.status === 'PROCESSING';
+  const hasCompletedFeedback =
+    feedback?.status === 'COMPLETED' && Boolean(feedbackContent);
+  const hasError =
+    isError ||
+    feedback?.status === 'FAILED' ||
+    !hasCompletedFeedback ||
+    !category;
 
-  const feedbackContent = feedback?.content ?? '';
-  const category = data?.question.category as Category;
-
-  if (isPending || isGenerating) {
+  if (isGenerating) {
     return (
       <>
         <GeneratingFeedbackCard />
@@ -57,7 +61,19 @@ const FeedbackSection = () => {
     return (
       <ErrorState
         title="피드백을 불러오지 못했어요"
-        description="잠시 후 다시 시도해 주세요."
+        description="잠시 후 다시 확인해 주세요."
+        retryLabel="홈으로 돌아가기"
+        onRetry={() => goToHome(router)}
+      />
+    );
+  }
+
+  if (!feedbackContent || !category) {
+    return (
+      <ErrorState
+        title="피드백을 불러오지 못했어요"
+        description="잠시 후 다시 확인해 주세요."
+        retryLabel="홈으로 돌아가기"
         onRetry={() => goToHome(router)}
       />
     );
