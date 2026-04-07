@@ -13,12 +13,12 @@ const IntroductionStep = ({
   imageUrl,
 }: IntroductionStepProps) => {
   return (
-    <article>
-      <section className="space-y-2 py-25">
+    <article className="space-y-12">
+      <section className="space-y-2 pt-10">
         <h2 className="font-heading-h2 text-g-0">{title}</h2>
-        <p className="font-body-s text-g-60 break-keep">{description}</p>
+        <p className="font-body-s text-g-80 break-keep">{description}</p>
       </section>
-      <div className="flex justify-center">
+      <div className="flex justify-center pb-10">
         <Image src={imageUrl} alt="캐릭터" width={250} height={250} />
       </div>
     </article>
