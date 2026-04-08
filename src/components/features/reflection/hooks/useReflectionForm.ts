@@ -1,3 +1,4 @@
+import { useQueryClient } from '@tanstack/react-query';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 
@@ -5,6 +6,7 @@ import { useCreateReflectionFeedbackMutation } from '@/src/components/features/r
 import { useToast } from '@/src/hooks/useToast';
 import { isApiError } from '@/src/lib/api/error';
 
+import { reflectionKeys } from '../constants/queryKeys';
 import { useSubmitReflectionMutation } from '../queries/useSubmitReflectionMutation';
 
 interface UseReflectionFormResult {
@@ -16,6 +18,7 @@ interface UseReflectionFormResult {
 
 export const useReflectionForm = (): UseReflectionFormResult => {
   const router = useRouter();
+  const queryClient = useQueryClient();
   const [content, setContent] = useState('');
   const { showToast } = useToast();
 
@@ -33,12 +36,16 @@ export const useReflectionForm = (): UseReflectionFormResult => {
   const createFeedback = async (reflectionId: number): Promise<boolean> => {
     try {
       await requestCreateFeedback({ reflectionId });
+      await queryClient.invalidateQueries({
+        queryKey: reflectionKeys.todayReflection(),
+      });
       return true;
     } catch {
       showToast({
         message: '피드백 생성에 실패했어요. 잠시 후 다시 시도해주세요.',
         variant: 'alert',
       });
+
       return false;
     }
   };

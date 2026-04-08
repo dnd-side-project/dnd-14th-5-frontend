@@ -1,4 +1,8 @@
-import { useQuery, useSuspenseQuery } from '@tanstack/react-query';
+import {
+  useQuery,
+  type UseQueryOptions,
+  useSuspenseQuery,
+} from '@tanstack/react-query';
 import { z } from 'zod';
 
 import { get } from '@/src/lib/api';
@@ -39,6 +43,11 @@ const todayReflectionSchema = z.object({
 
 export type GetTodayReflectionResponse = z.infer<typeof todayReflectionSchema>;
 
+type TodayReflectionQueryOptions = Omit<
+  UseQueryOptions<GetTodayReflectionResponse | null>,
+  'queryKey' | 'queryFn'
+>;
+
 const getTodayReflection = async () => {
   try {
     return await get<GetTodayReflectionResponse>(
@@ -56,10 +65,13 @@ const getTodayReflection = async () => {
   }
 };
 
-export const useTodayReflectionQuery = () =>
+export const useTodayReflectionQuery = (
+  options?: TodayReflectionQueryOptions,
+) =>
   useQuery({
     queryKey: reflectionKeys.todayReflection(),
     queryFn: getTodayReflection,
+    ...options,
   });
 
 export const useSuspenseTodayReflectionQuery = () =>

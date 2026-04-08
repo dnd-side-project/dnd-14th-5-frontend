@@ -1,33 +1,77 @@
 'use client';
 
 import { useRouter } from 'next/navigation';
+import { useEffect, useState } from 'react';
 
 import BottomCTA from '@/src/components/layout/BottomCTA/BottomCTA';
+import Button from '@/src/components/ui/Button/Button';
 import ErrorState from '@/src/components/ui/ErrorState/ErrorState';
-import Skeleton from '@/src/components/ui/Skeleton/Skeleton';
-import { type Category } from '@/src/lib/constants/character';
 import { goToHome } from '@/src/lib/helpers/navigation';
 
 import { useTodayReflectionQuery } from '../../reflection/queries/useTodayReflectionQuery';
 import CompleteButton from '../CompleteButton/CompleteButton';
+import GeneratingFeedbackCard from '../GeneratingFeedbackCard/GeneratingFeedbackCard';
 import ResultCard from '../ResultCard/ResultCard';
+
+const FEEDBACK_TIMEOUT_MS = 10000;
 
 const FeedbackSection = () => {
   const router = useRouter();
-  const { data, isPending, isError } = useTodayReflectionQuery();
+  const [isTimedOut, setIsTimedOut] = useState(false);
+  const { data, isPending, isError } = useTodayReflectionQuery({
+    staleTime: 0,
+    refetchOnMount: 'always',
+    refetchInterval: (query) => {
+      const reflection = query.state.data;
+      const feedback = reflection?.feedback;
+      const shouldPoll =
+        reflection !== null &&
+        (!feedback ||
+          feedback.status === 'PENDING' ||
+          feedback.status === 'PROCESSING');
+
+      return shouldPoll ? 1000 : false;
+    },
+  });
 
   const feedback = data?.feedback;
-  const hasError = isError || !feedback || feedback.status === 'FAILED';
+  const category = data?.question?.category;
+  const feedbackContent = feedback?.content;
+  const isGenerating =
+    isPending ||
+    (data !== null &&
+      (!feedback ||
+        feedback.status === 'PENDING' ||
+        feedback.status === 'PROCESSING'));
+  const hasCompletedFeedback =
+    feedback?.status === 'COMPLETED' && Boolean(feedbackContent);
+  const hasError =
+    isError ||
+    isTimedOut ||
+    feedback?.status === 'FAILED' ||
+    !hasCompletedFeedback ||
+    !category;
 
-  const feedbackContent = feedback?.content ?? '';
-  const category = data?.question.category as Category;
+  useEffect(() => {
+    if (!isGenerating || isTimedOut) {
+      return;
+    }
 
-  if (isPending) {
+    const timeoutId = window.setTimeout(() => {
+      setIsTimedOut(true);
+    }, FEEDBACK_TIMEOUT_MS);
+
+    return () => {
+      window.clearTimeout(timeoutId);
+    };
+  }, [isGenerating, isTimedOut]);
+
+  if (isGenerating) {
     return (
       <>
-        <Skeleton className="h-117.5 w-full" ariaLabel="피드백 생성 중" />
+        <GeneratingFeedbackCard />
         <BottomCTA>
-          <CompleteButton />
+          <Button label="피드백 생성 중..." disabled />
         </BottomCTA>
       </>
     );
@@ -37,7 +81,19 @@ const FeedbackSection = () => {
     return (
       <ErrorState
         title="피드백을 불러오지 못했어요"
-        description="잠시 후 다시 시도해 주세요."
+        description="잠시 후 다시 확인해 주세요."
+        retryLabel="홈으로 돌아가기"
+        onRetry={() => goToHome(router)}
+      />
+    );
+  }
+
+  if (!feedbackContent || !category) {
+    return (
+      <ErrorState
+        title="피드백을 불러오지 못했어요"
+        description="잠시 후 다시 확인해 주세요."
+        retryLabel="홈으로 돌아가기"
         onRetry={() => goToHome(router)}
       />
     );
