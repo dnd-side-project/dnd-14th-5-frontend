@@ -8,6 +8,26 @@ import { USER_ENDPOINTS } from './src/components/features/users/constants/url';
 
 const API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL;
 
+const isTokenExpired = (token: string) => {
+  try {
+    const parts = token.split('.');
+    if (parts.length !== 3) return true;
+    const base64 = parts[1].replace(/-/g, '+').replace(/_/g, '/');
+    const padded = base64.padEnd(
+      base64.length + ((4 - (base64.length % 4)) % 4),
+      '=',
+    );
+    const payload = JSON.parse(
+      new TextDecoder().decode(
+        Uint8Array.from(atob(padded), (c) => c.charCodeAt(0)),
+      ),
+    );
+    return payload.exp * 1000 < Date.now() + 5000;
+  } catch {
+    return true;
+  }
+};
+
 function applySetCookie(req: NextRequest, res: NextResponse) {
   const setCookies = new ResponseCookies(res.headers);
 
@@ -31,7 +51,7 @@ export async function proxy(request: NextRequest) {
   const accessToken = request.cookies.get('access_token')?.value;
   const refreshToken = request.cookies.get('refresh_token')?.value;
 
-  if (accessToken) return NextResponse.next();
+  if (accessToken && !isTokenExpired(accessToken)) return NextResponse.next();
 
   if (!refreshToken) {
     return NextResponse.redirect(new URL('/onboarding', request.url));
