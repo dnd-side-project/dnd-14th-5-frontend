@@ -22,7 +22,7 @@ const isTokenExpired = (token: string) => {
         Uint8Array.from(atob(padded), (c) => c.charCodeAt(0)),
       ),
     );
-    return payload.exp * 1000 < Date.now() + 5000;
+    return !payload.exp || payload.exp * 1000 < Date.now() + 5000;
   } catch {
     return true;
   }
