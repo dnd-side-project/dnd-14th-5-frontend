@@ -1,7 +1,3 @@
-import {
-  RequestCookies,
-  ResponseCookies,
-} from 'next/dist/server/web/spec-extension/cookies';
 import { type NextRequest, NextResponse } from 'next/server';
 
 import { USER_ENDPOINTS } from './src/components/features/users/constants/url';
@@ -28,45 +24,55 @@ const isTokenExpired = (token: string) => {
   }
 };
 
-function applySetCookie(req: NextRequest, res: NextResponse) {
-  const setCookies = new ResponseCookies(res.headers);
-
-  const newReqHeaders = new Headers(req.headers);
-  const newReqCookies = new RequestCookies(newReqHeaders);
-  setCookies.getAll().forEach((cookie) => newReqCookies.set(cookie));
-
-  const dummyRes = NextResponse.next({ request: { headers: newReqHeaders } });
-
-  dummyRes.headers.forEach((value, key) => {
-    if (
-      key === 'x-middleware-override-headers' ||
-      key.startsWith('x-middleware-request-')
-    ) {
-      res.headers.set(key, value);
-    }
-  });
-}
-
 export async function proxy(request: NextRequest) {
   const accessToken = request.cookies.get('access_token')?.value;
   const refreshToken = request.cookies.get('refresh_token')?.value;
 
-  if (accessToken && !isTokenExpired(accessToken)) return NextResponse.next();
+  console.log('[proxy] accessToken 존재:', !!accessToken);
+  console.log('[proxy] refreshToken 존재:', !!refreshToken);
+
+  if (accessToken && !isTokenExpired(accessToken)) {
+    console.log('[proxy] accessToken 유효 → 통과');
+    return NextResponse.next();
+  }
+
+  console.log('[proxy] accessToken 없거나 만료 → reissue 시도');
 
   if (!refreshToken) {
+    console.log('[proxy] refreshToken 없음 → onboarding 리다이렉트');
     return NextResponse.redirect(new URL('/onboarding', request.url));
   }
 
   try {
-    const res = await fetch(`${API_BASE_URL}${USER_ENDPOINTS.reissue}`, {
+    const reissueUrl = `${API_BASE_URL}${USER_ENDPOINTS.reissue}`;
+    const headers = new Headers(request.headers);
+    headers.set('host', new URL(reissueUrl).host);
+    headers.delete('origin');
+    headers.delete('referer');
+    headers.delete('x-middleware-invoke');
+
+    console.log('[proxy] reissue 요청 URL:', reissueUrl);
+    console.log('[proxy] reissue 요청 Cookie 존재:', !!headers.get('cookie'));
+
+    const res = await fetch(reissueUrl, {
       method: 'POST',
-      headers: { Cookie: `refresh_token=${refreshToken}` },
+      headers,
+      cache: 'no-store',
+      signal: AbortSignal.timeout(3000),
     });
 
-    if (!res.ok) throw new Error('reissue failed');
+    console.log('[proxy] reissue 응답 status:', res.status);
+
+    if (!res.ok) {
+      const body = await res.text();
+      console.log('[proxy] reissue 실패 body:', body);
+      throw new Error('reissue failed');
+    }
 
     const setCookies = res.headers.getSetCookie();
-    const response = NextResponse.next();
+    console.log('[proxy] reissue 성공 setCookies:', setCookies);
+
+    const redirectResponse = NextResponse.redirect(request.url);
     const isDev = process.env.NODE_ENV === 'development';
 
     setCookies.forEach((cookie) => {
@@ -79,13 +85,12 @@ export async function proxy(request: NextRequest) {
             })
             .join('; ')
         : cookie;
-      response.headers.append('set-cookie', modifiedCookie);
+      redirectResponse.headers.append('set-cookie', modifiedCookie);
     });
 
-    applySetCookie(request, response);
-
-    return response;
-  } catch {
+    return redirectResponse;
+  } catch (e) {
+    console.error('[proxy] reissue 실패 → login 리다이렉트', e);
     const response = NextResponse.redirect(new URL('/login', request.url));
     response.cookies.delete('refresh_token');
     return response;
