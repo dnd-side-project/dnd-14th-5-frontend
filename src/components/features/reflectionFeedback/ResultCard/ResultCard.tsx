@@ -50,7 +50,7 @@ const ResultCard = ({ feedback, category }: ResultCardProps) => {
 
       <div
         className={cn(
-          'flex-1 min-h-16 overflow-y-auto pr-2',
+          'flex-1 min-h-16 overflow-y-scroll pr-2',
           '[scrollbar-width:thin]',
           '[scrollbar-color:color-mix(in_srgb,var(--color-g-0)_25%,transparent)_transparent]',
           '[&::-webkit-scrollbar]:w-2.5',
