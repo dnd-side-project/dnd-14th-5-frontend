@@ -24,6 +24,7 @@ const ResultCard = ({ feedback, category }: ResultCardProps) => {
   const categoryMessage = getCategoryMessage(category);
   const characterAsset = CATEGORY_CHARACTER_MAP[category];
 
+  // 200px = PageHeader(56) + page pt-10(40) + page pb-24(96) + buffer(8)
   return (
     <Card className="flex flex-col items-center gap-6 py-10 px-8 bg-g-500 min-h-115 max-h-[calc(100dvh-200px)]">
       <Badge variant="neutral">
