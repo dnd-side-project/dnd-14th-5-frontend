@@ -1,22 +1,7 @@
-'use client';
-
-import dynamic from 'next/dynamic';
-
-const CalendarPageClient = dynamic(
-  () =>
-    import('@/src/components/features/calendar/CalendarPageClient/CalendarPageClient'),
-  {
-    ssr: false,
-  },
-);
+import CalendarPageClient from '@/src/components/features/calendar/CalendarPageClient/CalendarPageClient';
 
 const CalendarPage = () => {
-  return (
-    <>
-      {/* TODO: middleware 기반 인증/재발급 처리로 전환 후 ssr: false 제거 검토 */}
-      <CalendarPageClient />
-    </>
-  );
+  return <CalendarPageClient />;
 };
 
 export default CalendarPage;
