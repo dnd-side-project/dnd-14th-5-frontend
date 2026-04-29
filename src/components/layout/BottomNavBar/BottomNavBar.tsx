@@ -1,6 +1,6 @@
 'use client';
 
-import { usePathname, useRouter } from 'next/navigation';
+import { usePathname } from 'next/navigation';
 
 import type { IconNameType } from '@/src/components/ui/Icon/Icon.types';
 
@@ -36,16 +36,8 @@ const bottomTabs: BottomTabItem[] = [
 
 const BottomNavBar = () => {
   const pathname = usePathname();
-  const router = useRouter();
   const activeMenu: TabKey =
     bottomTabs.find((tab) => tab.href === pathname)?.key ?? 'home';
-
-  const handleTabClick = (tabKey: TabKey) => {
-    const selectedTab = bottomTabs.find((tab) => tab.key === tabKey);
-    if (!selectedTab) return;
-
-    router.push(selectedTab.href);
-  };
 
   return (
     <div className="fixed bottom-6 left-1/2 z-10 w-full max-w-110 -translate-x-1/2 px-5">
@@ -55,10 +47,10 @@ const BottomNavBar = () => {
             <BottomNavButton
               key={tab.key}
               tabKey={tab.key}
+              href={tab.href}
               isActive={activeMenu === tab.key}
               activeIconName={tab.activeIconName}
               inactiveIconName={tab.inactiveIconName}
-              onClick={handleTabClick}
             />
           ))}
         </div>
