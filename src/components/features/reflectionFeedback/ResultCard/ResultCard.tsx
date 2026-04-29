@@ -24,8 +24,9 @@ const ResultCard = ({ feedback, category }: ResultCardProps) => {
   const categoryMessage = getCategoryMessage(category);
   const characterAsset = CATEGORY_CHARACTER_MAP[category];
 
+  // 200px = PageHeader(56) + page pt-10(40) + page pb-24(96) + buffer(8)
   return (
-    <Card className="flex max-h-117.5 flex-col items-center justify-center gap-6 py-10 px-8 bg-g-500">
+    <Card className="flex flex-col items-center gap-6 py-10 px-8 bg-g-500 min-h-115 max-h-[calc(100dvh-200px)]">
       <Badge variant="neutral">
         <div className="flex items-center gap-1">
           <Icon name="check" size={16} />
@@ -50,7 +51,7 @@ const ResultCard = ({ feedback, category }: ResultCardProps) => {
 
       <div
         className={cn(
-          'max-h-80 overflow-y-scroll pr-2',
+          'flex-1 min-h-16 overflow-y-scroll pr-2',
           '[scrollbar-width:thin]',
           '[scrollbar-color:color-mix(in_srgb,var(--color-g-0)_25%,transparent)_transparent]',
           '[&::-webkit-scrollbar]:w-2.5',
