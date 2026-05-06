@@ -1,5 +1,6 @@
 import '@/src/styles/globals.css';
 
+import { GoogleAnalytics } from '@next/third-parties/google';
 import type { Metadata, Viewport } from 'next';
 import { Noto_Sans_KR } from 'next/font/google';
 import { type ReactNode } from 'react';
@@ -66,6 +67,10 @@ const RootLayout = ({ children }: Readonly<RootLayoutProps>) => {
             <QueryProvider>{children}</QueryProvider>
           </ToastProvider>
         </main>
+        {process.env.NODE_ENV === 'production' &&
+          process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID && (
+            <GoogleAnalytics gaId={process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID} />
+          )}
       </body>
     </html>
   );
