@@ -1,20 +1,19 @@
 'use client';
 
-import { useRouter } from 'next/navigation';
+import Link from 'next/link';
 
 import Card from '@/src/components/ui/Card/Card';
-import Icon from '@/src/components/ui/Icon/Icon';
 
 import { useTodayQuestionSuspenseQuery } from '../../reflection/queries/useTodayQuestionQuery';
 import { useSuspenseTodayReflectionQuery } from '../../reflection/queries/useTodayReflectionQuery';
 import type { SelectedSummaryCardData } from '../CalendarPageClient/CalendarPageClient';
+import QuestionRow from './QuestionRow';
 
 interface SummaryCardProps {
   selectedSummary: SelectedSummaryCardData | null;
 }
 
 const SummaryCard = ({ selectedSummary }: SummaryCardProps) => {
-  const router = useRouter();
   const { data: todayReflection } = useSuspenseTodayReflectionQuery();
   const { data: todayQuestion } = useTodayQuestionSuspenseQuery();
   const hasSelectedDate = selectedSummary !== null;
@@ -22,44 +21,35 @@ const SummaryCard = ({ selectedSummary }: SummaryCardProps) => {
   const hasSelectedReflection = selectedReflectionId !== null;
   const hasTodayReflectionContent = todayReflection?.content != null;
 
-  const handleCardClick = () => {
-    if (hasSelectedDate) {
-      if (!hasSelectedReflection) return;
-      router.push(`/reflection/${selectedReflectionId}`);
-      return;
-    }
-
-    if (!hasTodayReflectionContent) {
-      router.push('/reflection');
-      return;
-    }
-
-    router.push(`/reflection/${todayReflection.id}`);
-  };
+  const href = hasSelectedDate
+    ? hasSelectedReflection
+      ? `/reflection/${selectedReflectionId}`
+      : null
+    : hasTodayReflectionContent
+      ? `/reflection/${todayReflection.id}`
+      : '/reflection';
 
   const questionText = hasSelectedDate
-    ? (selectedSummary?.questionText ?? '회고를 기록하지 않았어요')
+    ? (selectedSummary.questionText ?? '회고를 기록하지 않았어요')
     : (todayQuestion.content ?? '오늘의 질문이 없습니다.');
   const reflectionText = hasSelectedDate
-    ? (selectedSummary?.reflectionText ??
+    ? (selectedSummary.reflectionText ??
       '다른 날짜를 선택해 회고를 확인해 보세요.')
     : (todayReflection?.content ?? '아직 답변하지 않았어요!');
-  const isCardClickable = hasSelectedDate ? hasSelectedReflection : true;
 
   return (
     <Card className="rounded-2xl bg-g-500 p-5">
-      <button
-        type="button"
-        onClick={handleCardClick}
-        aria-label="회고 상세로 이동"
-        className="w-full"
-        disabled={!isCardClickable}
-      >
-        <div className="flex items-start justify-between gap-4">
-          <p className="text-left font-body-m text-g-0">{questionText}</p>
-          <Icon name="chevronLeft" size={24} className="pt-1 rotate-180" />
-        </div>
-      </button>
+      {href ? (
+        <Link
+          href={href}
+          className="block w-full"
+          aria-label="회고 상세로 이동"
+        >
+          <QuestionRow text={questionText} />
+        </Link>
+      ) : (
+        <QuestionRow text={questionText} />
+      )}
       <p className="pt-4 line-clamp-2 font-body-s text-g-80">
         {reflectionText}
       </p>
