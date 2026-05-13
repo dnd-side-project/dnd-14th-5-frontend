@@ -43,7 +43,7 @@ export default withSentryConfig(nextConfig, {
 
   org: 'timo-3k',
 
-  project: 'javascript-nextjs',
+  project: 'timo-next',
 
   // Only print logs for uploading source maps in CI
   silent: !process.env.CI,
