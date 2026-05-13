@@ -13,6 +13,3 @@ Sentry.init({
 
   sendDefaultPii: false,
 });
-
-// eslint-disable-next-line import/namespace
-export const onRouterTransitionStart = Sentry.captureRouterTransitionStart;
