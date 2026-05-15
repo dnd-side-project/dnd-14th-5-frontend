@@ -1,3 +1,5 @@
+'use client';
+
 import Image from 'next/image';
 
 import { cn } from '@/src/lib/helpers/cn';
@@ -12,9 +14,10 @@ interface GroupItem {
 interface GroupListProps {
   groups: GroupItem[];
   selectedId?: string;
+  onSelect?: (id: string) => void;
 }
 
-const GroupList = ({ groups, selectedId }: GroupListProps) => {
+const GroupList = ({ groups, selectedId, onSelect }: GroupListProps) => {
   return (
     <div className="flex gap-4 overflow-x-auto py-2 scrollbar-x-transparent-track">
       {groups.map((item) => {
@@ -22,7 +25,8 @@ const GroupList = ({ groups, selectedId }: GroupListProps) => {
         return (
           <div
             key={item.id}
-            className="flex flex-col items-center gap-2 w-17.5 shrink-0"
+            className="flex flex-col items-center gap-2 w-17.5 shrink-0 cursor-pointer"
+            onClick={() => onSelect?.(item.id)}
           >
             <div className="relative">
               <Image
