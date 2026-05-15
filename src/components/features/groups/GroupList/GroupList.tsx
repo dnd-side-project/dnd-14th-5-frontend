@@ -16,7 +16,12 @@ const GroupList = ({ groups }: GroupListProps) => {
     <div>
       {groups.map((item) => (
         <div key={item.id}>
-          <Image src={item.image} alt={item.name} width={100} height={100} />
+          <Image
+            src={item.image || '/images/default-group.svg'}
+            alt={item.name}
+            width={100}
+            height={100}
+          />
           <p>{item.name}</p>
         </div>
       ))}
