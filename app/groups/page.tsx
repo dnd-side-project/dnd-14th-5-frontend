@@ -24,7 +24,9 @@ const MOCK_CHARACTERS_GROUPS = [
 
 const GroupsPage = () => {
   const [activeTab, setActiveTab] = useState<TabType>('friend');
-  const [selectedId, setSelectedId] = useState(MOCK_FRIENDS_GROUPS[0].id);
+  const [selectedId, setSelectedId] = useState(
+    MOCK_FRIENDS_GROUPS[0]?.id ?? '',
+  );
 
   return (
     <div>
