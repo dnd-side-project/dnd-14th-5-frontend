@@ -18,6 +18,7 @@ const GroupTab = ({ activeTab, onTabChange }: GroupTabProps) => {
       {TABS.map((tab) => (
         <button
           key={tab.value}
+          type="button"
           onClick={() => onTabChange(tab.value)}
           className={cn(
             'font-body-s px-4 pb-2 border-b-2 transition-colors duration-300',

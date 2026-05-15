@@ -23,9 +23,11 @@ const GroupList = ({ groups, selectedId, onSelect }: GroupListProps) => {
       {groups.map((item) => {
         const isSelected = selectedId === item.id;
         return (
-          <div
+          <button
             key={item.id}
+            type="button"
             className="flex flex-col items-center gap-2 w-17.5 shrink-0 cursor-pointer"
+            aria-pressed={isSelected}
             onClick={() => onSelect?.(item.id)}
           >
             <div className="relative">
@@ -48,7 +50,7 @@ const GroupList = ({ groups, selectedId, onSelect }: GroupListProps) => {
             >
               {item.name}
             </p>
-          </div>
+          </button>
         );
       })}
     </div>
