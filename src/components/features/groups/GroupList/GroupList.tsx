@@ -38,7 +38,7 @@ const GroupList = ({ groups, selectedId }: GroupListProps) => {
             </div>
             <p
               className={cn(
-                'font-caption-n',
+                'font-caption-n break-keep text-center',
                 isSelected ? 'text-g-0' : 'text-g-80',
               )}
             >

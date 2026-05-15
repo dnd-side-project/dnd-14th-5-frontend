@@ -21,7 +21,7 @@ type Story = StoryObj<typeof meta>;
 export const Default: Story = {
   args: {
     groups: [
-      { id: '1', name: '친구 모임', type: 'friend', image: '' },
+      { id: '1', name: '친구 많은 모임', type: 'friend', image: '' },
       { id: '2', name: '어떤 모임', type: 'friend', image: '' },
       { id: '3', name: '친구 모임', type: 'friend', image: '' },
       { id: '4', name: '어떤 모임', type: 'friend', image: '' },
@@ -32,5 +32,6 @@ export const Default: Story = {
       { id: '9', name: '친구 모임', type: 'friend', image: '' },
       { id: '10', name: '어떤 모임', type: 'friend', image: '' },
     ],
+    selectedId: '1',
   },
 };
