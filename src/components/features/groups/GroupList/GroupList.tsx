@@ -1,5 +1,7 @@
 import Image from 'next/image';
 
+import { cn } from '@/src/lib/helpers/cn';
+
 interface GroupItem {
   id: string;
   name: string;
@@ -34,7 +36,14 @@ const GroupList = ({ groups, selectedId }: GroupListProps) => {
                 <div className="absolute inset-0 rounded-[10px] bg-g-900/60" />
               )}
             </div>
-            <p className="font-caption-n text-g-0">{item.name}</p>
+            <p
+              className={cn(
+                'font-caption-n',
+                isSelected ? 'text-g-0' : 'text-g-80',
+              )}
+            >
+              {item.name}
+            </p>
           </div>
         );
       })}
