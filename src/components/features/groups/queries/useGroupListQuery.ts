@@ -1,4 +1,4 @@
-import { useQuery } from '@tanstack/react-query';
+import { useSuspenseQuery } from '@tanstack/react-query';
 import { z } from 'zod';
 
 import { get } from '@/src/lib/api';
@@ -21,8 +21,8 @@ type Response = z.infer<typeof ResponseSchema>;
 const fetchGroups = () =>
   get<Response>(GROUP_ENDPOINT.groups, { responseSchema: ResponseSchema });
 
-export const useGroupListQuery = () =>
-  useQuery({
+export const useSuspenseGroupListQuery = () =>
+  useSuspenseQuery({
     queryKey: groupKeys.list(),
     queryFn: fetchGroups,
   });
