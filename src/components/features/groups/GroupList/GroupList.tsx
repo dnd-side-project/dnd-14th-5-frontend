@@ -4,10 +4,12 @@ import Image from 'next/image';
 
 import { cn } from '@/src/lib/helpers/cn';
 
+import type { GroupType } from '../constants/groupType';
+
 interface GroupItem {
   id: number;
   name: string;
-  type: 'friend' | 'character'; //TODO: 임시 타입 정의, 백엔드 정의에 맞춰 수정해야 함
+  type: GroupType;
   image: string;
 }
 

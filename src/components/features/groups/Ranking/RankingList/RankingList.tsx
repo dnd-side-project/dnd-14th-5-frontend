@@ -2,14 +2,14 @@ import ErrorState from '@/src/components/ui/ErrorState/ErrorState';
 import Skeleton from '@/src/components/ui/Skeleton/Skeleton';
 
 import type { SortValue } from '../../constants/groupSort';
-import type { TabType } from '../../GroupTab/GroupTab';
+import type { GroupType } from '../../constants/groupType';
 import { useGroupFriendListQuery } from '../../queries/useGroupFriendListQuery';
 import RankingItem from '../RankingItem/RankingItem';
 
 interface RankingListProps {
   groupId: number;
   sort: SortValue;
-  activeTab: TabType;
+  activeTab: GroupType;
 }
 
 const RankingList = ({ groupId, sort, activeTab }: RankingListProps) => {
@@ -42,7 +42,7 @@ const RankingList = ({ groupId, sort, activeTab }: RankingListProps) => {
     <ul className="space-y-8">
       {data.map((item, index) => (
         <RankingItem
-          isExistImg={activeTab === 'friend'}
+          isExistImg={activeTab === 'FRIEND'}
           key={item.userId}
           nickname={item.nickname}
           answerText={item.answerText}

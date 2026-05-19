@@ -3,17 +3,17 @@
 import { useState } from 'react';
 
 import { SORT_OPTIONS } from '../../constants/groupSort';
-import type { TabType } from '../../GroupTab/GroupTab';
+import { type GroupType, groupType } from '../../constants/groupType';
 import RankingList from '../RankingList/RankingList';
 import RankingSort from '../RankingSort/RankingSort';
 
 interface RankingSectionProps {
-  activeTab?: TabType;
+  activeTab?: GroupType;
   groupId: number;
 }
 
 const RankingSection = ({
-  activeTab = 'friend',
+  activeTab = 'FRIEND',
   groupId,
 }: RankingSectionProps) => {
   const [sort, setSort] = useState(SORT_OPTIONS[0].value);
@@ -22,7 +22,7 @@ const RankingSection = ({
     <section className="flex flex-col h-full gap-6">
       <div className="flex items-center justify-between">
         <p className="font-heading-h4 text-g-0">
-          {activeTab === 'friend' ? '친구' : '캐릭터'}
+          {activeTab === 'FRIEND' ? groupType.FRIEND : groupType.CHARACTER}
         </p>
 
         <RankingSort
