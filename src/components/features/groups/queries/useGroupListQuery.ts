@@ -11,7 +11,7 @@ const ResponseSchema = z.array(
     id: z.number(),
     code: z.string(),
     name: z.string(),
-    type: z.string(),
+    type: z.string(), //TODO: 임시 타입 정의, 백엔드 정의에 맞춰 수정해야 함
     image: z.string(),
   }),
 );
