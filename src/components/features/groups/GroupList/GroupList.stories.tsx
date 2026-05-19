@@ -20,16 +20,16 @@ export default meta;
 type Story = StoryObj<typeof meta>;
 
 const groups = [
-  { id: 1, name: '친구 많은 모임', type: 'friend' as const, image: '' },
-  { id: 2, name: '어떤 모임', type: 'friend' as const, image: '' },
-  { id: 3, name: '친구 모임', type: 'friend' as const, image: '' },
-  { id: 4, name: '어떤 모임', type: 'friend' as const, image: '' },
-  { id: 5, name: '친구 모임', type: 'friend' as const, image: '' },
-  { id: 6, name: '어떤 모임', type: 'friend' as const, image: '' },
-  { id: 7, name: '친구 모임', type: 'friend' as const, image: '' },
-  { id: 8, name: '어떤 모임', type: 'friend' as const, image: '' },
-  { id: 9, name: '친구 모임', type: 'friend' as const, image: '' },
-  { id: 10, name: '어떤 모임', type: 'friend' as const, image: '' },
+  { id: 1, name: '친구 많은 모임', type: 'FRIEND' as const, image: '' },
+  { id: 2, name: '어떤 모임', type: 'FRIEND' as const, image: '' },
+  { id: 3, name: '친구 모임', type: 'FRIEND' as const, image: '' },
+  { id: 4, name: '어떤 모임', type: 'FRIEND' as const, image: '' },
+  { id: 5, name: '친구 모임', type: 'FRIEND' as const, image: '' },
+  { id: 6, name: '어떤 모임', type: 'FRIEND' as const, image: '' },
+  { id: 7, name: '친구 모임', type: 'FRIEND' as const, image: '' },
+  { id: 8, name: '어떤 모임', type: 'FRIEND' as const, image: '' },
+  { id: 9, name: '친구 모임', type: 'FRIEND' as const, image: '' },
+  { id: 10, name: '어떤 모임', type: 'FRIEND' as const, image: '' },
 ];
 
 export const Default: Story = {
