@@ -1,5 +1,3 @@
-// TODO: 친구 리스트 컴포넌트와 통합 필요
-
 'use client';
 
 import { useState } from 'react';
@@ -8,6 +6,7 @@ import GroupList from '@/src/components/features/groups/GroupList/GroupList';
 import GroupTab, {
   type TabType,
 } from '@/src/components/features/groups/GroupTab/GroupTab';
+import RankingSection from '@/src/components/features/groups/Ranking/RankingSection/RankingSection';
 
 // TODO: 실제 API 연동 필요
 const MOCK_FRIENDS_GROUPS = [
@@ -27,7 +26,7 @@ const GroupsPage = () => {
   const [selectedId, setSelectedId] = useState(MOCK_FRIENDS_GROUPS[0]?.id ?? 0);
 
   return (
-    <div>
+    <div className="flex flex-col h-dvh">
       <GroupTab activeTab={activeTab} onTabChange={setActiveTab} />
       <GroupList
         groups={
@@ -36,6 +35,9 @@ const GroupsPage = () => {
         selectedId={selectedId}
         onSelect={setSelectedId}
       />
+      <div className="bg-g-500 -mx-7.5 px-7.5 py-6 mt-2 flex-1 min-h-0">
+        <RankingSection groupId={selectedId} activeTab={activeTab} />
+      </div>
     </div>
   );
 };
