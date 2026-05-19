@@ -131,3 +131,26 @@
   border: 3px solid transparent;
   background-clip: content-box;
 }
+
+.scrollbar-x-transparent-track {
+  scrollbar-width: thin;
+  scrollbar-color:
+    color-mix(in srgb, var(--color-g-0) 25%, transparent) transparent;
+}
+
+.scrollbar-x-transparent-track::-webkit-scrollbar {
+  height: 4px;
+}
+
+.scrollbar-x-transparent-track::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.scrollbar-x-transparent-track::-webkit-scrollbar-thumb {
+  background-color: color-mix(
+    in srgb,
+    var(--color-g-0) 25%,
+    transparent
+  );
+  border-radius: 999px;
+}

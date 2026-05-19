@@ -2,19 +2,21 @@
 
 This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
+@AGENTS.md
+
 ---
 
 ## Commands
 
 ```bash
-npm run dev          # 개발 서버
-npm run build        # 프로덕션 빌드
-npm run lint         # ESLint 검사
-npm run typecheck    # TypeScript 타입 검사 (tsc --noEmit)
-npm run storybook    # Storybook 실행 (port 6006)
+pnpm dev          # 개발 서버
+pnpm build        # 프로덕션 빌드
+pnpm lint         # ESLint 검사
+pnpm typecheck    # TypeScript 타입 검사 (tsc --noEmit)
+pnpm storybook    # Storybook 실행 (port 6006)
 ```
 
-테스트는 Storybook Vitest 애드온으로 실행하며, 별도의 `npm test` 명령은 없다.
+테스트는 Storybook Vitest 애드온으로 실행하며, 별도의 `pnpm test` 명령은 없다.
 
 ---
 
@@ -50,6 +52,7 @@ src/
 - `/ztpi-test`, `/ztpi/[ztpiTestId]` → ZTPI 성격 테스트
 - `/calendar` → 캘린더
 - `/reflection`, `/reflection/[reflectionId]` → 회고
+- `/groups` → 그룹 회고 (그룹 목록, 향후 `/groups/[groupId]` 상세 확장 가능)
 - `/characters` → 캐릭터 선택
 - `/profile`, `/profile/nickname` → 프로필
 - `/api/proxy/[...path]` → 개발용 API 프록시
@@ -57,6 +60,7 @@ src/
 ### 상태 관리
 
 - **서버 상태**: TanStack React Query v5 — staleTime 기본 1분, DevTools는 개발 모드에서만 활성화
+- **전역 상태**: Zustand v5
 - **로컬 상태**: React 훅 (`useState`, `useRef`)
 - 쿼리 훅은 `src/components/features/[feature]/queries/` 에 위치
 
