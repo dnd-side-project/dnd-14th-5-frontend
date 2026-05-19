@@ -5,7 +5,7 @@ import Image from 'next/image';
 import { cn } from '@/src/lib/helpers/cn';
 
 interface GroupItem {
-  id: string;
+  id: number;
   name: string;
   type: 'friend' | 'character'; //TODO: 임시 타입 정의, 백엔드 정의에 맞춰 수정해야 함
   image: string;
@@ -13,8 +13,8 @@ interface GroupItem {
 
 interface GroupListProps {
   groups: GroupItem[];
-  selectedId?: string;
-  onSelect?: (id: string) => void;
+  selectedId?: number;
+  onSelect?: (id: number) => void;
 }
 
 const GroupList = ({ groups, selectedId, onSelect }: GroupListProps) => {

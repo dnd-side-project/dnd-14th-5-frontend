@@ -8,7 +8,7 @@ import { GROUP_ENDPOINT } from '../constants/url';
 
 const ResponseSchema = z.array(
   z.object({
-    id: z.string(),
+    id: z.number(),
     code: z.string(),
     name: z.string(),
     type: z.string(),
