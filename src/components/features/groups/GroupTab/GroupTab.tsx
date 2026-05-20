@@ -1,15 +1,16 @@
 import { cn } from '@/src/lib/helpers/cn';
 
-export type TabType = 'friend' | 'character';
+import type { GroupType } from '../constants/groupType';
+import { groupType } from '../constants/groupType';
 
-const TABS = [
-  { label: '친구', value: 'friend' },
-  { label: '캐릭터', value: 'character' },
-] as const;
+const TABS: { label: string; value: GroupType }[] = [
+  { label: groupType.FRIEND, value: 'FRIEND' },
+  { label: groupType.CHARACTER, value: 'CHARACTER' },
+];
 
 interface GroupTabProps {
-  activeTab: TabType;
-  onTabChange: (tab: TabType) => void;
+  activeTab: GroupType;
+  onTabChange: (tab: GroupType) => void;
 }
 
 const GroupTab = ({ activeTab, onTabChange }: GroupTabProps) => {

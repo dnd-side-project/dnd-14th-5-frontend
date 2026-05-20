@@ -1,7 +1,8 @@
 import type { Meta, StoryObj } from '@storybook/nextjs-vite';
 import { useState } from 'react';
 
-import GroupTab, { type TabType } from './GroupTab';
+import type { GroupType } from '../constants/groupType';
+import GroupTab from './GroupTab';
 
 const meta = {
   title: 'Features/Groups/GroupTab',
@@ -21,8 +22,8 @@ type Story = StoryObj<typeof meta>;
 
 export const Default: Story = {
   render: () => {
-    const [activeTab, setActiveTab] = useState<TabType>('friend');
+    const [activeTab, setActiveTab] = useState<GroupType>('FRIEND');
     return <GroupTab activeTab={activeTab} onTabChange={setActiveTab} />;
   },
-  args: { activeTab: 'friend' as const, onTabChange: () => {} },
+  args: { activeTab: 'FRIEND' as const, onTabChange: () => {} },
 };

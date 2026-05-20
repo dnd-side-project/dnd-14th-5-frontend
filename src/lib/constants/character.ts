@@ -5,6 +5,7 @@ export interface CharacterAsset {
   color: string;
   resultSrc: string;
   name: string;
+  profileSrc: string;
 }
 
 export const DEFAULT_CHARACTER: CharacterAsset = {
@@ -14,6 +15,7 @@ export const DEFAULT_CHARACTER: CharacterAsset = {
   resultSrc: '/character/result-present-hedonistic.png',
   name: '지금이',
   homeSrc: '/character/home-present-hedonistic.png',
+  profileSrc: '/character/profile-present-hedonistic.png',
 };
 
 export const CATEGORY = [
@@ -34,6 +36,7 @@ export const CATEGORY_CHARACTER_MAP: Record<Category, CharacterAsset> = {
     resultSrc: '/character/result-past-positive.png',
     name: '추억이',
     homeSrc: '/character/home-past-positive.png',
+    profileSrc: '/character/profile-past-positive.png',
   },
   PAST_NEGATIVE: {
     src: '/character/past-negative-shadow.svg',
@@ -42,6 +45,7 @@ export const CATEGORY_CHARACTER_MAP: Record<Category, CharacterAsset> = {
     resultSrc: '/character/result-past-negative.png',
     name: '그늘이',
     homeSrc: '/character/home-past-negative.png',
+    profileSrc: '/character/profile-past-negative.png',
   },
   PRESENT_HEDONISTIC: {
     src: '/character/present-hedonistic-now.svg',
@@ -50,6 +54,7 @@ export const CATEGORY_CHARACTER_MAP: Record<Category, CharacterAsset> = {
     resultSrc: '/character/result-present-hedonistic.png',
     name: '지금이',
     homeSrc: '/character/home-present-hedonistic.png',
+    profileSrc: '/character/profile-present-hedonistic.png',
   },
   PRESENT_FATALISTIC: {
     src: '/character/present-fatalistic-calm.svg',
@@ -58,6 +63,7 @@ export const CATEGORY_CHARACTER_MAP: Record<Category, CharacterAsset> = {
     resultSrc: '/character/result-present-fatalistic.png',
     name: '담담이',
     homeSrc: '/character/home-present-fatalistic.png',
+    profileSrc: '/character/profile-present-fatalistic.png',
   },
   FUTURE: {
     src: '/character/future-oriented-tomorrow.svg',
@@ -66,5 +72,6 @@ export const CATEGORY_CHARACTER_MAP: Record<Category, CharacterAsset> = {
     resultSrc: '/character/result-future-oriented.png',
     name: '내일이',
     homeSrc: '/character/home-future-oriented.png',
+    profileSrc: '/character/profile-future-oriented.png',
   },
 };
