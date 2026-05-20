@@ -25,11 +25,7 @@ const RankingSection = ({
           {activeTab === 'FRIEND' ? groupType.FRIEND : groupType.CHARACTER}
         </p>
 
-        <RankingSort
-          options={SORT_OPTIONS}
-          defaultValue={SORT_OPTIONS[0].value}
-          onChange={setSort}
-        />
+        <RankingSort options={SORT_OPTIONS} value={sort} onChange={setSort} />
       </div>
 
       <div className="flex-1 overflow-y-auto">

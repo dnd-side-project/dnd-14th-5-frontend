@@ -13,17 +13,17 @@ interface RankingSortOption<T extends string> {
 
 interface RankingSortProps<T extends string> {
   options: readonly RankingSortOption<T>[];
-  defaultValue?: T;
+  value: T;
   onChange?: (value: T) => void;
 }
 
 const RankingSort = <T extends string>({
   options,
-  defaultValue,
+  value,
   onChange,
 }: RankingSortProps<T>) => {
   const { ref, selected, selectedLabel, isOpen, toggleOpen, handleSelect } =
-    useRankingSort({ options, defaultValue, onChange });
+    useRankingSort({ options, value, onChange });
 
   return (
     <div ref={ref} className="relative">

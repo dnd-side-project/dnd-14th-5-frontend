@@ -7,28 +7,22 @@ interface RankingSortOption<T extends string> {
 
 interface UseRankingSortProps<T extends string> {
   options: readonly RankingSortOption<T>[];
-  defaultValue?: T;
+  value: T;
   onChange?: (value: T) => void;
 }
 
 export const useRankingSort = <T extends string>({
   options,
-  defaultValue,
+  value,
   onChange,
 }: UseRankingSortProps<T>) => {
-  const [selected, setSelected] = useState<T>(
-    defaultValue ?? options[0]?.value,
-  );
   const [isOpen, setIsOpen] = useState(false);
   const ref = useRef<HTMLDivElement>(null);
 
-  const selectedLabel = options.find(
-    (option) => option.value === selected,
-  )?.label;
+  const selectedLabel = options.find((option) => option.value === value)?.label;
 
-  const handleSelect = (value: T) => {
-    setSelected(value);
-    onChange?.(value);
+  const handleSelect = (selected: T) => {
+    onChange?.(selected);
     setIsOpen(false);
   };
 
@@ -45,5 +39,12 @@ export const useRankingSort = <T extends string>({
     return () => document.removeEventListener('mousedown', handleClickOutside);
   }, []);
 
-  return { ref, selected, selectedLabel, isOpen, toggleOpen, handleSelect };
+  return {
+    ref,
+    selected: value,
+    selectedLabel,
+    isOpen,
+    toggleOpen,
+    handleSelect,
+  };
 };
