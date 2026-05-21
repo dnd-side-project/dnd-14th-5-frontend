@@ -10,7 +10,7 @@ interface GroupItem {
   id: number;
   name: string;
   type: GroupType;
-  image: string;
+  image: string | null;
 }
 
 interface GroupListProps {
