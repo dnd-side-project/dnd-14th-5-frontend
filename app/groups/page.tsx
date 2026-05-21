@@ -4,6 +4,7 @@ import { Suspense, useState } from 'react';
 
 import type { GroupType } from '@/src/components/features/groups/constants/groupType';
 import GroupListSection from '@/src/components/features/groups/GroupListSection/GroupListSection';
+import GroupListSkeleton from '@/src/components/features/groups/GroupListSection/GroupListSkeleton';
 import GroupTab from '@/src/components/features/groups/GroupTab/GroupTab';
 import RankingSection from '@/src/components/features/groups/Ranking/RankingSection/RankingSection';
 
@@ -14,7 +15,7 @@ const GroupsPage = () => {
   return (
     <div className="flex flex-col h-dvh">
       <GroupTab activeTab={activeTab} onTabChange={setActiveTab} />
-      <Suspense fallback={null}>
+      <Suspense fallback={<GroupListSkeleton />}>
         <GroupListSection
           key={activeTab}
           activeTab={activeTab}
