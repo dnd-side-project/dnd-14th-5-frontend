@@ -4,6 +4,7 @@ import {
   type Category,
   CATEGORY_CHARACTER_MAP,
 } from '@/src/lib/constants/character';
+import { cn } from '@/src/lib/helpers/cn';
 
 interface RankingItemProps {
   isExistImg: boolean;
@@ -25,7 +26,14 @@ const RankingItem = ({
 }: RankingItemProps) => {
   return (
     <li className="flex items-center gap-3">
-      <div className="text-primary font-button-l">{ranking}</div>
+      <div
+        className={cn(
+          'font-button-l',
+          ranking <= 3 ? 'text-primary' : 'text-g-0',
+        )}
+      >
+        {ranking}
+      </div>
       {isExistImg && (
         <Image
           // TODO: API 반영 후 nullish 제거
