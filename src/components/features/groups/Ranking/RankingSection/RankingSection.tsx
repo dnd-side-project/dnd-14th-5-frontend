@@ -4,17 +4,20 @@ import { useState } from 'react';
 
 import { SORT_OPTIONS } from '../../constants/groupSort';
 import { type GroupType, groupType } from '../../constants/groupType';
+import type { GroupFriendItem } from '../../queries/useGroupFriendListQuery';
 import RankingList from '../RankingList/RankingList';
 import RankingSort from '../RankingSort/RankingSort';
 
 interface RankingSectionProps {
   activeTab?: GroupType;
   groupId: number;
+  onSelect: (item: GroupFriendItem) => void;
 }
 
 const RankingSection = ({
   activeTab = 'FRIEND',
   groupId,
+  onSelect,
 }: RankingSectionProps) => {
   const [sort, setSort] = useState(SORT_OPTIONS[0].value);
 
@@ -29,7 +32,12 @@ const RankingSection = ({
       </div>
 
       <div className="flex-1 overflow-y-auto pb-24">
-        <RankingList groupId={groupId} sort={sort} activeTab={activeTab} />
+        <RankingList
+          groupId={groupId}
+          sort={sort}
+          activeTab={activeTab}
+          onSelect={onSelect}
+        />
       </div>
     </section>
   );

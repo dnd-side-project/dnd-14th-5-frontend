@@ -3,6 +3,7 @@ import Skeleton from '@/src/components/ui/Skeleton/Skeleton';
 
 import type { SortValue } from '../../constants/groupSort';
 import type { GroupType } from '../../constants/groupType';
+import type { GroupFriendItem } from '../../queries/useGroupFriendListQuery';
 import { useGroupFriendListQuery } from '../../queries/useGroupFriendListQuery';
 import RankingItem from '../RankingItem/RankingItem';
 
@@ -10,9 +11,15 @@ interface RankingListProps {
   groupId: number;
   sort: SortValue;
   activeTab: GroupType;
+  onSelect: (item: GroupFriendItem) => void;
 }
 
-const RankingList = ({ groupId, sort, activeTab }: RankingListProps) => {
+const RankingList = ({
+  groupId,
+  sort,
+  activeTab,
+  onSelect,
+}: RankingListProps) => {
   const { data, isError, isPending } = useGroupFriendListQuery({
     groupId,
     sort,
@@ -50,6 +57,7 @@ const RankingList = ({ groupId, sort, activeTab }: RankingListProps) => {
           ranking={index + 1}
           // TODO: API 반영 후 변경 필요
           ztpiCharacter={'FUTURE'}
+          onClick={() => onSelect(item)}
         />
       ))}
     </ul>

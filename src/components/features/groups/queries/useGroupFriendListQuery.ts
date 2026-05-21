@@ -8,7 +8,7 @@ import { sortValueSchema } from '../constants/groupSort';
 import { groupKeys } from '../constants/queryKey';
 import { GROUP_ENDPOINT } from '../constants/url';
 
-const GroupFriendListSchema = z.object({
+export const GroupFriendListSchema = z.object({
   userId: z.number(),
   nickname: z.string(),
   questionContent: z.string(),
@@ -18,6 +18,7 @@ const GroupFriendListSchema = z.object({
   totalDays: z.number(),
 });
 const ResponseSchema = z.array(GroupFriendListSchema);
+export type GroupFriendItem = z.infer<typeof GroupFriendListSchema>;
 type ResponseType = z.infer<typeof ResponseSchema>;
 
 const ParamsSchema = z.object({
