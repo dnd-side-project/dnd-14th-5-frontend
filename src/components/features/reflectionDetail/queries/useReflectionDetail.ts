@@ -16,6 +16,8 @@ const QuestionSchema = z.object({
   sequence: z.number(),
 });
 
+export type QuestionType = z.infer<typeof QuestionSchema>;
+
 const FeedbackSchema = z.object({
   content: z.string().nullable(),
   createdAt: z.coerce.date(),
@@ -24,6 +26,8 @@ const FeedbackSchema = z.object({
   score: z.number(),
   status: z.string(),
 });
+
+export type FeedbackType = z.infer<typeof FeedbackSchema>;
 
 const ResponseSchema = z.object({
   id: z.number(),
