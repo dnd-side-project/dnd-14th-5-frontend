@@ -27,6 +27,12 @@ const bottomTabs: BottomTabItem[] = [
     href: '/',
   },
   {
+    key: 'groups',
+    activeIconName: 'groupsActive',
+    inactiveIconName: 'groupsInactive',
+    href: '/groups',
+  },
+  {
     key: 'profile',
     activeIconName: 'userActive',
     inactiveIconName: 'userInactive',
