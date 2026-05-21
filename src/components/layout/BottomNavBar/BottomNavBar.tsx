@@ -48,7 +48,7 @@ const BottomNavBar = () => {
   return (
     <div className="fixed bottom-6 left-1/2 z-10 w-full max-w-110 -translate-x-1/2 px-5">
       <div className="flex items-center justify-center">
-        <div className="flex w-full items-center justify-between rounded-full bg-g-500 px-6 py-3">
+        <div className="flex w-full items-center justify-between rounded-full bg-g-0/10 backdrop-blur-[50px] px-6 py-3">
           {bottomTabs.map((tab) => (
             <BottomNavButton
               key={tab.key}
