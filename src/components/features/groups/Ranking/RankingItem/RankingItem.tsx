@@ -12,8 +12,7 @@ interface RankingItemProps {
   answerText: string;
   streakDays: number;
   ranking: number;
-  // TODO: 사용자의 ZTPI 캐릭터 필요
-  ztpiCharacter?: Category;
+  userCategory: Category;
   onClick: () => void;
 }
 
@@ -23,7 +22,7 @@ const RankingItem = ({
   answerText,
   streakDays,
   ranking,
-  ztpiCharacter,
+  userCategory,
   onClick,
 }: RankingItemProps) => {
   return (
@@ -38,8 +37,7 @@ const RankingItem = ({
       </div>
       {isExistImg && (
         <Image
-          // TODO: API 반영 후 nullish 제거
-          src={CATEGORY_CHARACTER_MAP[ztpiCharacter ?? 'FUTURE'].profileSrc}
+          src={CATEGORY_CHARACTER_MAP[userCategory].profileSrc}
           width="50"
           height="50"
           alt="프로필"

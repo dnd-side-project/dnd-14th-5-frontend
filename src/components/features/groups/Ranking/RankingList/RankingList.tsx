@@ -55,8 +55,7 @@ const RankingList = ({
           answerText={item.answerText}
           streakDays={item.streakDays}
           ranking={index + 1}
-          // TODO: API 반영 후 변경 필요
-          ztpiCharacter={'FUTURE'}
+          userCategory={item.userCategory}
           onClick={() => onSelect(item)}
         />
       ))}
