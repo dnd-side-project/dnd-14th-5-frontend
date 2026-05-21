@@ -22,7 +22,7 @@ interface GroupListProps {
 const GroupList = ({ groups, selectedId, onSelect }: GroupListProps) => {
   return (
     <div className="flex gap-4 overflow-x-auto py-2 scrollbar-x-transparent-track">
-      {groups.map((item) => {
+      {groups.map((item, idx) => {
         const isSelected = selectedId === item.id;
         return (
           <button
@@ -39,6 +39,7 @@ const GroupList = ({ groups, selectedId, onSelect }: GroupListProps) => {
                 width={55}
                 height={55}
                 className="rounded-[10px]"
+                priority={idx < 5}
               />
               {!isSelected && (
                 <div className="absolute inset-0 rounded-[10px] bg-g-900/60" />
