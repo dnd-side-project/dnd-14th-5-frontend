@@ -21,7 +21,7 @@ interface GroupListProps {
 
 const GroupList = ({ groups, selectedId, onSelect }: GroupListProps) => {
   return (
-    <div className="flex gap-4 overflow-x-auto py-2 scrollbar-x-transparent-track">
+    <div className="flex h-28 items-center gap-4 overflow-x-auto scrollbar-x-transparent-track">
       {groups.map((item, idx) => {
         const isSelected = selectedId === item.id;
         return (
@@ -47,7 +47,7 @@ const GroupList = ({ groups, selectedId, onSelect }: GroupListProps) => {
             </div>
             <p
               className={cn(
-                'font-caption-n break-keep text-center',
+                'font-caption-n line-clamp-2 text-center',
                 isSelected ? 'text-g-0' : 'text-g-80',
               )}
             >
