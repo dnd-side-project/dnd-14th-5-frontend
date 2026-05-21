@@ -4,6 +4,7 @@ import { z } from 'zod';
 import { get } from '@/src/lib/api';
 import { CATEGORY } from '@/src/lib/constants/character';
 
+import { groupTypeSchema } from '../constants/groupType';
 import { groupKeys } from '../constants/queryKey';
 import { GROUP_ENDPOINT } from '../constants/url';
 
@@ -11,7 +12,7 @@ const ResponseSchema = z.array(
   z.object({
     id: z.number(),
     name: z.string(),
-    type: z.enum(['FRIEND', 'CHARACTER']),
+    type: groupTypeSchema,
     image: z.string().nullable(),
     category: z.enum(CATEGORY).nullable(),
     memberCount: z.number(),
