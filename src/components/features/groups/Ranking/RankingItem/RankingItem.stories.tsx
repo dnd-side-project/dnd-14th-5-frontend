@@ -10,6 +10,9 @@ const meta = {
     viewport: { defaultViewport: 'mobile1' },
   },
   tags: ['autodocs'],
+  args: {
+    userCategory: 'PRESENT_HEDONISTIC',
+  },
   decorators: [
     (Story) => (
       <ul className="p-4">

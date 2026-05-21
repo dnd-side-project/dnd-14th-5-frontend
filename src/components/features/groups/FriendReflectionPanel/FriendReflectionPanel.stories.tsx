@@ -1,5 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/nextjs-vite';
 
+import type { GroupFriendItem } from '@/src/components/features/groups/queries/useGroupFriendListQuery';
+
 import FriendReflectionPanel from './FriendReflectionPanel';
 
 const meta = {
@@ -18,11 +20,12 @@ const meta = {
 export default meta;
 type Story = StoryObj<typeof meta>;
 
-const mockFriend = {
+const mockFriend: GroupFriendItem = {
   userId: 1,
   nickname: '지민',
   questionContent: '오늘 하루 중 가장 기억에 남는 순간은 무엇인가요?',
-  questionCategory: 'PRESENT_HEDONISTIC' as const,
+  questionCategory: 'PRESENT_HEDONISTIC',
+  userCategory: 'PRESENT_HEDONISTIC',
   answerText:
     '오늘은 오랜 친구를 만나서 함께 카페에서 이야기를 나눴어요. 별거 아닌 일상 얘기였지만 정말 즐거웠고 많이 웃었습니다.',
   streakDays: 14,
