@@ -14,6 +14,7 @@ interface RankingItemProps {
   ranking: number;
   // TODO: 사용자의 ZTPI 캐릭터 필요
   ztpiCharacter?: Category;
+  onClick: () => void;
 }
 
 const RankingItem = ({
@@ -23,9 +24,10 @@ const RankingItem = ({
   streakDays,
   ranking,
   ztpiCharacter,
+  onClick,
 }: RankingItemProps) => {
   return (
-    <li className="flex items-center gap-3">
+    <li className="flex items-center gap-3 cursor-pointer" onClick={onClick}>
       <div
         className={cn(
           'font-button-l',
