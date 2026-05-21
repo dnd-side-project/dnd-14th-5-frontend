@@ -26,33 +26,39 @@ const RankingItem = ({
   onClick,
 }: RankingItemProps) => {
   return (
-    <li className="flex items-center gap-3 cursor-pointer" onClick={onClick}>
-      <div
-        className={cn(
-          'font-button-l',
-          ranking <= 3 ? 'text-primary' : 'text-g-0',
-        )}
+    <li>
+      <button
+        type="button"
+        className="flex items-center gap-3 w-full cursor-pointer text-left"
+        onClick={onClick}
       >
-        {ranking}
-      </div>
-      {isExistImg && (
-        <Image
-          src={CATEGORY_CHARACTER_MAP[userCategory].profileSrc}
-          width="50"
-          height="50"
-          alt="프로필"
-        />
-      )}
+        <div
+          className={cn(
+            'font-button-l',
+            ranking <= 3 ? 'text-primary' : 'text-g-0',
+          )}
+        >
+          {ranking}
+        </div>
+        {isExistImg && (
+          <Image
+            src={CATEGORY_CHARACTER_MAP[userCategory].profileSrc}
+            width="50"
+            height="50"
+            alt="프로필"
+          />
+        )}
 
-      <div className="min-w-0 flex-1 space-y-1">
-        <p className="font-label-n text-g-0">{nickname}</p>
-        <p className="font-caption-n text-g-60 truncate">{answerText}</p>
-      </div>
+        <div className="min-w-0 flex-1 space-y-1">
+          <p className="font-label-n text-g-0">{nickname}</p>
+          <p className="font-caption-n text-g-60 truncate">{answerText}</p>
+        </div>
 
-      <div>
-        <span className="font-label-n text-g-80">{streakDays}</span>
-        <span className="font-caption-n text-g-80">일</span>
-      </div>
+        <div>
+          <span className="font-label-n text-g-80">{streakDays}</span>
+          <span className="font-caption-n text-g-80">일</span>
+        </div>
+      </button>
     </li>
   );
 };
