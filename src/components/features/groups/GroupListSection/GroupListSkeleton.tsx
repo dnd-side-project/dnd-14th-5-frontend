@@ -1,7 +1,7 @@
 import Skeleton from '@/src/components/ui/Skeleton/Skeleton';
 
 const GroupListSkeleton = () => (
-  <div className="flex h-28 items-center gap-4 overflow-x-auto">
+  <div className="flex h-28 items-start pt-4 gap-4 overflow-x-auto">
     {Array.from({ length: 4 }).map((_, index) => (
       <div
         key={index}

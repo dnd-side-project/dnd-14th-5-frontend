@@ -33,10 +33,15 @@ const groups = [
 ];
 
 const longNameGroups = [
-  { id: 1, name: '친구많은모임이름입니다', type: 'FRIEND' as const, image: '' },
+  {
+    id: 1,
+    name: '친구정말많은모임이름입니다',
+    type: 'FRIEND' as const,
+    image: '',
+  },
   {
     id: 2,
-    name: '우리들의 아주 긴 모임 이름',
+    name: '우리들의 아주 긴 모임 이름 입니다 친구가 정말정말 많아요',
     type: 'FRIEND' as const,
     image: '',
   },
