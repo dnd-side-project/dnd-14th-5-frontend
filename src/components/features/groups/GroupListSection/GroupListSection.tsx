@@ -9,7 +9,7 @@ import type { GroupType } from '../constants/groupType';
 
 interface GroupListSectionProps {
   activeTab: GroupType;
-  onGroupSelect: (id: number) => void;
+  onGroupSelect: (id: number | null) => void;
 }
 
 const GroupListSection = ({
@@ -19,10 +19,12 @@ const GroupListSection = ({
   const { data: groups } = useSuspenseGroupListQuery();
 
   const filteredGroups = groups.filter((g) => g.type === activeTab);
-  const [selectedId, setSelectedId] = useState(filteredGroups[0]?.id ?? 0);
+  const [selectedId, setSelectedId] = useState<number | null>(
+    filteredGroups[0]?.id ?? null,
+  );
 
   useEffect(() => {
-    onGroupSelect(filteredGroups[0]?.id ?? 0);
+    onGroupSelect(filteredGroups[0]?.id ?? null);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -46,7 +48,7 @@ const GroupListSection = ({
     <section>
       <GroupList
         groups={filteredGroups}
-        selectedId={selectedId}
+        selectedId={selectedId ?? undefined}
         onSelect={handleSelect}
       />
     </section>
