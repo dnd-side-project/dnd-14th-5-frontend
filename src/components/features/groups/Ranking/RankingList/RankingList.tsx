@@ -52,11 +52,11 @@ const RankingList = ({
           isExistImg={activeTab === 'FRIEND'}
           key={item.userId}
           nickname={item.nickname}
-          answerText={item.answerText}
+          answerText={item.answerText ?? ''}
           streakDays={item.streakDays}
           ranking={index + 1}
           userCategory={item.userCategory}
-          onClick={() => onSelect(item)}
+          onClick={() => item.answerText && onSelect(item)}
         />
       ))}
     </ul>

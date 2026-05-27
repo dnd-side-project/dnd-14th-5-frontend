@@ -29,6 +29,18 @@ const FriendReflectionPanel = ({
     if (friend !== null) setDisplayFriend(friend);
   }
 
+  const reflectionDetail =
+    displayFriend?.questionCategory &&
+    displayFriend.questionContent &&
+    displayFriend.answerText
+      ? {
+          questionCategory: displayFriend.questionCategory,
+          questionContent: displayFriend.questionContent,
+          answerText: displayFriend.answerText,
+          nickname: displayFriend.nickname,
+        }
+      : null;
+
   return (
     <div
       className={cn(
@@ -45,12 +57,12 @@ const FriendReflectionPanel = ({
             className="-mx-7.5 px-5"
           />
 
-          {displayFriend && (
+          {reflectionDetail && (
             <Detail
-              questionCategory={displayFriend.questionCategory}
-              questionContent={displayFriend.questionContent}
-              answerContent={displayFriend.answerText}
-              friendNickname={displayFriend.nickname}
+              questionCategory={reflectionDetail.questionCategory}
+              questionContent={reflectionDetail.questionContent}
+              answerContent={reflectionDetail.answerText}
+              friendNickname={reflectionDetail.nickname}
             />
           )}
         </div>
