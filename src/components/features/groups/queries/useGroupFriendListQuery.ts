@@ -11,9 +11,9 @@ import { GROUP_ENDPOINT } from '../constants/url';
 export const GroupFriendListSchema = z.object({
   userId: z.number(),
   nickname: z.string(),
-  questionContent: z.string(),
-  questionCategory: z.enum(CATEGORY),
-  answerText: z.string(),
+  questionContent: z.string().nullable(),
+  questionCategory: z.enum(CATEGORY).nullable(),
+  answerText: z.string().nullable(),
   streakDays: z.number(),
   totalDays: z.number(),
   userCategory: z.enum(CATEGORY),
