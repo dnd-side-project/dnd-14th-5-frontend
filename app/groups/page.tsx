@@ -6,6 +6,7 @@ import type { GroupType } from '@/src/components/features/groups/constants/group
 import GroupList from '@/src/components/features/groups/GroupList/GroupList';
 import GroupTab from '@/src/components/features/groups/GroupTab/GroupTab';
 import RankingSection from '@/src/components/features/groups/Ranking/RankingSection/RankingSection';
+import BottomNavBar from '@/src/components/layout/BottomNavBar/BottomNavBar';
 
 // TODO: 실제 API 연동 필요
 const MOCK_FRIENDS_GROUPS = [
@@ -37,6 +38,8 @@ const GroupsPage = () => {
       <div className="bg-g-500 -mx-7.5 px-7.5 py-6 mt-2 flex-1 min-h-0">
         <RankingSection groupId={selectedId} activeTab={activeTab} />
       </div>
+
+      <BottomNavBar />
     </div>
   );
 };
