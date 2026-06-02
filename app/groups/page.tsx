@@ -1,3 +1,14 @@
 export const dynamic = 'force-dynamic';
 
-export { default } from './GroupsPageClient';
+import BottomNavBar from '@/src/components/layout/BottomNavBar/BottomNavBar';
+
+import GroupsPageClient from './GroupsPageClient';
+
+export default function Page() {
+  return (
+    <>
+      <GroupsPageClient />
+      <BottomNavBar />
+    </>
+  );
+}
