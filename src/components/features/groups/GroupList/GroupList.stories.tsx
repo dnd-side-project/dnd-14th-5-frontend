@@ -32,6 +32,22 @@ const groups = [
   { id: 10, name: '어떤 모임', type: 'FRIEND' as const, image: '' },
 ];
 
+const longNameGroups = [
+  {
+    id: 1,
+    name: '친구정말많은모임이름입니다',
+    type: 'FRIEND' as const,
+    image: '',
+  },
+  {
+    id: 2,
+    name: '우리들의 아주 긴 모임 이름 입니다 친구가 정말정말 많아요',
+    type: 'FRIEND' as const,
+    image: '',
+  },
+  { id: 3, name: '짧은 모임', type: 'FRIEND' as const, image: '' },
+];
+
 export const Default: Story = {
   render: () => {
     const [selectedId, setSelectedId] = useState(1);
@@ -44,4 +60,18 @@ export const Default: Story = {
     );
   },
   args: { groups },
+};
+
+export const LongName: Story = {
+  render: () => {
+    const [selectedId, setSelectedId] = useState(1);
+    return (
+      <GroupList
+        groups={longNameGroups}
+        selectedId={selectedId}
+        onSelect={setSelectedId}
+      />
+    );
+  },
+  args: { groups: longNameGroups },
 };

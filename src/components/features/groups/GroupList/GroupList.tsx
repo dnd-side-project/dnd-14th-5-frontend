@@ -10,7 +10,7 @@ interface GroupItem {
   id: number;
   name: string;
   type: GroupType;
-  image: string;
+  image: string | null;
 }
 
 interface GroupListProps {
@@ -21,8 +21,8 @@ interface GroupListProps {
 
 const GroupList = ({ groups, selectedId, onSelect }: GroupListProps) => {
   return (
-    <div className="flex gap-4 overflow-x-auto py-2 scrollbar-x-transparent-track">
-      {groups.map((item) => {
+    <div className="flex h-28 items-start pt-4 gap-4 overflow-x-auto overflow-y-hidden scrollbar-hidden">
+      {groups.map((item, idx) => {
         const isSelected = selectedId === item.id;
         return (
           <button
@@ -39,6 +39,7 @@ const GroupList = ({ groups, selectedId, onSelect }: GroupListProps) => {
                 width={55}
                 height={55}
                 className="rounded-[10px]"
+                priority={idx < 5}
               />
               {!isSelected && (
                 <div className="absolute inset-0 rounded-[10px] bg-g-900/60" />
@@ -46,7 +47,7 @@ const GroupList = ({ groups, selectedId, onSelect }: GroupListProps) => {
             </div>
             <p
               className={cn(
-                'font-caption-n break-keep text-center',
+                'font-caption-n line-clamp-2 text-center',
                 isSelected ? 'text-g-0' : 'text-g-80',
               )}
             >

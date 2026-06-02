@@ -15,7 +15,7 @@ interface GroupTabProps {
 
 const GroupTab = ({ activeTab, onTabChange }: GroupTabProps) => {
   return (
-    <div className="flex py-2">
+    <div className="flex py-1">
       {TABS.map((tab) => (
         <button
           key={tab.value}
