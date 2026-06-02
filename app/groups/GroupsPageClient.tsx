@@ -14,6 +14,11 @@ const GroupsPageClient = () => {
   const [activeTab, setActiveTab] = useState<GroupType>('FRIEND');
   const [selectedGroupId, setSelectedGroupId] = useState<number | null>(null);
 
+  const handleTabChange = (tab: GroupType) => {
+    setActiveTab(tab);
+    setSelectedGroupId(null);
+  };
+
   return (
     <div className="flex flex-col h-dvh">
       <PageHeader
@@ -24,7 +29,7 @@ const GroupsPageClient = () => {
         className="fixed top-0 left-1/2 z-50 w-full max-w-110 -translate-x-1/2 bg-g-700 px-5"
       />
       <div className="pt-14 flex flex-col flex-1 min-h-0">
-        <GroupTab activeTab={activeTab} onTabChange={setActiveTab} />
+        <GroupTab activeTab={activeTab} onTabChange={handleTabChange} />
         <Suspense fallback={<GroupListSkeleton />}>
           <GroupListSection
             key={activeTab}
@@ -32,11 +37,11 @@ const GroupsPageClient = () => {
             onGroupSelect={setSelectedGroupId}
           />
         </Suspense>
-        {selectedGroupId !== null && (
+        {selectedGroupId !== null ? (
           <div className="bg-g-500 -mx-7.5 px-7.5 py-6 mt-2 flex-1 min-h-0">
             <RankingSection groupId={selectedGroupId} activeTab={activeTab} />
           </div>
-        )}
+        ) : null}
       </div>
     </div>
   );
