@@ -21,6 +21,8 @@ const allIcons = {
   alert: '/icons/alert-fill.svg',
   checkCircle: '/icons/check-circle-fill.svg',
   check: '/icons/check-fill.svg',
+  groupsActive: '/icons/groups-active.svg',
+  groupsInactive: '/icons/groups-inactive.svg',
 } as const;
 
 export default allIcons;
