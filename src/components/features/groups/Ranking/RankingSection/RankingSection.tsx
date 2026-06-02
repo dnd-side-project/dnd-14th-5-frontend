@@ -28,7 +28,7 @@ const RankingSection = ({
         <RankingSort options={SORT_OPTIONS} value={sort} onChange={setSort} />
       </div>
 
-      <div className="flex-1 overflow-y-auto">
+      <div className="flex-1 overflow-y-auto pb-24">
         <RankingList groupId={groupId} sort={sort} activeTab={activeTab} />
       </div>
     </section>
