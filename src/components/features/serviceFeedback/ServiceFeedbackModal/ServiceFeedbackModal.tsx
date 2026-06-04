@@ -10,9 +10,11 @@ import { cn } from '@/src/lib/helpers/cn';
 import { usePostServiceFeedbackQuery } from '../queries/usePostServiceFeedbacksQuery';
 import StarRating from '../StarRating/StarRating';
 
-const ServiceFeedbackModal = () => {
-  const [isOpen, setIsOpen] = useState(true);
+interface ServiceFeedbackModalProps {
+  onDismiss: () => void;
+}
 
+const ServiceFeedbackModal = ({ onDismiss }: ServiceFeedbackModalProps) => {
   const [rating, setRating] = useState(0);
   const [feedback, setFeedback] = useState('');
 
@@ -33,7 +35,7 @@ const ServiceFeedbackModal = () => {
       { serviceRating: rating, serviceFeedback: feedback },
       {
         onSuccess: () => {
-          setIsOpen(false);
+          onDismiss();
           showToast({ message: '답변이 제출되었습니다.' });
         },
         onError: () => setSubmitError(true),
@@ -42,7 +44,7 @@ const ServiceFeedbackModal = () => {
   };
 
   return (
-    <Modal isOpen={isOpen} onClose={() => setIsOpen(false)}>
+    <Modal isOpen onClose={onDismiss}>
       <section className="space-y-6">
         <div className="text-center space-y-3">
           <h3 className="font-heading-h3 text-g-0">
@@ -80,7 +82,7 @@ const ServiceFeedbackModal = () => {
             label="나중에 하기"
             variant="secondary"
             className="bg-transparent backdrop-blur-[50px]"
-            onClick={() => setIsOpen(false)}
+            onClick={onDismiss}
           />
           <Button label="의견 보내기" onClick={handleSubmit} />
         </div>
