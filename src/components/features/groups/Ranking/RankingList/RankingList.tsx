@@ -1,5 +1,6 @@
 import ErrorState from '@/src/components/ui/ErrorState/ErrorState';
 import Skeleton from '@/src/components/ui/Skeleton/Skeleton';
+import { useToast } from '@/src/hooks/useToast';
 
 import type { SortValue } from '../../constants/groupSort';
 import type { GroupType } from '../../constants/groupType';
@@ -20,6 +21,19 @@ const RankingList = ({
   activeTab,
   onSelect,
 }: RankingListProps) => {
+  const { showToast } = useToast();
+
+  const handleSelect = (item: GroupFriendItem) => {
+    if (!item.answerText) {
+      showToast({
+        message: '아직 회고를 작성하지 않았어요.',
+        variant: 'alert',
+      });
+      return;
+    }
+    onSelect(item);
+  };
+
   const { data, isError, isPending } = useGroupFriendListQuery({
     groupId,
     sort,
@@ -56,7 +70,7 @@ const RankingList = ({
           streakDays={item.streakDays}
           ranking={index + 1}
           userCategory={item.userCategory}
-          onClick={() => item.answerText && onSelect(item)}
+          onClick={() => handleSelect(item)}
         />
       ))}
     </ul>
