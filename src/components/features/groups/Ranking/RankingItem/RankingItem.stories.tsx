@@ -10,6 +10,9 @@ const meta = {
     viewport: { defaultViewport: 'mobile1' },
   },
   tags: ['autodocs'],
+  args: {
+    userCategory: 'PRESENT_HEDONISTIC',
+  },
   decorators: [
     (Story) => (
       <ul className="p-4">
@@ -30,6 +33,7 @@ export const WithImage: Story = {
     answerText:
       '오늘 하루도 열심히 살았어요. 회고를 통해 많은 것을 배웠습니다.',
     streakDays: 30,
+    onClick: () => {},
   },
 };
 
@@ -40,6 +44,7 @@ export const WithoutImage: Story = {
     nickname: '수진',
     answerText: '새로운 목표를 세웠어요.',
     streakDays: 15,
+    onClick: () => {},
   },
 };
 
@@ -51,5 +56,6 @@ export const LongAnswerText: Story = {
     answerText:
       '오늘은 정말 긴 회고 내용을 작성했습니다. 이렇게 긴 텍스트는 말줄임표로 잘려서 표시되어야 합니다.',
     streakDays: 7,
+    onClick: () => {},
   },
 };

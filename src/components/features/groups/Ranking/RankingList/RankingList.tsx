@@ -1,8 +1,10 @@
 import ErrorState from '@/src/components/ui/ErrorState/ErrorState';
 import Skeleton from '@/src/components/ui/Skeleton/Skeleton';
+import { useToast } from '@/src/hooks/useToast';
 
 import type { SortValue } from '../../constants/groupSort';
 import type { GroupType } from '../../constants/groupType';
+import type { GroupFriendItem } from '../../queries/useGroupFriendListQuery';
 import { useGroupFriendListQuery } from '../../queries/useGroupFriendListQuery';
 import RankingItem from '../RankingItem/RankingItem';
 
@@ -10,9 +12,28 @@ interface RankingListProps {
   groupId: number;
   sort: SortValue;
   activeTab: GroupType;
+  onSelect: (item: GroupFriendItem) => void;
 }
 
-const RankingList = ({ groupId, sort, activeTab }: RankingListProps) => {
+const RankingList = ({
+  groupId,
+  sort,
+  activeTab,
+  onSelect,
+}: RankingListProps) => {
+  const { showToast } = useToast();
+
+  const handleSelect = (item: GroupFriendItem) => {
+    if (!item.answerText) {
+      showToast({
+        message: '아직 회고를 작성하지 않았어요.',
+        variant: 'alert',
+      });
+      return;
+    }
+    onSelect(item);
+  };
+
   const { data, isError, isPending } = useGroupFriendListQuery({
     groupId,
     sort,
@@ -45,11 +66,11 @@ const RankingList = ({ groupId, sort, activeTab }: RankingListProps) => {
           isExistImg={activeTab === 'FRIEND'}
           key={item.userId}
           nickname={item.nickname}
-          answerText={item.answerText}
+          answerText={item.answerText ?? ''}
           streakDays={item.streakDays}
           ranking={index + 1}
-          // TODO: API 반영 후 변경 필요
-          ztpiCharacter={'FUTURE'}
+          userCategory={item.userCategory}
+          onClick={() => handleSelect(item)}
         />
       ))}
     </ul>

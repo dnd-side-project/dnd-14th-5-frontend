@@ -1,4 +1,4 @@
-import Detail from '@/src/components/features/reflectionDetail/Detail/Detail';
+import ReflectionDetailClient from '@/src/components/features/reflectionDetail/Detail/ReflectionDetailClient';
 import Header from '@/src/components/features/reflectionDetail/Header/Header';
 import BottomNavBar from '@/src/components/layout/BottomNavBar/BottomNavBar';
 
@@ -14,7 +14,7 @@ const Page = async ({ params }: PageProps) => {
   return (
     <div className="space-y-10 pb-20">
       <Header />
-      <Detail reflectionId={+reflectionId} />
+      <ReflectionDetailClient reflectionId={+reflectionId} />
       <BottomNavBar />
     </div>
   );
