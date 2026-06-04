@@ -15,16 +15,16 @@ interface BottomTabItem {
 
 const bottomTabs: BottomTabItem[] = [
   {
-    key: 'calendar',
-    activeIconName: 'calendarActive',
-    inactiveIconName: 'calendarInactive',
-    href: '/calendar',
-  },
-  {
     key: 'home',
     activeIconName: 'homeActive',
     inactiveIconName: 'homeInactive',
     href: '/',
+  },
+  {
+    key: 'calendar',
+    activeIconName: 'calendarActive',
+    inactiveIconName: 'calendarInactive',
+    href: '/calendar',
   },
   {
     key: 'groups',
