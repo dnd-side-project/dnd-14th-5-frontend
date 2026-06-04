@@ -5,6 +5,7 @@ import { useState } from 'react';
 import Button from '@/src/components/ui/Button/Button';
 import Modal from '@/src/components/ui/Modal/Modal';
 import { useToast } from '@/src/hooks/useToast';
+import { isApiError } from '@/src/lib/api/error';
 import { cn } from '@/src/lib/helpers/cn';
 
 import { usePostServiceFeedbackQuery } from '../queries/usePostServiceFeedbacksQuery';
@@ -38,7 +39,17 @@ const ServiceFeedbackModal = ({ onDismiss }: ServiceFeedbackModalProps) => {
           onDismiss();
           showToast({ message: '답변이 제출되었습니다.' });
         },
-        onError: () => setSubmitError(true),
+        onError: (error) => {
+          if (isApiError(error) && error.status === 409) {
+            onDismiss();
+            showToast({
+              message: '이미 피드백을 제출하셨습니다.',
+              variant: 'alert',
+            });
+            return;
+          }
+          setSubmitError(true);
+        },
       },
     );
   };
