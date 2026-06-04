@@ -11,7 +11,7 @@ const Header = () => {
 
   return (
     <PageHeader
-      title="나의 기록"
+      title="나의 회고"
       leftIcon={<Icon name="chevronLeft" size={25} />}
       onLeftClick={() => goBackOrHome(router)}
       className="-mx-7.5 px-5"

@@ -32,7 +32,7 @@ const Detail = ({
   return (
     <article className="space-y-10">
       <section className="space-y-5">
-        <Badge>{friendNickname ? friendNickname : '나'}의 기록</Badge>
+        <Badge>{friendNickname ? friendNickname : '나'}의 회고</Badge>
 
         <h1 className="font-heading-h4 text-primary">{questionContent}</h1>
         <p className="font-body-s text-g-60">{answerContent}</p>

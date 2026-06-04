@@ -51,7 +51,7 @@ const FriendReflectionPanel = ({
       <div className="max-w-110 mx-auto h-full px-7.5 overflow-y-auto">
         <div className="space-y-10 pb-20">
           <PageHeader
-            title="친구 기록"
+            title="친구 회고"
             leftIcon={<Icon name="chevronLeft" size={25} />}
             onLeftClick={onClose}
             className="-mx-7.5 px-5"
