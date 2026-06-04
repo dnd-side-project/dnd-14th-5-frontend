@@ -22,11 +22,13 @@ const ServiceFeedbackModal = ({ onDismiss }: ServiceFeedbackModalProps) => {
   const [feedbackError, setFeedbackError] = useState(false);
   const [submitError, setSubmitError] = useState(false);
 
-  const { mutate } = usePostServiceFeedbackQuery();
+  const { mutate, isPending } = usePostServiceFeedbackQuery();
   const { showToast } = useToast();
 
   const handleSubmit = () => {
-    if (feedback === '') {
+    if (isPending) return;
+
+    if (feedback.trim() === '') {
       setFeedbackError(true);
       return;
     }
@@ -95,7 +97,11 @@ const ServiceFeedbackModal = ({ onDismiss }: ServiceFeedbackModalProps) => {
             className="bg-transparent backdrop-blur-[50px]"
             onClick={onDismiss}
           />
-          <Button label="의견 보내기" onClick={handleSubmit} />
+          <Button
+            label="의견 보내기"
+            onClick={handleSubmit}
+            disabled={isPending}
+          />
         </div>
       </section>
     </Modal>
