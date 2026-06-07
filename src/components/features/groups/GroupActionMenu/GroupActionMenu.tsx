@@ -18,7 +18,7 @@ const GroupActionMenu = ({ activeTab, onClose }: GroupActionMenuProps) => {
   return (
     <>
       <div className="fixed inset-0 z-40" onClick={onClose} />
-      <div className="fixed top-14 right-5 z-50 w-44 rounded-2xl bg-g-500 py-1 shadow-lg">
+      <div className="fixed top-14 right-[max(1.25rem,calc((100vw-27.5rem)/2+1.25rem))] z-50 w-44 rounded-2xl bg-g-500 py-1 shadow-lg">
         <Link
           href={`/groups/create?type=${activeTab}`}
           className="block w-full px-4 py-3 text-left font-button-s text-g-40 hover:bg-g-400/20"
