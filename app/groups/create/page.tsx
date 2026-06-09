@@ -1,12 +1,19 @@
 import Link from 'next/link';
 
+import { groupTypeSchema } from '@/src/components/features/groups/constants/groupType';
 import GroupCreateForm from '@/src/components/features/groups/GroupCreateForm/GroupCreateForm';
-import BottomCTA from '@/src/components/layout/BottomCTA/BottomCTA';
 import PageHeader from '@/src/components/layout/PageHeader/PageHeader';
-import Button from '@/src/components/ui/Button/Button';
 import Icon from '@/src/components/ui/Icon/Icon';
 
-export default function Page() {
+interface PageProps {
+  searchParams: Promise<{ type?: string }>;
+}
+
+export default async function Page({ searchParams }: PageProps) {
+  const { type: typeParam } = await searchParams;
+  const parseResult = groupTypeSchema.safeParse(typeParam);
+  const type = parseResult.success ? parseResult.data : 'FRIEND';
+
   return (
     <>
       <PageHeader
@@ -18,10 +25,7 @@ export default function Page() {
         }
         className="fixed top-0 left-1/2 z-50 w-full max-w-110 -translate-x-1/2 bg-g-700 px-7.5"
       />
-      <GroupCreateForm />
-      <BottomCTA>
-        <Button label="그룹 생성하기" />
-      </BottomCTA>
+      <GroupCreateForm type={type} />
     </>
   );
 }
