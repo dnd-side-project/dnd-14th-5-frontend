@@ -27,6 +27,7 @@ export const useGroupCreate = (type: GroupType) => {
 
     try {
       await createGroup({ name: trimmed, type, image: null });
+      // TODO: 그룹 생성 성공 후 코드 공유하기 페이지로 이동
       router.push('/groups');
     } catch {
       showToast({ message: '그룹 생성에 실패했어요.' });
