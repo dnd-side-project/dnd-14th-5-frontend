@@ -12,10 +12,14 @@ import { usePostServiceFeedbackQuery } from '../queries/usePostServiceFeedbacksQ
 import StarRating from '../StarRating/StarRating';
 
 interface ServiceFeedbackModalProps {
+  isOpen: boolean;
   onDismiss: () => void;
 }
 
-const ServiceFeedbackModal = ({ onDismiss }: ServiceFeedbackModalProps) => {
+const ServiceFeedbackModal = ({
+  isOpen,
+  onDismiss,
+}: ServiceFeedbackModalProps) => {
   const [rating, setRating] = useState(0);
   const [feedback, setFeedback] = useState('');
 
@@ -57,7 +61,7 @@ const ServiceFeedbackModal = ({ onDismiss }: ServiceFeedbackModalProps) => {
   };
 
   return (
-    <Modal isOpen onClose={onDismiss}>
+    <Modal isOpen={isOpen} onClose={onDismiss}>
       <section className="space-y-6">
         <div className="text-center space-y-3">
           <h3 className="font-heading-h3 text-g-0">

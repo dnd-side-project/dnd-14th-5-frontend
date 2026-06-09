@@ -10,7 +10,7 @@ const HomeClientSections = () => {
 
   return (
     <div className="flex flex-1 flex-col">
-      {show && <ServiceFeedbackModal onDismiss={dismiss} />}
+      <ServiceFeedbackModal isOpen={show} onDismiss={dismiss} />
       <HomeTodayQuestionSectionBoundary />
       <HomeActionsSection />
     </div>
