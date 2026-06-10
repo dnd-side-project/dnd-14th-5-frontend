@@ -96,13 +96,15 @@ const ServiceFeedbackModal = ({
         )}
         <div className="flex gap-2">
           <Button
-            label="나중에 하기"
+            label="다시 보지 않기"
             variant="secondary"
+            aria-label="다시 보지 않기"
             className="bg-transparent backdrop-blur-[50px]"
             onClick={onDismiss}
           />
           <Button
             label="의견 보내기"
+            aria-label="의견 보내기"
             onClick={handleSubmit}
             disabled={isPending}
           />
