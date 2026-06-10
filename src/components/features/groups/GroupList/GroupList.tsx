@@ -32,18 +32,15 @@ const GroupList = ({ groups, selectedId, onSelect }: GroupListProps) => {
             aria-pressed={isSelected}
             onClick={() => onSelect?.(item.id)}
           >
-            <div className="relative">
+            <div className="relative w-13.75 h-13.75 rounded-[10px] overflow-hidden shrink-0">
               <Image
                 src={item.image || '/images/default-group.svg'}
                 alt={item.name}
-                width={55}
-                height={55}
-                className="rounded-[10px]"
+                fill
+                className="object-cover"
                 priority={idx < 5}
               />
-              {!isSelected && (
-                <div className="absolute inset-0 rounded-[10px] bg-g-900/60" />
-              )}
+              {!isSelected && <div className="absolute inset-0 bg-g-900/60" />}
             </div>
             <p
               className={cn(
