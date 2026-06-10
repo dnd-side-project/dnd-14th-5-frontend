@@ -10,8 +10,11 @@ import { useUploadImageMutation } from '../queries/useUploadImageMutation';
 export const useGroupCreate = (type: GroupType) => {
   const router = useRouter();
   const { showToast } = useToast();
-  const { mutateAsync: createGroup, isPending } = useCreateGroupMutation();
-  const { mutateAsync: uploadImage } = useUploadImageMutation();
+  const { mutateAsync: createGroup, isPending: isCreating } =
+    useCreateGroupMutation();
+  const { mutateAsync: uploadImage, isPending: isUploading } =
+    useUploadImageMutation();
+  const isPending = isCreating || isUploading;
   const [name, setName] = useState('');
   const [imageFile, setImageFile] = useState<File | null>(null);
   const [imagePreview, setImagePreview] = useState<string | null>(null);
