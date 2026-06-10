@@ -21,6 +21,7 @@ const GroupActionMenu = ({ activeTab, onClose }: GroupActionMenuProps) => {
       <div className="fixed top-14 right-[max(1.25rem,calc((100vw-27.5rem)/2+1.25rem))] z-50 w-44 rounded-2xl bg-g-500 py-1 shadow-lg">
         <Link
           href={`/groups/create?type=${activeTab}`}
+          onClick={onClose}
           className="block w-full px-4 py-3 text-left font-button-s text-g-40 hover:bg-g-400/20"
         >
           그룹 생성하기
@@ -48,12 +49,14 @@ const GroupActionMenu = ({ activeTab, onClose }: GroupActionMenuProps) => {
           <div className="border-t border-g-400">
             <Link
               href="/groups/join?type=CHARACTER"
+              onClick={onClose}
               className="block w-full px-4 py-3 text-left font-button-s text-g-80 hover:bg-g-400/20"
             >
               캐릭터 회고 그룹 참여
             </Link>
             <Link
               href="/groups/join?type=FRIEND"
+              onClick={onClose}
               className="block w-full px-4 py-3 text-left font-button-s text-g-80 hover:bg-g-400/20"
             >
               친구 코드 입력
