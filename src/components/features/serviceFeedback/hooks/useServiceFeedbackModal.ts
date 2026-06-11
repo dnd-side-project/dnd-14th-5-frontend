@@ -20,7 +20,11 @@ export const useServiceFeedbackModal = () => {
   const [dismissedInSession, setDismissedInSession] = useState(false);
 
   const dismiss = () => {
-    localStorage.setItem(DISMISSED_KEY, 'true');
+    try {
+      localStorage.setItem(DISMISSED_KEY, 'true');
+    } catch {
+      // storage unavailable — session state still dismisses the modal
+    }
     setDismissedInSession(true);
   };
 
