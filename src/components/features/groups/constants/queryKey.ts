@@ -6,4 +6,5 @@ export const groupKeys = {
   friendList: (groupId: number, sort: SortValue) =>
     [...groupKeys.all(), 'friendList', groupId, sort] as const,
   create: () => [...groupKeys.all(), 'create'] as const,
+  joinGroup: () => [...groupKeys.all(), 'joinGroup'] as const,
 };
