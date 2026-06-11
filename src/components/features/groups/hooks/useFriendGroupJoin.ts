@@ -38,7 +38,10 @@ export const useFriendGroupJoin = () => {
         onError: (error) => {
           if (isApiError(error) && error.status !== null) {
             setErrorMessage(JOIN_ERROR_MESSAGES[error.status] ?? '');
+            return;
           }
+
+          setErrorMessage('네트워크 오류가 발생했습니다. 다시 시도해주세요.');
         },
       },
     );
