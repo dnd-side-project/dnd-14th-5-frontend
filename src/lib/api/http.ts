@@ -23,16 +23,17 @@ export const get = async <TResponse, TParams = never>(
   return parseWithSchema(responseSchema, response.data);
 };
 
-export const post = async <TRequest, TResponse>(
+export const post = async <TRequest, TResponse, TParams = never>(
   url: string,
   data?: TRequest,
-  config?: ApiRequestConfig<TRequest, never, TResponse>,
+  config?: ApiRequestConfig<TRequest, TParams, TResponse>,
 ): Promise<TResponse> => {
-  const { axiosConfig, parsedData, responseSchema } = parseDataConfig(
-    data,
-    config,
-  );
-  const response = await api.post<TResponse>(url, parsedData, axiosConfig);
+  const { axiosConfig, parsedData, parsedParams, responseSchema } =
+    parseDataConfig(data, config);
+  const response = await api.post<TResponse>(url, parsedData, {
+    ...axiosConfig,
+    params: parsedParams,
+  });
 
   return parseWithSchema(responseSchema, response.data);
 };
