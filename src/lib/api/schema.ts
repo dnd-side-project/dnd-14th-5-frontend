@@ -25,14 +25,16 @@ export const parseWithSchema = <T>(
   return schema.parse(value);
 };
 
-export const parseDataConfig = <TRequest, TResponse>(
+export const parseDataConfig = <TRequest, TParams, TResponse>(
   data: TRequest | undefined,
-  config?: ApiRequestConfig<TRequest, never, TResponse>,
+  config?: ApiRequestConfig<TRequest, TParams, TResponse>,
 ) => {
-  const { dataSchema, responseSchema, ...axiosConfig } = config ?? {};
+  const { dataSchema, paramsSchema, responseSchema, params, ...axiosConfig } =
+    config ?? {};
   const parsedData = parseWithSchema(dataSchema, data);
+  const parsedParams = parseWithSchema(paramsSchema, params);
 
-  return { axiosConfig, parsedData, responseSchema };
+  return { axiosConfig, parsedData, parsedParams, responseSchema };
 };
 
 export const parseParamsConfig = <TParams, TResponse>(
