@@ -5,6 +5,7 @@ import { Suspense, useState } from 'react';
 
 import type { GroupType } from '@/src/components/features/groups/constants/groupType';
 import FriendReflectionPanel from '@/src/components/features/groups/FriendReflectionPanel/FriendReflectionPanel';
+import GroupActionMenu from '@/src/components/features/groups/GroupActionMenu/GroupActionMenu';
 import GroupListSection from '@/src/components/features/groups/GroupListSection/GroupListSection';
 import GroupListSkeleton from '@/src/components/features/groups/GroupListSection/GroupListSkeleton';
 import GroupTab from '@/src/components/features/groups/GroupTab/GroupTab';
@@ -18,6 +19,7 @@ const GroupsPageClient = () => {
   const [selectedFriend, setSelectedFriend] = useState<GroupFriendItem | null>(
     null,
   );
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   const handleTabChange = (tab: GroupType) => {
     setActiveTab(tab);
@@ -26,13 +28,27 @@ const GroupsPageClient = () => {
 
   return (
     <div className="flex flex-col h-dvh">
-      <PageHeader
-        title="그룹 회고"
-        rightIcon={
-          <Image src="/icons/plus.svg" width={28} height={28} alt="그룹 추가" />
-        }
-        className="fixed top-0 left-1/2 z-50 w-full max-w-110 -translate-x-1/2 bg-g-700 px-5"
-      />
+      <div className="relative">
+        <PageHeader
+          title="그룹 회고"
+          rightIcon={
+            <Image
+              src="/icons/plus.svg"
+              width={28}
+              height={28}
+              alt="그룹 추가"
+            />
+          }
+          onRightClick={() => setIsMenuOpen((prev) => !prev)}
+          className="fixed top-0 left-1/2 z-50 w-full max-w-110 -translate-x-1/2 bg-g-700 px-5"
+        />
+        {isMenuOpen ? (
+          <GroupActionMenu
+            activeTab={activeTab}
+            onClose={() => setIsMenuOpen(false)}
+          />
+        ) : null}
+      </div>
       <div className="pt-14 flex flex-col flex-1 min-h-0">
         <GroupTab activeTab={activeTab} onTabChange={handleTabChange} />
         <Suspense fallback={<GroupListSkeleton />}>
