@@ -7,8 +7,8 @@ import { SERVICE_FEEDBACKS_QUERY_KEYS } from '../constants/queryKey';
 import { SERVICE_FEEDBACKS_ENDPOINTS } from '../constants/url';
 
 const DataSchema = z.object({
-  serviceRating: z.number(),
-  serviceFeedback: z.string(),
+  serviceRating: z.number().int().min(0).max(5),
+  serviceFeedback: z.string().trim().min(1),
 });
 
 type DataType = z.infer<typeof DataSchema>;
