@@ -27,9 +27,12 @@ export const useFriendGroupJoin = () => {
   const handleClose = () => setIsOpen(false);
 
   const handleSubmit = () => {
+    const trimmedCode = groupCode.trim();
+    if (!trimmedCode) return;
+
     setErrorMessage('');
     mutate(
-      { type: 'FRIEND', code: groupCode },
+      { type: 'FRIEND', code: trimmedCode },
       {
         onSuccess: () => {
           setIsOpen(false);
@@ -51,7 +54,7 @@ export const useFriendGroupJoin = () => {
     isOpen,
     groupCode,
     errorMessage,
-    isSubmitDisabled: isPending || groupCode === '',
+    isSubmitDisabled: isPending || groupCode.trim() === '',
     handleClose,
     handleChange,
     handleSubmit,
