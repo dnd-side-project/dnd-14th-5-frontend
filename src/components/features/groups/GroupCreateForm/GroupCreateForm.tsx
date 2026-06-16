@@ -60,14 +60,15 @@ const GroupCreateForm = ({ type }: GroupCreateFormProps) => {
             <button
               type="button"
               onClick={() => fileInputRef.current?.click()}
-              className="mt-2 w-full aspect-square rounded-2xl bg-g-600 flex items-center justify-center overflow-hidden"
+              className="relative mt-2 w-full aspect-square rounded-2xl bg-g-600 flex items-center justify-center overflow-hidden"
             >
               {imagePreview ? (
-                // eslint-disable-next-line @next/next/no-img-element
-                <img
+                <Image
                   src={imagePreview}
                   alt="그룹 대표 이미지 미리보기"
-                  className="w-full h-full object-cover"
+                  fill
+                  unoptimized
+                  className="object-cover"
                 />
               ) : (
                 <Image
