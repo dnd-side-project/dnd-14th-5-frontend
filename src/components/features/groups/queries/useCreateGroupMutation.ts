@@ -8,7 +8,7 @@ import { groupKeys } from '../constants/queryKey';
 import { GROUP_ENDPOINT } from '../constants/url';
 
 const createGroupRequestSchema = z.object({
-  name: z.string(),
+  name: z.string().trim().min(1),
   type: groupTypeSchema,
   image: z.string().nullable().optional(),
 });
