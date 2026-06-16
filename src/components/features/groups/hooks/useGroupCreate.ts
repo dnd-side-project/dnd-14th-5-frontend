@@ -1,5 +1,5 @@
 import { useRouter } from 'next/navigation';
-import { type ChangeEvent, useRef, useState } from 'react';
+import { type ChangeEvent, useEffect, useRef, useState } from 'react';
 
 import { useToast } from '@/src/hooks/useToast';
 
@@ -19,6 +19,12 @@ export const useGroupCreate = (type: GroupType) => {
   const [imageFile, setImageFile] = useState<File | null>(null);
   const [imagePreview, setImagePreview] = useState<string | null>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
+
+  useEffect(() => {
+    return () => {
+      if (imagePreview) URL.revokeObjectURL(imagePreview);
+    };
+  }, [imagePreview]);
 
   const handleImageChange = (e: ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
