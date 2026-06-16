@@ -29,6 +29,7 @@ export const useGroupCreate = (type: GroupType) => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    if (isPending) return;
     const trimmed = name.trim();
     if (!trimmed) return;
 
