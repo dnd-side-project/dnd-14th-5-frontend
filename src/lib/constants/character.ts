@@ -14,7 +14,7 @@ export const DEFAULT_CHARACTER: CharacterAsset = {
   color: 'text-p-300',
   resultSrc: '/character/result-present-hedonistic.svg',
   name: '지금이',
-  homeSrc: '/character/home-present-hedonistic.svg',
+  homeSrc: '/character/home-present-hedonistic.png',
   profileSrc: '/character/profile-present-hedonistic.svg',
 };
 
@@ -35,7 +35,7 @@ export const CATEGORY_CHARACTER_MAP: Record<Category, CharacterAsset> = {
     color: 'text-b-300',
     resultSrc: '/character/result-past-positive.svg',
     name: '추억이',
-    homeSrc: '/character/home-past-positive.svg',
+    homeSrc: '/character/home-past-positive.png',
     profileSrc: '/character/profile-past-positive.svg',
   },
   PAST_NEGATIVE: {
@@ -44,7 +44,7 @@ export const CATEGORY_CHARACTER_MAP: Record<Category, CharacterAsset> = {
     color: 'text-r-300',
     resultSrc: '/character/result-past-negative.svg',
     name: '그늘이',
-    homeSrc: '/character/home-past-negative.svg',
+    homeSrc: '/character/home-past-negative.png',
     profileSrc: '/character/profile-past-negative.svg',
   },
   PRESENT_HEDONISTIC: {
@@ -53,7 +53,7 @@ export const CATEGORY_CHARACTER_MAP: Record<Category, CharacterAsset> = {
     color: 'text-p-300',
     resultSrc: '/character/result-present-hedonistic.svg',
     name: '지금이',
-    homeSrc: '/character/home-present-hedonistic.svg',
+    homeSrc: '/character/home-present-hedonistic.png',
     profileSrc: '/character/profile-present-hedonistic.svg',
   },
   PRESENT_FATALISTIC: {
@@ -62,7 +62,7 @@ export const CATEGORY_CHARACTER_MAP: Record<Category, CharacterAsset> = {
     color: 'text-gr-300',
     resultSrc: '/character/result-present-fatalistic.svg',
     name: '담담이',
-    homeSrc: '/character/home-present-fatalistic.svg',
+    homeSrc: '/character/home-present-fatalistic.png',
     profileSrc: '/character/profile-present-fatalistic.svg',
   },
   FUTURE: {
@@ -71,7 +71,7 @@ export const CATEGORY_CHARACTER_MAP: Record<Category, CharacterAsset> = {
     color: 'text-v-300',
     resultSrc: '/character/result-future-oriented.svg',
     name: '내일이',
-    homeSrc: '/character/home-future-oriented.svg',
+    homeSrc: '/character/home-future-oriented.png',
     profileSrc: '/character/profile-future-oriented.svg',
   },
 };
