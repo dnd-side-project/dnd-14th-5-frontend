@@ -16,7 +16,7 @@ const ResponseSchema = z.array(
     image: z.string().nullable(),
     category: z.enum(CATEGORY).nullable(),
     memberCount: z.number(),
-    myRole: z.enum(['OWNER', 'MEMBER']),
+    myRole: z.enum(['OWNER', 'MEMBER']).nullable(),
     createdAt: z.coerce.date(),
   }),
 );
