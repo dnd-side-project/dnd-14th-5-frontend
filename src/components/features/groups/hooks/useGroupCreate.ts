@@ -19,6 +19,7 @@ export const useGroupCreate = (type: GroupType) => {
   const [imageFile, setImageFile] = useState<File | null>(null);
   const [imagePreview, setImagePreview] = useState<string | null>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
+  const [isSuccessModalOpen, setIsSuccessModalOpen] = useState(false);
 
   useEffect(() => {
     return () => {
@@ -49,11 +50,15 @@ export const useGroupCreate = (type: GroupType) => {
     try {
       const image = imageFile ? await uploadImage(imageFile) : null;
       await createGroup({ name: trimmed, type, image });
-      // TODO: 그룹 생성 성공 후 코드 공유하기 페이지로 이동
-      router.push('/groups');
+      setIsSuccessModalOpen(true);
     } catch {
       showToast({ message: '그룹 생성에 실패했어요.' });
     }
+  };
+
+  const handleCloseSuccessModal = () => {
+    setIsSuccessModalOpen(false);
+    router.push('/groups');
   };
 
   return {
@@ -64,5 +69,7 @@ export const useGroupCreate = (type: GroupType) => {
     isPending,
     handleImageChange,
     handleSubmit,
+    isSuccessModalOpen,
+    handleCloseSuccessModal,
   };
 };

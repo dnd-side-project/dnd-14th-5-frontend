@@ -6,6 +6,7 @@ import BottomCTA from '@/src/components/layout/BottomCTA/BottomCTA';
 import Button from '@/src/components/ui/Button/Button';
 
 import type { GroupType } from '../constants/groupType';
+import GroupShareModal from '../GroupShareModal/GroupShareModal';
 import { useGroupCreate } from '../hooks/useGroupCreate';
 
 interface GroupCreateFormProps {
@@ -21,6 +22,8 @@ const GroupCreateForm = ({ type }: GroupCreateFormProps) => {
     isPending,
     handleImageChange,
     handleSubmit,
+    isSuccessModalOpen,
+    handleCloseSuccessModal,
   } = useGroupCreate(type);
 
   return (
@@ -98,6 +101,12 @@ const GroupCreateForm = ({ type }: GroupCreateFormProps) => {
           disabled={isPending}
         />
       </BottomCTA>
+
+      <GroupShareModal
+        isOpen={isSuccessModalOpen}
+        onClose={handleCloseSuccessModal}
+        onShare={() => {}}
+      />
     </>
   );
 };
