@@ -4,7 +4,10 @@ import { type ChangeEvent, useEffect, useRef, useState } from 'react';
 import { useToast } from '@/src/hooks/useToast';
 
 import type { GroupType } from '../constants/groupType';
-import { useCreateGroupMutation } from '../queries/useCreateGroupMutation';
+import {
+  type CreateGroupResponse,
+  useCreateGroupMutation,
+} from '../queries/useCreateGroupMutation';
 import { useUploadImageMutation } from '../queries/useUploadImageMutation';
 
 export const useGroupCreate = (type: GroupType) => {
@@ -20,6 +23,8 @@ export const useGroupCreate = (type: GroupType) => {
   const [imagePreview, setImagePreview] = useState<string | null>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
   const [isSuccessModalOpen, setIsSuccessModalOpen] = useState(false);
+  const [createdGroupId, setCreatedGroup] =
+    useState<CreateGroupResponse | null>(null);
 
   useEffect(() => {
     return () => {
@@ -49,7 +54,8 @@ export const useGroupCreate = (type: GroupType) => {
 
     try {
       const image = imageFile ? await uploadImage(imageFile) : null;
-      await createGroup({ name: trimmed, type, image });
+      const result = await createGroup({ name: trimmed, type, image });
+      setCreatedGroup(result);
       setIsSuccessModalOpen(true);
     } catch {
       showToast({ message: '그룹 생성에 실패했어요.' });
@@ -71,5 +77,6 @@ export const useGroupCreate = (type: GroupType) => {
     handleSubmit,
     isSuccessModalOpen,
     handleCloseSuccessModal,
+    createdGroupId,
   };
 };

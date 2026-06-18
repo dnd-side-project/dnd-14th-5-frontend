@@ -5,12 +5,14 @@ interface GroupShareModalProps {
   isOpen: boolean;
   onClose: () => void;
   onShare: () => void;
+  groupCode?: string;
 }
 
 const GroupShareModal = ({
   isOpen,
   onClose,
   onShare,
+  groupCode,
 }: GroupShareModalProps) => {
   return (
     <Modal isOpen={isOpen} onClose={onClose}>
@@ -20,10 +22,7 @@ const GroupShareModal = ({
           <p className="mt-3 font-body-s text-g-60">
             친구코드 생성이 완료되었습니다.
           </p>
-          <p className="pt-5 font-body-s text-g-20">
-            #코드 번호
-            {/* TODO: 실제 코드 번호 */}
-          </p>
+          <p className="pt-5 font-body-s text-g-20">{groupCode}</p>
         </div>
         <div className="flex flex-col gap-4">
           <Button

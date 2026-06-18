@@ -24,6 +24,7 @@ const GroupCreateForm = ({ type }: GroupCreateFormProps) => {
     handleSubmit,
     isSuccessModalOpen,
     handleCloseSuccessModal,
+    createdGroupId,
   } = useGroupCreate(type);
 
   return (
@@ -106,6 +107,7 @@ const GroupCreateForm = ({ type }: GroupCreateFormProps) => {
         isOpen={isSuccessModalOpen}
         onClose={handleCloseSuccessModal}
         onShare={() => {}}
+        groupCode={createdGroupId?.code}
       />
     </>
   );
