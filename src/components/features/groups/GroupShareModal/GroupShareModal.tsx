@@ -1,19 +1,41 @@
+'use client';
+
 import Button from '@/src/components/ui/Button/Button';
 import Modal from '@/src/components/ui/Modal/Modal';
+import { useToast } from '@/src/hooks/useToast';
 
 interface GroupShareModalProps {
   isOpen: boolean;
   onClose: () => void;
-  onShare: () => void;
   groupCode?: string;
 }
 
 const GroupShareModal = ({
   isOpen,
   onClose,
-  onShare,
   groupCode,
 }: GroupShareModalProps) => {
+  const { showToast } = useToast();
+
+  const handleShare = async () => {
+    if (!groupCode) return;
+
+    // TODO: /groups/join 페이지 구현 필요
+    const url = `${window.location.origin}/groups/join?code=${groupCode}`;
+
+    if (navigator.share) {
+      try {
+        await navigator.share({ title: 'TIMO 그룹 초대', url });
+      } catch (error) {
+        if (error instanceof Error && error.name === 'AbortError') return;
+        showToast({ message: '공유에 실패했어요.' });
+      }
+    } else if (navigator.clipboard) {
+      await navigator.clipboard.writeText(url);
+      showToast({ message: '초대 링크가 복사되었어요.' });
+    }
+  };
+
   return (
     <Modal isOpen={isOpen} onClose={onClose}>
       <div className="flex flex-col gap-6">
@@ -27,7 +49,7 @@ const GroupShareModal = ({
         <div className="flex flex-col gap-4">
           <Button
             label="공유하기"
-            onClick={onShare}
+            onClick={handleShare}
             variant="secondary"
             size="s"
             className="bg-transparent"
