@@ -61,10 +61,9 @@ const GroupCreateForm = ({ type }: GroupCreateFormProps) => {
             >
               대표 이미지
             </label>
-            <button
-              type="button"
-              onClick={() => fileInputRef.current?.click()}
-              className="relative mt-2 w-full aspect-square rounded-2xl bg-g-600 flex items-center justify-center overflow-hidden"
+            <label
+              htmlFor="group-image"
+              className="relative mt-2 w-full aspect-square rounded-2xl bg-g-600 flex items-center justify-center overflow-hidden cursor-pointer"
             >
               {imagePreview ? (
                 <Image
@@ -82,7 +81,7 @@ const GroupCreateForm = ({ type }: GroupCreateFormProps) => {
                   alt=""
                 />
               )}
-            </button>
+            </label>
             <input
               ref={fileInputRef}
               id="group-image"
@@ -106,7 +105,6 @@ const GroupCreateForm = ({ type }: GroupCreateFormProps) => {
       <GroupShareModal
         isOpen={isSuccessModalOpen}
         onClose={handleCloseSuccessModal}
-        onShare={() => {}}
         groupCode={createdGroupId?.code}
       />
     </>
