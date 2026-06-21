@@ -1,5 +1,5 @@
 import { useRouter } from 'next/navigation';
-import { type ChangeEvent, useEffect, useRef, useState } from 'react';
+import { type ChangeEvent, useEffect, useState } from 'react';
 
 import { useToast } from '@/src/hooks/useToast';
 
@@ -21,7 +21,6 @@ export const useGroupCreate = (type: GroupType) => {
   const [name, setName] = useState('');
   const [imageFile, setImageFile] = useState<File | null>(null);
   const [imagePreview, setImagePreview] = useState<string | null>(null);
-  const fileInputRef = useRef<HTMLInputElement>(null);
   const [isSuccessModalOpen, setIsSuccessModalOpen] = useState(false);
   const [createdGroupId, setCreatedGroup] =
     useState<CreateGroupResponse | null>(null);
@@ -71,7 +70,6 @@ export const useGroupCreate = (type: GroupType) => {
     name,
     setName,
     imagePreview,
-    fileInputRef,
     isPending,
     handleImageChange,
     handleSubmit,

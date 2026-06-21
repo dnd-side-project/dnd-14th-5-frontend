@@ -18,7 +18,6 @@ const GroupCreateForm = ({ type }: GroupCreateFormProps) => {
     name,
     setName,
     imagePreview,
-    fileInputRef,
     isPending,
     handleImageChange,
     handleSubmit,
@@ -83,7 +82,6 @@ const GroupCreateForm = ({ type }: GroupCreateFormProps) => {
               )}
             </label>
             <input
-              ref={fileInputRef}
               id="group-image"
               type="file"
               accept="image/*"
