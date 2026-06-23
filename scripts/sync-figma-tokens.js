@@ -1,47 +1,99 @@
 #!/usr/bin/env node
-// Usage: node scripts/sync-figma-tokens.js [path/to/tokens.json]
+// Usage: node scripts/sync-figma-tokens.js
+// Reads tokens/colors.json (Token Studio / Figma Variables) + tokens/tokens.json (design tokens)
+// and syncs to src/styles/globals.css @theme block.
 
 const fs = require('fs');
 const path = require('path');
 
-const TOKENS_FILE = path.resolve(
-  __dirname,
-  process.argv[2] ?? '../tokens/tokens.json',
-);
-const GLOBALS_CSS = path.resolve(__dirname, '../src/styles/globals.css');
+const ROOT = path.resolve(__dirname, '..');
+const COLORS_FILE = path.join(ROOT, 'tokens/colors.json');
+const DESIGN_FILE = path.join(ROOT, 'tokens/tokens.json');
+const GLOBALS_CSS = path.join(ROOT, 'src/styles/globals.css');
 
-const CATEGORY_LABELS = {
-  color: 'Colors',
-  font: 'Typography',
-  'line-height': 'Line Height',
-  'letter-spacing': 'Letter Spacing',
-  radius: 'Radius',
-  shadow: 'Shadow',
+// Figma color group name → CSS prefix
+const FIGMA_GROUP_PREFIX = {
+  Grey: 'g',
+  Gray: 'g',
+  Red: 'r',
+  Blue: 'b',
+  Pink: 'p',
+  Green: 'gr',
+  Violet: 'v',
+  Yellow: 'y',
 };
 
-/** Recursively flatten { a: { b: { value, type } } } → { 'a.b': { value, type } } */
-function flattenTokens(obj, prefix = '') {
+// Strip leading uppercase letters from variant name to get the number
+// 'G0' → '0', 'G20' → '20', 'Y50' → '50', 'Gr50' → '50'
+function stripVariantPrefix(name) {
+  return name.replace(/^[A-Z][a-z]?/, '');
+}
+
+// Extract colors from Token Studio multi-set JSON (Figma Variables export)
+// Looks for 'Colors/Mode 1' or 'Colors/Mode*' key
+function extractFigmaColors(raw) {
+  const tokens = {};
+
+  const colorsKey = Object.keys(raw).find(
+    (k) => k.startsWith('Colors/') || k === 'Colors',
+  );
+  if (!colorsKey) return tokens;
+
+  const colorSet = raw[colorsKey];
+
+  for (const [groupName, groupVal] of Object.entries(colorSet)) {
+    if (String(groupName).startsWith('$')) continue;
+
+    // Special case: top-level non-group color (e.g. Primary → --color-primary-base)
+    if (groupVal && '$value' in groupVal) {
+      const cssVar = `color-${groupName.toLowerCase()}${groupName === 'Primary' ? '-base' : ''}`;
+      tokens[cssVar] = { value: groupVal['$value'], type: 'color' };
+      continue;
+    }
+
+    const prefix = FIGMA_GROUP_PREFIX[groupName];
+    if (!prefix || typeof groupVal !== 'object') continue;
+
+    for (const [variantName, variantVal] of Object.entries(groupVal)) {
+      if (String(variantName).startsWith('$')) continue;
+      if (!variantVal || !('$value' in variantVal)) continue;
+
+      const num = stripVariantPrefix(variantName);
+      const cssVar = `color-${prefix}-${num}`;
+      tokens[cssVar] = { value: variantVal['$value'], type: 'color' };
+    }
+  }
+
+  // Add semantic color vars that aren't in Figma Variables
+  if (tokens['color-primary-base']) {
+    tokens['color-primary'] = {
+      value: 'var(--color-primary-base)',
+      type: 'color',
+    };
+    tokens['color-primary-hover'] = {
+      value: 'var(--color-y-100)',
+      type: 'color',
+    };
+  }
+
+  return tokens;
+}
+
+// Flatten our handwritten tokens.json format { a: { b: { value, type } } }
+function flattenDesignTokens(obj, prefix = '') {
   const result = {};
   for (const [key, val] of Object.entries(obj)) {
-    if (key.startsWith('$')) continue; // skip Token Studio metadata
+    if (String(key).startsWith('$')) continue;
     const fullKey = prefix ? `${prefix}.${key}` : key;
     if (val && typeof val === 'object' && 'value' in val && 'type' in val) {
       result[fullKey] = val;
     } else if (val && typeof val === 'object') {
-      Object.assign(result, flattenTokens(val, fullKey));
+      Object.assign(result, flattenDesignTokens(val, fullKey));
     }
   }
   return result;
 }
 
-/** 'color.g.0' → '--color-g-0', 'shadow.DEFAULT' → '--shadow' */
-function pathToCSSVar(tokenPath) {
-  const parts = tokenPath.split('.');
-  const filtered = parts.filter((p) => p.toUpperCase() !== 'DEFAULT');
-  return '--' + filtered.join('-');
-}
-
-/** '{color.y.100}' → 'var(--color-y-100)' */
 function resolveReferences(value) {
   return String(value).replace(/\{([^}]+)\}/g, (_, ref) => {
     const parts = ref.split('.');
@@ -53,8 +105,10 @@ function resolveReferences(value) {
 function formatValue(token) {
   const { value, type } = token;
 
-  if (String(value).includes('{')) {
-    return resolveReferences(value);
+  if (String(value).startsWith('var(') || String(value).includes('{')) {
+    return String(value).includes('{')
+      ? resolveReferences(value)
+      : String(value);
   }
 
   switch (type) {
@@ -81,8 +135,7 @@ function formatValue(token) {
           color = 'transparent',
           type: st,
         } = value;
-        const inset = st === 'innerShadow' ? 'inset ' : '';
-        return `${inset}${x}px ${y}px ${blur}px ${spread}px ${color}`;
+        return `${st === 'innerShadow' ? 'inset ' : ''}${x}px ${y}px ${blur}px ${spread}px ${color}`;
       }
       return String(value);
     }
@@ -91,25 +144,46 @@ function formatValue(token) {
   }
 }
 
-function buildThemeBlock(tokens) {
-  // Group by top-level key, preserving insertion order
+const CATEGORY_LABELS = {
+  color: 'Colors',
+  font: 'Typography',
+  'line-height': 'Line Height',
+  'letter-spacing': 'Letter Spacing',
+  radius: 'Radius',
+  shadow: 'Shadow',
+};
+
+function buildThemeBlock(colorTokens, designTokens) {
+  const lines = ['@theme {'];
+
+  // 1. Colors from Figma
+  if (Object.keys(colorTokens).length > 0) {
+    lines.push('  /* ===== Colors ===== */');
+    lines.push('');
+    for (const [cssVar, token] of Object.entries(colorTokens)) {
+      lines.push(`  --${cssVar}: ${formatValue(token)};`);
+    }
+    lines.push('');
+  }
+
+  // 2. Non-color tokens from our design file
   const groups = new Map();
-  for (const [tokenPath, token] of Object.entries(tokens)) {
+  for (const [tokenPath, token] of Object.entries(designTokens)) {
     const category = tokenPath.split('.')[0];
+    if (category === 'color') continue; // skip color — already handled above
     if (!groups.has(category)) groups.set(category, []);
     groups.get(category).push([tokenPath, token]);
   }
-
-  const lines = ['@theme {'];
 
   for (const [category, entries] of groups) {
     const label = CATEGORY_LABELS[category] ?? category;
     lines.push(`  /* ===== ${label} ===== */`);
     lines.push('');
     for (const [tokenPath, token] of entries) {
-      const varName = pathToCSSVar(tokenPath);
-      const cssValue = formatValue(token);
-      lines.push(`  ${varName}: ${cssValue};`);
+      const parts = tokenPath.split('.');
+      const filtered = parts.filter((p) => p.toUpperCase() !== 'DEFAULT');
+      const cssVar = '--' + filtered.join('-');
+      lines.push(`  ${cssVar}: ${formatValue(token)};`);
     }
     lines.push('');
   }
@@ -119,19 +193,34 @@ function buildThemeBlock(tokens) {
 }
 
 function main() {
-  if (!fs.existsSync(TOKENS_FILE)) {
-    console.error(`Token file not found: ${TOKENS_FILE}`);
-    process.exit(1);
+  // Read colors (Token Studio multi-set format)
+  let colorTokens = {};
+  if (fs.existsSync(COLORS_FILE)) {
+    const raw = JSON.parse(fs.readFileSync(COLORS_FILE, 'utf-8'));
+    colorTokens = extractFigmaColors(raw);
+    console.log(
+      `Read ${Object.keys(colorTokens).length} color tokens from tokens/colors.json`,
+    );
+  } else {
+    console.log('tokens/colors.json not found, skipping colors');
   }
 
-  const raw = JSON.parse(fs.readFileSync(TOKENS_FILE, 'utf-8'));
-  const tokens = flattenTokens(raw);
-  const count = Object.keys(tokens).length;
+  // Read design tokens (our handwritten format)
+  let designTokens = {};
+  if (fs.existsSync(DESIGN_FILE)) {
+    const raw = JSON.parse(fs.readFileSync(DESIGN_FILE, 'utf-8'));
+    // If it's Token Studio multi-set format, skip (wrong file)
+    if (!raw.$metadata) {
+      designTokens = flattenDesignTokens(raw);
+      console.log(
+        `Read ${Object.keys(designTokens).length} design tokens from tokens/tokens.json`,
+      );
+    }
+  }
 
-  const themeBlock = buildThemeBlock(tokens);
+  const themeBlock = buildThemeBlock(colorTokens, designTokens);
 
   const css = fs.readFileSync(GLOBALS_CSS, 'utf-8');
-  // Match @theme { ... } — no nested blocks in @theme so non-greedy is safe
   const updated = css.replace(/@theme\s*\{[\s\S]*?\n\}/, themeBlock);
 
   if (updated === css) {
@@ -140,7 +229,9 @@ function main() {
   }
 
   fs.writeFileSync(GLOBALS_CSS, updated, 'utf-8');
-  console.log(`Synced ${count} tokens → src/styles/globals.css`);
+  const total =
+    Object.keys(colorTokens).length + Object.keys(designTokens).length;
+  console.log(`Synced ${total} tokens → src/styles/globals.css`);
 }
 
 main();
