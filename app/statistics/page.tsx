@@ -1,5 +1,7 @@
 import { Suspense } from 'react';
 
+export const dynamic = 'force-dynamic';
+
 import StatisticsDetail from '@/src/components/features/statistics/StatisticsDetail/StatisticsDetail';
 import BottomNavBar from '@/src/components/layout/BottomNavBar/BottomNavBar';
 import PageHeader from '@/src/components/layout/PageHeader/PageHeader';
