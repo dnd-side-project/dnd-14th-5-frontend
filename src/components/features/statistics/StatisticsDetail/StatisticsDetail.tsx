@@ -17,7 +17,7 @@ const StatisticsDetail = () => {
   );
 
   return (
-    <div className="flex flex-col flex-1 gap-2">
+    <div className="flex flex-col flex-1 gap-1">
       <div className="flex h-28 items-start pt-4 gap-4 overflow-x-auto overflow-y-hidden scrollbar-hidden">
         {data.categories.map((item) => {
           const { profileSrc } = CATEGORY_CHARACTER_MAP[item.category];
