@@ -29,35 +29,55 @@ function stripVariantPrefix(name) {
   return name.replace(/^[A-Z][a-z]?/, '');
 }
 
+// Returns ordered array: { comment?: string, cssVar?: string, value?: string }
 function extractColors(colorSet) {
-  const tokens = {};
+  const entries = [];
+  const topLevel = []; // single top-level colors (e.g. Primary)
+
   for (const [groupName, groupVal] of Object.entries(colorSet)) {
     if (String(groupName).startsWith('$')) continue;
-
-    // Top-level single color (e.g. Primary → --color-primary-base)
     const leafVal = groupVal?.['$value'] ?? groupVal?.value;
     if (leafVal !== undefined) {
       const cssVar = `color-${groupName.toLowerCase()}${groupName === 'Primary' ? '-base' : ''}`;
-      tokens[cssVar] = leafVal;
-      continue;
+      topLevel.push({ cssVar, value: leafVal });
     }
+  }
 
+  for (const [groupName, groupVal] of Object.entries(colorSet)) {
+    if (String(groupName).startsWith('$')) continue;
     const prefix = FIGMA_GROUP_PREFIX[groupName];
     if (!prefix || typeof groupVal !== 'object') continue;
+    if (groupVal?.['$value'] ?? groupVal?.value) continue;
 
+    entries.push({ comment: groupName });
     for (const [variantName, variantVal] of Object.entries(groupVal)) {
       if (String(variantName).startsWith('$')) continue;
       const val = variantVal?.['$value'] ?? variantVal?.value;
       if (val === undefined) continue;
-      tokens[`color-${prefix}-${stripVariantPrefix(variantName)}`] = val;
+      entries.push({
+        cssVar: `color-${prefix}-${stripVariantPrefix(variantName)}`,
+        value: val,
+      });
     }
   }
 
-  if (tokens['color-primary-base']) {
-    tokens['color-primary'] = 'var(--color-primary-base)';
-    tokens['color-primary-hover'] = 'var(--color-y-100)';
+  const hasTopLevel = topLevel.length > 0;
+  const hasGroups = entries.length > 0;
+
+  const result = [];
+  if (hasTopLevel) result.push(...topLevel);
+  if (hasGroups) result.push(...entries);
+
+  const hasPrimary = result.some((e) => e.cssVar === 'color-primary-base');
+  if (hasPrimary) {
+    result.push(
+      { comment: 'Semantic' },
+      { cssVar: 'color-primary', value: 'var(--color-primary-base)' },
+      { cssVar: 'color-primary-hover', value: 'var(--color-y-100)' },
+    );
   }
-  return tokens;
+
+  return result;
 }
 
 // ─── Typography extraction ─────────────────────────────────────────────────
@@ -217,10 +237,16 @@ const CATEGORY_LABELS = {
 function buildThemeBlock(colorTokens, designTokens) {
   const lines = ['@theme {'];
 
-  if (Object.keys(colorTokens).length > 0) {
+  if (colorTokens.length > 0) {
     lines.push('  /* ===== Colors ===== */', '');
-    for (const [cssVar, val] of Object.entries(colorTokens))
-      lines.push(`  --${cssVar}: ${val};`);
+    for (const entry of colorTokens) {
+      if (entry.comment) {
+        lines.push('');
+        lines.push(`  /* ${entry.comment} */`);
+      } else {
+        lines.push(`  --${entry.cssVar}: ${entry.value};`);
+      }
+    }
     lines.push('');
   }
 
