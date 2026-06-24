@@ -10,36 +10,11 @@ import {
 } from '../constants/graphPeriod';
 import DataGraph from '../DataGraph/DataGraph';
 import { useStatisticsDetailQuery } from '../queries/useStatisticsDetailQuery';
+import { filterByPeriod } from '../utils/filterByPeriod';
 
 interface GraphSectionProps {
   character: (typeof CHARACTER_NAMES)[number];
   category: (typeof CATEGORY)[number];
-}
-
-function filterByPeriod(
-  dataPoints: Array<{ score: number; createdAt: Date }>,
-  period: GraphPeriod,
-) {
-  const now = new Date();
-  const cutoff = new Date(now);
-  switch (period) {
-    case 'WEEK':
-      cutoff.setDate(now.getDate() - 7);
-      break;
-    case 'MONTH':
-      cutoff.setMonth(now.getMonth() - 1);
-      break;
-    case 'THREE_MONTHS':
-      cutoff.setMonth(now.getMonth() - 3);
-      break;
-    case 'SIX_MONTHS':
-      cutoff.setMonth(now.getMonth() - 6);
-      break;
-    case 'YEAR':
-      cutoff.setFullYear(now.getFullYear() - 1);
-      break;
-  }
-  return dataPoints.filter((dp) => new Date(dp.createdAt) >= cutoff);
 }
 
 const GraphSection = ({ character, category }: GraphSectionProps) => {
@@ -79,9 +54,6 @@ const GraphSection = ({ character, category }: GraphSectionProps) => {
           <span className="text-primary">{Math.round(approachRate)}%</span>{' '}
           이상치에 가까워졌어요!
         </p>
-        {data.personality && (
-          <p className="font-body-s text-g-60">{data.personality}</p>
-        )}
       </article>
     </section>
   );
