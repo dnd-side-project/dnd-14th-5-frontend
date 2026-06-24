@@ -2,13 +2,15 @@ name: Sync Figma Tokens
 
 on:
   workflow_dispatch:
-  push:
+  pull_request:
+    types: [closed]
     branches: [main]
     paths:
       - 'tokens/tokens.json'
 
 jobs:
   sync:
+    if: github.event_name == 'workflow_dispatch' || github.event.pull_request.merged == true
     runs-on: ubuntu-latest
     permissions:
       contents: write
