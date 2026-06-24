@@ -5,7 +5,7 @@ on:
   push:
     branches: [main]
     paths:
-      - 'tokens/colors.json'
+      - 'tokens/tokens.json'
 
 jobs:
   sync:
