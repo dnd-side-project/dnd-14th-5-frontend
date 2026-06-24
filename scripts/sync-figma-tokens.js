@@ -270,8 +270,16 @@ function main() {
     (k) => k.startsWith('Typography/') || k === 'Typography',
   );
 
+  // Guard: require Figma Variables (Colors/Mode 1) to be present
+  if (!colorsKey) {
+    console.log(
+      'No Colors/Mode 1 in tokens.json — not a Token Studio export. Skipping to avoid wiping colors.',
+    );
+    process.exit(0);
+  }
+
   // Colors
-  const colorTokens = colorsKey ? extractColors(raw[colorsKey]) : {};
+  const colorTokens = extractColors(raw[colorsKey]);
   console.log(`Colors: ${Object.keys(colorTokens).length} tokens`);
 
   // Typography → typography.css
