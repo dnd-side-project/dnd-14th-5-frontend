@@ -1,4 +1,4 @@
-import { useQuery } from '@tanstack/react-query';
+import { useSuspenseQuery } from '@tanstack/react-query';
 import { z } from 'zod';
 
 import { get } from '@/src/lib/api';
@@ -14,6 +14,9 @@ const DetailDataPointSchema = BaseDataPointSchema.extend({
 });
 
 const ResponseSchema = StatisticsItemSchema.extend({
+  changedScore: z.number().nullable(),
+  proximityRate: z.number().nullable(),
+  isCloserToIdeal: z.boolean().nullable(),
   dataPoints: z.array(DetailDataPointSchema),
 });
 
@@ -25,7 +28,7 @@ const fetchStatisticsDetail = (category: Category) =>
   });
 
 export const useStatisticsDetailQuery = (category: Category) =>
-  useQuery({
+  useSuspenseQuery({
     queryKey: STATISTICS_QUERY_KEYS.detail(category),
     queryFn: () => fetchStatisticsDetail(category),
   });

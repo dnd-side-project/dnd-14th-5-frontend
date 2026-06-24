@@ -1,4 +1,4 @@
-import { useQuery } from '@tanstack/react-query';
+import { useSuspenseQuery } from '@tanstack/react-query';
 import { z } from 'zod';
 
 import { get } from '@/src/lib/api';
@@ -19,7 +19,7 @@ const fetchAllStatistics = () =>
   });
 
 export const useAllStatisticsQuery = () =>
-  useQuery({
+  useSuspenseQuery({
     queryKey: STATISTICS_QUERY_KEYS['statistics'],
     queryFn: fetchAllStatistics,
   });
