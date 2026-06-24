@@ -1,6 +1,11 @@
 import { NextResponse } from 'next/server';
 
-export async function GET() {
-  throw new Error('Test error for Sentry webhook verification');
-  return NextResponse.json({ ok: true });
+export async function POST(req: Request) {
+  const body = await req.json();
+
+  console.log('Sentry webhook payload:', body);
+
+  return NextResponse.json({
+    success: true,
+  });
 }
