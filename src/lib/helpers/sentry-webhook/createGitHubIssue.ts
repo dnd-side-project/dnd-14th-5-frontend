@@ -50,7 +50,7 @@ ${params.analysis}
       body: JSON.stringify({
         title: `[Sentry] ${params.title}`,
         body,
-        labels: ['bug', 'sentry-autofix'],
+        labels: [],
       }),
     },
   );
