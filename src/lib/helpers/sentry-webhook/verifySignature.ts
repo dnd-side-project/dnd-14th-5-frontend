@@ -19,5 +19,5 @@ export async function verifySentrySignature(
   const hashHex = Array.from(new Uint8Array(signatureBuffer))
     .map((b) => b.toString(16).padStart(2, '0'))
     .join('');
-  return signature === `sha256=${hashHex}`;
+  return signature === `sha256=${hashHex}` || signature === hashHex;
 }
