@@ -1,11 +1,6 @@
 import { NextResponse } from 'next/server';
 
-export async function POST(req: Request) {
-  const body = await req.json();
-
-  console.log('Sentry webhook payload:', body);
-
-  return NextResponse.json({
-    success: true,
-  });
+export async function GET() {
+  throw new Error(`Sentry webhook test - ${Date.now()}`);
+  return NextResponse.json({ ok: true });
 }
