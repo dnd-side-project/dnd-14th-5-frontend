@@ -23,7 +23,7 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ error: 'Invalid JSON' }, { status: 400 });
   }
 
-  if (!['triggered', 'created'].includes(payload.action)) {
+  if (!['triggered', 'created', 'unresolved'].includes(payload.action)) {
     return NextResponse.json({ status: 'ignored' });
   }
 
