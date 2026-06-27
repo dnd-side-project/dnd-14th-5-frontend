@@ -9,7 +9,10 @@ export async function POST(req: NextRequest) {
   const signature = req.headers.get('sentry-hook-signature');
   const secret = process.env.SENTRY_WEBHOOK_SECRET;
 
-  if (secret && signature) {
+  if (secret) {
+    if (!signature) {
+      return NextResponse.json({ error: 'Missing signature' }, { status: 401 });
+    }
     const isValid = await verifySentrySignature(rawBody, signature, secret);
     if (!isValid) {
       return NextResponse.json({ error: 'Invalid signature' }, { status: 401 });
@@ -28,7 +31,11 @@ export async function POST(req: NextRequest) {
   }
 
   after(async () => {
-    await processSentryEvent(payload);
+    try {
+      await processSentryEvent(payload);
+    } catch (error) {
+      throw error;
+    }
   });
 
   return NextResponse.json({ status: 'accepted' });

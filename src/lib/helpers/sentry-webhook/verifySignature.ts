@@ -9,15 +9,21 @@ export async function verifySentrySignature(
     encoder.encode(secret),
     { name: 'HMAC', hash: 'SHA-256' },
     false,
-    ['sign'],
+    ['verify'],
   );
-  const signatureBuffer = await crypto.subtle.sign(
+
+  const hexSignature = signature.startsWith('sha256=')
+    ? signature.slice(7)
+    : signature;
+
+  const signatureBytes = new Uint8Array(
+    (hexSignature.match(/.{1,2}/g) ?? []).map((byte) => parseInt(byte, 16)),
+  );
+
+  return crypto.subtle.verify(
     'HMAC',
     key,
+    signatureBytes,
     encoder.encode(body),
   );
-  const hashHex = Array.from(new Uint8Array(signatureBuffer))
-    .map((b) => b.toString(16).padStart(2, '0'))
-    .join('');
-  return signature === `sha256=${hashHex}` || signature === hashHex;
 }
