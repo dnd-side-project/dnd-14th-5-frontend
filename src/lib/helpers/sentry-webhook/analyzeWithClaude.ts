@@ -1,4 +1,4 @@
-import Anthropic from '@anthropic-ai/sdk';
+import { GoogleGenerativeAI } from '@google/generative-ai';
 
 import type { ParsedFrame } from './parseStackTrace';
 
@@ -11,7 +11,8 @@ interface AnalysisInput {
 }
 
 export async function analyzeWithClaude(input: AnalysisInput): Promise<string> {
-  const client = new Anthropic({ apiKey: process.env.ANTHROPIC_API_KEY });
+  const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY ?? '');
+  const model = genAI.getGenerativeModel({ model: 'gemini-1.5-flash' });
 
   const codeContext = input.codeFiles
     .map(
@@ -24,14 +25,7 @@ export async function analyzeWithClaude(input: AnalysisInput): Promise<string> {
     .map((f) => `  at ${f.function} (${f.filename}:${f.lineno})`)
     .join('\n');
 
-  const stream = await client.messages.stream({
-    model: 'claude-opus-4-8',
-    max_tokens: 2000,
-    thinking: { type: 'adaptive' },
-    messages: [
-      {
-        role: 'user',
-        content: `당신은 시니어 Next.js/TypeScript 개발자입니다. 아래 에러를 분석하고 해결 방법을 제안해주세요.
+  const prompt = `당신은 시니어 Next.js/TypeScript 개발자입니다. 아래 에러를 분석하고 해결 방법을 제안해주세요.
 
 ## 에러 정보
 - **타입**: ${input.errorType}
@@ -59,12 +53,8 @@ ${codeContext || '코드를 가져올 수 없었습니다.'}
 (수정된 코드 스니펫)
 
 ### ⚠️ 재발 방지 제안
-(같은 에러 재발을 막기 위한 제안)`,
-      },
-    ],
-  });
+(같은 에러 재발을 막기 위한 제안)`;
 
-  const message = await stream.finalMessage();
-  const textContent = message.content.find((c) => c.type === 'text');
-  return textContent?.text ?? '분석 결과를 생성할 수 없습니다.';
+  const result = await model.generateContent(prompt);
+  return result.response.text();
 }
