@@ -1,4 +1,4 @@
-import { analyzeWithClaude } from './analyzeWithClaude';
+import { analyzeWithClaude } from './analyzeWithGemini';
 import { createGitHubIssue } from './createGitHubIssue';
 import { fetchGitHubCode } from './fetchGitHubCode';
 import { parseStackTrace } from './parseStackTrace';
