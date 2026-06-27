@@ -11,7 +11,9 @@ interface AnalysisInput {
 }
 
 export async function analyzeWithClaude(input: AnalysisInput): Promise<string> {
-  const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY ?? '');
+  const apiKey = process.env.GEMINI_API_KEY;
+  if (!apiKey) throw new Error('GEMINI_API_KEY not configured');
+  const genAI = new GoogleGenerativeAI(apiKey);
   const model = genAI.getGenerativeModel({ model: 'gemini-3.1-flash-lite' });
 
   const codeContext = input.codeFiles

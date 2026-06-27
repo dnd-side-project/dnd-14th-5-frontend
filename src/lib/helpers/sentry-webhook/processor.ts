@@ -8,9 +8,6 @@ export async function processSentryEvent(
   payload: SentryWebhookPayload,
 ): Promise<void> {
   const { event, issue } = payload.data;
-  console.log('[sentry-webhook] processSentryEvent start', {
-    issue: issue?.id,
-  });
   if (!issue) return;
 
   const errorType = event?.exception?.values?.[0]?.type ?? 'Error';
@@ -19,12 +16,6 @@ export async function processSentryEvent(
 
   const frames = event ? parseStackTrace(event) : [];
   const codeFiles = frames.length > 0 ? await fetchGitHubCode(frames) : [];
-  console.log(
-    '[sentry-webhook] frames:',
-    frames.length,
-    'codeFiles:',
-    codeFiles.length,
-  );
 
   const analysis = await analyzeWithClaude({
     errorType,
@@ -33,7 +24,6 @@ export async function processSentryEvent(
     codeFiles,
     sentryIssueUrl: issue.permalink,
   });
-  console.log('[sentry-webhook] analysis done, creating GitHub issue');
 
   await createGitHubIssue({
     title: issue.title,
@@ -43,5 +33,4 @@ export async function processSentryEvent(
     sentryUrl: issue.permalink,
     frames,
   });
-  console.log('[sentry-webhook] GitHub issue created');
 }

@@ -17,32 +17,39 @@ export async function fetchGitHubCode(
   if (!token || !owner || !repo)
     throw new Error('GitHub environment variables not configured');
 
-  const results: GitHubFileContent[] = [];
-  const seenFiles = new Set<string>();
+  const uniqueFrames = frames.filter(
+    (frame, index, self) =>
+      self.findIndex((f) => f.filename === frame.filename) === index,
+  );
 
-  for (const frame of frames) {
-    if (seenFiles.has(frame.filename)) continue;
-    seenFiles.add(frame.filename);
-    try {
-      const url = `https://api.github.com/repos/${owner}/${repo}/contents/${frame.filename}?ref=${branch}`;
-      const response = await fetch(url, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-          Accept: 'application/vnd.github.v3.raw',
-        },
-      });
-      if (!response.ok) continue;
-      const content = await response.text();
-      results.push({
-        filename: frame.filename,
-        content: truncateFile(content, frame.lineno),
-        lineno: frame.lineno,
-      });
-    } catch {
-      // Skip files that can't be fetched
-    }
-  }
-  return results;
+  const results = await Promise.all(
+    uniqueFrames.map(async (frame): Promise<GitHubFileContent | null> => {
+      try {
+        const encodedPath = frame.filename
+          .split('/')
+          .map(encodeURIComponent)
+          .join('/');
+        const url = `https://api.github.com/repos/${owner}/${repo}/contents/${encodedPath}?ref=${branch}`;
+        const response = await fetch(url, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+            Accept: 'application/vnd.github.v3.raw',
+          },
+        });
+        if (!response.ok) return null;
+        const content = await response.text();
+        return {
+          filename: frame.filename,
+          content: truncateFile(content, frame.lineno),
+          lineno: frame.lineno,
+        };
+      } catch {
+        return null;
+      }
+    }),
+  );
+
+  return results.filter((r): r is GitHubFileContent => r !== null);
 }
 
 function truncateFile(content: string, errorLine: number): string {
