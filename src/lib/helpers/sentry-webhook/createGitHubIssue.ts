@@ -36,7 +36,7 @@ ${params.analysis}
 
 ---
 
-*이 이슈는 Sentry Autofix(Claude)에 의해 자동 생성되었습니다.*`;
+*이 이슈는 Sentry Autofix(Gemini)에 의해 자동 생성되었습니다.*`;
 
   const response = await fetch(
     `https://api.github.com/repos/${owner}/${repo}/issues`,

@@ -1,4 +1,4 @@
-import { analyzeWithClaude } from './analyzeWithGemini';
+import { analyzeWithGemini } from './analyzeWithGemini';
 import { createGitHubIssue } from './createGitHubIssue';
 import { fetchGitHubCode } from './fetchGitHubCode';
 import { parseStackTrace } from './parseStackTrace';
@@ -17,7 +17,7 @@ export async function processSentryEvent(
   const frames = event ? parseStackTrace(event) : [];
   const codeFiles = frames.length > 0 ? await fetchGitHubCode(frames) : [];
 
-  const analysis = await analyzeWithClaude({
+  const analysis = await analyzeWithGemini({
     errorType,
     errorMessage,
     frames,

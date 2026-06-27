@@ -10,7 +10,7 @@ interface AnalysisInput {
   sentryIssueUrl: string;
 }
 
-export async function analyzeWithClaude(input: AnalysisInput): Promise<string> {
+export async function analyzeWithGemini(input: AnalysisInput): Promise<string> {
   const apiKey = process.env.GEMINI_API_KEY;
   if (!apiKey) throw new Error('GEMINI_API_KEY not configured');
   const genAI = new GoogleGenerativeAI(apiKey);
