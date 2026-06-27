@@ -24,28 +24,37 @@ export async function fetchGitHubCode(
 
   const results = await Promise.all(
     uniqueFrames.map(async (frame): Promise<GitHubFileContent | null> => {
+      const encodedPath = frame.filename
+        .split('/')
+        .map(encodeURIComponent)
+        .join('/');
+      const url = `https://api.github.com/repos/${owner}/${repo}/contents/${encodedPath}?ref=${branch}`;
+
+      let response: Response;
       try {
-        const encodedPath = frame.filename
-          .split('/')
-          .map(encodeURIComponent)
-          .join('/');
-        const url = `https://api.github.com/repos/${owner}/${repo}/contents/${encodedPath}?ref=${branch}`;
-        const response = await fetch(url, {
+        response = await fetch(url, {
           headers: {
             Authorization: `Bearer ${token}`,
             Accept: 'application/vnd.github.v3.raw',
           },
+          signal: AbortSignal.timeout(10000),
         });
-        if (!response.ok) return null;
-        const content = await response.text();
-        return {
-          filename: frame.filename,
-          content: truncateFile(content, frame.lineno),
-          lineno: frame.lineno,
-        };
       } catch {
         return null;
       }
+
+      if (response.status === 404) return null;
+      if (!response.ok)
+        throw new Error(
+          `GitHub API error ${response.status} for ${frame.filename}`,
+        );
+
+      const content = await response.text();
+      return {
+        filename: frame.filename,
+        content: truncateFile(content, frame.lineno),
+        lineno: frame.lineno,
+      };
     }),
   );
 
