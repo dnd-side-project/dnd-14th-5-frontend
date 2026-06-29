@@ -16,6 +16,16 @@ const StatisticsDetail = () => {
     data.categories[0],
   );
 
+  if (!selectedCharacter) {
+    return (
+      <div className="flex flex-col items-center justify-center flex-1 py-20">
+        <p className="font-caption-n text-g-100">
+          표시할 통계 데이터가 없습니다.
+        </p>
+      </div>
+    );
+  }
+
   return (
     <div className="flex flex-col flex-1 gap-1">
       <div className="flex h-28 items-start pt-4 gap-4 overflow-x-auto overflow-y-hidden scrollbar-hidden">
