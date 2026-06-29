@@ -86,22 +86,28 @@ const LineChart = ({
           {labelIndices.map((idx) => {
             const isFirst = idx === 0;
             const isLast = idx === dataPoints.length - 1;
-            const xPercent = isFirst
-              ? 0
-              : isLast
-                ? 100
-                : (idx / (dataPoints.length - 1)) * 100;
+            const isSingle = dataPoints.length === 1;
+            const xPercent = isSingle
+              ? 50
+              : isFirst
+                ? 0
+                : isLast
+                  ? 100
+                  : (idx / (dataPoints.length - 1)) * 100;
             return (
               <span
                 key={idx}
                 className={cn(
                   'absolute text-[10px] text-g-60 whitespace-nowrap',
-                  isFirst && 'left-0',
-                  isLast && 'right-0',
-                  !isFirst && !isLast && '-translate-x-1/2',
+                  isSingle && 'left-1/2 -translate-x-1/2',
+                  !isSingle && isFirst && 'left-0',
+                  !isSingle && isLast && 'right-0',
+                  !isSingle && !isFirst && !isLast && '-translate-x-1/2',
                 )}
                 style={
-                  !isFirst && !isLast ? { left: `${xPercent}%` } : undefined
+                  isSingle || (!isFirst && !isLast)
+                    ? { left: `${xPercent}%` }
+                    : undefined
                 }
               >
                 {formatShortDate(dataPoints[idx].createdAt)}
