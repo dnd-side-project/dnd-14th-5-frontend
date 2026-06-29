@@ -4,11 +4,10 @@ import Modal from '@/src/components/ui/Modal/Modal';
 import { useCharacterGroupJoin } from '../../hooks/useCharacterGroupJoin';
 
 const CharacterGroupJoin = () => {
-  const { isOpen, isPending, handleClose, handleJoin } =
-    useCharacterGroupJoin();
+  const { isPending, handleClose, handleJoin } = useCharacterGroupJoin();
 
   return (
-    <Modal isOpen={isOpen} onClose={handleClose}>
+    <Modal isOpen onClose={handleClose}>
       <article className="space-y-6">
         <section className="text-center space-y-2">
           <p className="font-button-l text-primary">캐릭터 회고 그룹 참여</p>

@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useRouter } from 'next/navigation';
 
 import { useToast } from '@/src/hooks/useToast';
 import { isApiError } from '@/src/lib/api/error';
@@ -6,27 +6,34 @@ import { isApiError } from '@/src/lib/api/error';
 import { useGroupJoinQuery } from '../queries/useGroupJoinQuery';
 
 export const useCharacterGroupJoin = () => {
-  const [isOpen, setIsOpen] = useState(true);
-
+  const router = useRouter();
   const { mutate, isPending } = useGroupJoinQuery();
   const { showToast } = useToast();
 
-  const handleClose = () => setIsOpen(false);
+  const handleClose = () => router.push('/groups');
 
   const handleJoin = () => {
     mutate(
       { type: 'CHARACTER' },
       {
         onSuccess: () => {
-          setIsOpen(false);
+          router.push('/groups');
           showToast({ message: '캐릭터 그룹에 참여했어요.' });
         },
         onError: (error) => {
-          // TODO: 이미 참여한 경우(409)는 아예 메뉴에서 보이지 않게 할 예정
           if (isApiError(error) && error.status === 400) {
-            setIsOpen(false);
+            router.push('/groups');
             showToast({
-              message: `캐릭터 유형이 설정되지 않았어요. ZTPI 테스트를 먼저 해주세요.`,
+              message:
+                '캐릭터 유형이 설정되지 않았어요. ZTPI 테스트를 먼저 해주세요.',
+              variant: 'alert',
+            });
+            return;
+          }
+          if (isApiError(error) && error.status === 409) {
+            router.push('/groups');
+            showToast({
+              message: '이미 캐릭터 그룹에 참여했어요.',
               variant: 'alert',
             });
             return;
@@ -41,5 +48,5 @@ export const useCharacterGroupJoin = () => {
     );
   };
 
-  return { isOpen, isPending, handleClose, handleJoin };
+  return { isPending, handleClose, handleJoin };
 };

@@ -1,3 +1,4 @@
+import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 
 import { useToast } from '@/src/hooks/useToast';
@@ -11,8 +12,7 @@ const JOIN_ERROR_MESSAGES: Record<number, string> = {
 };
 
 export const useFriendGroupJoin = () => {
-  const [isOpen, setIsOpen] = useState(true);
-
+  const router = useRouter();
   const [groupCode, setGroupCode] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
 
@@ -24,7 +24,7 @@ export const useFriendGroupJoin = () => {
     setErrorMessage('');
   };
 
-  const handleClose = () => setIsOpen(false);
+  const handleClose = () => router.push('/groups');
 
   const handleSubmit = () => {
     const trimmedCode = groupCode.trim();
@@ -35,7 +35,7 @@ export const useFriendGroupJoin = () => {
       { type: 'FRIEND', code: trimmedCode },
       {
         onSuccess: () => {
-          setIsOpen(false);
+          router.push('/groups');
           showToast({ message: '그룹에 참여했어요.' });
         },
         onError: (error) => {
@@ -51,7 +51,6 @@ export const useFriendGroupJoin = () => {
   };
 
   return {
-    isOpen,
     groupCode,
     errorMessage,
     isSubmitDisabled: isPending || groupCode.trim() === '',

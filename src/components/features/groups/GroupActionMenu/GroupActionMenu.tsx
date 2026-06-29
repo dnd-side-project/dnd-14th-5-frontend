@@ -48,14 +48,14 @@ const GroupActionMenu = ({ activeTab, onClose }: GroupActionMenuProps) => {
         {isJoinExpanded ? (
           <div className="border-t border-g-400">
             <Link
-              href="/groups/join?type=CHARACTER"
+              href="/groups?join=character"
               onClick={onClose}
               className="block w-full px-4 py-3 text-left font-button-s text-g-80 hover:bg-g-400/20"
             >
               캐릭터 회고 그룹 참여
             </Link>
             <Link
-              href="/groups/join?type=FRIEND"
+              href="/groups?join=friend"
               onClick={onClose}
               className="block w-full px-4 py-3 text-left font-button-s text-g-80 hover:bg-g-400/20"
             >

@@ -5,7 +5,6 @@ import { useFriendGroupJoin } from '../../hooks/useFriendGroupJoin';
 
 const FriendGroupJoin = () => {
   const {
-    isOpen,
     groupCode,
     errorMessage,
     isSubmitDisabled,
@@ -15,7 +14,7 @@ const FriendGroupJoin = () => {
   } = useFriendGroupJoin();
 
   return (
-    <Modal isOpen={isOpen} onClose={handleClose}>
+    <Modal isOpen onClose={handleClose}>
       <article className="space-y-6">
         <section className="text-center space-y-2">
           <p className="font-button-l text-primary">친구 코드 입력</p>
