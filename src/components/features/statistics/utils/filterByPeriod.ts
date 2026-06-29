@@ -6,6 +6,7 @@ export function filterByPeriod(
 ) {
   const now = new Date();
   const cutoff = new Date(now);
+  cutoff.setHours(0, 0, 0, 0);
   switch (period) {
     case 'WEEK':
       cutoff.setDate(now.getDate() - 7);
