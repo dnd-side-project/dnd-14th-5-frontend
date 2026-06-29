@@ -37,8 +37,9 @@ const GroupList = ({ groups, selectedId, onSelect }: GroupListProps) => {
                 src={item.image || '/images/default-group.svg'}
                 alt={item.name}
                 fill
+                sizes="55px"
                 className="object-cover"
-                priority={idx < 5}
+                preload={idx < 5}
               />
               {!isSelected && <div className="absolute inset-0 bg-g-900/60" />}
             </div>
