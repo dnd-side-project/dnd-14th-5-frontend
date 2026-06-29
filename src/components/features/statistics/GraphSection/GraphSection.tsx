@@ -49,11 +49,19 @@ const GraphSection = ({ character, category }: GraphSectionProps) => {
       />
 
       <article className="flex flex-col gap-5">
-        <p className="font-heading-h4 text-g-60">
-          회고를 통해서{' '}
-          <span className="text-primary">{Math.round(approachRate)}%</span>{' '}
-          이상치에 가까워졌어요!
-        </p>
+        {approachRate === 0 ? (
+          <p className="text-g-60">
+            아직 이상치와의 거리가 좁혀지지 않았어요.
+            <br />
+            회고를 꾸준히 이어가 보세요!
+          </p>
+        ) : (
+          <p className="font-heading-h4 text-g-60">
+            회고를 통해서{' '}
+            <span className="text-primary">{Math.round(approachRate)}%</span>{' '}
+            이상치에 가까워졌어요!
+          </p>
+        )}
       </article>
     </section>
   );
