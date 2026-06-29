@@ -6,6 +6,8 @@ import { Suspense, useState } from 'react';
 import type { GroupType } from '@/src/components/features/groups/constants/groupType';
 import FriendReflectionPanel from '@/src/components/features/groups/FriendReflectionPanel/FriendReflectionPanel';
 import GroupActionMenu from '@/src/components/features/groups/GroupActionMenu/GroupActionMenu';
+import CharacterGroupJoin from '@/src/components/features/groups/GroupJoin/CharacterGroupJoin/CharacterGroupJoin';
+import FriendGroupJoin from '@/src/components/features/groups/GroupJoin/FriendGroupJoin/FriendGroupJoin';
 import GroupListSection from '@/src/components/features/groups/GroupListSection/GroupListSection';
 import GroupListSkeleton from '@/src/components/features/groups/GroupListSection/GroupListSkeleton';
 import GroupTab from '@/src/components/features/groups/GroupTab/GroupTab';
@@ -13,7 +15,11 @@ import type { GroupFriendItem } from '@/src/components/features/groups/queries/u
 import RankingSection from '@/src/components/features/groups/Ranking/RankingSection/RankingSection';
 import PageHeader from '@/src/components/layout/PageHeader/PageHeader';
 
-const GroupsPageClient = () => {
+interface GroupsPageClientProps {
+  joinParam: string | null;
+}
+
+const GroupsPageClient = ({ joinParam }: GroupsPageClientProps) => {
   const [activeTab, setActiveTab] = useState<GroupType>('FRIEND');
   const [selectedGroupId, setSelectedGroupId] = useState<number | null>(null);
   const [selectedFriend, setSelectedFriend] = useState<GroupFriendItem | null>(
@@ -73,6 +79,9 @@ const GroupsPageClient = () => {
           onClose={() => setSelectedFriend(null)}
         />
       </div>
+
+      {joinParam === 'character' && <CharacterGroupJoin />}
+      {joinParam === 'friend' && <FriendGroupJoin />}
     </div>
   );
 };
