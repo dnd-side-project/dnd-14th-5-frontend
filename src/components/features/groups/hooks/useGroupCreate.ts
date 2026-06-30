@@ -22,8 +22,9 @@ export const useGroupCreate = (type: GroupType) => {
   const [imageFile, setImageFile] = useState<File | null>(null);
   const [imagePreview, setImagePreview] = useState<string | null>(null);
   const [isSuccessModalOpen, setIsSuccessModalOpen] = useState(false);
-  const [createdGroupId, setCreatedGroup] =
-    useState<CreateGroupResponse | null>(null);
+  const [createdGroup, setCreatedGroup] = useState<CreateGroupResponse | null>(
+    null,
+  );
 
   useEffect(() => {
     return () => {
@@ -75,6 +76,6 @@ export const useGroupCreate = (type: GroupType) => {
     handleSubmit,
     isSuccessModalOpen,
     handleCloseSuccessModal,
-    createdGroupId,
+    createdGroup,
   };
 };
