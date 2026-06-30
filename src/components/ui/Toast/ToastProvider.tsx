@@ -56,7 +56,7 @@ const ToastProvider = ({ children }: ToastProviderProps) => {
   }, []);
 
   const showToast = useCallback((options: ToastOptions) => {
-    const id = crypto.randomUUID();
+    const id = crypto.randomUUID?.() ?? Math.random().toString(36).slice(2);
     const duration = options.duration ?? DEFAULT_DURATION;
     const variant = options.variant ?? 'check';
 

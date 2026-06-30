@@ -5,12 +5,14 @@ import { cn } from '@/src/lib/helpers/cn';
 interface ButtonProps extends ComponentProps<'button'> {
   label: string;
   variant?: 'primary' | 'secondary';
+  size?: 'l' | 's';
   disabled?: boolean;
 }
 
 const Button = ({
   label,
   variant = 'primary',
+  size = 'l',
   disabled,
   onClick,
   className,
@@ -27,7 +29,8 @@ const Button = ({
       onClick={onClick}
       disabled={disabled}
       className={cn(
-        'h-12 w-full rounded-4xl font-button-l disabled:opacity-50',
+        'h-12 w-full rounded-4xl disabled:opacity-50',
+        size === 's' ? 'font-button-s' : 'font-button-l',
         variantClassName,
         className,
       )}

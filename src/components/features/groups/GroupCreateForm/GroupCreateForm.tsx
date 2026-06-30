@@ -6,6 +6,7 @@ import BottomCTA from '@/src/components/layout/BottomCTA/BottomCTA';
 import Button from '@/src/components/ui/Button/Button';
 
 import type { GroupType } from '../constants/groupType';
+import GroupShareModal from '../GroupShareModal/GroupShareModal';
 import { useGroupCreate } from '../hooks/useGroupCreate';
 
 interface GroupCreateFormProps {
@@ -17,10 +18,12 @@ const GroupCreateForm = ({ type }: GroupCreateFormProps) => {
     name,
     setName,
     imagePreview,
-    fileInputRef,
     isPending,
     handleImageChange,
     handleSubmit,
+    isSuccessModalOpen,
+    handleCloseSuccessModal,
+    createdGroup,
   } = useGroupCreate(type);
 
   return (
@@ -57,10 +60,9 @@ const GroupCreateForm = ({ type }: GroupCreateFormProps) => {
             >
               대표 이미지
             </label>
-            <button
-              type="button"
-              onClick={() => fileInputRef.current?.click()}
-              className="relative mt-2 w-full aspect-square rounded-2xl bg-g-600 flex items-center justify-center overflow-hidden"
+            <label
+              htmlFor="group-image"
+              className="relative mt-2 w-full aspect-square rounded-2xl bg-g-600 flex items-center justify-center overflow-hidden cursor-pointer"
             >
               {imagePreview ? (
                 <Image
@@ -78,9 +80,8 @@ const GroupCreateForm = ({ type }: GroupCreateFormProps) => {
                   alt=""
                 />
               )}
-            </button>
+            </label>
             <input
-              ref={fileInputRef}
               id="group-image"
               type="file"
               accept="image/*"
@@ -98,6 +99,12 @@ const GroupCreateForm = ({ type }: GroupCreateFormProps) => {
           disabled={isPending}
         />
       </BottomCTA>
+
+      <GroupShareModal
+        isOpen={isSuccessModalOpen}
+        onClose={handleCloseSuccessModal}
+        groupCode={createdGroup?.code}
+      />
     </>
   );
 };
