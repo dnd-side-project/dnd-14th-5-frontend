@@ -2,6 +2,7 @@ import { analyzeWithGemini } from './analyzeWithGemini';
 import { createGitHubIssue } from './createGitHubIssue';
 import { fetchGitHubCode } from './fetchGitHubCode';
 import { parseStackTrace } from './parseStackTrace';
+import { sendDiscordNotification } from './sendDiscordNotification';
 import type { SentryWebhookPayload } from './types';
 
 export async function processSentryEvent(
@@ -25,12 +26,20 @@ export async function processSentryEvent(
     sentryIssueUrl: issue.permalink,
   });
 
-  await createGitHubIssue({
+  const githubIssueUrl = await createGitHubIssue({
     title: issue.title,
     analysis,
     errorType,
     errorMessage,
     sentryUrl: issue.permalink,
     frames,
+  });
+
+  await sendDiscordNotification({
+    title: issue.title,
+    errorType,
+    errorMessage,
+    sentryUrl: issue.permalink,
+    githubIssueUrl,
   });
 }

@@ -9,7 +9,7 @@ interface CreateIssueParams {
 
 export async function createGitHubIssue(
   params: CreateIssueParams,
-): Promise<void> {
+): Promise<string> {
   const token = process.env.GITHUB_TOKEN;
   const owner = process.env.GITHUB_OWNER;
   const repo = process.env.GITHUB_REPO;
@@ -59,4 +59,7 @@ ${params.analysis}
     const error = await response.text();
     throw new Error(`GitHub API error: ${error}`);
   }
+
+  const created = (await response.json()) as { html_url: string };
+  return created.html_url;
 }
