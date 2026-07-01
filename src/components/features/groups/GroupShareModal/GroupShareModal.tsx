@@ -20,8 +20,7 @@ const GroupShareModal = ({
   const handleShare = async () => {
     if (!groupCode) return;
 
-    // TODO: /groups/join 페이지 구현 필요
-    const url = `${window.location.origin}/groups/join?code=${groupCode}`;
+    const url = `${window.location.origin}/groups?join=friend&code=${groupCode}`;
 
     if (navigator.share) {
       try {
