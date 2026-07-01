@@ -30,8 +30,12 @@ const GroupShareModal = ({
         showToast({ message: '공유에 실패했어요.' });
       }
     } else if (navigator.clipboard) {
-      await navigator.clipboard.writeText(url);
-      showToast({ message: '초대 링크가 복사되었어요.' });
+      try {
+        await navigator.clipboard.writeText(url);
+        showToast({ message: '초대 링크가 복사되었어요.' });
+      } catch {
+        showToast({ message: '초대 링크 복사에 실패했어요.' });
+      }
     }
   };
 
